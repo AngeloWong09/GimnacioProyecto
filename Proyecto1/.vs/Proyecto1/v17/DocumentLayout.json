@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyecto1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyecto1\\modelo\\entrenador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:modelo\\entrenador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyecto1\\modelo\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:modelo\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +22,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Entrenador.cs",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Modelo\\Entrenador.cs",
+              "RelativeDocumentMoniker": "Modelo\\Entrenador.cs",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Modelo\\Entrenador.cs",
+              "RelativeToolTip": "Modelo\\Entrenador.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T17:00:23.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Modelo\\Usuario.cs",
+              "RelativeDocumentMoniker": "Modelo\\Usuario.cs",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Modelo\\Usuario.cs",
+              "RelativeToolTip": "Modelo\\Usuario.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T16:56:14.882Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
