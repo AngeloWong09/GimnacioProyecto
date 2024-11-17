@@ -8,11 +8,12 @@ namespace Proyecto1
     public partial class formInicioSesion : Form
     {
         private controladorUsuario controlador;
-
+        private controladorEntrenador controladorEntrenador;
         public formInicioSesion()
         {
             InitializeComponent();
             controlador = new controladorUsuario(); // Inicializa el controlador
+            controladorEntrenador = new controladorEntrenador();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,6 +34,22 @@ namespace Proyecto1
                 var nuevoForm = new formUsuario(); // Reemplazar con el formulario adecuado
                 nuevoForm.Show();
                 this.Hide();
+            }
+
+
+            // Intentar iniciar sesión como Entrenador
+            Entrenador entrenador = controladorEntrenador.IniciarSesion(nombreUsuario, contraseña);
+
+            if (entrenador != null)
+            {
+                lblMensaje.Text = $"Bienvenido {entrenador.NombreUsuario}";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                MessageBox.Show("Inicio de sesión exitoso como Entrenador.", "Éxito");
+
+                var formEntrenador = new formEntrenador(); // Formulario para entrenadores
+                formEntrenador.Show();
+                this.Hide();
+                return;
             }
             else
             {

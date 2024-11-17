@@ -84,6 +84,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controlador\controladorEntrenador.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
     <Compile Include="formUsuario.cs">
       <SubType>Form</SubType>
