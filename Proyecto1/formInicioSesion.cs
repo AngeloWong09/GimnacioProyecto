@@ -9,11 +9,14 @@ namespace Proyecto1
     {
         private controladorUsuario controlador;
         private controladorEntrenador controladorEntrenador;
+        private controladorAdministrador controladorAdministrador;
+
         public formInicioSesion()
         {
             InitializeComponent();
             controlador = new controladorUsuario(); // Inicializa el controlador
             controladorEntrenador = new controladorEntrenador();
+            controladorAdministrador = new controladorAdministrador();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,7 +60,19 @@ namespace Proyecto1
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
 
+            // Intentar iniciar sesión como Administrador
+            Administrador administrador = controladorAdministrador.IniciarSesion(nombreUsuario, contraseña);
+            if (administrador != null)
+            {
+                lblMensaje.Text = $"Bienvenido {administrador.NombreUsuario}";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                MessageBox.Show("Inicio de sesión exitoso como Administrador.", "Éxito");
 
+                var formAdministrador = new formAdministrador(); // Formulario para administradores
+                formAdministrador.Show();
+                this.Hide();
+                return;
+            }
 
         }
 

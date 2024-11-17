@@ -84,8 +84,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controlador\controladorAdministrador.cs" />
     <Compile Include="Controlador\controladorEntrenador.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
+    <Compile Include="formAdministrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAdministrador.Designer.cs">
+      <DependentUpon>formAdministrador.cs</DependentUpon>
+    </Compile>
     <Compile Include="formUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +111,7 @@
     <Compile Include="formEntrenador.Designer.cs">
       <DependentUpon>formEntrenador.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modelo\Administrador.cs" />
     <Compile Include="Modelo\Entrenador.cs" />
     <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Program.cs" />
