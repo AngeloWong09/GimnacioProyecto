@@ -34,3 +34,4 @@ C:\Users\dell\Source\Repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Sys
 C:\Users\dell\Source\Repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\dell\Source\Repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\dell\Source\Repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.csproj.Up2Date
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formAdministrador.resources

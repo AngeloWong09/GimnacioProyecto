@@ -116,6 +116,9 @@
     <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="formAdministrador.resx">
+      <DependentUpon>formAdministrador.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formInicioSesion.resx">
       <DependentUpon>formInicioSesion.cs</DependentUpon>
     </EmbeddedResource>
