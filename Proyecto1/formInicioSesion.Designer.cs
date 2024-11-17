@@ -33,6 +33,8 @@
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtNombreUsuario = new System.Windows.Forms.TextBox();
             this.lblMensaje = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -76,18 +78,40 @@
             this.lblMensaje.Size = new System.Drawing.Size(0, 16);
             this.lblMensaje.TabIndex = 5;
             // 
-            // Form1
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(303, 154);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(181, 16);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Ingrese el nombre de usuario";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(303, 203);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(190, 16);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Ingrese nombre de contraseña";
+            // 
+            // formInicioSesion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.txtNombreUsuario);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.IniciarSesion_Click);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "formInicioSesion";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.formInicioSesion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,6 +124,8 @@
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.TextBox txtNombreUsuario;
         private System.Windows.Forms.Label lblMensaje;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

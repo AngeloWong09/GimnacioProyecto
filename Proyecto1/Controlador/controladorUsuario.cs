@@ -1,37 +1,42 @@
-﻿using Proyecto1.Modelo;
+﻿using System.Linq;
+using ClosedXML.Excel;
+using Proyecto1.Modelo;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Proyecto1.Controlador
 {
     internal class controladorUsuario
     {
-
         private List<Usuario> usuarios;
 
         public controladorUsuario()
         {
             usuarios = new List<Usuario>();
-            InicializarUsuarios();
+            CargarUsuariosDesdeExcel("Usuarios.xlsx");
         }
 
-        private void InicializarUsuarios()
+        private void CargarUsuariosDesdeExcel(string rutaArchivo)
         {
-            // Agregar 2 administradores
-            usuarios.Add(new Usuario(1, "admin1", "Gimnacioñ12", "Administrador"));
-            usuarios.Add(new Usuario(2, "admin2", "Gimnacioñ13", "Administrador"));
+            try
+            {
+                string rutaCompleta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
+                var workbook = new XLWorkbook(rutaCompleta); // Usa la ruta completa
+                var worksheet = workbook.Worksheet("Sheet1");
+                var rows = worksheet.RangeUsed().RowsUsed();
 
-            // Agregar 6 entrenadores 
-            usuarios.Add(new Entrenador(1, "Carlos", "password3", "08:00-12:00", "Cardio"));
-            usuarios.Add(new Entrenador(2, "Tobias", "password4", "10:00-14:00", "Zumba"));
-            usuarios.Add(new Entrenador(3, "Luis", "password4", "15:00-19:00", "funcionales"));
-            usuarios.Add(new Entrenador(4, "Miguel", "password4", "08:00-12:00", "Cardio"));
-            usuarios.Add(new Entrenador(5, "Raul", "password4", "10:00-14:00", "Pesas"));
-            usuarios.Add(new Entrenador(6, "Gabril", "password4", "15:00-19:00", "Zumba"));
-
+                foreach (var row in rows.Skip(1)) // Saltar la fila de encabezados
+                {
+                    string usuario = row.Cell(1).GetValue<string>();
+                    string contraseña = row.Cell(2).GetValue<string>();
+                    usuarios.Add(new Usuario(usuarios.Count + 1, usuario, contraseña, "Usuario"));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar usuarios desde Excel: {ex.Message}");
+            }
         }
 
         public Usuario IniciarSesion(string nombreUsuario, string contraseña)
@@ -43,8 +48,7 @@ namespace Proyecto1.Controlador
                     return usuario;
                 }
             }
-            return null; // Retorna null si no se encuentra el usuario o la contraseña es incorrecta
+            return null; // Retorna null si no se encuentra el usuario
         }
     }
 }
-
