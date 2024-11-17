@@ -46,16 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Controlador\controladorUsuario.cs" />
+    <Compile Include="formInicioSesion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="formInicioSesion.Designer.cs">
+      <DependentUpon>formInicioSesion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formEntrenador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formEntrenador.Designer.cs">
+      <DependentUpon>formEntrenador.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelo\Entrenador.cs" />
     <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="formInicioSesion.resx">
+      <DependentUpon>formInicioSesion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -79,7 +89,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controlador\" />
     <Folder Include="Vista\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
