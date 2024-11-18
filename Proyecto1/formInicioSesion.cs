@@ -85,5 +85,10 @@ namespace Proyecto1
         {
 
         }
+
+        private void txtNombreUsuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
