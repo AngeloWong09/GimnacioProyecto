@@ -176,7 +176,7 @@
             "Zumba",
             "CardioDance",
             "Funcionales"});
-            this.comboBox1.Location = new System.Drawing.Point(263, 245);
+            this.comboBox1.Location = new System.Drawing.Point(256, 245);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(210, 24);
             this.comboBox1.TabIndex = 14;
