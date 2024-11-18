@@ -84,6 +84,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalendarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalendarioForm.Designer.cs">
+      <DependentUpon>CalendarioForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlador\calendarioControlador.cs" />
     <Compile Include="Controlador\controladorAdministrador.cs" />
     <Compile Include="Controlador\controladorEntrenador.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
@@ -112,10 +119,14 @@
       <DependentUpon>formEntrenador.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelo\Administrador.cs" />
+    <Compile Include="Modelo\calendarioModelo.cs" />
     <Compile Include="Modelo\Entrenador.cs" />
     <Compile Include="Modelo\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CalendarioForm.resx">
+      <DependentUpon>CalendarioForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formAdministrador.resx">
       <DependentUpon>formAdministrador.cs</DependentUpon>
     </EmbeddedResource>
