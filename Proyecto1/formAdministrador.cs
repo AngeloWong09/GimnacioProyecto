@@ -20,6 +20,8 @@ namespace Proyecto1
         public formAdministrador()
         {
             InitializeComponent();
+            //nuevo: Añadimos las opciones al ComboBox
+            comboBoxPuntoFuerte.Items.AddRange(new string[] { "Zumba", "CardioDance", "Funcionales" });
         }
 
         private void btnBuscar_Click_1(object sender, EventArgs e)
@@ -32,7 +34,7 @@ namespace Proyecto1
                 if (!BuscarYMostrarDatos(rutaUsuarios, idBuscado, 7))
                 {
                     // Buscar en Entrenadores
-                    if (!BuscarYMostrarDatos(rutaEntrenadores, idBuscado, 5))
+                    if (!BuscarYMostrarDatosEntrenadores(rutaEntrenadores, idBuscado, 5, 6)) //nuevo
                     {
                         // Buscar en Administradores
                         if (!BuscarYMostrarDatos(rutaAdministradores, idBuscado, 5))
@@ -61,6 +63,26 @@ namespace Proyecto1
             {
                 txtNombreUsuario.Text = fila.Cell(1).GetValue<string>(); // Nombre de Usuario
                 txtContraseñaAntigua.Text = fila.Cell(2).GetValue<string>(); // Contraseña
+                return true;
+            }
+            return false;
+        }
+
+        //nuevo: Método para buscar y mostrar datos específicos de entrenadores, incluyendo el punto fuerte
+        private bool BuscarYMostrarDatosEntrenadores(string rutaArchivo, string idBuscado, int columnaID, int columnaPuntoFuerte)
+        {
+            var workbook = new XLWorkbook(rutaArchivo);
+            var worksheet = workbook.Worksheet("Sheet1");
+
+            // Buscar la fila con el ID en la columna correspondiente
+            var fila = worksheet.RowsUsed()
+                                .FirstOrDefault(row => row.Cell(columnaID).GetValue<string>().Equals(idBuscado, StringComparison.OrdinalIgnoreCase));
+
+            if (fila != null)
+            {
+                txtNombreUsuario.Text = fila.Cell(1).GetValue<string>(); // Nombre de Usuario
+                txtContraseñaAntigua.Text = fila.Cell(2).GetValue<string>(); // Contraseña
+                txtPuntoFuerte.Text = fila.Cell(columnaPuntoFuerte).GetValue<string>(); // Punto Fuerte
                 return true;
             }
             return false;
@@ -132,6 +154,59 @@ namespace Proyecto1
             return false;
         }
 
+        //nuevo: Evento para cambiar el punto fuerte
+        private void btnCambiarPuntoFuerte_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                string idBuscado = txtIDUsuario.Text; // Leer el ID como string
+                string nuevoPuntoFuerte = comboBoxPuntoFuerte.SelectedItem?.ToString();
+
+                if (string.IsNullOrWhiteSpace(nuevoPuntoFuerte))
+                {
+                    MessageBox.Show("Debe seleccionar un nuevo punto fuerte.", "Advertencia");
+                    return;
+                }
+
+                // Actualizar en Entrenadores
+                if (ActualizarPuntoFuerte(rutaEntrenadores, idBuscado, nuevoPuntoFuerte, 5, 6))
+                {
+                    MessageBox.Show("Punto fuerte actualizado exitosamente.", "Éxito");
+                }
+                else
+                {
+                    MessageBox.Show("ID no encontrado en el archivo Entrenadores.", "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cambiar el punto fuerte: {ex.Message}", "Error");
+            }
+        }
+
+        //nuevo: Método para actualizar el punto fuerte en el archivo Entrenadores
+        private bool ActualizarPuntoFuerte(string rutaArchivo, string idBuscado, string nuevoPuntoFuerte, int columnaID, int columnaPuntoFuerte)
+        {
+            var workbook = new XLWorkbook(rutaArchivo);
+            var worksheet = workbook.Worksheet("Sheet1");
+
+            // Buscar la fila con el ID en la columna correspondiente
+            var fila = worksheet.RowsUsed()
+                                .FirstOrDefault(row => row.Cell(columnaID).GetValue<string>().Equals(idBuscado, StringComparison.OrdinalIgnoreCase));
+
+            if (fila != null)
+            {
+                // Actualizar el punto fuerte en la columna correspondiente
+                fila.Cell(columnaPuntoFuerte).Value = nuevoPuntoFuerte;
+
+                // Guardar los cambios en el archivo Excel
+                workbook.SaveAs(rutaArchivo);
+                return true;
+            }
+            return false;
+        
+    }
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
             // Abrir el formulario de inicio de sesión
@@ -141,6 +216,9 @@ namespace Proyecto1
             // Cerrar el formulario actual
             this.Close();
         }
+
+       
+        }
     }
-}
+
 

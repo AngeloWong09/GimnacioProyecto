@@ -91,6 +91,7 @@
       <DependentUpon>CalendarioForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controlador\calendarioControlador.cs" />
+    <Compile Include="Controlador\claseControlador.cs" />
     <Compile Include="Controlador\controladorAdministrador.cs" />
     <Compile Include="Controlador\controladorEntrenador.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
@@ -118,10 +119,11 @@
     <Compile Include="formEntrenador.Designer.cs">
       <DependentUpon>formEntrenador.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modelo\Administrador.cs" />
+    <Compile Include="Modelo\administradorModelo.cs" />
     <Compile Include="Modelo\calendarioModelo.cs" />
-    <Compile Include="Modelo\Entrenador.cs" />
-    <Compile Include="Modelo\Usuario.cs" />
+    <Compile Include="Modelo\clasesModelo.cs" />
+    <Compile Include="Modelo\entrenadorModelo.cs" />
+    <Compile Include="Modelo\usuarioModelo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CalendarioForm.resx">

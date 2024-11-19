@@ -11,11 +11,11 @@ namespace Proyecto1.Controlador
 {
     internal class controladorAdministrador
     {
-        private List<Administrador> administradores;
+        private List<administradorModelo> administradores;
 
         public controladorAdministrador()
         {
-            administradores = new List<Administrador>();
+            administradores = new List<administradorModelo>();
             CargarAdministradoresDesdeExcel("Administrador.xlsx");
         }
 
@@ -34,7 +34,7 @@ namespace Proyecto1.Controlador
                     string contraseña = row.Cell(2).GetValue<string>();
                     string nivelAcceso = row.Cell(3).GetValue<string>();
 
-                    administradores.Add(new Administrador(administradores.Count + 1, nombreUsuario, contraseña, nivelAcceso));
+                    administradores.Add(new administradorModelo(administradores.Count + 1, nombreUsuario, contraseña, nivelAcceso));
                 }
             }
             catch (Exception ex)
@@ -43,7 +43,7 @@ namespace Proyecto1.Controlador
             }
         }
 
-        public Administrador IniciarSesion(string nombreUsuario, string contraseña)
+        public administradorModelo IniciarSesion(string nombreUsuario, string contraseña)
         {
             return administradores.FirstOrDefault(a => a.NombreUsuario == nombreUsuario && a.VerificarContraseña(contraseña));
         }

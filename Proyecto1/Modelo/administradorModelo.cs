@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Proyecto1.Modelo
 {
-    internal class Administrador : Usuario
+    internal class administradorModelo : usuarioModelo
     {
         public string NivelAcceso { get; set; }
 
-        public Administrador(int id, string nombreUsuario, string contraseña, string nivelAcceso)
+        public administradorModelo(int id, string nombreUsuario, string contraseña, string nivelAcceso)
             : base(id, nombreUsuario, contraseña, "Administrador")
         {
             NivelAcceso = nivelAcceso;

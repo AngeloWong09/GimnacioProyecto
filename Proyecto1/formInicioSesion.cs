@@ -25,7 +25,7 @@ namespace Proyecto1
             string contraseña = txtContraseña.Text;
 
             // Validar el inicio de sesión
-            Usuario usuario = controlador.IniciarSesion(nombreUsuario, contraseña);
+            usuarioModelo usuario = controlador.IniciarSesion(nombreUsuario, contraseña);
 
             if (usuario != null)
             {
@@ -41,7 +41,7 @@ namespace Proyecto1
 
 
             // Intentar iniciar sesión como Entrenador
-            Entrenador entrenador = controladorEntrenador.IniciarSesion(nombreUsuario, contraseña);
+            entrenadorModelo entrenador = controladorEntrenador.IniciarSesion(nombreUsuario, contraseña);
 
             if (entrenador != null)
             {
@@ -61,7 +61,7 @@ namespace Proyecto1
             }
 
             // Intentar iniciar sesión como Administrador
-            Administrador administrador = controladorAdministrador.IniciarSesion(nombreUsuario, contraseña);
+            administradorModelo administrador = controladorAdministrador.IniciarSesion(nombreUsuario, contraseña);
             if (administrador != null)
             {
                 lblMensaje.Text = $"Bienvenido {administrador.NombreUsuario}";

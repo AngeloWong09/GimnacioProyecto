@@ -9,11 +9,11 @@ namespace Proyecto1.Controlador
 {
     internal class controladorUsuario
     {
-        private List<Usuario> usuarios;
+        private List<usuarioModelo> usuarios;
 
         public controladorUsuario()
         {
-            usuarios = new List<Usuario>();
+            usuarios = new List<usuarioModelo>();
             CargarUsuariosDesdeExcel("Usuarios.xlsx");
         }
 
@@ -30,7 +30,7 @@ namespace Proyecto1.Controlador
                 {
                     string usuario = row.Cell(1).GetValue<string>();
                     string contraseña = row.Cell(2).GetValue<string>();
-                    usuarios.Add(new Usuario(usuarios.Count + 1, usuario, contraseña, "Usuario"));
+                    usuarios.Add(new usuarioModelo(usuarios.Count + 1, usuario, contraseña, "Usuario"));
                 }
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace Proyecto1.Controlador
             }
         }
 
-        public Usuario IniciarSesion(string nombreUsuario, string contraseña)
+        public usuarioModelo IniciarSesion(string nombreUsuario, string contraseña)
         {
             foreach (var usuario in usuarios)
             {

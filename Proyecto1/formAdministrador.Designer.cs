@@ -41,9 +41,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.txtPuntoFuerte = new System.Windows.Forms.TextBox();
+            this.comboBoxPuntoFuerte = new System.Windows.Forms.ComboBox();
+            this.btnCambiarPuntoFuerte = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
@@ -155,45 +155,41 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(253, 168);
+            this.label6.Location = new System.Drawing.Point(279, 168);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(206, 16);
             this.label6.TabIndex = 12;
             this.label6.Text = "Punto fuerte del entrenador actual";
             // 
-            // textBox1
+            // txtPuntoFuerte
             // 
-            this.textBox1.Location = new System.Drawing.Point(256, 196);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(210, 22);
-            this.textBox1.TabIndex = 13;
+            this.txtPuntoFuerte.Location = new System.Drawing.Point(282, 196);
+            this.txtPuntoFuerte.Name = "txtPuntoFuerte";
+            this.txtPuntoFuerte.Size = new System.Drawing.Size(210, 22);
+            this.txtPuntoFuerte.TabIndex = 13;
             // 
-            // comboBox1
+            // comboBoxPuntoFuerte
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Cmabiar Punto fuerte a:",
-            "Zumba",
-            "CardioDance",
-            "Funcionales"});
-            this.comboBox1.Location = new System.Drawing.Point(256, 245);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(210, 24);
-            this.comboBox1.TabIndex = 14;
+            this.comboBoxPuntoFuerte.FormattingEnabled = true;
+            this.comboBoxPuntoFuerte.Location = new System.Drawing.Point(282, 245);
+            this.comboBoxPuntoFuerte.Name = "comboBoxPuntoFuerte";
+            this.comboBoxPuntoFuerte.Size = new System.Drawing.Size(210, 24);
+            this.comboBoxPuntoFuerte.TabIndex = 14;
             // 
-            // button2
+            // btnCambiarPuntoFuerte
             // 
-            this.button2.Location = new System.Drawing.Point(263, 291);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(146, 23);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Realizar cambio";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCambiarPuntoFuerte.Location = new System.Drawing.Point(308, 290);
+            this.btnCambiarPuntoFuerte.Name = "btnCambiarPuntoFuerte";
+            this.btnCambiarPuntoFuerte.Size = new System.Drawing.Size(146, 23);
+            this.btnCambiarPuntoFuerte.TabIndex = 16;
+            this.btnCambiarPuntoFuerte.Text = "Realizar cambio";
+            this.btnCambiarPuntoFuerte.UseVisualStyleBackColor = true;
+            this.btnCambiarPuntoFuerte.Click += new System.EventHandler(this.btnCambiarPuntoFuerte_Click_1);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(601, 168);
+            this.label7.Location = new System.Drawing.Point(576, 168);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 16);
             this.label7.TabIndex = 17;
@@ -201,14 +197,14 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(604, 196);
+            this.dateTimePicker1.Location = new System.Drawing.Point(579, 196);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(98, 22);
             this.dateTimePicker1.TabIndex = 18;
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(604, 243);
+            this.dateTimePicker2.Location = new System.Drawing.Point(579, 243);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(136, 22);
             this.dateTimePicker2.TabIndex = 19;
@@ -222,9 +218,9 @@
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnCambiarPuntoFuerte);
+            this.Controls.Add(this.comboBoxPuntoFuerte);
+            this.Controls.Add(this.txtPuntoFuerte);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.label5);
@@ -260,9 +256,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtPuntoFuerte;
+        private System.Windows.Forms.ComboBox comboBoxPuntoFuerte;
+        private System.Windows.Forms.Button btnCambiarPuntoFuerte;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;

@@ -1,14 +1,14 @@
 ﻿
 namespace Proyecto1.Modelo
 {
-    internal class Usuario
+    internal class usuarioModelo
     {
         public int Id { get; set; }
         public string NombreUsuario { get; set; }
         public string Contraseña { get; set; }
         public string Rol { get; set; }
 
-        public Usuario(int id, string nombreUsuario, string contraseña, string rol)
+        public usuarioModelo(int id, string nombreUsuario, string contraseña, string rol)
         {
             Id = id;
             NombreUsuario = nombreUsuario;
