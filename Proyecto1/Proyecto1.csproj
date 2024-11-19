@@ -91,7 +91,6 @@
       <DependentUpon>CalendarioForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controlador\calendarioControlador.cs" />
-    <Compile Include="Controlador\claseControlador.cs" />
     <Compile Include="Controlador\controladorAdministrador.cs" />
     <Compile Include="Controlador\controladorEntrenador.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
