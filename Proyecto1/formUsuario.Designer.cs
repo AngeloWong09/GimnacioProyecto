@@ -28,7 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 45);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Cerrar sesion";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // formUsuario
             // 
@@ -36,6 +46,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Name = "formUsuario";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.formUsuario_Load);
@@ -44,5 +55,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button button1;
     }
 }

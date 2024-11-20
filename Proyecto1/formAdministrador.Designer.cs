@@ -29,24 +29,10 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtIDUsuario = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.txtContraseñaAntigua = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtNuevaContraseña = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnNuevaContraseña = new System.Windows.Forms.Button();
-            this.txtNombreUsuario = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtPuntoFuerte = new System.Windows.Forms.TextBox();
-            this.comboBoxPuntoFuerte = new System.Windows.Forms.ComboBox();
-            this.btnCambiarPuntoFuerte = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.btncambiarHorario = new System.Windows.Forms.Button();
+            this.btnPuntoFuerteForm = new System.Windows.Forms.Button();
+            this.btnCambiarContraseña = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -58,156 +44,45 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Bienvenido Administrador";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(308, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(158, 16);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Escribe la ID del Usuario:";
-            // 
-            // txtIDUsuario
-            // 
-            this.txtIDUsuario.Location = new System.Drawing.Point(311, 78);
-            this.txtIDUsuario.Name = "txtIDUsuario";
-            this.txtIDUsuario.Size = new System.Drawing.Size(155, 22);
-            this.txtIDUsuario.TabIndex = 2;
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(340, 106);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 3;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
-            // 
-            // txtContraseñaAntigua
-            // 
-            this.txtContraseñaAntigua.Location = new System.Drawing.Point(34, 259);
-            this.txtContraseñaAntigua.Name = "txtContraseñaAntigua";
-            this.txtContraseñaAntigua.Size = new System.Drawing.Size(155, 22);
-            this.txtContraseñaAntigua.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 231);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 16);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Contraseña Actual:";
-            // 
-            // txtNuevaContraseña
-            // 
-            this.txtNuevaContraseña.Location = new System.Drawing.Point(34, 338);
-            this.txtNuevaContraseña.Name = "txtNuevaContraseña";
-            this.txtNuevaContraseña.Size = new System.Drawing.Size(155, 22);
-            this.txtNuevaContraseña.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 310);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(122, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Nueva Contraseña:";
-            // 
-            // btnNuevaContraseña
-            // 
-            this.btnNuevaContraseña.Location = new System.Drawing.Point(34, 382);
-            this.btnNuevaContraseña.Name = "btnNuevaContraseña";
-            this.btnNuevaContraseña.Size = new System.Drawing.Size(155, 23);
-            this.btnNuevaContraseña.TabIndex = 8;
-            this.btnNuevaContraseña.Text = "Cambiar contraseña";
-            this.btnNuevaContraseña.UseVisualStyleBackColor = true;
-            this.btnNuevaContraseña.Click += new System.EventHandler(this.btnNuevaContraseña_Click);
-            // 
-            // txtNombreUsuario
-            // 
-            this.txtNombreUsuario.Location = new System.Drawing.Point(34, 196);
-            this.txtNombreUsuario.Name = "txtNombreUsuario";
-            this.txtNombreUsuario.Size = new System.Drawing.Size(155, 22);
-            this.txtNombreUsuario.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(31, 168);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(128, 16);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Nombre del Usuario";
-            // 
             // btnSalir
             // 
             this.btnSalir.Location = new System.Drawing.Point(12, 12);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(112, 29);
+            this.btnSalir.Size = new System.Drawing.Size(73, 54);
             this.btnSalir.TabIndex = 11;
             this.btnSalir.Text = "Cerrar sesión";
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // label6
+            // btncambiarHorario
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(279, 168);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(206, 16);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Punto fuerte del entrenador actual";
+            this.btncambiarHorario.Location = new System.Drawing.Point(547, 235);
+            this.btncambiarHorario.Name = "btncambiarHorario";
+            this.btncambiarHorario.Size = new System.Drawing.Size(188, 46);
+            this.btncambiarHorario.TabIndex = 21;
+            this.btncambiarHorario.Text = "Cambiar horario de entrenador";
+            this.btncambiarHorario.UseVisualStyleBackColor = true;
+            this.btncambiarHorario.Click += new System.EventHandler(this.btncambiarHorario_Click);
             // 
-            // txtPuntoFuerte
+            // btnPuntoFuerteForm
             // 
-            this.txtPuntoFuerte.Location = new System.Drawing.Point(282, 196);
-            this.txtPuntoFuerte.Name = "txtPuntoFuerte";
-            this.txtPuntoFuerte.Size = new System.Drawing.Size(210, 22);
-            this.txtPuntoFuerte.TabIndex = 13;
+            this.btnPuntoFuerteForm.Location = new System.Drawing.Point(311, 235);
+            this.btnPuntoFuerteForm.Name = "btnPuntoFuerteForm";
+            this.btnPuntoFuerteForm.Size = new System.Drawing.Size(188, 43);
+            this.btnPuntoFuerteForm.TabIndex = 22;
+            this.btnPuntoFuerteForm.Text = "Cambiar punto fuerte de entrenador";
+            this.btnPuntoFuerteForm.UseVisualStyleBackColor = true;
+            this.btnPuntoFuerteForm.Click += new System.EventHandler(this.btnPuntoFuerteForm_Click);
             // 
-            // comboBoxPuntoFuerte
+            // btnCambiarContraseña
             // 
-            this.comboBoxPuntoFuerte.FormattingEnabled = true;
-            this.comboBoxPuntoFuerte.Location = new System.Drawing.Point(282, 245);
-            this.comboBoxPuntoFuerte.Name = "comboBoxPuntoFuerte";
-            this.comboBoxPuntoFuerte.Size = new System.Drawing.Size(210, 24);
-            this.comboBoxPuntoFuerte.TabIndex = 14;
-            // 
-            // btnCambiarPuntoFuerte
-            // 
-            this.btnCambiarPuntoFuerte.Location = new System.Drawing.Point(308, 290);
-            this.btnCambiarPuntoFuerte.Name = "btnCambiarPuntoFuerte";
-            this.btnCambiarPuntoFuerte.Size = new System.Drawing.Size(146, 23);
-            this.btnCambiarPuntoFuerte.TabIndex = 16;
-            this.btnCambiarPuntoFuerte.Text = "Realizar cambio";
-            this.btnCambiarPuntoFuerte.UseVisualStyleBackColor = true;
-            this.btnCambiarPuntoFuerte.Click += new System.EventHandler(this.btnCambiarPuntoFuerte_Click_1);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(576, 168);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(103, 16);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Cambiar horario";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(579, 196);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(98, 22);
-            this.dateTimePicker1.TabIndex = 18;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(579, 243);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(136, 22);
-            this.dateTimePicker2.TabIndex = 19;
+            this.btnCambiarContraseña.Location = new System.Drawing.Point(105, 235);
+            this.btnCambiarContraseña.Name = "btnCambiarContraseña";
+            this.btnCambiarContraseña.Size = new System.Drawing.Size(168, 38);
+            this.btnCambiarContraseña.TabIndex = 23;
+            this.btnCambiarContraseña.Text = "Cambiar Contraseña";
+            this.btnCambiarContraseña.UseVisualStyleBackColor = true;
+            this.btnCambiarContraseña.Click += new System.EventHandler(this.btnCambiarContraseña_Click);
             // 
             // formAdministrador
             // 
@@ -215,24 +90,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.btnCambiarPuntoFuerte);
-            this.Controls.Add(this.comboBoxPuntoFuerte);
-            this.Controls.Add(this.txtPuntoFuerte);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnCambiarContraseña);
+            this.Controls.Add(this.btnPuntoFuerteForm);
+            this.Controls.Add(this.btncambiarHorario);
             this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtNombreUsuario);
-            this.Controls.Add(this.btnNuevaContraseña);
-            this.Controls.Add(this.txtNuevaContraseña);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtContraseñaAntigua);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.txtIDUsuario);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "formAdministrador";
             this.Text = "formAdministrador";
@@ -244,23 +105,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtIDUsuario;
-        private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.TextBox txtContraseñaAntigua;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtNuevaContraseña;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnNuevaContraseña;
-        private System.Windows.Forms.TextBox txtNombreUsuario;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSalir;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtPuntoFuerte;
-        private System.Windows.Forms.ComboBox comboBoxPuntoFuerte;
-        private System.Windows.Forms.Button btnCambiarPuntoFuerte;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.Button btncambiarHorario;
+        private System.Windows.Forms.Button btnPuntoFuerteForm;
+        private System.Windows.Forms.Button btnCambiarContraseña;
     }
 }

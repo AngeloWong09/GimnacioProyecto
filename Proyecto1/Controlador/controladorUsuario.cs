@@ -23,7 +23,7 @@ namespace Proyecto1.Controlador
             {
                 string rutaCompleta = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
                 var workbook = new XLWorkbook(rutaCompleta); // Usa la ruta completa
-                var worksheet = workbook.Worksheet("Sheet1");
+                var worksheet = workbook.Worksheet("Hoja1");
                 var rows = worksheet.RangeUsed().RowsUsed();
 
                 foreach (var row in rows.Skip(1)) // Saltar la fila de encabezados

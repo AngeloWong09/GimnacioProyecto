@@ -38,3 +38,16 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Pro
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\CalendarioPago.CalendarioForm.resources
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formEntrenador.resources
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formUsuario.resources
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\EPPlus.dll
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\EPPlus.Interfaces.dll
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\EPPlus.System.Drawing.dll
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\System.Drawing.Common.dll
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\EPPlus.xml
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\System.Drawing.Common.pdb
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\System.Drawing.Common.xml
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.FormCambiarHorario.resources
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formCambiarPuntoFuerte.resources
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formCambiarContraseña.resources
