@@ -1,6 +1,7 @@
 ﻿using Proyecto1.Controlador;
 using Proyecto1.Modelo;
 using System;
+
 using System.Windows.Forms;
 
 namespace Proyecto1
@@ -10,6 +11,7 @@ namespace Proyecto1
         private controladorUsuario controlador;
         private controladorEntrenador controladorEntrenador;
         private controladorAdministrador controladorAdministrador;
+        public static usuarioModelo UsuarioLogueado;
 
         public formInicioSesion()
         {
@@ -33,8 +35,11 @@ namespace Proyecto1
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
                 MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
 
-                // Redirigir a otro formulario
-                var nuevoForm = new formUsuario(); // Reemplazar con el formulario adecuado
+                // Guardar el usuario logueado
+                UsuarioLogueado = usuario;
+
+                // Redirigir al formulario de usuario
+                var nuevoForm = new formUsuario(); // Formulario para el usuario
                 nuevoForm.Show();
                 this.Hide();
             }

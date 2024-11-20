@@ -1,7 +1,7 @@
 ﻿
 namespace Proyecto1.Modelo
 {
-    internal class usuarioModelo
+    public class usuarioModelo
     {
         public int Id { get; set; }
         public string NombreUsuario { get; set; }

@@ -198,9 +198,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(49, 196);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(110, 16);
+            this.label5.Size = new System.Drawing.Size(77, 16);
             this.label5.TabIndex = 39;
-            this.label5.Text = "Numero de clase";
+            this.label5.Text = "Punto fuerte";
             // 
             // FormCambiarHorario
             // 

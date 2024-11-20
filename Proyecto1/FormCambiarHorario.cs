@@ -91,10 +91,12 @@ namespace Proyecto1
                 if (fila != null)
                 {
                     txtEntrenadorDesignado.Text = fila.Cell(1).GetValue<string>(); // Nombre del entrenador (Columna 1)
+                    txtNumeroClase.Text = fila.Cell(6).GetValue<string>();        // Información de la columna 6
                 }
                 else
                 {
                     txtEntrenadorDesignado.Text = "No encontrado";
+                    txtNumeroClase.Text = "Información no encontrada";          // Manejar cuando no se encuentra información
                 }
             }
         }
