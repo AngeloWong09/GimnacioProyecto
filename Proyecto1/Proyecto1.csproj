@@ -153,18 +153,18 @@
       <DependentUpon>formEntrenador.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelo\administradorModelo.cs" />
-    <Compile Include="Modelo\CalendarioForm.cs">
+    <Compile Include="CalendarioForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modelo\CalendarioForm.Designer.cs">
+    <Compile Include="CalendarioForm.Designer.cs">
       <DependentUpon>CalendarioForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelo\calendarioModelo.cs" />
     <Compile Include="Modelo\entrenadorModelo.cs" />
-    <Compile Include="Modelo\PagoMembresiaForm.cs">
+    <Compile Include="PagoMembresiaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modelo\PagoMembresiaForm.Designer.cs">
+    <Compile Include="PagoMembresiaForm.Designer.cs">
       <DependentUpon>PagoMembresiaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelo\usuarioModelo.cs" />
@@ -191,10 +191,10 @@
     <EmbeddedResource Include="formUsuario.resx">
       <DependentUpon>formUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modelo\CalendarioForm.resx">
+    <EmbeddedResource Include="CalendarioForm.resx">
       <DependentUpon>CalendarioForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modelo\PagoMembresiaForm.resx">
+    <EmbeddedResource Include="PagoMembresiaForm.resx">
       <DependentUpon>PagoMembresiaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
