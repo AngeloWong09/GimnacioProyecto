@@ -2,24 +2,22 @@
 using ClosedXML.Excel;
 using Proyecto1.Modelo;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Proyecto1
 {
     public partial class formUsuario : Form
     {
-        private string rutaEntrenadores = "Entrenadores.xlsx"; // Ruta del archivo Entrenadores
-        private string rutaUsuarios = "Usuarios.xlsx"; // Ruta
-        private string rutaClases = "Clases.xlsx"; // 
-        private string rutaBasedatosClase = "BasedatosClase.xlsx"; // 
-     
+        private string rutaEntrenadores = Path.Combine(Application.StartupPath, "Assets", "Entrenadores.csv");
+        private string rutaUsuarios = Path.Combine(Application.StartupPath, "Assets", "Usuarios.csv");
+        private string rutaClases = Path.Combine(Application.StartupPath, "Assets", "Clases.csv");
+        private string rutaBasedatosClase = Path.Combine(Application.StartupPath, "Assets", "BasedatosClase.csv");
+        public static usuarioModelo UsuarioLogueado; // Variable estática para almacenar el usuario logueado
+
+
         public formUsuario()
         {
             InitializeComponent();
@@ -47,44 +45,48 @@ namespace Proyecto1
                     return;
                 }
 
-                listBoxReservas.Items.Clear(); // Limpiar lista antes de agregar nuevos datos
-
-                using (var workbookClases = new XLWorkbook(rutaClases))
+                if (!File.Exists(rutaClases))
                 {
-                    var worksheetClases = workbookClases.Worksheet("Hoja1");
+                    MessageBox.Show($"El archivo {rutaClases} no existe. Verifique la ruta.", "Error");
+                    return;
+                }
 
-                    // Comprobar si la hoja tiene datos
-                    if (worksheetClases == null)
-                    {
-                        MessageBox.Show("No se encontró la hoja 'Hoja1' en el archivo Clases.xlsx.", "Error");
-                        return;
-                    }
+                listBoxReservas.Items.Clear(); // Limpiar la lista antes de agregar nuevos datos
 
-                    // Filtrar por clase seleccionada (columna 4 - "Clase")
-                    var filas = worksheetClases.RowsUsed()
-                                                .Where(row =>
-                                                    row.Cell(4).GetValue<string>().Trim().Equals(claseSeleccionada, StringComparison.OrdinalIgnoreCase));
+                // Leer y procesar el archivo Clases.csv
+                var lineas = File.ReadAllLines(rutaClases);
 
-                    if (!filas.Any())
-                    {
-                        MessageBox.Show($"No se encontraron clases para la selección '{claseSeleccionada}'.", "Información");
-                        return;
-                    }
+                if (lineas.Length <= 1)
+                {
+                    MessageBox.Show("El archivo Clases.csv está vacío o solo contiene el encabezado.", "Información");
+                    return;
+                }
 
-                    foreach (var fila in filas)
-                    {
-                        // Leer valores según la estructura de columnas
-                        string idClase = fila.Cell(2).GetValue<string>();  // Columna 2: ID Clase
-                        string fecha = fila.Cell(5).GetValue<string>();    // Columna 5: Fecha
-                        string horario = fila.Cell(6).GetValue<string>();  // Columna 6: Horario
-                        string idEntrenador = fila.Cell(3).GetValue<string>(); // Columna 3: ID Entrenador
+                // Procesar datos
+                var filas = lineas.Skip(1) // Omitir el encabezado
+                                  .Select(line => line.Split(';'))
+                                  .Where(columns => columns.Length >= 6 &&  // Validar que hay suficientes columnas
+                                                    columns[3].Trim().Equals(claseSeleccionada, StringComparison.OrdinalIgnoreCase));
 
-                        // Buscar el nombre del entrenador
-                        string nombreEntrenador = ObtenerNombreEntrenador(rutaEntrenadores, idEntrenador);
+                if (!filas.Any())
+                {
+                    MessageBox.Show($"No se encontraron clases para la selección '{claseSeleccionada}'.", "Información");
+                    return;
+                }
 
-                        // Agregar a la lista
-                        listBoxReservas.Items.Add($"ID: {idClase}, Fecha: {fecha}, Hora: {horario}, Entrenador: {nombreEntrenador}");
-                    }
+                foreach (var fila in filas)
+                {
+                    // Validar que las columnas tengan datos antes de acceder
+                    string idClase = fila[1]?.Trim() ?? "Desconocido";  // Columna 2: ID Clase
+                    string fecha = fila[4]?.Trim() ?? "Sin fecha";      // Columna 5: Fecha
+                    string horario = fila[5]?.Trim() ?? "Sin horario";  // Columna 6: Horario
+                    string idEntrenador = fila[2]?.Trim() ?? "Sin ID";  // Columna 3: ID Entrenador
+
+                    // Buscar el nombre del entrenador
+                    string nombreEntrenador = ObtenerNombreEntrenador(rutaEntrenadores, idEntrenador);
+
+                    // Agregar a la lista
+                    listBoxReservas.Items.Add($"ID: {idClase}, Fecha: {fecha}, Hora: {horario}, Entrenador: {nombreEntrenador}");
                 }
 
                 if (listBoxReservas.Items.Count == 0)
@@ -107,6 +109,7 @@ namespace Proyecto1
         {
             try
             {
+                // Verificar que haya una clase seleccionada
                 if (listBoxReservas.SelectedItem == null)
                 {
                     MessageBox.Show("Seleccione una clase de la lista antes de guardar.", "Advertencia");
@@ -117,49 +120,36 @@ namespace Proyecto1
                 string claseSeleccionada = listBoxReservas.SelectedItem.ToString();
                 string idClase = claseSeleccionada.Split(',')[0].Replace("ID: ", "").Trim();
 
-                // Leer datos del usuario
-                string nombre = "", apellido1 = "", apellido2 = "", idUsuario = "";
-
-                using (var workbookUsuarios = new XLWorkbook("Usuarios.xlsx"))
+                // Verificar que haya un usuario logueado
+                if (UsuarioLogueado == null)
                 {
-                    var worksheetUsuarios = workbookUsuarios.Worksheet("Hoja1");
-                    var filaUsuario = worksheetUsuarios.RowsUsed().FirstOrDefault();
-
-                    if (filaUsuario != null)
-                    {
-                        nombre = filaUsuario.Cell(3).GetValue<string>();
-                        apellido1 = filaUsuario.Cell(4).GetValue<string>();
-                        apellido2 = filaUsuario.Cell(5).GetValue<string>();
-                        idUsuario = filaUsuario.Cell(7).GetValue<string>();
-                    }
+                    MessageBox.Show("No hay un usuario autenticado. Inicie sesión primero.", "Error");
+                    return;
                 }
 
-                // Guardar en la hoja "Hoja1" del archivo BasedatosClase.xlsx
-                string archivoBaseDatos = "BasedatosClase.xlsx";
+                // Obtener los datos del usuario logueado
+                string nombreUsuario = UsuarioLogueado.Nombre;
+                string apellido1Usuario = UsuarioLogueado.Apellido1;
+                string apellido2Usuario = UsuarioLogueado.Apellido2;
+                string idUsuario = UsuarioLogueado.Id.ToString();  // Usar "Id" en lugar de "ID"
 
-                using (var workbookBaseDatos = new XLWorkbook(archivoBaseDatos))
+
+                // Verificar que los datos sean correctos
+                if (string.IsNullOrEmpty(nombreUsuario) || string.IsNullOrEmpty(apellido1Usuario) || string.IsNullOrEmpty(idUsuario))
                 {
-                    var worksheet = workbookBaseDatos.Worksheet("Hoja1");
+                    MessageBox.Show("No se pudo recuperar la información del usuario.", "Error");
+                    return;
+                }
 
-                    // Si la hoja no existe, la agregamos
-                    if (worksheet == null)
-                    {
-                        worksheet = workbookBaseDatos.AddWorksheet("Hoja1");
-                    }
+                // Depuración: Mostrar lo que se va a guardar
+                MessageBox.Show($"Guardando reserva: {nombreUsuario} {apellido1Usuario} {apellido2Usuario}, ID Usuario: {idUsuario}, ID Clase: {idClase}", "Depuración");
 
-                    // Encontrar la última fila de la hoja
-                    int ultimaFila = worksheet.LastRowUsed()?.RowNumber() ?? 0;
-                    int nuevaFila = ultimaFila + 1;
-
-                    // Guardar los datos en la nueva fila
-                    worksheet.Cell(nuevaFila, 1).Value = nombre;
-                    worksheet.Cell(nuevaFila, 2).Value = apellido1;
-                    worksheet.Cell(nuevaFila, 3).Value = apellido2;
-                    worksheet.Cell(nuevaFila, 4).Value = idUsuario;
-                    worksheet.Cell(nuevaFila, 5).Value = idClase;  // Añadir el ID de la clase si es necesario
-
-                    // Guardar el archivo
-                    workbookBaseDatos.SaveAs(archivoBaseDatos);
+                // Guardar la reserva en el archivo BasedatosClase.csv
+                using (var writer = new StreamWriter(rutaBasedatosClase, true))
+                {
+                    // Escribir los datos en el archivo CSV: Nombre, Apellido, ID Usuario, ID Clase
+                    writer.WriteLine($"{nombreUsuario};{apellido1Usuario};{apellido2Usuario};{idUsuario};{idClase}");
+                    writer.Flush(); // Asegura que los datos se escriban inmediatamente
                 }
 
                 MessageBox.Show("Reserva guardada exitosamente.", "Éxito");
@@ -176,15 +166,13 @@ namespace Proyecto1
         // Obtener el nombre del entrenador desde Entrenadores.xlsx
         private string ObtenerNombreEntrenador(string rutaArchivo, string idEntrenador)
         {
-            using (var workbook = new XLWorkbook(rutaArchivo))
-            {
-                var worksheet = workbook.Worksheet("Hoja1");
+            // Leer Entrenadores.csv y buscar el entrenador por ID
+            var entrenador = File.ReadAllLines(rutaArchivo)
+                                 .Skip(1) // Omitir el encabezado
+                                 .Select(line => line.Split(';'))
+                                 .FirstOrDefault(columns => columns[4].Equals(idEntrenador, StringComparison.OrdinalIgnoreCase));
 
-                var fila = worksheet.RowsUsed()
-                                    .FirstOrDefault(row => row.Cell(5).GetValue<string>().Equals(idEntrenador, StringComparison.OrdinalIgnoreCase));
-
-                return fila != null ? fila.Cell(1).GetValue<string>() : "Desconocido";
-            }
+            return entrenador != null ? entrenador[2] : "Desconocido";
         }
 
         

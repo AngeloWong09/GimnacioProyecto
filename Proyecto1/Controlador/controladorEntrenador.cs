@@ -75,10 +75,6 @@ namespace Proyecto1.Controlador
                                 MessageBox.Show($"ID no válido en la línea: {linea}", "Error");
                             }
                         }
-                        else
-                        {
-                            MessageBox.Show($"Faltan columnas en la línea: {linea}", "Error");
-                        }
                     }
                 }
             }
