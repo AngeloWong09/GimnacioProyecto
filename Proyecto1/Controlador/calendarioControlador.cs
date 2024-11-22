@@ -25,5 +25,20 @@ namespace CalendarioPago
         {
             return _modelo.FechaPreaviso.ToString("dd/MM/yyyy");
         }
+
+        public bool VerificarPreaviso()
+        {
+            return _modelo.EsFechaPreaviso();
+        }
+
+        public bool VerificarFechaPago()
+        {
+            return DateTime.Now.Date == _modelo.FechaPago.Date;
+        }
+
+        public void RealizarPago()
+        {
+            _modelo.RegistrarPago();
+        }
     }
 }

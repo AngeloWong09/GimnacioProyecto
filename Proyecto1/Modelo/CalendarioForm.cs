@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalendarioPago;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CalendarioPago
+namespace Proyecto1.Modelo
 {
     public partial class CalendarioForm : Form
     {
@@ -26,16 +27,27 @@ namespace CalendarioPago
 
         private void InicializarVista()
         {
-            
+            txtFechaPago.Text = _controlador.ObtenerFechaPago();
+            txtFechaPreaviso.Text = _controlador.ObtenerFechaPreaviso();
+
+            if (_controlador.VerificarPreaviso())
+            {
+                lblNotificacion.Text = "¡Aviso! Su pago está próximo.";
+                lblNotificacion.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                lblNotificacion.Text = "";
+            }
+
+            if (_controlador.VerificarFechaPago())
+            {
+                var pagoMembresiaForm = new PagoMembresiaForm(_controlador);
+                pagoMembresiaForm.ShowDialog(); // Mostrar el formulario como un diálogo modal
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
-        {
-            txtFechaPago.Text = _controlador.ObtenerFechaPago();
-            txtFechaPreaviso.Text = _controlador.ObtenerFechaPreaviso();
-        }
-
-        private void CalendarioForm_Load(object sender, EventArgs e)
         {
 
         }
