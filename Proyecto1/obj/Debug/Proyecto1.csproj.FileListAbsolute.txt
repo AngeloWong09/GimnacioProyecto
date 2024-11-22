@@ -51,3 +51,8 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Sys
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.FormCambiarHorario.resources
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formCambiarPuntoFuerte.resources
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formCambiarContraseña.resources
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Assets\Administrador.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Assets\Entrenadores.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Assets\Usuarios.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Assets\BasedatosClase.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Assets\Clases.csv

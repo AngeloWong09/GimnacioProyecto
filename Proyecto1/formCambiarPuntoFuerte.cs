@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Proyecto1
 {
     public partial class formCambiarPuntoFuerte : Form
     {
-        private string rutaEntrenadores = "Entrenadores.xlsx"; // Ruta del archivo Entrenadores
+        private string rutaEntrenadores = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Entrenadores.csv"); // Ruta dinámica del archivo Entrenadores.csv
         public formCambiarPuntoFuerte()
         {
             InitializeComponent();
@@ -21,42 +22,70 @@ namespace Proyecto1
         }
 
         //nuevo: Método para actualizar el punto fuerte en el archivo Entrenadores
-        private bool ActualizarPuntoFuerte(string rutaArchivo, string idBuscado, string nuevoPuntoFuerte, int columnaID, int columnaPuntoFuerte)
+        private bool ActualizarPuntoFuerte(string rutaArchivo, string idBuscado, string nuevoPuntoFuerte)
         {
-            var workbook = new XLWorkbook(rutaArchivo);
-            var worksheet = workbook.Worksheet("Hoja1");
-
-            // Buscar la fila con el ID en la columna correspondiente
-            var fila = worksheet.RowsUsed()
-                                .FirstOrDefault(row => row.Cell(columnaID).GetValue<string>().Equals(idBuscado, StringComparison.OrdinalIgnoreCase));
-
-            if (fila != null)
+            try
             {
-                // Actualizar el punto fuerte en la columna correspondiente
-                fila.Cell(columnaPuntoFuerte).Value = nuevoPuntoFuerte;
+                var lines = File.ReadAllLines(rutaArchivo).ToList(); // Leer todas las líneas
+                bool actualizado = false;
 
-                // Guardar los cambios en el archivo Excel
-                workbook.SaveAs(rutaArchivo);
-                return true;
+                for (int i = 1; i < lines.Count; i++) // Empezar desde la fila 1 para evitar el encabezado
+                {
+                    var valores = lines[i].Split(';');
+
+                    if (valores[4].Trim() == idBuscado) // Columna 5 (ID)
+                    {
+                        valores[5] = nuevoPuntoFuerte; // Actualizar la columna 6 (Puntos fuertes)
+                        lines[i] = string.Join(";", valores); // Reconstruir la línea
+                        actualizado = true;
+                        break;
+                    }
+                }
+
+                if (actualizado)
+                {
+                    File.WriteAllLines(rutaArchivo, lines); // Sobrescribir el archivo
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("ID no encontrado en el archivo Entrenadores.", "Error");
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar el punto fuerte: {ex.Message}", "Error");
+            }
+
             return false;
 
         }
-        private bool BuscarYMostrarDatosEntrenadores(string rutaArchivo, string idBuscado, int columnaID, int columnaPuntoFuerte)
+        private bool BuscarYMostrarDatosEntrenadores(string rutaArchivo, string idBuscado)
         {
-            var workbook = new XLWorkbook(rutaArchivo);
-            var worksheet = workbook.Worksheet("Hoja1");
-
-            // Buscar la fila con el ID en la columna correspondiente
-            var fila = worksheet.RowsUsed()
-                                .FirstOrDefault(row => row.Cell(columnaID).GetValue<string>().Equals(idBuscado, StringComparison.OrdinalIgnoreCase));
-
-            if (fila != null)
+            try
             {
-                txtNombreUsuario.Text = fila.Cell(1).GetValue<string>(); // Nombre de Usuario
-                txtPuntoFuerte.Text = fila.Cell(columnaPuntoFuerte).GetValue<string>(); // Punto Fuerte
-                return true;
+                var lines = File.ReadAllLines(rutaArchivo).Skip(1); // Leer todas las líneas, omitiendo el encabezado
+
+                foreach (var line in lines)
+                {
+                    var valores = line.Split(';');
+
+                    // Verificar si el ID coincide
+                    if (valores[4].Trim() == idBuscado) // Columna 5 es el ID
+                    {
+                        txtNombreUsuario.Text = valores[0]; // Nombre de Usuario
+                        txtPuntoFuerte.Text = valores[5];   // Punto Fuerte (Columna 6)
+                        return true;
+                    }
+                }
+
+                MessageBox.Show("ID no encontrado en el archivo Entrenadores.", "Error");
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar datos de entrenadores: {ex.Message}", "Error");
+            }
+
             return false;
         }
 
@@ -64,7 +93,7 @@ namespace Proyecto1
         {
             try
             {
-                string idBuscado = txtIDUsuario.Text; // Leer el ID como string
+                string idBuscado = txtIDUsuario.Text;
                 string nuevoPuntoFuerte = comboBoxPuntoFuerte.SelectedItem?.ToString();
 
                 if (string.IsNullOrWhiteSpace(nuevoPuntoFuerte))
@@ -73,14 +102,9 @@ namespace Proyecto1
                     return;
                 }
 
-                // Actualizar en Entrenadores
-                if (ActualizarPuntoFuerte(rutaEntrenadores, idBuscado, nuevoPuntoFuerte, 5, 6))
+                if (ActualizarPuntoFuerte(rutaEntrenadores, idBuscado, nuevoPuntoFuerte))
                 {
                     MessageBox.Show("Punto fuerte actualizado exitosamente.", "Éxito");
-                }
-                else
-                {
-                    MessageBox.Show("ID no encontrado en el archivo Entrenadores.", "Error");
                 }
             }
             catch (Exception ex)
@@ -104,16 +128,19 @@ namespace Proyecto1
         {
             try
             {
-                string idBuscado = txtIDUsuario.Text; // Leer el ID como string
+                string idBuscado = txtIDUsuario.Text;
 
-                if (!BuscarYMostrarDatosEntrenadores(rutaEntrenadores, idBuscado, 5, 6))
+                if (string.IsNullOrWhiteSpace(idBuscado))
                 {
-                    
+                    MessageBox.Show("Debe ingresar un ID para buscar.", "Advertencia");
+                    return;
                 }
+
+                BuscarYMostrarDatosEntrenadores(rutaEntrenadores, idBuscado);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar usuario: {ex.Message}", "Error");
+                MessageBox.Show($"Error al buscar el entrenador: {ex.Message}", "Error");
             }
         }
 

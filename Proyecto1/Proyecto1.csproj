@@ -160,7 +160,6 @@
     </Compile>
     <Compile Include="Modelo\administradorModelo.cs" />
     <Compile Include="Modelo\calendarioModelo.cs" />
-    <Compile Include="Modelo\clasesModelo.cs" />
     <Compile Include="Modelo\entrenadorModelo.cs" />
     <Compile Include="Modelo\usuarioModelo.cs" />
     <Compile Include="Program.cs" />
@@ -199,6 +198,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Assets\Administrador.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\BasedatosClase.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Clases.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Entrenadores.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Usuarios.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

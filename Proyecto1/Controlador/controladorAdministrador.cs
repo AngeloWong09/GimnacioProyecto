@@ -15,39 +15,80 @@ namespace Proyecto1.Controlador
 
         public controladorAdministrador()
         {
+          
             administradores = new List<administradorModelo>();
-            CargarAdministradoresDesdeExcel("Administrador.xlsx");
+            CargarAdministradoresDesdeCSV("Assets/Administrador.csv");
         }
 
-        private void CargarAdministradoresDesdeExcel(string rutaArchivo)
+
+        private void CargarAdministradoresDesdeCSV(string rutaArchivo)
         {
             try
             {
                 string rutaCompleta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaArchivo);
-                var workbook = new XLWorkbook(rutaCompleta);
-                var worksheet = workbook.Worksheet("Hoja1");
-                var rows = worksheet.RangeUsed().RowsUsed();
 
-                foreach (var row in rows.Skip(1)) // Saltar la fila de encabezados
+                if (!File.Exists(rutaCompleta))
                 {
-                    string nombreUsuario = row.Cell(1).GetValue<string>();
-                    string contraseña = row.Cell(2).GetValue<string>();
-                    string nivelAcceso = row.Cell(3).GetValue<string>();
+                    MessageBox.Show($"El archivo {rutaArchivo} no existe.", "Error");
+                    return;
+                }
 
-                    administradores.Add(new administradorModelo(administradores.Count + 1, nombreUsuario, contraseña, nivelAcceso));
+                using (var reader = new StreamReader(rutaCompleta))
+                {
+                    string linea;
+                    bool primeraLinea = true;
+
+                    while ((linea = reader.ReadLine()) != null)
+                    {
+                        if (primeraLinea) // Ignorar encabezado
+                        {
+                            primeraLinea = false;
+                            continue;
+                        }
+
+                        var valores = linea.Split(';'); // Separador es ';'
+
+                        if (valores.Length >= 5) // Verificar que haya suficientes columnas
+                        {
+                            string nombreUsuario = valores[0].Trim();  // Columna Usuario
+                            string contraseña = valores[1].Trim();     // Columna Contraseña
+                            string nombre = valores[2].Trim();         // Columna Nombre
+                            string apellido = valores[3].Trim();      // Columna Apellido
+                            int id;
+
+                            // Verificar que el ID sea un número válido
+                            if (int.TryParse(valores[4].Trim(), out id))
+                            {
+                                // Crear el administrador con los datos disponibles
+                                var administrador = new administradorModelo(
+                                    id,                      // ID
+                                    nombreUsuario,           // Nombre de usuario
+                                    contraseña,              // Contraseña
+                                    "Administrador",         // NivelAcceso predeterminado
+                                    nombre,                  // Nombre
+                                    apellido                 // Apellido
+                                );
+
+                                administradores.Add(administrador);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar administradores desde Excel: {ex.Message}");
+                MessageBox.Show($"Error al cargar administradores desde CSV: {ex.Message}", "Error");
             }
         }
 
         public administradorModelo IniciarSesion(string nombreUsuario, string contraseña)
         {
-            return administradores.FirstOrDefault(a => a.NombreUsuario == nombreUsuario && a.VerificarContraseña(contraseña));
+            return administradores.FirstOrDefault(a => a.NombreUsuario == nombreUsuario && a.Contraseña == contraseña);
         }
     }
 }
+
+
+
 
 

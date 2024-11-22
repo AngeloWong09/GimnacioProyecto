@@ -16,7 +16,7 @@ namespace Proyecto1
         public formInicioSesion()
         {
             InitializeComponent();
-            controlador = new controladorUsuario(); // Inicializa el controlador
+            controlador = new controladorUsuario();
             controladorEntrenador = new controladorEntrenador();
             controladorAdministrador = new controladorAdministrador();
         }
@@ -26,7 +26,7 @@ namespace Proyecto1
             string nombreUsuario = txtNombreUsuario.Text;
             string contraseña = txtContraseña.Text;
 
-            // Validar el inicio de sesión
+
             usuarioModelo usuario = controlador.IniciarSesion(nombreUsuario, contraseña);
 
             if (usuario != null)
@@ -35,17 +35,17 @@ namespace Proyecto1
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
                 MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
 
-                // Guardar el usuario logueado
+
                 UsuarioLogueado = usuario;
 
-                // Redirigir al formulario de usuario
-                var nuevoForm = new formUsuario(); // Formulario para el usuario
+
+                var nuevoForm = new formUsuario();
                 nuevoForm.Show();
                 this.Hide();
             }
 
 
-            // Intentar iniciar sesión como Entrenador
+
             entrenadorModelo entrenador = controladorEntrenador.IniciarSesion(nombreUsuario, contraseña);
 
             if (entrenador != null)
@@ -54,7 +54,7 @@ namespace Proyecto1
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
                 MessageBox.Show("Inicio de sesión exitoso como Entrenador.", "Éxito");
 
-                var formEntrenador = new formEntrenador(); // Formulario para entrenadores
+                var formEntrenador = new formEntrenador();
                 formEntrenador.Show();
                 this.Hide();
                 return;
@@ -65,7 +65,7 @@ namespace Proyecto1
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
 
-            // Intentar iniciar sesión como Administrador
+
             administradorModelo administrador = controladorAdministrador.IniciarSesion(nombreUsuario, contraseña);
             if (administrador != null)
             {
@@ -73,7 +73,7 @@ namespace Proyecto1
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
                 MessageBox.Show("Inicio de sesión exitoso como Administrador.", "Éxito");
 
-                var formAdministrador = new formAdministrador(); // Formulario para administradores
+                var formAdministrador = new formAdministrador();
                 formAdministrador.Show();
                 this.Hide();
                 return;

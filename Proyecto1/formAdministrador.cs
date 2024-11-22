@@ -19,15 +19,15 @@ namespace Proyecto1
             InitializeComponent();
         }
 
-       
+
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            // Abrir el formulario de inicio de sesión
+        
             formInicioSesion formularioInicioSesion = new formInicioSesion();
             formularioInicioSesion.Show();
 
-            // Cerrar el formulario actual
+       
             this.Close();
         }
 
@@ -53,6 +53,6 @@ namespace Proyecto1
             this.Close();
         }
     }
-    }
+}
 
 

@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,8 +9,8 @@ namespace Proyecto1
 {
     public partial class FormCambiarHorario : Form
     {
-        private string rutaClases = "Clases.xlsx";          // Ruta del archivo Clases
-        private string rutaEntrenadores = "Entrenadores.xlsx"; // Ruta del archivo Entrenadores
+        private string rutaClases = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Clases.csv");
+        private string rutaEntrenadores = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Entrenadores.csv");
 
         public FormCambiarHorario()
         {
@@ -54,80 +55,98 @@ namespace Proyecto1
 
         private bool BuscarDatosClase(string rutaArchivo, string idClase)
         {
-            using (var workbook = new XLWorkbook(rutaArchivo))
+            try
             {
-                var worksheet = workbook.Worksheet("Hoja1");
+                var lines = File.ReadAllLines(rutaArchivo);
 
-                // Buscar la fila con la ID de la clase en la columna 2
-                var fila = worksheet.RowsUsed()
-                                    .FirstOrDefault(row => row.Cell(2).GetValue<string>().Equals(idClase, StringComparison.OrdinalIgnoreCase));
-
-                if (fila != null)
+                foreach (var line in lines.Skip(1)) // Ignorar la primera línea (encabezado)
                 {
-                    txtNumeroClase.Text = fila.Cell(4).GetValue<string>();       // Nombre de la clase (Columna 4)
-                    txtDiaActual.Text = fila.Cell(5).GetValue<string>();       // Fecha actual (Columna 5)
-                    txtHoraActual.Text = fila.Cell(6).GetValue<string>();      // Hora actual (Columna 6)
+                    var valores = line.Split(';');
+                    string id = valores[1].Trim();  // La columna ID está en la posición 1 (Ajustado para CSV)
 
-                    // Buscar el entrenador en Entrenadores.xlsx
-                    string idEntrenador = fila.Cell(3).GetValue<string>();     // ID Entrenador (Columna 3)
-                    MostrarEntrenador(rutaEntrenadores, idEntrenador);
+                    if (id == idClase)
+                    {
+                        txtNumeroClase.Text = valores[3];       // Nombre de la clase (Columna 3)
+                        txtDiaActual.Text = valores[4];         // Fecha actual (Columna 4)
+                        txtHoraActual.Text = valores[5];        // Hora actual (Columna 5)
 
-                    return true;
+                        // Buscar el entrenador en Entrenadores.csv
+                        string idEntrenador = valores[2];     // ID Entrenador (Columna 2)
+                        MostrarEntrenador(rutaEntrenadores, idEntrenador);
+
+                        return true;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al buscar la clase: {ex.Message}", "Error");
             }
             return false;
         }
 
         private void MostrarEntrenador(string rutaArchivo, string idEntrenador)
         {
-            using (var workbook = new XLWorkbook(rutaArchivo))
+            try
             {
-                var worksheet = workbook.Worksheet("Hoja1");
+                var lines = File.ReadAllLines(rutaArchivo);
 
-                // Buscar la fila del entrenador en la columna 5
-                var fila = worksheet.RowsUsed()
-                                    .FirstOrDefault(row => row.Cell(5).GetValue<string>().Equals(idEntrenador, StringComparison.OrdinalIgnoreCase));
+                foreach (var line in lines.Skip(1)) // Ignorar la primera línea (encabezado)
+                {
+                    var valores = line.Split(';');
+                    string id = valores[4].Trim();  // La columna ID está en la posición 4 (Ajustado para CSV)
 
-                if (fila != null)
-                {
-                    txtEntrenadorDesignado.Text = fila.Cell(1).GetValue<string>(); // Nombre del entrenador (Columna 1)
-                    txtNumeroClase.Text = fila.Cell(6).GetValue<string>();        // Información de la columna 6
+                    if (id == idEntrenador)
+                    {
+                        txtEntrenadorDesignado.Text = valores[0]; // Nombre del entrenador (Columna 0)
+                        return;
+                    }
                 }
-                else
-                {
-                    txtEntrenadorDesignado.Text = "No encontrado";
-                    txtNumeroClase.Text = "Información no encontrada";          // Manejar cuando no se encuentra información
-                }
+
+                txtEntrenadorDesignado.Text = "No encontrado";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al mostrar datos del entrenador: {ex.Message}", "Error");
             }
         }
+        
 
 
         private bool ActualizarHorarioClase(string rutaArchivo, string idClase, string nuevoDia, string nuevaHora)
         {
-            using (var workbook = new XLWorkbook(rutaArchivo))
+            try
             {
-                var worksheet = workbook.Worksheet("Hoja1");
+                var lines = File.ReadAllLines(rutaArchivo).ToList();
+                bool actualizado = false;
 
-                // Buscar la fila con la ID de la clase en la columna 2
-                var fila = worksheet.RowsUsed()
-                                    .FirstOrDefault(row => row.Cell(2).GetValue<string>().Equals(idClase, StringComparison.OrdinalIgnoreCase));
-
-                if (fila != null)
+                for (int i = 1; i < lines.Count; i++) // Ignorar la primera línea (encabezado)
                 {
-                    fila.Cell(5).Value = nuevoDia;  // Actualizar día (Columna 5)
-                    fila.Cell(6).Value = nuevaHora; // Actualizar hora (Columna 6)
+                    var valores = lines[i].Split(';');
+                    string id = valores[1].Trim();  // La columna ID está en la posición 1 (Ajustado para CSV)
 
-                    // Guardar los cambios en el archivo Excel
-                    workbook.SaveAs(rutaArchivo);
+                    if (id == idClase)
+                    {
+                        valores[4] = nuevoDia;  // Actualizar día (Columna 4)
+                        valores[5] = nuevaHora; // Actualizar hora (Columna 5)
+                        lines[i] = string.Join(";", valores); // Reemplazar la línea con los nuevos valores
+                        actualizado = true;
+                        break;
+                    }
+                }
+
+                if (actualizado)
+                {
+                    File.WriteAllLines(rutaArchivo, lines);
                     return true;
                 }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar el horario: {ex.Message}", "Error");
             }
             return false;
-        }
-
-        private void comboBoxNuevaHora_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -159,6 +178,14 @@ namespace Proyecto1
             }
         }
 
+
+        private void comboBoxNuevaHora_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
         private void btnVolveraMenu_Click(object sender, EventArgs e)
         {
             formAdministrador formularioAdministrador = new formAdministrador();
@@ -167,8 +194,11 @@ namespace Proyecto1
             // Cerrar el formulario actual
             this.Close();
         }
+
+        
     }
-}
+    }
+
             
         
     
