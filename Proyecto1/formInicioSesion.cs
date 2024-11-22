@@ -1,7 +1,8 @@
 ﻿using Proyecto1.Controlador;
 using Proyecto1.Modelo;
 using System;
-
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Proyecto1
@@ -31,15 +32,21 @@ namespace Proyecto1
 
             if (usuario != null)
             {
-                // Establecer el usuario logueado en la variable estática
-                UsuarioLogueado = usuario;
-
                 lblMensaje.Text = $"Bienvenido {usuario.NombreUsuario}";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
                 MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
 
-                // Abrir el formulario de usuario
-                var nuevoForm = new formUsuario();
+                // Leer el archivo Usuarios.csv para obtener el ID del usuario
+                string idUsuario = ObtenerIdUsuario(nombreUsuario, contraseña);
+
+                if (string.IsNullOrEmpty(idUsuario))
+                {
+                    MessageBox.Show("No se pudo obtener el ID del usuario. Verifique los datos.", "Error");
+                    return;
+                }
+
+                // Convertir el ID de usuario de string a int
+                var nuevoForm = new formUsuario(idUsuario); // Pasamos el ID del usuario
                 nuevoForm.Show();
                 this.Hide();
             }
@@ -84,22 +91,27 @@ namespace Proyecto1
                     }
                 }
             }
-
         }
 
-        private void formInicioSesion_Load(object sender, EventArgs e)
+        // Función para obtener el ID del usuario desde el archivo Usuarios.csv
+        private string ObtenerIdUsuario(string nombreUsuario, string contraseña)
         {
+            string rutaUsuarios = Path.Combine(Application.StartupPath, "Assets", "Usuarios.csv");
+
+            var lineas = File.ReadAllLines(rutaUsuarios);
+            var usuario = lineas.Skip(1) // Omite el encabezado
+                                .Select(line => line.Split(';'))
+                                .FirstOrDefault(columns => columns[0].Trim() == nombreUsuario && columns[1].Trim() == contraseña);
+
+            if (usuario != null && usuario.Length > 6)
+            {
+                return usuario[6].Trim(); // El ID está en la columna 6 (índice 5)
+            }
+            return null;
 
         }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtNombreUsuario_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-    }
+            }
 }
+  
+
+

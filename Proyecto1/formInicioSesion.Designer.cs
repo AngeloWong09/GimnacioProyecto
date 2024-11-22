@@ -72,7 +72,6 @@
             this.txtNombreUsuario.Name = "txtNombreUsuario";
             this.txtNombreUsuario.Size = new System.Drawing.Size(250, 22);
             this.txtNombreUsuario.TabIndex = 3;
-            this.txtNombreUsuario.TextChanged += new System.EventHandler(this.txtNombreUsuario_TextChanged);
             // 
             // lblMensaje
             // 
@@ -92,7 +91,6 @@
             this.label2.Size = new System.Drawing.Size(264, 25);
             this.label2.TabIndex = 6;
             this.label2.Text = "Ingrese el nombre de usuario";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -123,7 +121,6 @@
             this.Name = "formInicioSesion";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Inicio de sesion";
-            this.Load += new System.EventHandler(this.formInicioSesion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
