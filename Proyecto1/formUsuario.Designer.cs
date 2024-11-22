@@ -41,6 +41,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.listBoxConsulta = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnCalendario = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -164,12 +165,23 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "Sus clases programadas:";
             // 
+            // btnCalendario
+            // 
+            this.btnCalendario.Location = new System.Drawing.Point(547, 13);
+            this.btnCalendario.Name = "btnCalendario";
+            this.btnCalendario.Size = new System.Drawing.Size(104, 43);
+            this.btnCalendario.TabIndex = 13;
+            this.btnCalendario.Text = "Calendario";
+            this.btnCalendario.UseVisualStyleBackColor = true;
+            this.btnCalendario.Click += new System.EventHandler(this.btnCalendario_Click);
+            // 
             // formUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCalendario);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.listBoxConsulta);
             this.Controls.Add(this.label3);
@@ -205,5 +217,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox listBoxConsulta;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnCalendario;
     }
 }

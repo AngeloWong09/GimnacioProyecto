@@ -21,20 +21,9 @@ namespace Proyecto1
         }
     }
 
-        namespace CalendarioPago
-    {
-        static class Program
-        {
-            [STAThread]
-            static void Main()
-            {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new CalendarioForm());
-            }
-        }
+       
     }
 
 
-}
+
 

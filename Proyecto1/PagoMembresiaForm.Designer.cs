@@ -1,4 +1,4 @@
-﻿namespace Proyecto1.Modelo
+﻿namespace Proyecto1
 {
     partial class PagoMembresiaForm
     {
@@ -28,38 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.btnPagar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnVolveraMenu = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnPagar
+            // 
+            this.btnPagar.Location = new System.Drawing.Point(293, 148);
+            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPagar.Name = "btnPagar";
+            this.btnPagar.Size = new System.Drawing.Size(180, 28);
+            this.btnPagar.TabIndex = 4;
+            this.btnPagar.Text = "Pagar con Tarjeta";
+            this.btnPagar.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(320, 72);
+            this.label1.Location = new System.Drawing.Point(308, 56);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 13);
-            this.label1.TabIndex = 0;
+            this.label1.Size = new System.Drawing.Size(158, 16);
+            this.label1.TabIndex = 3;
             this.label1.Text = "¿Desea realizar el pago?";
             // 
-            // btnPagar
+            // btnVolveraMenu
             // 
-            this.btnPagar.Location = new System.Drawing.Point(309, 147);
-            this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(135, 23);
-            this.btnPagar.TabIndex = 2;
-            this.btnPagar.Text = "Pagar con Tarjeta";
-            this.btnPagar.UseVisualStyleBackColor = true;
+            this.btnVolveraMenu.Location = new System.Drawing.Point(12, 12);
+            this.btnVolveraMenu.Name = "btnVolveraMenu";
+            this.btnVolveraMenu.Size = new System.Drawing.Size(100, 54);
+            this.btnVolveraMenu.TabIndex = 25;
+            this.btnVolveraMenu.Text = "< Volver al Menú";
+            this.btnVolveraMenu.UseVisualStyleBackColor = true;
+            this.btnVolveraMenu.Click += new System.EventHandler(this.btnVolveraMenu_Click);
             // 
             // PagoMembresiaForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnVolveraMenu);
             this.Controls.Add(this.btnPagar);
             this.Controls.Add(this.label1);
             this.Name = "PagoMembresiaForm";
             this.Text = "PagoMembresiaForm";
-            this.Load += new System.EventHandler(this.PagoMembresiaForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,7 +81,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnPagar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnVolveraMenu;
     }
 }

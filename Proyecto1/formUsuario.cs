@@ -284,14 +284,22 @@ namespace Proyecto1
 
         private void btnActualizarMenbresia_Click(object sender, EventArgs e)
         {
-            CalendarioForm formularioCalendario = new CalendarioForm();
-            formularioCalendario.Show();
-            this.Close();
+            PagoMembresiaForm pagoForm = new PagoMembresiaForm();
+
+            // Mostrar el formulario de pago
+            pagoForm.ShowDialog();
         }
 
- 
+        private void btnCalendario_Click(object sender, EventArgs e)
+        {
+            CalendarioForm calendarioForm = new CalendarioForm();
 
-       
+            // Mostrar el formulario CalendarioForm
+            calendarioForm.Show();
+
+            // Cerrar el formulario actual
+            this.Close();
+        }
     }
 
     

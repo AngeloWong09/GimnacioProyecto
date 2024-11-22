@@ -106,7 +106,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controlador\calendarioControlador.cs" />
+    <Compile Include="CalendarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CalendarioForm.Designer.cs">
+      <DependentUpon>CalendarioForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controlador\controladorAdministrador.cs" />
     <Compile Include="Controlador\controladorEntrenador.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
@@ -153,23 +158,20 @@
       <DependentUpon>formEntrenador.cs</DependentUpon>
     </Compile>
     <Compile Include="Modelo\administradorModelo.cs" />
-    <Compile Include="CalendarioForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CalendarioForm.Designer.cs">
-      <DependentUpon>CalendarioForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Modelo\calendarioModelo.cs" />
     <Compile Include="Modelo\entrenadorModelo.cs" />
+    <Compile Include="Modelo\usuarioModelo.cs" />
     <Compile Include="PagoMembresiaForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PagoMembresiaForm.Designer.cs">
       <DependentUpon>PagoMembresiaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modelo\usuarioModelo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CalendarioForm.resx">
+      <DependentUpon>CalendarioForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formAdministrador.resx">
       <DependentUpon>formAdministrador.cs</DependentUpon>
     </EmbeddedResource>
@@ -190,9 +192,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formUsuario.resx">
       <DependentUpon>formUsuario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CalendarioForm.resx">
-      <DependentUpon>CalendarioForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagoMembresiaForm.resx">
       <DependentUpon>PagoMembresiaForm.cs</DependentUpon>
