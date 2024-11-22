@@ -10,10 +10,12 @@ namespace CalendarioPago
     {
         public DateTime FechaPago { get; private set; }
         public DateTime FechaPreaviso { get; private set; }
+        public bool PagoRealizado { get; private set; }
 
         public CalendarioModelo()
         {
             InicializarFechas();
+            PagoRealizado = false;
         }
 
         private void InicializarFechas()
@@ -29,5 +31,16 @@ namespace CalendarioPago
                 FechaPreaviso = FechaPreaviso.AddMonths(1);
             }
         }
+
+        public bool EsFechaPreaviso()
+        {
+            return DateTime.Now.Date == FechaPreaviso.Date;
+        }
+
+        public void RegistrarPago()
+        {
+            PagoRealizado = true;
+        }
+
     }
 }
