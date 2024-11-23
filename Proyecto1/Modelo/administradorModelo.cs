@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto1.Modelo
 {
-  //Hola
+  //Holaaaaa
         internal class administradorModelo
         {
             public int Id { get; set; }
