@@ -114,6 +114,8 @@
     </Compile>
     <Compile Include="Controlador\controladorAdministrador.cs" />
     <Compile Include="Controlador\controladorEntrenador.cs" />
+    <Compile Include="Controlador\controladorMaquina.cs" />
+    <Compile Include="Controlador\controladorReservaPago.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
     <Compile Include="formAdministrador.cs">
       <SubType>Form</SubType>
@@ -127,11 +129,11 @@
     <Compile Include="formCambiarContraseña.Designer.cs">
       <DependentUpon>formCambiarContraseña.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormCambiarHorario.cs">
+    <Compile Include="formCambiarHorario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormCambiarHorario.Designer.cs">
-      <DependentUpon>FormCambiarHorario.cs</DependentUpon>
+    <Compile Include="formCambiarHorario.Designer.cs">
+      <DependentUpon>formCambiarHorario.cs</DependentUpon>
     </Compile>
     <Compile Include="formCambiarPuntoFuerte.cs">
       <SubType>Form</SubType>
@@ -139,11 +141,23 @@
     <Compile Include="formCambiarPuntoFuerte.Designer.cs">
       <DependentUpon>formCambiarPuntoFuerte.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMaquina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMaquina.Designer.cs">
+      <DependentUpon>FormMaquina.cs</DependentUpon>
+    </Compile>
     <Compile Include="formReporteClases.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formReporteClases.Designer.cs">
       <DependentUpon>formReporteClases.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formReservasPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formReservasPagos.Designer.cs">
+      <DependentUpon>formReservasPagos.cs</DependentUpon>
     </Compile>
     <Compile Include="formUsuario.cs">
       <SubType>Form</SubType>
@@ -165,7 +179,10 @@
     </Compile>
     <Compile Include="Modelo\administradorModelo.cs" />
     <Compile Include="Modelo\calendarioModelo.cs" />
+    <Compile Include="Modelo\controladorMaquina.cs" />
     <Compile Include="Modelo\entrenadorModelo.cs" />
+    <Compile Include="Modelo\maquinaModelo.cs" />
+    <Compile Include="Modelo\ReservaPagoModelo.cs" />
     <Compile Include="Modelo\usuarioModelo.cs" />
     <Compile Include="PagoMembresiaForm.cs">
       <SubType>Form</SubType>
@@ -184,8 +201,8 @@
     <EmbeddedResource Include="formCambiarContraseña.resx">
       <DependentUpon>formCambiarContraseña.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormCambiarHorario.resx">
-      <DependentUpon>FormCambiarHorario.cs</DependentUpon>
+    <EmbeddedResource Include="formCambiarHorario.resx">
+      <DependentUpon>formCambiarHorario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCambiarPuntoFuerte.resx">
       <DependentUpon>formCambiarPuntoFuerte.cs</DependentUpon>
@@ -196,8 +213,14 @@
     <EmbeddedResource Include="formInicioSesion.resx">
       <DependentUpon>formInicioSesion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMaquina.resx">
+      <DependentUpon>FormMaquina.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formReporteClases.resx">
       <DependentUpon>formReporteClases.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formReservasPagos.resx">
+      <DependentUpon>formReservasPagos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formUsuario.resx">
       <DependentUpon>formUsuario.cs</DependentUpon>
@@ -216,19 +239,19 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Assets\Administrador.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Assets\BasedatosClase.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Assets\Clases.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Assets\Entrenadores.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Assets\Usuarios.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

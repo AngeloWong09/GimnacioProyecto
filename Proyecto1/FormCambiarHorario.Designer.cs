@@ -1,6 +1,6 @@
 ﻿namespace Proyecto1
 {
-    partial class FormCambiarHorario
+    partial class formCambiarHorario
     {
         /// <summary>
         /// Required designer variable.

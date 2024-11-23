@@ -308,7 +308,9 @@ namespace Proyecto1
 
         private void btnVerReservasYPago_Click(object sender, EventArgs e)
         {
-           
+            int idUsuario = int.Parse(txtUsuarioId.Text);
+            var formReservasPagos = new formReservasPagos(idUsuario);
+            formReservasPagos.Show();
         }
     }
 

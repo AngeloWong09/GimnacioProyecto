@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace Proyecto1
 {
-    public partial class FormCambiarHorario : Form
+    public partial class formCambiarHorario : Form
     {
         private string rutaClases = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Clases.csv");
         private string rutaEntrenadores = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Entrenadores.csv");
 
-        public FormCambiarHorario()
+        public formCambiarHorario()
         {
             InitializeComponent();
             InicializarComboBox();

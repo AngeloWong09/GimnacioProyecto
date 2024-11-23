@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Proyecto1.Modelo
+namespace Proyecto1.Controlador
 {
-    internal class maquinaModelo
-    {//propiedades
+    internal class MaquinaModelo
+    {
+        //propiedades
         public string Nombre { get; set; }
         public DateTime FechaEntrada { get; private set; }
         public int TiempoVidaMeses { get; private set; }
         public DateTime FechaCaducidad { get; private set; }
 
-        public maquinaModelo(string nombre, DateTime fechaEntrada, int tiempoVidaMeses)
+        public MaquinaModelo(string nombre, DateTime fechaEntrada, int tiempoVidaMeses)
         { //contructor con los valores requeridos
             Nombre = nombre;
             FechaEntrada = fechaEntrada;
@@ -24,6 +21,6 @@ namespace Proyecto1.Modelo
         public bool QuedanTresMeses()
         {
             return FechaCaducidad <= DateTime.Now.AddMonths(3);
-        }}}
-
-  
+        }
+}
+}

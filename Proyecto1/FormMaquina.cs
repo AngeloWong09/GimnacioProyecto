@@ -26,7 +26,7 @@ namespace Proyecto1
         private void CargarMaquinas()
         {
             // Llama al controlador para obtener las máquinas próximas a caducar, vinculando la lista al DataGrid, ademas actualiza el texto del label
-            List<maquinaModelo> maquinasPorCaducar = controlador.ObtenerMaquinasPorCaducar();
+            List<MaquinaModelo> maquinasPorCaducar = controlador.ObtenerMaquinasPorCaducar();
 
             
             dgvMaquinas.DataSource = maquinasPorCaducar;

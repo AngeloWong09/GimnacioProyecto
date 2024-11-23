@@ -33,7 +33,7 @@ namespace Proyecto1
 
         private void btncambiarHorario_Click(object sender, EventArgs e)
         {
-            FormCambiarHorario formularioCambiarHorario = new FormCambiarHorario();
+            formCambiarHorario formularioCambiarHorario = new formCambiarHorario();
             formularioCambiarHorario.Show();
         }
 
