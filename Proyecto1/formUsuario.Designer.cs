@@ -189,13 +189,13 @@
             // btnVerReservasYPago
             // 
             this.btnVerReservasYPago.Location = new System.Drawing.Point(575, 129);
-            this.btnVerReservasYPago.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVerReservasYPago.Margin = new System.Windows.Forms.Padding(4);
             this.btnVerReservasYPago.Name = "btnVerReservasYPago";
             this.btnVerReservasYPago.Size = new System.Drawing.Size(199, 59);
             this.btnVerReservasYPago.TabIndex = 14;
             this.btnVerReservasYPago.Text = "Ver Reservas y Pagos";
             this.btnVerReservasYPago.UseVisualStyleBackColor = true;
-            this.btnVerReservasYPago.Click += new System.EventHandler(this.btnVerReservasYPago_Click);
+            this.btnVerReservasYPago.Click += new System.EventHandler(this.btnVerReservasYPago_Click_1);
             // 
             // formUsuario
             // 
