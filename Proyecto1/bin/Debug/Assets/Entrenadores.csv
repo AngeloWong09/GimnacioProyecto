@@ -1,8 +1,7 @@
-﻿Usuario;Contraseña;Nombre;Apellido;Id;Puntos fuertes;Horarios;;
-Tobias1978;Tobi1;Tobias;Argba;1237894;CardioDance;;
-Bonnie639;P35ñ08;Bonnie;Emeron;1237895;CardioDance;;
-Ada1179;P35ñ09;Ada;Wong;1237896;Funcionales;;
-Gabriel7794;P35ñ10;Gabriel;Mazariegos;1237897;Funcionales;;
-Yalin1110;P35ñ11;Yalin;Campos;1237898;Zumba;;
-German15;P35ñ12;German;Perez;1237899;CardioDance;;
-
+﻿Usuario;Contraseña;Nombre;Apellido;Id;Puntos fuertes;Horarios
+Tobias1978;Tobi1;Tobias;Argba;1237894;CardioDance;
+Bonnie639;P35ñ08;Bonnie;Emeron;1237895;CardioDance;
+Ada1179;P35ñ09;Ada;Wong;1237896;Funcionales;
+Gabriel7794;P35ñ10;Gabriel;Mazariegos;1237897;Funcionales;
+Yalin1110;0;Yalin;Campos;1237898;Zumba;
+German15;P35ñ12;German;Perez;1237899;CardioDance;

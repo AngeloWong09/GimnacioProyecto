@@ -34,7 +34,7 @@ namespace Proyecto1
             {
                 lblMensaje.Text = $"Bienvenido {usuario.NombreUsuario}";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                MessageBox.Show("Inicio de sesión exitoso.", "Éxito");
+                
 
                 // Leer el archivo Usuarios.csv para obtener el ID del usuario
                 string idUsuario = ObtenerIdUsuario(nombreUsuario, contraseña);
@@ -59,7 +59,7 @@ namespace Proyecto1
                 {
                     lblMensaje.Text = $"Bienvenido {entrenador.NombreUsuario}";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
-                    MessageBox.Show("Inicio de sesión exitoso como Entrenador.", "Éxito");
+                    
 
                     // Abrir el formulario de entrenador
                     var formEntrenador = new formEntrenador();
@@ -75,7 +75,7 @@ namespace Proyecto1
                     {
                         lblMensaje.Text = $"Bienvenido {administrador.NombreUsuario}";
                         lblMensaje.ForeColor = System.Drawing.Color.Green;
-                        MessageBox.Show("Inicio de sesión exitoso como Administrador.", "Éxito");
+                       
 
                         // Abrir el formulario de administrador
                         var formAdministrador = new formAdministrador();

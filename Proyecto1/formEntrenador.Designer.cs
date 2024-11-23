@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.btnReportesClase = new System.Windows.Forms.Button();
+            this.btnGanaciasMaquinas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -39,6 +41,26 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Cerrar sesion";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnReportesClase
+            // 
+            this.btnReportesClase.Location = new System.Drawing.Point(276, 152);
+            this.btnReportesClase.Name = "btnReportesClase";
+            this.btnReportesClase.Size = new System.Drawing.Size(259, 55);
+            this.btnReportesClase.TabIndex = 1;
+            this.btnReportesClase.Text = "Ver reportes de clases";
+            this.btnReportesClase.UseVisualStyleBackColor = true;
+            this.btnReportesClase.Click += new System.EventHandler(this.btnReportesClase_Click);
+            // 
+            // btnGanaciasMaquinas
+            // 
+            this.btnGanaciasMaquinas.Location = new System.Drawing.Point(276, 228);
+            this.btnGanaciasMaquinas.Name = "btnGanaciasMaquinas";
+            this.btnGanaciasMaquinas.Size = new System.Drawing.Size(259, 47);
+            this.btnGanaciasMaquinas.TabIndex = 2;
+            this.btnGanaciasMaquinas.Text = "Ganacias por maquinas";
+            this.btnGanaciasMaquinas.UseVisualStyleBackColor = true;
             // 
             // formEntrenador
             // 
@@ -46,6 +68,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnGanaciasMaquinas);
+            this.Controls.Add(this.btnReportesClase);
             this.Controls.Add(this.button1);
             this.Name = "formEntrenador";
             this.Text = "Form2";
@@ -56,5 +80,7 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnReportesClase;
+        private System.Windows.Forms.Button btnGanaciasMaquinas;
     }
 }

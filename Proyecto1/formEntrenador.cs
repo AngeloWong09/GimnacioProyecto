@@ -16,5 +16,29 @@ namespace Proyecto1
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Crear una instancia del formulario formInicioSesion
+            formInicioSesion inicioSesionForm = new formInicioSesion();
+
+            // Mostrar el formulario formInicioSesion
+            inicioSesionForm.Show();
+
+            // Cerrar el formulario actual
+            this.Close();
+        }
+
+        private void btnReportesClase_Click(object sender, EventArgs e)
+        {
+            // Crear una instancia del formulario formReporteClases
+            formReporteClases reporteClasesForm = new formReporteClases();
+
+            // Mostrar el formulario formReporteClases
+            reporteClasesForm.Show();
+
+            // Cerrar el formulario actual
+            this.Close();
+        }
     }
 }
