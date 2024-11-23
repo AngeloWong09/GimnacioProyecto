@@ -300,6 +300,16 @@ namespace Proyecto1
             // Cerrar el formulario actual
             this.Close();
         }
+
+        private void formUsuario_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVerReservasYPago_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
 
     
