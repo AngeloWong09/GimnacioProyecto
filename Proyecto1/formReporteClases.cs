@@ -190,6 +190,113 @@ namespace Proyecto1
         {
 
         }
+
+        private void btnGaradarReporte_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verifica si hay datos en el ListBox
+                if (listbReporteClase.Items.Count == 0)
+                {
+                    MessageBox.Show("No hay datos para guardar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Definir la ruta para guardar el archivo dentro de la subcarpeta "reportes"
+                string rutaDirectorio = Path.Combine(Application.StartupPath, "reportes");
+                string rutaArchivo = Path.Combine(rutaDirectorio, "ReporteClases.txt");
+
+                // Crear el directorio si no existe
+                if (!Directory.Exists(rutaDirectorio))
+                {
+                    Directory.CreateDirectory(rutaDirectorio);
+                }
+
+                // Escribir los datos del ListBox en el archivo TXT
+                using (StreamWriter sw = new StreamWriter(rutaArchivo))
+                {
+                    foreach (var item in listbReporteClase.Items)
+                    {
+                        sw.WriteLine(item.ToString());
+                    }
+                }
+
+                MessageBox.Show("Reporte guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al guardar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnMostrarTodo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el ID del entrenador desde el campo txtIdEntrenador
+                string idEntrenador = txtIdEntrenador.Text.Trim();
+
+                if (string.IsNullOrEmpty(idEntrenador))
+                {
+                    MessageBox.Show("Por favor, ingrese el ID del entrenador.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Limpiar el ListBox para mostrar los nuevos resultados
+                listbReporteClase.Items.Clear();
+
+                // Verificar si los archivos existen
+                if (!File.Exists(rutaClases))
+                {
+                    MessageBox.Show("El archivo Clases.csv no se encontró en la carpeta Assets.", "Error");
+                    return;
+                }
+
+                if (!File.Exists(rutaBasedatosClase))
+                {
+                    MessageBox.Show("El archivo BasedatosClase.csv no se encontró en la carpeta Assets.", "Error");
+                    return;
+                }
+
+                // Leer las líneas de Clases.csv
+                var clases = File.ReadAllLines(rutaClases);
+
+                // Leer las líneas de BasedatosClase.csv
+                var reservas = File.ReadAllLines(rutaBasedatosClase);
+
+                // Filtrar las clases asociadas con el ID del entrenador
+                var clasesFiltradas = clases
+                    .Where(line => line.Split(';').Length >= 6 && line.Split(';')[2].Trim() == idEntrenador)
+                    .Select(line => new
+                    {
+                        ClaseId = line.Split(';')[1].Trim(),  // ID de la clase (columna 2)
+                        NombreClase = line.Split(';')[3].Trim(), // Nombre de la clase (columna 4)
+                        Horario = line.Split(';')[5].Trim() // Horario de la clase (columna 6)
+                    })
+                    .ToList();
+
+                if (clasesFiltradas.Count > 0)
+                {
+                    // Iterar sobre las clases filtradas y obtener el número de inscritos
+                    foreach (var clase in clasesFiltradas)
+                    {
+                        int inscritos = reservas
+                            .Count(line => line.Split(';').Length >= 5 && line.Split(';')[4].Trim() == clase.ClaseId);
+
+                        // Agregar al ListBox los detalles de la clase
+                        listbReporteClase.Items.Add($"Clase: {clase.NombreClase}, Horario: {clase.Horario}, Inscritos: {inscritos}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No se encontraron clases para el entrenador proporcionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al mostrar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
     }
 

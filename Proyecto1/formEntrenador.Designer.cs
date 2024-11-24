@@ -61,6 +61,7 @@
             this.btnGanaciasMaquinas.TabIndex = 2;
             this.btnGanaciasMaquinas.Text = "Ganacias por maquinas";
             this.btnGanaciasMaquinas.UseVisualStyleBackColor = true;
+            this.btnGanaciasMaquinas.Click += new System.EventHandler(this.btnGanaciasMaquinas_Click);
             // 
             // formEntrenador
             // 

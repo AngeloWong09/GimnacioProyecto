@@ -34,6 +34,8 @@
             this.btnFiltrarHorario = new System.Windows.Forms.Button();
             this.txtIdEntrenador = new System.Windows.Forms.TextBox();
             this.btnBuscarEntrenador = new System.Windows.Forms.Button();
+            this.btnGaradarReporte = new System.Windows.Forms.Button();
+            this.btnMostrarTodo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -93,12 +95,34 @@
             this.btnBuscarEntrenador.UseVisualStyleBackColor = true;
             this.btnBuscarEntrenador.Click += new System.EventHandler(this.btnBuscarEntrenador_Click);
             // 
+            // btnGaradarReporte
+            // 
+            this.btnGaradarReporte.Location = new System.Drawing.Point(495, 338);
+            this.btnGaradarReporte.Name = "btnGaradarReporte";
+            this.btnGaradarReporte.Size = new System.Drawing.Size(131, 23);
+            this.btnGaradarReporte.TabIndex = 6;
+            this.btnGaradarReporte.Text = "Guardar reporte";
+            this.btnGaradarReporte.UseVisualStyleBackColor = true;
+            this.btnGaradarReporte.Click += new System.EventHandler(this.btnGaradarReporte_Click);
+            // 
+            // btnMostrarTodo
+            // 
+            this.btnMostrarTodo.Location = new System.Drawing.Point(276, 338);
+            this.btnMostrarTodo.Name = "btnMostrarTodo";
+            this.btnMostrarTodo.Size = new System.Drawing.Size(128, 23);
+            this.btnMostrarTodo.TabIndex = 7;
+            this.btnMostrarTodo.Text = "Mostrar Todo";
+            this.btnMostrarTodo.UseVisualStyleBackColor = true;
+            this.btnMostrarTodo.Click += new System.EventHandler(this.btnMostrarTodo_Click);
+            // 
             // formReporteClases
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnMostrarTodo);
+            this.Controls.Add(this.btnGaradarReporte);
             this.Controls.Add(this.btnBuscarEntrenador);
             this.Controls.Add(this.txtIdEntrenador);
             this.Controls.Add(this.btnFiltrarHorario);
@@ -120,5 +144,7 @@
         private System.Windows.Forms.Button btnFiltrarHorario;
         private System.Windows.Forms.TextBox txtIdEntrenador;
         private System.Windows.Forms.Button btnBuscarEntrenador;
+        private System.Windows.Forms.Button btnGaradarReporte;
+        private System.Windows.Forms.Button btnMostrarTodo;
     }
 }

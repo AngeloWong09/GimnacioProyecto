@@ -141,6 +141,12 @@
     <Compile Include="formCambiarPuntoFuerte.Designer.cs">
       <DependentUpon>formCambiarPuntoFuerte.cs</DependentUpon>
     </Compile>
+    <Compile Include="formGananciaMaquina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formGananciaMaquina.Designer.cs">
+      <DependentUpon>formGananciaMaquina.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMaquina.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formEntrenador.resx">
       <DependentUpon>formEntrenador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formGananciaMaquina.resx">
+      <DependentUpon>formGananciaMaquina.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formInicioSesion.resx">
       <DependentUpon>formInicioSesion.cs</DependentUpon>

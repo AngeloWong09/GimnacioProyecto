@@ -59,4 +59,6 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Pro
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.PagoMembresiaForm.resources
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formReporteClases.resources
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.FormMaquina.resources
-C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formReservasPagos.resources
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\bin\Debug\Assets\Pagos.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formPagos.resources
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\Proyecto1\obj\Debug\Proyecto1.formGananciaMaquina.resources

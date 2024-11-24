@@ -40,5 +40,17 @@ namespace Proyecto1
             // Cerrar el formulario actual
             this.Close();
         }
+
+        private void btnGanaciasMaquinas_Click(object sender, EventArgs e)
+        {
+            // Crea una instancia del formulario formGananciaMaquina
+            var formularioGananciaMaquina = new formGananciaMaquina();
+
+            // Cierra el formulario actual (el que contiene este botón)
+            this.Close();
+
+            // Muestra el formulario como modal
+            formularioGananciaMaquina.ShowDialog();
+        }
     }
 }

@@ -1,0 +1,8 @@
+Clase: Zumba, Horario: 8:00:00 a.m, Inscritos: 1
+Clase: Zumba, Horario: 01:00:00 p. m., Inscritos: 1
+Clase: Zumba, Horario: 01:00:00 p. m., Inscritos: 1
+Clase: Zumba, Horario: 10:00:00 a. m., Inscritos: 0
+Clase: Zumba, Horario: 8:00:00 a.m, Inscritos: 7
+Clase: Zumba, Horario: 8:00:00 a.m, Inscritos: 3
+Clase: Zumba, Horario: 8:00:00 a.m, Inscritos: 2
+Clase: Zumba, Horario: 8:00:00 a.m, Inscritos: 1

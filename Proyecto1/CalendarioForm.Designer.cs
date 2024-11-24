@@ -79,6 +79,7 @@
             this.btnVolveraMenu.TabIndex = 25;
             this.btnVolveraMenu.Text = "< Volver al Menú";
             this.btnVolveraMenu.UseVisualStyleBackColor = true;
+            this.btnVolveraMenu.Click += new System.EventHandler(this.btnVolveraMenu_Click);
             // 
             // CalendarioForm
             // 
