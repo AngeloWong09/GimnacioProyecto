@@ -306,13 +306,13 @@ namespace Proyecto1
        
         }
 
-       
 
-        private void btnVerReservasYPago_Click_1(object sender, EventArgs e)
+
+        private void btnVerPagos_Click(object sender, EventArgs e)
         {
-            int idUsuario = int.Parse(txtUsuarioId.Text);
-            var formReservasPagos = new formReservasPagos(idUsuario);
-            formReservasPagos.Show();
+            int idUsuario = int.Parse(txtUsuarioId.Text.Trim());
+            formPagos pagosForm = new formPagos(idUsuario);
+            pagosForm.ShowDialog();
         }
     }
 }

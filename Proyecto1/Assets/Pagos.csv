@@ -1,4 +1,4 @@
-﻿UsuarioId;MesPagado;ReservaId
-1;Enero;123
-1;Febrero;124
-2;Enero;
+﻿UsuarioId;MesPago;Monto
+1;Enero 2024;20000
+1;Febrero 2024;20000
+2;Enero 2024;20000

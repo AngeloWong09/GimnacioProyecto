@@ -115,7 +115,7 @@
     <Compile Include="Controlador\controladorAdministrador.cs" />
     <Compile Include="Controlador\controladorEntrenador.cs" />
     <Compile Include="Controlador\controladorMaquina.cs" />
-    <Compile Include="Controlador\controladorReservaPago.cs" />
+    <Compile Include="Controlador\controladorPagos.cs" />
     <Compile Include="Controlador\controladorUsuario.cs" />
     <Compile Include="formAdministrador.cs">
       <SubType>Form</SubType>
@@ -147,17 +147,17 @@
     <Compile Include="FormMaquina.Designer.cs">
       <DependentUpon>FormMaquina.cs</DependentUpon>
     </Compile>
+    <Compile Include="formPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formPagos.Designer.cs">
+      <DependentUpon>formPagos.cs</DependentUpon>
+    </Compile>
     <Compile Include="formReporteClases.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formReporteClases.Designer.cs">
       <DependentUpon>formReporteClases.cs</DependentUpon>
-    </Compile>
-    <Compile Include="formReservasPagos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formReservasPagos.Designer.cs">
-      <DependentUpon>formReservasPagos.cs</DependentUpon>
     </Compile>
     <Compile Include="formUsuario.cs">
       <SubType>Form</SubType>
@@ -182,7 +182,7 @@
     <Compile Include="Modelo\controladorMaquina.cs" />
     <Compile Include="Modelo\entrenadorModelo.cs" />
     <Compile Include="Modelo\maquinaModelo.cs" />
-    <Compile Include="Modelo\ReservaPagoModelo.cs" />
+    <Compile Include="Modelo\pagoModelo.cs" />
     <Compile Include="Modelo\usuarioModelo.cs" />
     <Compile Include="PagoMembresiaForm.cs">
       <SubType>Form</SubType>
@@ -216,11 +216,11 @@
     <EmbeddedResource Include="FormMaquina.resx">
       <DependentUpon>FormMaquina.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formPagos.resx">
+      <DependentUpon>formPagos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formReporteClases.resx">
       <DependentUpon>formReporteClases.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formReservasPagos.resx">
-      <DependentUpon>formReservasPagos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formUsuario.resx">
       <DependentUpon>formUsuario.cs</DependentUpon>
