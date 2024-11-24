@@ -27,7 +27,7 @@ namespace Proyecto1.Controlador
         {
             Maquinas = new List<MaquinaModelo>
             {
-                new MaquinaModelo("Peck Deck 1", new DateTime(2023, 1, 15), 24),
+                new MaquinaModelo("Peck Deck", new DateTime(2023, 1, 15), 24),
                 new MaquinaModelo("Banca 1", new DateTime(2023, 3, 20), 18),
                 new MaquinaModelo("Banca 2", new DateTime(2022, 11, 5), 36),
                 new MaquinaModelo("Press de Pecho", new DateTime(2023, 5, 10), 12),

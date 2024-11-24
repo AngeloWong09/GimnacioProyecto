@@ -250,6 +250,7 @@
     <None Include="Assets\Entrenadores.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Assets\Maquinas.csv" />
     <None Include="Assets\Pagos.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
