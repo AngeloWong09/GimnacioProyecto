@@ -41,11 +41,11 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtIDClase = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtEntrenadorDesignado = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtNumeroClase = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnVolveraMenu
@@ -61,7 +61,7 @@
             // comboBoxNuevoDia
             // 
             this.comboBoxNuevoDia.FormattingEnabled = true;
-            this.comboBoxNuevoDia.Location = new System.Drawing.Point(572, 224);
+            this.comboBoxNuevoDia.Location = new System.Drawing.Point(571, 246);
             this.comboBoxNuevoDia.Name = "comboBoxNuevoDia";
             this.comboBoxNuevoDia.Size = new System.Drawing.Size(188, 24);
             this.comboBoxNuevoDia.TabIndex = 30;
@@ -69,7 +69,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(569, 196);
+            this.label9.Location = new System.Drawing.Point(568, 218);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(69, 16);
             this.label9.TabIndex = 29;
@@ -77,7 +77,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(439, 348);
+            this.button2.Location = new System.Drawing.Point(438, 370);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(188, 23);
             this.button2.TabIndex = 28;
@@ -88,16 +88,15 @@
             // comboBoxNuevaHora
             // 
             this.comboBoxNuevaHora.FormattingEnabled = true;
-            this.comboBoxNuevaHora.Location = new System.Drawing.Point(572, 292);
+            this.comboBoxNuevaHora.Location = new System.Drawing.Point(571, 314);
             this.comboBoxNuevaHora.Name = "comboBoxNuevaHora";
             this.comboBoxNuevaHora.Size = new System.Drawing.Size(188, 24);
             this.comboBoxNuevaHora.TabIndex = 27;
-            this.comboBoxNuevaHora.SelectedIndexChanged += new System.EventHandler(this.comboBoxNuevaHora_SelectedIndexChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(569, 264);
+            this.label8.Location = new System.Drawing.Point(568, 286);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(80, 16);
             this.label8.TabIndex = 26;
@@ -105,7 +104,7 @@
             // 
             // txtDiaActual
             // 
-            this.txtDiaActual.Location = new System.Drawing.Point(313, 224);
+            this.txtDiaActual.Location = new System.Drawing.Point(312, 246);
             this.txtDiaActual.Name = "txtDiaActual";
             this.txtDiaActual.Size = new System.Drawing.Size(188, 22);
             this.txtDiaActual.TabIndex = 25;
@@ -113,7 +112,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(310, 196);
+            this.label7.Location = new System.Drawing.Point(309, 218);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 16);
             this.label7.TabIndex = 24;
@@ -121,7 +120,7 @@
             // 
             // txtHoraActual
             // 
-            this.txtHoraActual.Location = new System.Drawing.Point(313, 298);
+            this.txtHoraActual.Location = new System.Drawing.Point(312, 320);
             this.txtHoraActual.Name = "txtHoraActual";
             this.txtHoraActual.Size = new System.Drawing.Size(188, 22);
             this.txtHoraActual.TabIndex = 32;
@@ -129,7 +128,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(310, 270);
+            this.label1.Location = new System.Drawing.Point(309, 292);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 16);
             this.label1.TabIndex = 31;
@@ -137,7 +136,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(342, 125);
+            this.btnBuscar.Location = new System.Drawing.Point(341, 147);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 36;
@@ -147,7 +146,7 @@
             // 
             // txtIDClase
             // 
-            this.txtIDClase.Location = new System.Drawing.Point(313, 97);
+            this.txtIDClase.Location = new System.Drawing.Point(312, 119);
             this.txtIDClase.Name = "txtIDClase";
             this.txtIDClase.Size = new System.Drawing.Size(155, 22);
             this.txtIDClase.TabIndex = 35;
@@ -155,24 +154,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(310, 69);
+            this.label2.Location = new System.Drawing.Point(309, 91);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(154, 16);
             this.label2.TabIndex = 34;
             this.label2.Text = "Escribe la ID de la Clase";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(339, 28);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 16);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "Cambio de horario";
-            // 
             // txtEntrenadorDesignado
             // 
-            this.txtEntrenadorDesignado.Location = new System.Drawing.Point(52, 298);
+            this.txtEntrenadorDesignado.Location = new System.Drawing.Point(51, 320);
             this.txtEntrenadorDesignado.Name = "txtEntrenadorDesignado";
             this.txtEntrenadorDesignado.Size = new System.Drawing.Size(188, 22);
             this.txtEntrenadorDesignado.TabIndex = 38;
@@ -180,7 +170,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(49, 270);
+            this.label4.Location = new System.Drawing.Point(48, 292);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(141, 16);
             this.label4.TabIndex = 37;
@@ -188,7 +178,7 @@
             // 
             // txtNumeroClase
             // 
-            this.txtNumeroClase.Location = new System.Drawing.Point(52, 224);
+            this.txtNumeroClase.Location = new System.Drawing.Point(51, 246);
             this.txtNumeroClase.Name = "txtNumeroClase";
             this.txtNumeroClase.Size = new System.Drawing.Size(188, 22);
             this.txtNumeroClase.TabIndex = 40;
@@ -196,18 +186,30 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(49, 196);
+            this.label5.Location = new System.Drawing.Point(48, 218);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 16);
             this.label5.TabIndex = 39;
             this.label5.Text = "Punto fuerte";
             // 
-            // FormCambiarHorario
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(254, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(287, 32);
+            this.label3.TabIndex = 41;
+            this.label3.Text = "Gimnacio FastForce";
+            // 
+            // formCambiarHorario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtNumeroClase);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtEntrenadorDesignado);
@@ -215,7 +217,6 @@
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtIDClase);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtHoraActual);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxNuevoDia);
@@ -226,7 +227,7 @@
             this.Controls.Add(this.txtDiaActual);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnVolveraMenu);
-            this.Name = "FormCambiarHorario";
+            this.Name = "formCambiarHorario";
             this.Text = "FormCambiarHorario";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -248,10 +249,10 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtIDClase;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtEntrenadorDesignado;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtNumeroClase;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
     }
 }

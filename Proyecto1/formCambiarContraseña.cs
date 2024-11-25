@@ -1,4 +1,4 @@
-﻿using ClosedXML.Excel;
+﻿ using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing.Spreadsheet;
 using System;
 using System.Collections.Generic;
@@ -25,20 +25,23 @@ namespace Proyecto1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Maneja el evento de clic en el botón de búsqueda, buscando un usuario, entrenador o administrador por su ID.
+        /// </summary>
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
             {
                 string idBuscado = txtIDUsuario.Text;
 
-                // Buscar en Usuarios.csv
-                if (!BuscarYMostrarDatosUsuarios(rutaUsuarios, idBuscado))
+                // Buscar en el archivo de usuarios
+                if (!BuscarYMostrarDatos(rutaUsuarios, idBuscado, 6))
                 {
-                    // Buscar en Entrenadores.csv
-                    if (!BuscarYMostrarDatosEntrenadores(rutaEntrenadores, idBuscado))
+                    // Buscar en el archivo de entrenadores
+                    if (!BuscarYMostrarDatos(rutaEntrenadores, idBuscado, 4))
                     {
-                        // Buscar en Administradores.csv
-                        if (!BuscarYMostrarDatosAdministradores(rutaAdministradores, idBuscado))
+                        // Buscar en el archivo de administradores
+                        if (!BuscarYMostrarDatos(rutaAdministradores, idBuscado, 4))
                         {
                             MessageBox.Show("ID no encontrado en ninguno de los archivos.", "Error");
                         }
@@ -51,7 +54,11 @@ namespace Proyecto1
             }
         }
 
-        private bool BuscarYMostrarDatosUsuarios(string rutaArchivo, string idBuscado)
+        /// <summary>
+        /// Realiza la búsqueda de un ID en el archivo especificado y muestra los datos del usuario si se encuentra.
+        /// </summary>
+        /// <returns>True si se encontró el ID y se mostraron los datos, False en caso contrario.</returns>
+        private bool BuscarYMostrarDatos(string rutaArchivo, string idBuscado, int columnaID)
         {
             try
             {
@@ -60,7 +67,7 @@ namespace Proyecto1
                 foreach (var line in lines.Skip(1)) // Ignorar la primera línea (encabezado)
                 {
                     var valores = line.Split(';');
-                    string id = valores[6].Trim();  // La columna ID está en la posición 6
+                    string id = valores[columnaID].Trim();
 
                     if (id == idBuscado)
                     {
@@ -72,7 +79,7 @@ namespace Proyecto1
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al buscar datos de Usuarios: {ex.Message}", "Error");
+                MessageBox.Show($"Error al buscar datos en {Path.GetFileName(rutaArchivo)}: {ex.Message}", "Error");
             }
             return false;
         }
@@ -129,28 +136,30 @@ namespace Proyecto1
             return false;
         }
 
+
+        /// <summary>
+        /// Actualiza la contraseña de un usuario en el archivo especificado.
+        /// </summary>
         private bool ActualizarContraseña(string rutaArchivo, string idBuscado, string nuevaContraseña, int columnaID)
         {
             try
             {
-                // Leer todas las líneas del archivo
                 var lines = File.ReadAllLines(rutaArchivo).ToList();
                 bool actualizado = false;
 
                 for (int i = 1; i < lines.Count; i++) // Ignorar la primera línea (encabezado)
                 {
-                    var valores = lines[i].Split(';'); // Dividir la línea en columnas
+                    var valores = lines[i].Split(';');
                     if (valores.Length > columnaID) // Validar que exista la columna ID
                     {
-                        string id = valores[columnaID].Trim(); // Obtener el ID actual
+                        string id = valores[columnaID].Trim();
 
                         if (id == idBuscado)
                         {
-                            // Actualizar la columna de contraseña
-                            valores[1] = nuevaContraseña; // La contraseña siempre está en la columna 1
+                            valores[1] = nuevaContraseña; // Actualizar la contraseña en la columna 1
                             lines[i] = string.Join(";", valores); // Reconstruir la línea actualizada
                             actualizado = true;
-                            break; // Salir del bucle después de actualizar
+                            break;
                         }
                     }
                 }
@@ -175,6 +184,9 @@ namespace Proyecto1
             }
         }
 
+        /// <summary>
+        /// Verifica si el id es válido y actualizando la contraseña en los archivos.
+        /// </summary>
         private void btnNuevaContraseña_Click_1(object sender, EventArgs e)
         {
             try
@@ -189,15 +201,15 @@ namespace Proyecto1
                 }
 
                 // Intentar actualizar en cada archivo
-                if (ActualizarContraseña(rutaUsuarios, idBuscado, nuevaContraseña, 6)) // ID en columna 6 para Usuarios
+                if (ActualizarContraseña(rutaUsuarios, idBuscado, nuevaContraseña, 6))
                 {
                     MessageBox.Show("Contraseña actualizada exitosamente en Usuarios.", "Éxito");
                 }
-                else if (ActualizarContraseña(rutaEntrenadores, idBuscado, nuevaContraseña, 4)) // ID en columna 4 para Entrenadores
+                else if (ActualizarContraseña(rutaEntrenadores, idBuscado, nuevaContraseña, 4))
                 {
                     MessageBox.Show("Contraseña actualizada exitosamente en Entrenadores.", "Éxito");
                 }
-                else if (ActualizarContraseña(rutaAdministradores, idBuscado, nuevaContraseña, 4)) // ID en columna 4 para Administradores
+                else if (ActualizarContraseña(rutaAdministradores, idBuscado, nuevaContraseña, 4))
                 {
                     MessageBox.Show("Contraseña actualizada exitosamente en Administradores.", "Éxito");
                 }
@@ -212,12 +224,14 @@ namespace Proyecto1
             }
         }
 
+        /// <summary>
+        /// Botón para volver al menú principal del administrador.
+        /// </summary>
         private void btnVolveraMenu_Click(object sender, EventArgs e)
         {
             formAdministrador formularioAdministrador = new formAdministrador();
             formularioAdministrador.Show();
 
-            // Cerrar el formulario actual
             this.Close();
         }
     }

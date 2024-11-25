@@ -31,6 +31,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnReportesClase = new System.Windows.Forms.Button();
             this.btnGanaciasMaquinas = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -63,18 +64,31 @@
             this.btnGanaciasMaquinas.UseVisualStyleBackColor = true;
             this.btnGanaciasMaquinas.Click += new System.EventHandler(this.btnGanaciasMaquinas_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(248, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(287, 32);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Gimnacio FastForce";
+            // 
             // formEntrenador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGanaciasMaquinas);
             this.Controls.Add(this.btnReportesClase);
             this.Controls.Add(this.button1);
             this.Name = "formEntrenador";
             this.Text = "Form2";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -83,5 +97,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnReportesClase;
         private System.Windows.Forms.Button btnGanaciasMaquinas;
+        private System.Windows.Forms.Label label1;
     }
 }

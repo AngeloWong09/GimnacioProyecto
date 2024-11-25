@@ -1,12 +1,9 @@
 ﻿using System;
-
 using System.Data;
-
 using System.Linq;
-
 using System.Windows.Forms;
-
 using System.IO;
+using System.Collections.Generic;
 
 
 namespace Proyecto1
@@ -24,18 +21,19 @@ namespace Proyecto1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Navega al formulario formEntrenador.
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            // Crear una instancia del formulario formEntrenador
             formEntrenador entrenadorForm = new formEntrenador();
-
-            // Mostrar el formulario formEntrenador
             entrenadorForm.Show();
-
-            // Cerrar el formulario actual
             this.Close();
         }
 
+        /// <summary>
+        /// Filtra las clases asociadas a un entrenador y muestra la cantidad de inscritos.
+        /// </summary>
         private void btnFiltrarClase_Click(object sender, EventArgs e)
         {
             try
@@ -98,56 +96,47 @@ namespace Proyecto1
 
         }
 
-
+        /// <summary>
+        /// Filtra los horarios de las clases de un entrenador.
+        /// </summary>
         private void btnFiltrarHorario_Click(object sender, EventArgs e)
         {
             try
             {
-                // Obtener el ID del entrenador desde el campo txtIdEntrenador
                 string idEntrenador = txtIdEntrenador.Text.Trim();
 
                 if (string.IsNullOrEmpty(idEntrenador))
                 {
-                    MessageBox.Show("Por favor, busque y seleccione un entrenador antes de filtrar los horarios.", "Advertencia");
+                    MostrarMensaje("Por favor, busque y seleccione un entrenador antes de filtrar los horarios.", "Advertencia");
                     return;
                 }
 
-                // Limpiar el ListBox para los resultados actuales
                 listbReporteClase.Items.Clear();
 
-                // Leer las líneas del archivo Clase.csv
-                var clases = File.ReadAllLines(rutaClases);
+                var horariosFiltrados = FiltrarClasesPorEntrenador(idEntrenador)
+                    .Select(c => new { c.NombreClase, c.Horario });
 
-                // Filtrar las clases que coinciden con la ID del entrenador
-                var horariosFiltrados = clases
-                    .Where(line => line.Split(';').Length >= 6 && line.Split(';')[2].Trim() == idEntrenador)
-                    .Select(line => new
-                    {
-                        Clase = line.Split(';')[3].Trim(),
-                        Horario = line.Split(';')[5].Trim()
-                    })
-                    .ToList();
-
-                if (horariosFiltrados.Count > 0)
+                if (!horariosFiltrados.Any())
                 {
-                    // Agregar los horarios al ListBox
-                    foreach (var horario in horariosFiltrados)
-                    {
-                        listbReporteClase.Items.Add($"Clase: {horario.Clase}, Horario: {horario.Horario}");
-                    }
+                    MostrarMensaje("No se encontraron horarios para este entrenador.", "Sin resultados");
+                    return;
                 }
-                else
+
+                foreach (var horario in horariosFiltrados)
                 {
-                    MessageBox.Show("No se encontraron horarios para este entrenador.", "Sin resultados");
+                    listbReporteClase.Items.Add($"Clase: {horario.NombreClase}, Horario: {horario.Horario}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al filtrar los horarios: {ex.Message}", "Error");
+                MostrarMensaje($"Error al filtrar los horarios: {ex.Message}", "Error");
             }
         }
 
 
+        /// <summary>
+        /// Busca el ID de un entrenador por su nombre.
+        /// </summary>
         private void btnBuscarEntrenador_Click(object sender, EventArgs e)
         {
             try
@@ -186,11 +175,9 @@ namespace Proyecto1
             }
         }
 
-        private void txtNombreEntrenador_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Guarda los datos del ListBox en un archivo de texto.
+        /// </summary>
         private void btnGaradarReporte_Click(object sender, EventArgs e)
         {
             try
@@ -229,74 +216,78 @@ namespace Proyecto1
             }
         }
 
+        /// <summary>
+        /// Muestra todas las clases asociadas a un entrenador.
+        /// </summary>
         private void btnMostrarTodo_Click(object sender, EventArgs e)
         {
             try
             {
-                // Obtener el ID del entrenador desde el campo txtIdEntrenador
                 string idEntrenador = txtIdEntrenador.Text.Trim();
 
                 if (string.IsNullOrEmpty(idEntrenador))
                 {
-                    MessageBox.Show("Por favor, ingrese el ID del entrenador.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MostrarMensaje("Por favor, ingrese el ID del entrenador.", "Advertencia");
                     return;
                 }
 
-                // Limpiar el ListBox para mostrar los nuevos resultados
                 listbReporteClase.Items.Clear();
 
-                // Verificar si los archivos existen
-                if (!File.Exists(rutaClases))
+                var clasesFiltradas = FiltrarClasesPorEntrenador(idEntrenador);
+                var reservas = File.Exists(rutaBasedatosClase) ? File.ReadAllLines(rutaBasedatosClase) : Array.Empty<string>();
+
+                foreach (var clase in clasesFiltradas)
                 {
-                    MessageBox.Show("El archivo Clases.csv no se encontró en la carpeta Assets.", "Error");
-                    return;
-                }
-
-                if (!File.Exists(rutaBasedatosClase))
-                {
-                    MessageBox.Show("El archivo BasedatosClase.csv no se encontró en la carpeta Assets.", "Error");
-                    return;
-                }
-
-                // Leer las líneas de Clases.csv
-                var clases = File.ReadAllLines(rutaClases);
-
-                // Leer las líneas de BasedatosClase.csv
-                var reservas = File.ReadAllLines(rutaBasedatosClase);
-
-                // Filtrar las clases asociadas con el ID del entrenador
-                var clasesFiltradas = clases
-                    .Where(line => line.Split(';').Length >= 6 && line.Split(';')[2].Trim() == idEntrenador)
-                    .Select(line => new
-                    {
-                        ClaseId = line.Split(';')[1].Trim(),  // ID de la clase (columna 2)
-                        NombreClase = line.Split(';')[3].Trim(), // Nombre de la clase (columna 4)
-                        Horario = line.Split(';')[5].Trim() // Horario de la clase (columna 6)
-                    })
-                    .ToList();
-
-                if (clasesFiltradas.Count > 0)
-                {
-                    // Iterar sobre las clases filtradas y obtener el número de inscritos
-                    foreach (var clase in clasesFiltradas)
-                    {
-                        int inscritos = reservas
-                            .Count(line => line.Split(';').Length >= 5 && line.Split(';')[4].Trim() == clase.ClaseId);
-
-                        // Agregar al ListBox los detalles de la clase
-                        listbReporteClase.Items.Add($"Clase: {clase.NombreClase}, Horario: {clase.Horario}, Inscritos: {inscritos}");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No se encontraron clases para el entrenador proporcionado.", "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int inscritos = reservas.Count(line => line.Split(';').Length >= 5 && line.Split(';')[4].Trim() == clase.ClaseId);
+                    listbReporteClase.Items.Add($"Clase: {clase.NombreClase}, Horario: {clase.Horario}, Inscritos: {inscritos}");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error al mostrar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MostrarMensaje($"Ocurrió un error al mostrar los datos: {ex.Message}", "Error");
             }
         }
+
+        /// <summary>
+        /// Filtra las clases por el ID del entrenador.
+        /// </summary>
+        private IEnumerable<(string ClaseId, string NombreClase, string Horario)> FiltrarClasesPorEntrenador(string idEntrenador)
+        {
+            if (!File.Exists(rutaClases))
+                return Enumerable.Empty<(string, string, string)>();
+
+            return File.ReadAllLines(rutaClases)
+                .Where(line => line.Split(';').Length >= 6 && line.Split(';')[2].Trim() == idEntrenador)
+                .Select(line => (
+                    ClaseId: line.Split(';')[1].Trim(),
+                    NombreClase: line.Split(';')[3].Trim(),
+                    Horario: line.Split(';')[5].Trim()));
+        }
+
+        /// <summary>
+        /// Busca un entrenador por su nombre y devuelve su ID.
+        /// </summary>
+        private string BuscarEntrenadorPorNombre(string nombreEntrenador)
+        {
+            if (!File.Exists(rutaEntrenadores))
+                return null;
+
+            return File.ReadAllLines(rutaEntrenadores)
+                .Skip(1)
+                .Select(line => line.Split(';'))
+                .FirstOrDefault(columns => columns.Length >= 5 && columns[2].Trim().Equals(nombreEntrenador, StringComparison.OrdinalIgnoreCase))?[4].Trim();
+        }
+
+        /// <summary>
+        /// Muestra un mensaje al usuario.
+        /// </summary>
+        private void MostrarMensaje(string mensaje, string titulo)
+        {
+            MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
-    }
+}
+    
+
+
 

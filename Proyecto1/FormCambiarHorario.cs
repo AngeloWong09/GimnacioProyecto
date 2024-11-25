@@ -1,5 +1,4 @@
-﻿using ClosedXML.Excel;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -36,12 +35,14 @@ namespace Proyecto1
             });
         }
 
+        /// <summary>
+        /// Evento para buscar los datos de la clase al hacer clic en el botón.
+        /// </summary>
         private void btnBuscar_Click_1(object sender, EventArgs e)
         {
             try
             {
-                string idClase = txtIDClase.Text; // Leer la ID ingresada
-
+                string idClase = txtIDClase.Text;
                 if (!BuscarDatosClase(rutaClases, idClase))
                 {
                     MessageBox.Show("No se encontró la clase con el ID especificado.", "Error");
@@ -53,25 +54,30 @@ namespace Proyecto1
             }
         }
 
+        /// <summary>
+        /// Busca los datos de una clase en el archivo CSV de clases.
+        /// </summary>
+        /// <param name="rutaArchivo">Ruta del archivo CSV</param>
+        /// <param name="idClase">ID de la clase a buscar</param>
+        /// <returns>True si la clase se encuentra, de lo contrario False.</returns>
         private bool BuscarDatosClase(string rutaArchivo, string idClase)
         {
             try
             {
                 var lines = File.ReadAllLines(rutaArchivo);
-
                 foreach (var line in lines.Skip(1)) // Ignorar la primera línea (encabezado)
                 {
                     var valores = line.Split(';');
-                    string id = valores[1].Trim();  // La columna ID está en la posición 1 (Ajustado para CSV)
+                    string id = valores[1].Trim();  // La columna ID está en la posición 1
 
                     if (id == idClase)
                     {
-                        txtNumeroClase.Text = valores[3];       // Nombre de la clase (Columna 3)
-                        txtDiaActual.Text = valores[4];         // Fecha actual (Columna 4)
-                        txtHoraActual.Text = valores[5];        // Hora actual (Columna 5)
+                        txtNumeroClase.Text = valores[3];      // Número de la clase
+                        txtDiaActual.Text = valores[4];        // Día actual
+                        txtHoraActual.Text = valores[5];       // Hora actual
 
-                        // Buscar el entrenador en Entrenadores.csv
-                        string idEntrenador = valores[2];     // ID Entrenador (Columna 2)
+                        // Buscar y mostrar el entrenador asignado
+                        string idEntrenador = valores[2];      // ID del entrenador
                         MostrarEntrenador(rutaEntrenadores, idEntrenador);
 
                         return true;
@@ -85,34 +91,38 @@ namespace Proyecto1
             return false;
         }
 
+        /// <summary>
+        /// Muestra los datos del entrenador asignado a la clase.
+        /// </summary>
         private void MostrarEntrenador(string rutaArchivo, string idEntrenador)
         {
             try
             {
                 var lines = File.ReadAllLines(rutaArchivo);
-
                 foreach (var line in lines.Skip(1)) // Ignorar la primera línea (encabezado)
                 {
                     var valores = line.Split(';');
-                    string id = valores[4].Trim();  // La columna ID está en la posición 4 (Ajustado para CSV)
+                    string id = valores[4].Trim(); // La columna ID está en la posición 4
 
                     if (id == idEntrenador)
                     {
-                        txtEntrenadorDesignado.Text = valores[0]; // Nombre del entrenador (Columna 0)
+                        txtEntrenadorDesignado.Text = valores[0]; // Nombre del entrenador
                         return;
                     }
                 }
 
-                txtEntrenadorDesignado.Text = "No encontrado";
+                txtEntrenadorDesignado.Text = "No encontrado"; // Si no se encuentra el entrenador
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al mostrar datos del entrenador: {ex.Message}", "Error");
             }
         }
-        
 
-
+        /// <summary>
+        /// Actualiza el horario de una clase en el archivo CSV.
+        /// </summary>
+        /// <returns>True si la clase se actualizó correctamente, False en caso contrario.</returns>
         private bool ActualizarHorarioClase(string rutaArchivo, string idClase, string nuevoDia, string nuevaHora)
         {
             try
@@ -123,12 +133,12 @@ namespace Proyecto1
                 for (int i = 1; i < lines.Count; i++) // Ignorar la primera línea (encabezado)
                 {
                     var valores = lines[i].Split(';');
-                    string id = valores[1].Trim();  // La columna ID está en la posición 1 (Ajustado para CSV)
+                    string id = valores[1].Trim(); // La columna ID está en la posición 1
 
                     if (id == idClase)
                     {
-                        valores[4] = nuevoDia;  // Actualizar día (Columna 4)
-                        valores[5] = nuevaHora; // Actualizar hora (Columna 5)
+                        valores[4] = nuevoDia;  // Actualizar día
+                        valores[5] = nuevaHora; // Actualizar hora
                         lines[i] = string.Join(";", valores); // Reemplazar la línea con los nuevos valores
                         actualizado = true;
                         break;
@@ -140,7 +150,6 @@ namespace Proyecto1
                     File.WriteAllLines(rutaArchivo, lines);
                     return true;
                 }
-                return false;
             }
             catch (Exception ex)
             {
@@ -149,6 +158,10 @@ namespace Proyecto1
             return false;
         }
 
+
+        /// <summary>
+        /// Evento para actualizar el horario de la clase al hacer clic en el botón.
+        /// </summary>
         private void button2_Click(object sender, EventArgs e)
         {
             try
@@ -178,14 +191,9 @@ namespace Proyecto1
             }
         }
 
-
-        private void comboBoxNuevaHora_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        
-
+        /// <summary>
+        /// Evento para regresar al menú principal.
+        /// </summary>
         private void btnVolveraMenu_Click(object sender, EventArgs e)
         {
             formAdministrador formularioAdministrador = new formAdministrador();

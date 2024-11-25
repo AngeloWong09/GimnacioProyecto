@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Proyecto1
@@ -17,39 +10,33 @@ namespace Proyecto1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Redirigue al entrenador a inicio de sesión y cierra el formulario actual.
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            // Crear una instancia del formulario formInicioSesion
             formInicioSesion inicioSesionForm = new formInicioSesion();
-
-            // Mostrar el formulario formInicioSesion
             inicioSesionForm.Show();
-
-            // Cerrar el formulario actual
             this.Close();
         }
 
+        /// <summary>
+        /// Redirigue al entrenador a reportes de clases y cierra el formulario actual.
+        /// </summary>
         private void btnReportesClase_Click(object sender, EventArgs e)
         {
-            // Crear una instancia del formulario formReporteClases
             formReporteClases reporteClasesForm = new formReporteClases();
-
-            // Mostrar el formulario formReporteClases
             reporteClasesForm.Show();
-
-            // Cerrar el formulario actual
             this.Close();
         }
 
+        /// <summary>
+        /// Redirigue al entrenador a  ganancias de máquinas y cierra el formulario actual.
+        /// </summary>
         private void btnGanaciasMaquinas_Click(object sender, EventArgs e)
         {
-            // Crea una instancia del formulario formGananciaMaquina
             var formularioGananciaMaquina = new formGananciaMaquina();
-
-            // Cierra el formulario actual (el que contiene este botón)
             this.Close();
-
-            // Muestra el formulario como modal
             formularioGananciaMaquina.ShowDialog();
         }
     }

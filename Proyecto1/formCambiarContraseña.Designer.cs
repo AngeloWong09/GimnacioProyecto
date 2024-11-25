@@ -39,6 +39,7 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtIDUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnVolveraMenu
@@ -135,12 +136,24 @@
             this.label2.TabIndex = 33;
             this.label2.Text = "Escribe la ID del Usuario:";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(260, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(287, 32);
+            this.label1.TabIndex = 36;
+            this.label1.Text = "Gimnacio FastForce";
+            // 
             // formCambiarContraseña
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtIDUsuario);
             this.Controls.Add(this.label2);
@@ -172,5 +185,6 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtIDUsuario;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

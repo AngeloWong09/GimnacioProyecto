@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Proyecto1
@@ -19,6 +12,9 @@ namespace Proyecto1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Carga los datos del archivo Maquina.csv de máquinas en un ListBox.
+        /// </summary>
         private void btnReporte_Click(object sender, EventArgs e)
         {
             try
@@ -50,8 +46,10 @@ namespace Proyecto1
                 MessageBox.Show($"Ocurrió un error al cargar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    
 
+        /// <summary>
+        /// Guarda el contenido del ListBox en un archivo de texto
+        /// </summary>
         private void btnGuadarReporte_Click(object sender, EventArgs e)
         {
             try
@@ -90,6 +88,9 @@ namespace Proyecto1
             }
         }
 
+        /// <summary>
+        /// Regresa al formulario principal del entrenador y cierra el formulario actual.
+        /// </summary>
         private void btnMenuEntrenador_Click(object sender, EventArgs e)
         {
             // Crear una instancia del formulario formEntrenadores
@@ -101,6 +102,9 @@ namespace Proyecto1
             this.Close();
         }
 
+        /// <summary>
+        /// Muestra los ingresos y egresos de cada máquina en el ListBox.
+        /// </summary>
         private void btnDineroIngresoSalida_Click(object sender, EventArgs e)
         {
             try

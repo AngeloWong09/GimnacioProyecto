@@ -28,21 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btncambiarHorario = new System.Windows.Forms.Button();
             this.btnPuntoFuerteForm = new System.Windows.Forms.Button();
             this.btnCambiarContraseña = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(305, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(161, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Bienvenido Administrador";
             // 
             // btnSalir
             // 
@@ -84,17 +75,28 @@
             this.btnCambiarContraseña.UseVisualStyleBackColor = true;
             this.btnCambiarContraseña.Click += new System.EventHandler(this.btnCambiarContraseña_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(261, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(287, 32);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Gimnacio FastForce";
+            // 
             // formAdministrador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCambiarContraseña);
             this.Controls.Add(this.btnPuntoFuerteForm);
             this.Controls.Add(this.btncambiarHorario);
             this.Controls.Add(this.btnSalir);
-            this.Controls.Add(this.label1);
             this.Name = "formAdministrador";
             this.Text = "formAdministrador";
             this.ResumeLayout(false);
@@ -103,11 +105,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btncambiarHorario;
         private System.Windows.Forms.Button btnPuntoFuerteForm;
         private System.Windows.Forms.Button btnCambiarContraseña;
+        private System.Windows.Forms.Label label1;
     }
 }
