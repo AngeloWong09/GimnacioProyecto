@@ -81,7 +81,7 @@
             this.btnDineroIngresoSalida.Name = "btnDineroIngresoSalida";
             this.btnDineroIngresoSalida.Size = new System.Drawing.Size(143, 49);
             this.btnDineroIngresoSalida.TabIndex = 4;
-            this.btnDineroIngresoSalida.Text = "Dinero que ingresa vs la que sale";
+            this.btnDineroIngresoSalida.Text = "Ingresos e egresos";
             this.btnDineroIngresoSalida.UseVisualStyleBackColor = true;
             this.btnDineroIngresoSalida.Click += new System.EventHandler(this.btnDineroIngresoSalida_Click);
             // 

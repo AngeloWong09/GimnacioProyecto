@@ -37,6 +37,7 @@
             this.btnGaradarReporte = new System.Windows.Forms.Button();
             this.btnMostrarTodo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -91,7 +92,7 @@
             this.btnBuscarEntrenador.Name = "btnBuscarEntrenador";
             this.btnBuscarEntrenador.Size = new System.Drawing.Size(124, 43);
             this.btnBuscarEntrenador.TabIndex = 5;
-            this.btnBuscarEntrenador.Text = "Buscar tu nombre entrenador";
+            this.btnBuscarEntrenador.Text = "Buscar ID";
             this.btnBuscarEntrenador.UseVisualStyleBackColor = true;
             this.btnBuscarEntrenador.Click += new System.EventHandler(this.btnBuscarEntrenador_Click);
             // 
@@ -126,12 +127,22 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Gimnacio FastForce";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(117, 163);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(118, 16);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Escribe tu nombre:";
+            // 
             // formReporteClases
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnMostrarTodo);
             this.Controls.Add(this.btnGaradarReporte);
@@ -159,5 +170,6 @@
         private System.Windows.Forms.Button btnGaradarReporte;
         private System.Windows.Forms.Button btnMostrarTodo;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
