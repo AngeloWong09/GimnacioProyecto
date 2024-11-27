@@ -47,5 +47,10 @@ namespace Proyecto1
         {
             this.Close();
         }
+
+        private void listBoxPagos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
