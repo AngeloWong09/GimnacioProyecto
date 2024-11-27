@@ -37,7 +37,7 @@
             // btnActualizar
             // 
             this.btnActualizar.Location = new System.Drawing.Point(396, 96);
-            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(208, 28);
             this.btnActualizar.TabIndex = 0;
@@ -50,7 +50,7 @@
             this.dgvMaquinas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMaquinas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMaquinas.Location = new System.Drawing.Point(28, 162);
-            this.dgvMaquinas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvMaquinas.Margin = new System.Windows.Forms.Padding(4);
             this.dgvMaquinas.Name = "dgvMaquinas";
             this.dgvMaquinas.ReadOnly = true;
             this.dgvMaquinas.RowHeadersWidth = 51;
@@ -72,11 +72,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.lblNotificacion);
             this.Controls.Add(this.dgvMaquinas);
             this.Controls.Add(this.btnActualizar);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMaquina";
             this.Text = "FormMaquina";
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaquinas)).EndInit();
