@@ -34,9 +34,10 @@
             // 
             // Volver
             // 
-            this.Volver.Location = new System.Drawing.Point(349, 117);
+            this.Volver.Location = new System.Drawing.Point(465, 144);
+            this.Volver.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Volver.Name = "Volver";
-            this.Volver.Size = new System.Drawing.Size(121, 23);
+            this.Volver.Size = new System.Drawing.Size(161, 28);
             this.Volver.TabIndex = 0;
             this.Volver.Text = "Regresar";
             this.Volver.UseVisualStyleBackColor = true;
@@ -45,18 +46,22 @@
             // listBoxPagos
             // 
             this.listBoxPagos.FormattingEnabled = true;
-            this.listBoxPagos.Location = new System.Drawing.Point(23, 169);
+            this.listBoxPagos.ItemHeight = 16;
+            this.listBoxPagos.Location = new System.Drawing.Point(31, 208);
+            this.listBoxPagos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBoxPagos.Name = "listBoxPagos";
-            this.listBoxPagos.Size = new System.Drawing.Size(754, 173);
+            this.listBoxPagos.Size = new System.Drawing.Size(1004, 212);
             this.listBoxPagos.TabIndex = 1;
             // 
             // formPagos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.listBoxPagos);
             this.Controls.Add(this.Volver);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "formPagos";
             this.Text = "formPagos";
             this.ResumeLayout(false);
