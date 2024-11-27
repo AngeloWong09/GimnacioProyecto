@@ -35,29 +35,30 @@
             // 
             // btnPagar
             // 
-            this.btnPagar.Location = new System.Drawing.Point(293, 148);
-            this.btnPagar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPagar.Location = new System.Drawing.Point(220, 120);
             this.btnPagar.Name = "btnPagar";
-            this.btnPagar.Size = new System.Drawing.Size(180, 28);
+            this.btnPagar.Size = new System.Drawing.Size(135, 23);
             this.btnPagar.TabIndex = 4;
             this.btnPagar.Text = "Pagar con Tarjeta";
             this.btnPagar.UseVisualStyleBackColor = true;
+            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(308, 56);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(231, 46);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 16);
+            this.label1.Size = new System.Drawing.Size(124, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "¿Desea realizar el pago?";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnVolveraMenu
             // 
-            this.btnVolveraMenu.Location = new System.Drawing.Point(12, 12);
+            this.btnVolveraMenu.Location = new System.Drawing.Point(9, 10);
+            this.btnVolveraMenu.Margin = new System.Windows.Forms.Padding(2);
             this.btnVolveraMenu.Name = "btnVolveraMenu";
-            this.btnVolveraMenu.Size = new System.Drawing.Size(100, 54);
+            this.btnVolveraMenu.Size = new System.Drawing.Size(75, 44);
             this.btnVolveraMenu.TabIndex = 25;
             this.btnVolveraMenu.Text = "< Volver al Menú";
             this.btnVolveraMenu.UseVisualStyleBackColor = true;
@@ -65,13 +66,14 @@
             // 
             // PagoMembresiaForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Proyecto1.Properties.Resources.Altafit_web_800x600;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.btnVolveraMenu);
             this.Controls.Add(this.btnPagar);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PagoMembresiaForm";
             this.Text = "PagoMembresiaForm";
             this.ResumeLayout(false);

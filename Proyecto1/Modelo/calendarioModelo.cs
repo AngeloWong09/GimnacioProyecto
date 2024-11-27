@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CalendarioPago
 {
-    public class CalendarioModelo
+    public class CalendarioModelo   
     {
         public DateTime FechaPago { get; private set; }
         public DateTime FechaPreaviso { get; private set; }
@@ -18,7 +18,7 @@ namespace CalendarioPago
             PagoRealizado = false;
         }
 
-        private void InicializarFechas()
+        private void InicializarFechas()  //inicializamos valores a usar 
         {
             var hoy = DateTime.Now;
             FechaPago = new DateTime(hoy.Year, hoy.Month, 29);
@@ -37,10 +37,11 @@ namespace CalendarioPago
             return DateTime.Now.Date == FechaPreaviso.Date;
         }
 
-        public void RegistrarPago()
+        public void RegistrarPago()  //revisa si el pago se realizo
         {
             PagoRealizado = true;
         }
+
 
     }
 }
