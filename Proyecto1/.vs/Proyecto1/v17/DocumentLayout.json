@@ -1,7 +1,40 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Chris\\source\\repos\\Final\\Proyecto1\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyecto1\\assets\\usuarios.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\usuarios.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\reservas.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\reservas.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\pagos.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\pagos.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\maquinas.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\maquinas.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\clases.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\clases.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\entrenadores.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\entrenadores.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\basedatosclase.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\basedatosclase.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\administrador.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:assets\\administrador.csv||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +42,108 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Usuarios.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Usuarios.csv",
+              "RelativeDocumentMoniker": "Assets\\Usuarios.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Usuarios.csv",
+              "RelativeToolTip": "Assets\\Usuarios.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:43:29.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Reservas.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Reservas.csv",
+              "RelativeDocumentMoniker": "Assets\\Reservas.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Reservas.csv",
+              "RelativeToolTip": "Assets\\Reservas.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:42:13.885Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Pagos.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Pagos.csv",
+              "RelativeDocumentMoniker": "Assets\\Pagos.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Pagos.csv",
+              "RelativeToolTip": "Assets\\Pagos.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:41:41.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Maquinas.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Maquinas.csv",
+              "RelativeDocumentMoniker": "Assets\\Maquinas.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Maquinas.csv",
+              "RelativeToolTip": "Assets\\Maquinas.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:40:40.045Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Entrenadores.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Entrenadores.csv",
+              "RelativeDocumentMoniker": "Assets\\Entrenadores.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Entrenadores.csv",
+              "RelativeToolTip": "Assets\\Entrenadores.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:39:40.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Clases.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Clases.csv",
+              "RelativeDocumentMoniker": "Assets\\Clases.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Clases.csv",
+              "RelativeToolTip": "Assets\\Clases.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:38:33.085Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BasedatosClase.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\BasedatosClase.csv",
+              "RelativeDocumentMoniker": "Assets\\BasedatosClase.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\BasedatosClase.csv",
+              "RelativeToolTip": "Assets\\BasedatosClase.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:37:21.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Administrador.csv",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Administrador.csv",
+              "RelativeDocumentMoniker": "Assets\\Administrador.csv",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Administrador.csv",
+              "RelativeToolTip": "Assets\\Administrador.csv",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002120|",
+              "WhenOpened": "2024-12-02T01:36:35.46Z"
             }
           ]
         }
