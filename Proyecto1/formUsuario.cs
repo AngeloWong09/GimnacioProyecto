@@ -292,6 +292,7 @@ namespace Proyecto1
             int idUsuario = int.Parse(txtUsuarioId.Text.Trim());
             formPagos pagosForm = new formPagos(idUsuario);
             pagosForm.ShowDialog();
+            
         }
     }
 }
