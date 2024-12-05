@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
+
 
 
 namespace Proyecto1.Controlador
@@ -91,7 +91,7 @@ namespace Proyecto1.Controlador
         /// </summary>
         private void MostrarError(string mensaje)
         {
-            MessageBox.Show(mensaje, "Error");
+            
         }
 
         /// <summary>
