@@ -1,0 +1,78 @@
+﻿@page "/Administrador/CambiarPuntoFuerteAdministrador"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager Navigation
+
+<h3>Cambiar Punto Fuerte</h3>
+
+<EditForm Model="@cambiarPuntoFuerte" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="coach-name">Nombre del Entrenador</label>
+        <InputText id="coach-name" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachName" />
+    </div>
+
+    <div class="form-group">
+        <label for="coach-id">ID del Entrenador</label>
+        <InputText id="coach-id" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachId" />
+    </div>
+
+    <div class="form-group">
+        <label for="current-strength">Punto Fuerte Actual</label>
+        <InputText id="current-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.CurrentStrength" />
+    </div>
+
+    <div class="form-group">
+        <label for="new-strength">Nuevo Punto Fuerte</label>
+        <InputText id="new-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.NewStrength" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirmar Cambios</button>
+</EditForm>
+
+@if (isSuccess)
+{
+    <div class="alert alert-success mt-3">
+        <strong>¡Éxito!</strong> Los cambios fueron realizados correctamente.
+    </div>
+}
+
+<!-- Botón para ir a la página Administrador -->
+<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
+
+@code {
+    private CambiarPuntoFuerteViewModel cambiarPuntoFuerte = new CambiarPuntoFuerteViewModel();
+    private bool isSuccess = false;
+
+    private async Task HandleValidSubmit()
+    {
+        // Lógica para actualizar el punto fuerte del entrenador
+        // Puedes guardar estos datos en una base de datos o procesarlos de alguna manera
+
+        // Simulando un éxito en el proceso
+        isSuccess = true;
+    }
+
+    private void GoToAdministrador()
+    {
+        // Redirige al componente Administrador
+        Navigation.NavigateTo("/");
+    }
+
+    public class CambiarPuntoFuerteViewModel
+    {
+        [Required]
+        public string CoachName { get; set; }
+
+        [Required]
+        public string CoachId { get; set; }
+
+        [Required]
+        public string CurrentStrength { get; set; }
+
+        [Required]
+        public string NewStrength { get; set; }
+    }
+}
+

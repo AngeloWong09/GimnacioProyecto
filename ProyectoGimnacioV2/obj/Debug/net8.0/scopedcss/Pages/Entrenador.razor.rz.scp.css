@@ -6,28 +6,52 @@ body[b-yxmoqffiwz] {
     color: #5C6AC4;
 }
 
-button1[b-yxmoqffiwz], button2[b-yxmoqffiwz], button3[b-yxmoqffiwz], button4[b-yxmoqffiwz], button5[b-yxmoqffiwz] {
+.mod-title[b-yxmoqffiwz] {
+    font-size: 1.5em; /* Ajusta el tamaño del título a un tamaño mediano */
+    color: #5C6AC4;
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+button[b-yxmoqffiwz] {
     background-color: #A34054;
-    padding: 5px;
-    margin border-top-right-radius:3px;
-    min-width: 30px;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
     text-align: center;
-    display: inline-block
+    display: inline-block;
+    cursor: pointer;
 }
 
-div1[b-yxmoqffiwz], div2[b-yxmoqffiwz], div3[b-yxmoqffiwz], div4[b-yxmoqffiwz], div5[b-yxmoqffiwz], div6[b-yxmoqffiwz] {
-    color: white;
+    button:hover[b-yxmoqffiwz] {
+        background-color: #8e2e45; /* Cambia el color del botón cuando pasa el mouse */
+    }
+
+.button-container[b-yxmoqffiwz] {
+    display: flex;
+    gap: 10px; /* Añade un pequeño espacio entre los botones */
+    margin-bottom: 20px; /* Añade espacio entre los botones y el campo de búsqueda */
 }
 
-div9[b-yxmoqffiwz] {
-    text-decoration: none;
-    color: black;
-    padding: 15px;
-    background-color: #f9f9f9;
-    width: 660px;
-    display: none;
+.Datos[b-yxmoqffiwz] {
+    margin-top: 20px;
 }
 
-div7:hover div9[b-yxmoqffiwz] {
-    display: block;
+table[b-yxmoqffiwz] {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th[b-yxmoqffiwz], td[b-yxmoqffiwz] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th[b-yxmoqffiwz] {
+    background-color: #f4f4f4;
+}
+
+#currentTime[b-yxmoqffiwz] {
+    text-align: center;
+    margin-top: 20px;
 }

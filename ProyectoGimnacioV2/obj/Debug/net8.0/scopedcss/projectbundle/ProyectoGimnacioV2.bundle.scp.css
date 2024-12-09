@@ -161,8 +161,7 @@ main[b-hsdx87loi8] {
     }
 }
 /* /Pages/Administrador.razor.rz.scp.css */
-body[b-x244yf2uzo]
-{
+body[b-x244yf2uzo] {
     padding: 25px;
 }
 
@@ -170,19 +169,29 @@ body[b-x244yf2uzo]
     color: #5C6AC4;
 }
 
-flex-container[b-x244yf2uzo] {
-    
+.flex-container[b-x244yf2uzo] {
 }
 
-button1[b-x244yf2uzo], button2[b-x244yf2uzo], button3[b-x244yf2uzo], button4[b-x244yf2uzo], button5[b-x244yf2uzo] {
-    background-color: #662249;
-    padding: 5px;
-    margin:  3px;
-    min-width: 30px;
+/* Estilo para los botones */
+.btn-primary[b-x244yf2uzo] {
+    background-color: #662249; /* Color morado */
+    padding: 10px 20px;
+    margin: 10px;
+    min-width: 150px;
     text-align: center;
-    display: inline-block
+    display: inline-block;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
+    .btn-primary:hover[b-x244yf2uzo] {
+        background-color: #4b1730; /* Tonalidad más oscura de morado */
+    }
+
+/* Estilo de las secciones de los divs */
 div3[b-x244yf2uzo], div1[b-x244yf2uzo], div4[b-x244yf2uzo], div5[b-x244yf2uzo], div6[b-x244yf2uzo] {
     color: white;
 }
@@ -203,31 +212,7 @@ div7:hover div8[b-x244yf2uzo] {
 div10[b-x244yf2uzo] {
     text-decoration: none;
     color: black;
-    padding: 15px;
-    background-color: #f9f9f9;
-    width: 185px;
-    display: none;
-    margin-left: 120px;
 }
-
-div9:hover div10[b-x244yf2uzo] {
-    display: block;
-}
-
-div12[b-x244yf2uzo] {
-    text-decoration: none;
-    color: black;
-    padding: 15px;
-    background-color: #f9f9f9;
-    width: 195px;
-    display: none;
-    margin-left: 280px;
-}
-
-div11:hover div12[b-x244yf2uzo] {
-    display: block;
-}
-
 /* /Pages/Entrenador.razor.rz.scp.css */
 body[b-yxmoqffiwz] {
     padding: 25px;
@@ -237,56 +222,117 @@ body[b-yxmoqffiwz] {
     color: #5C6AC4;
 }
 
-button1[b-yxmoqffiwz], button2[b-yxmoqffiwz], button3[b-yxmoqffiwz], button4[b-yxmoqffiwz], button5[b-yxmoqffiwz] {
-    background-color: #A34054;
-    padding: 5px;
-    margin border-top-right-radius:3px;
-    min-width: 30px;
-    text-align: center;
-    display: inline-block
-}
-
-div1[b-yxmoqffiwz], div2[b-yxmoqffiwz], div3[b-yxmoqffiwz], div4[b-yxmoqffiwz], div5[b-yxmoqffiwz], div6[b-yxmoqffiwz] {
-    color: white;
-}
-
-div9[b-yxmoqffiwz] {
-    text-decoration: none;
-    color: black;
-    padding: 15px;
-    background-color: #f9f9f9;
-    width: 660px;
-    display: none;
-}
-
-div7:hover div9[b-yxmoqffiwz] {
-    display: block;
-}
-/* /Pages/Logion.razor.rz.scp.css */
-body[b-pp4oj5jj73]
-{
-  padding: 25px;
-}
-.title[b-pp4oj5jj73] 
-{
+.mod-title[b-yxmoqffiwz] {
+    font-size: 1.5em; /* Ajusta el tamaño del título a un tamaño mediano */
     color: #5C6AC4;
+    margin-bottom: 20px; /* Espacio debajo del título */
 }
 
-form[b-pp4oj5jj73]{
-      background-color:#44174E;
-      border: 1px Solid Black;
-      padding: 3px;
-      margin: 3px;
-      min-width: 20px;
-      text-align: center;
-      display: inline-block
+button[b-yxmoqffiwz] {
+    background-color: #A34054;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
 }
-div1[b-pp4oj5jj73]{
-  color: white;
+
+    button:hover[b-yxmoqffiwz] {
+        background-color: #8e2e45; /* Cambia el color del botón cuando pasa el mouse */
+    }
+
+.button-container[b-yxmoqffiwz] {
+    display: flex;
+    gap: 10px; /* Añade un pequeño espacio entre los botones */
+    margin-bottom: 20px; /* Añade espacio entre los botones y el campo de búsqueda */
 }
-div2[b-pp4oj5jj73]{
-  color:white;
+
+.Datos[b-yxmoqffiwz] {
+    margin-top: 20px;
 }
+
+table[b-yxmoqffiwz] {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th[b-yxmoqffiwz], td[b-yxmoqffiwz] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th[b-yxmoqffiwz] {
+    background-color: #f4f4f4;
+}
+
+#currentTime[b-yxmoqffiwz] {
+    text-align: center;
+    margin-top: 20px;
+}
+/* /Pages/InicioSecion.razor.rz.scp.css */
+/* Asegura que el cuerpo ocupe toda la pantalla */
+body[b-a5g3itsmgl] {
+    display: flex;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    height: 100vh; /* Hace que el cuerpo ocupe toda la altura de la pantalla */
+    margin: 0; /* Elimina márgenes predeterminados */
+    background-color: #f4f4f4; /* Fondo suave para la página */
+}
+
+.title[b-a5g3itsmgl] {
+    color: #5C6AC4;
+    text-align: center; /* Centra el título */
+    margin-bottom: 20px;
+}
+
+form[b-a5g3itsmgl] {
+    background-color: #44174E;
+    border: 1px solid Black;
+    padding: 20px;
+    width: 300px; /* Establece un ancho fijo para el formulario */
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos dentro del formulario */
+}
+
+.form-group[b-a5g3itsmgl] {
+    color: white;
+    margin-bottom: 15px;
+    width: 100%; /* Hace que los campos de entrada ocupen todo el ancho del formulario */
+}
+
+label[b-a5g3itsmgl] {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[b-a5g3itsmgl] {
+    padding: 8px;
+    width: 100%; /* Los inputs ocuparán todo el ancho disponible */
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button[b-a5g3itsmgl] {
+    padding: 10px;
+    width: 100%; /* El botón ocupará todo el ancho disponible */
+    background-color: #5C6AC4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+    button:hover[b-a5g3itsmgl] {
+        background-color: #4a5ca1;
+    }
 /* /Pages/Pagina1.razor.rz.scp.css */
 html[b-7eujytf6d1], body[b-7eujytf6d1] {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

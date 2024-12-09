@@ -1,0 +1,69 @@
+﻿@page "/CambiarContraseñaAdministrador"
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager Navigation
+
+<h2>Cambiar Contraseña</h2>
+
+<EditForm Model="@passwordModel" OnValidSubmit="ChangePassword">
+    <div>
+        <label for="currentPassword">Contraseña Actual:</label>
+        <InputText id="currentPassword" type="password" @bind-Value="passwordModel.CurrentPassword" />
+        <ValidationMessage For="@(() => passwordModel.CurrentPassword)" />
+    </div>
+    <div>
+        <label for="newPassword">Nueva Contraseña:</label>
+        <InputText id="newPassword" type="password" @bind-Value="passwordModel.NewPassword" />
+        <ValidationMessage For="@(() => passwordModel.NewPassword)" />
+    </div>
+    <div>
+        <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
+        <InputText id="confirmPassword" type="password" @bind-Value="passwordModel.ConfirmPassword" />
+        <ValidationMessage For="@(() => passwordModel.ConfirmPassword)" />
+    </div>
+    <button type="submit">Confirmar Cambios</button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <p>@message</p>
+}
+
+<!-- Botón para ir a la página Administrador -->
+<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
+
+@code {
+    private PasswordModel passwordModel = new PasswordModel();
+    private string message = string.Empty;
+
+    private void ChangePassword()
+    {
+        if (passwordModel.NewPassword != passwordModel.ConfirmPassword)
+        {
+            message = "Las contraseñas no coinciden.";
+            return;
+        }
+
+        // Lógica para actualizar la contraseña en la base de datos
+        message = "Contraseña actualizada exitosamente.";
+    }
+
+    private void GoToAdministrador()
+    {
+        // Redirige al componente Administrador
+        Navigation.NavigateTo("/Administrador");
+    }
+
+    public class PasswordModel
+    {
+        [Required(ErrorMessage = "La contraseña actual es obligatoria.")]
+        public string CurrentPassword { get; set; }
+
+        [Required(ErrorMessage = "La nueva contraseña es obligatoria.")]
+        [MinLength(6, ErrorMessage = "La nueva contraseña debe tener al menos 6 caracteres.")]
+        public string NewPassword { get; set; }
+
+        [Required(ErrorMessage = "Confirmar contraseña es obligatorio.")]
+        public string ConfirmPassword { get; set; }
+    }
+}
+
