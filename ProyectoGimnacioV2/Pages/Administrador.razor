@@ -1,0 +1,82 @@
+﻿
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    
+    <button1 onclick="location.href='Aqui va la direccion de la pagina principal como si fuera eso=https://www.facebook.com'"><div1>Cerrar Sesion</div1></button1>
+    <br/><br><br/>
+      <h1 class="title">BIENVENIDO ADMINISTRADOR </h1>
+        <br><br/> <br><br/><br><br/>
+        <div2 class="col-lg-4 col-md-4 flex-container">
+          
+          
+       <div7 class="CambiarContrasena"><button2 style="margin: 1em 0" type="submit " class="send-btn"><div3>Cambiar Contrasena</div3></button2>
+          <div8 class="Datos">
+            <label1 for="Nombre">Nombre del Usuario</label1>
+            <input type="text" id= "Nombre" name="Nombre">
+            <label2 for="Nombre">ID del Usuario</label2>
+            <input type="text" id= "ID" name="ID">
+            <label3 for="Nombre">Contrasena Actual</label3>
+            <input type="text" id= "Contrasena" name="Contrasena">
+            <label4 for="Nombre">Nueva Contrasena</label4>
+            <input type="text" id= "NuevaContrasena" name="NuevaContrasena">
+            <button>Confirmar Cambios</button>
+          </div8>
+        </div7>
+        
+        <div9><button3 style="margin: 1em 0" type="submit" class="send-btn"><div4>Cambiar Punto Fuerte</div4></button3>
+        <div10 class="Datos">
+            <label1 for="Nombre">Nombre del Entrenador</label1>
+            <input type="text" id= "Nombre" name="Nombre">
+            <label2 for="Nombre">ID del Entrenador</label2>
+            <input type="text" id= "ID" name="ID">
+            <label3 for="Nombre">Punto Fuerte Actual</label3>
+            <input type="text" id= "PuntoFuerte" name="PuntoFuerte">
+            <label4 for="Nombre">Nuevo Punto Fuerte</label4>
+            <input type="text" id= "Nuevo" name="Nuevo">
+            <button>Confirmar Cambios</button>
+          </div10>
+        </div9>
+        
+        <div11><button4 style="margin: 1em 0" type="submit" class="send-btn"><div5>Cambiar Horario</div5></button4>
+          <div12 class="Datos">
+            <label1 for="Nombre">ID de la Clase</label1>
+            <input type="text" id= "IDClase" name="IDClase">
+            <label2 for="Nombre">Entrenador Designado</label2>
+            <input type="text" id= "Entrenador" name="Entrenador">
+            <label3 for="Nombre">Dia Actual</label3>
+            <input type="date" id= "DiaActual" name="DiaActual">
+            <label4 for="Nombre">Hora Actual</label4>
+            <input type="datetime" id= "HoraActual" name="HoraActual">
+            <label3 for="Nombre">Nuevo Dia</label3>
+            <input type="date" id= "Ndia" name="NDia">
+            <label4 for="Nombre">Nueva Hora</label4>
+            <input type="datetime" id= "NHora" name="NHora">
+            <button>Confirmar Cambios</button>
+          </div12>
+         </div11>
+        
+        
+        <button5 style="margin: 1em 0" type="submit" class="send-btn"><div6>Modificar Datos</div6></button5>
+        </div2>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+JAVASCRIPT:
+
+function showTime() {
+	document.getElementById('currentTime').innerHTML = new Date().toUTCString();
+}
+showTime();
+setInterval(function () {
+	showTime();
+}, 1000);

@@ -1,0 +1,67 @@
+body[b-x244yf2uzo]
+{
+    padding: 25px;
+}
+
+.title[b-x244yf2uzo] {
+    color: #5C6AC4;
+}
+
+flex-container[b-x244yf2uzo] {
+    
+}
+
+button1[b-x244yf2uzo], button2[b-x244yf2uzo], button3[b-x244yf2uzo], button4[b-x244yf2uzo], button5[b-x244yf2uzo] {
+    background-color: #662249;
+    padding: 5px;
+    margin:  3px;
+    min-width: 30px;
+    text-align: center;
+    display: inline-block
+}
+
+div3[b-x244yf2uzo], div1[b-x244yf2uzo], div4[b-x244yf2uzo], div5[b-x244yf2uzo], div6[b-x244yf2uzo] {
+    color: white;
+}
+
+div8[b-x244yf2uzo] {
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    background-color: #f9f9f9;
+    width: 185px;
+    display: none;
+}
+
+div7:hover div8[b-x244yf2uzo] {
+    display: block;
+}
+
+div10[b-x244yf2uzo] {
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    background-color: #f9f9f9;
+    width: 185px;
+    display: none;
+    margin-left: 120px;
+}
+
+div9:hover div10[b-x244yf2uzo] {
+    display: block;
+}
+
+div12[b-x244yf2uzo] {
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    background-color: #f9f9f9;
+    width: 195px;
+    display: none;
+    margin-left: 280px;
+}
+
+div11:hover div12[b-x244yf2uzo] {
+    display: block;
+}
+

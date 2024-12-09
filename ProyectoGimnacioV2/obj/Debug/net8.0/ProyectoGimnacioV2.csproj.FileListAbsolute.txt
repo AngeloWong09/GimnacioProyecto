@@ -1030,3 +1030,7 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\refint\ProyectoGimnacioV2.dll
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\ProyectoGimnacioV2.pdb
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\ref\ProyectoGimnacioV2.dll
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\Administrador.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\Logion.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\Entrenador.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\Pagina1.razor.rz.scp.css

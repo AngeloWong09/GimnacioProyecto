@@ -1,0 +1,33 @@
+body[b-yxmoqffiwz] {
+    padding: 25px;
+}
+
+.title[b-yxmoqffiwz] {
+    color: #5C6AC4;
+}
+
+button1[b-yxmoqffiwz], button2[b-yxmoqffiwz], button3[b-yxmoqffiwz], button4[b-yxmoqffiwz], button5[b-yxmoqffiwz] {
+    background-color: #A34054;
+    padding: 5px;
+    margin border-top-right-radius:3px;
+    min-width: 30px;
+    text-align: center;
+    display: inline-block
+}
+
+div1[b-yxmoqffiwz], div2[b-yxmoqffiwz], div3[b-yxmoqffiwz], div4[b-yxmoqffiwz], div5[b-yxmoqffiwz], div6[b-yxmoqffiwz] {
+    color: white;
+}
+
+div9[b-yxmoqffiwz] {
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    background-color: #f9f9f9;
+    width: 660px;
+    display: none;
+}
+
+div7:hover div9[b-yxmoqffiwz] {
+    display: block;
+}

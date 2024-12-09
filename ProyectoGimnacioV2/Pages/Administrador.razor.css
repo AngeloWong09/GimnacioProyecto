@@ -1,0 +1,67 @@
+﻿body
+{
+    padding: 25px;
+}
+
+.title {
+    color: #5C6AC4;
+}
+
+flex-container {
+    
+}
+
+button1, button2, button3, button4, button5 {
+    background-color: #662249;
+    padding: 5px;
+    margin:  3px;
+    min-width: 30px;
+    text-align: center;
+    display: inline-block
+}
+
+div3, div1, div4, div5, div6 {
+    color: white;
+}
+
+div8 {
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    background-color: #f9f9f9;
+    width: 185px;
+    display: none;
+}
+
+div7:hover div8 {
+    display: block;
+}
+
+div10 {
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    background-color: #f9f9f9;
+    width: 185px;
+    display: none;
+    margin-left: 120px;
+}
+
+div9:hover div10 {
+    display: block;
+}
+
+div12 {
+    text-decoration: none;
+    color: black;
+    padding: 15px;
+    background-color: #f9f9f9;
+    width: 195px;
+    display: none;
+    margin-left: 280px;
+}
+
+div11:hover div12 {
+    display: block;
+}
+

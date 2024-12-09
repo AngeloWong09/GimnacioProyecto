@@ -269,10 +269,7 @@ namespace Proyecto1
 
         private void btnActualizarMenbresia_Click(object sender, EventArgs e)
         {
-            PagoMembresiaForm pagoForm = new PagoMembresiaForm();
-
-            // Mostrar el formulario de pago
-            pagoForm.ShowDialog();
+           
         }
 
         private void btnCalendario_Click(object sender, EventArgs e)

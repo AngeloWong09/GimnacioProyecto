@@ -1,0 +1,39 @@
+﻿@page "/"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido a GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE </h1>
+    <form>
+        <div1>
+            <label for="user"> Usuario: </label>
+            <input type="text" id="user" required />
+        </div1>
+        <div2>
+            <label for="password"> Contrasena: </label>
+            <input type="password" id="password" required />
+        </div2>
+        <button type="submit"> Login </button>
+    </form>
+    <script type="module" src="./login/login.js"></script>
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+Javascript:
+
+
+function showTime() {
+    document.getElementById('currentTime').innerHTML = new Date().toUTCString();
+}
+showTime();
+setInterval(function () {
+    showTime();
+}, 1000);
+
+
