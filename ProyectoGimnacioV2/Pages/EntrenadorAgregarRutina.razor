@@ -1,5 +1,15 @@
-﻿<h3>AgregarRutinaEntrenador</h3>
+﻿@page "/EntrenadorAgregarRutina"
+
+@inject NavigationManager NavigationManager
+
+<h3>Agregar Rutina</h3>
+
+<!-- Botón para regresar a la página Entrenador -->
+<button @onclick="GoToEntrenador" class="send-btn">Volver al Menú Entrenador</button>
 
 @code {
-
+    private void GoToEntrenador()
+    {
+        NavigationManager.NavigateTo("/Entrenador");
+    }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@page "/"
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +18,20 @@
         </div>
         <button type="submit">Login</button>
     </form>
+
+    <!-- Aquí están los botones temporales -->
+    <div>
+        <button onclick="location.href='/Administrador'">Ir a Administrador</button>
+        <!-- Aquí está el botón para ir a Administrador.razor -->
+
+        <button onclick="location.href='/Entrenador'">Ir a Entrenador</button>
+        <!-- Aquí está el botón para ir a Entrenador.razor -->
+
+        <button onclick="location.href='/Cliente'">Ir a Cliente</button>
+        <!-- Aquí está el botón para ir a Cliente.razor -->
+    </div>
+    <!-- Fin de los botones temporales -->
+
     <script type="module" src="./login/login.js"></script>
     <p id="currentTime"></p>
     <script src="script.js"></script>

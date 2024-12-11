@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/Administrador"
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,9 +10,6 @@
 <body>
     <!-- Encabezado -->
     <header>
-        <button class="btn-primary logout-btn" onclick="location.href='https://www.facebook.com'" aria-label="Cerrar sesión">
-            Cerrar Sesión
-        </button>
         <h1 class="title">Bienvenido Administrador</h1>
     </header>
 
@@ -21,40 +18,42 @@
         <!-- Cambiar contraseña -->
         <section class="form-section">
             <h2>Gestiones</h2>
-            <button class="btn-primary" onclick="location.href='CambiarContraseñaAdministrador'">
+            <button class="btn-primary" onclick="location.href='/AdministradorCambiarContraseña'">
                 Cambiar Contraseña
             </button>
         </section>
 
-        <!-- Otras funcionalidades -->
+        <!-- Cambiar Punto Fuerte -->
         <section class="form-section">
-            <!-- Redirige a la página Razor CambiarPuntoFuerteAdministrador -->
-            <button class="btn-primary" onclick="location.href='/Administrador/CambiarPuntoFuerteAdministrador'">
-                Ir a Cambiar Punto Fuerte
+            <button class="btn-primary" onclick="location.href='/AdministradorCambiarPuntoFuerte'">
+                Cambiar Punto Fuerte
             </button>
         </section>
 
-        <!-- Nuevos botones añadidos -->
+        <!-- Control de Inventarios -->
         <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/Administrador/ControlDeInventarios'">
+            <button class="btn-primary" onclick="location.href='/AdministradorControlInventario'">
                 Control de Inventarios
             </button>
         </section>
 
+        <!-- Modificación de Horarios de la Matrícula -->
         <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/Administrador/ModificacionHorariosMatricula'">
+            <button class="btn-primary" onclick="location.href='/AdministradorModificacionHorarioMatricula'">
                 Modificación de Horarios de la Matrícula
             </button>
         </section>
 
+        <!-- Control de Facturación -->
         <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/Administrador/ControlDeFacturacion'">
+            <button class="btn-primary" onclick="location.href='/AdministradorControldeFacturacion'">
                 Control de Facturación
             </button>
         </section>
 
+        <!-- Reportes -->
         <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/Administrador/Reportes'">
+            <button class="btn-primary" onclick="location.href='/AdministradorReportes'">
                 Reportes
             </button>
         </section>
@@ -68,10 +67,6 @@
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
 
 
 

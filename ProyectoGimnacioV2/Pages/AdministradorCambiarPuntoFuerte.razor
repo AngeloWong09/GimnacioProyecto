@@ -1,4 +1,4 @@
-﻿@page "/Administrador/CambiarPuntoFuerteAdministrador"
+﻿@page "/AdministradorCambiarPuntoFuerte"
 @using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
 
@@ -57,7 +57,7 @@
     private void GoToAdministrador()
     {
         // Redirige al componente Administrador
-        Navigation.NavigateTo("/");
+        Navigation.NavigateTo("/Administrador");
     }
 
     public class CambiarPuntoFuerteViewModel
@@ -75,4 +75,5 @@
         public string NewStrength { get; set; }
     }
 }
+
 

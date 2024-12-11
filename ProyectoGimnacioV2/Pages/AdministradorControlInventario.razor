@@ -1,0 +1,15 @@
+﻿@page "/AdministradorControlInventario"
+@inject NavigationManager Navigation
+
+<h3>AdministradorControlInventario</h3>
+
+<!-- Botón para regresar a Administrador -->
+<button class="btn-primary" @onclick="GoToAdministrador">Ir a Administrador</button>
+
+@code {
+    private void GoToAdministrador()
+    {
+        // Navega a la página Administrador
+        Navigation.NavigateTo("/Administrador");
+    }
+}
