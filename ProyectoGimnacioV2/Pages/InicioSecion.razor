@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1 class="title">Bienvenido a GYM FAST FORCE </h1>
-    <form>
+    <form id="loginForm" onsubmit="return login(event)">
         <div class="form-group">
             <label for="user">Usuario:</label>
             <input type="text" id="user" required />
@@ -19,23 +19,31 @@
         <button type="submit">Login</button>
     </form>
 
-    <!-- Aquí están los botones temporales -->
-    <div>
-        <button onclick="location.href='/Administrador'">Ir a Administrador</button>
-        <!-- Aquí está el botón para ir a Administrador.razor -->
-
-        <button onclick="location.href='/Entrenador'">Ir a Entrenador</button>
-        <!-- Aquí está el botón para ir a Entrenador.razor -->
-
-        <button onclick="location.href='/Cliente'">Ir a Cliente</button>
-        <!-- Aquí está el botón para ir a Cliente.razor -->
-    </div>
-    <!-- Fin de los botones temporales -->
-
     <script type="module" src="./login/login.js"></script>
     <p id="currentTime"></p>
     <script src="script.js"></script>
+
+    <script>
+        // Función que se ejecuta cuando se envía el formulario
+        function login(event) {
+            event.preventDefault(); // Prevenir que el formulario se envíe de la manera tradicional
+
+            // Obtener los valores de usuario y contraseña
+            var username = document.getElementById("user").value;
+            var password = document.getElementById("password").value;
+
+            // Verificar las credenciales
+            if (username === "Leinix" && password === "0") {
+                window.location.href = "/Administrador"; // Redirige a Administrador.razor
+            } else if (username === "Ana" && password === "0") {
+                window.location.href = "/Cliente"; // Redirige a Cliente.razor
+            } else if (username === "Tobi" && password === "0") {
+                window.location.href = "/Entrenador"; // Redirige a Entrenador.razor
+            } else {
+                alert("Usuario o contraseña incorrectos.");
+            }
+        }
+    </script>
 </body>
 </html>
-
 

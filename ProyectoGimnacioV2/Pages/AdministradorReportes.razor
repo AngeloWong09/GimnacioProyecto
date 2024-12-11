@@ -1,15 +1,162 @@
 ﻿@page "/AdministradorReportes"
 @inject NavigationManager Navigation
+@using System.IO
 
-<h3>AdministradorReportes</h3>
+<h3>Generar Reportes</h3>
+
+<div class="form-group">
+    <label for="report-type">Seleccione el tipo de reporte:</label>
+    <select id="report-type" class="form-control" @bind="selectedReportType">
+        <option>Entrenadores</option>
+        <option>Clases</option>
+        <option>Máquinas</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="day">Buscar Día:</label>
+    <select id="day" class="form-control" @bind="selectedDay">
+        <option>Lunes</option>
+        <option>Martes</option>
+        <option>Miércoles</option>
+        <option>Jueves</option>
+        <option>Viernes</option>
+        <option>Sábado</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="time">Buscar Hora:</label>
+    <select id="time" class="form-control" @bind="selectedTime">
+        <option>6:00 a.m - 8:00 a.m</option>
+        <option>9:00 a.m - 10:00 a.m</option>
+        <option>10:00 a.m - 11:00 a.m</option>
+        <option>1:00 p.m - 2:00 p.m</option>
+        <option>2:00 p.m - 4:00 p.m</option>
+        <option>4:00 p.m - 5:00 p.m</option>
+        <option>6:00 p.m - 7:00 p.m</option>
+    </select>
+</div>
+
+<button class="btn btn-primary mt-3" @onclick="SearchReport">Buscar</button>
+
+@if (showReport)
+{
+    <table class="table table-bordered mt-3">
+        <thead>
+            @if (selectedReportType == "Entrenadores")
+            {
+                <tr>
+                    <th>Nombre del Entrenador</th>
+                    <th>Punto Fuerte</th>
+                    <th>Clientes Inscritos</th>
+                </tr>
+            }
+            else if (selectedReportType == "Clases")
+            {
+                <tr>
+                    <th>Nombre de la Clase</th>
+                    <th>Nombre del Entrenador</th>
+                    <th>Punto Fuerte</th>
+                    <th>Clientes Inscritos</th>
+                </tr>
+            }
+            else if (selectedReportType == "Máquinas")
+            {
+                <tr>
+                    <th>Nombre de la Máquina</th>
+                    <th>Nombre del Cliente</th>
+                    <th>Vida Útil</th>
+                </tr>
+            }
+        </thead>
+        <tbody>
+            @foreach (var row in reportData)
+            {
+                <tr>
+                    @foreach (var cell in row)
+                    {
+                        <td>@cell</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="btn btn-success mt-3" @onclick="SaveReport">Guardar Reporte</button>
+}
 
 <!-- Botón para regresar a Administrador -->
-<button class="btn-primary" @onclick="GoToAdministrador">Ir a Administrador</button>
+<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
 
 @code {
+    private string selectedReportType;
+    private string selectedDay;
+    private string selectedTime;
+    private bool showReport = false;
+    private List<List<string>> reportData = new List<List<string>>();
+
+    private void SearchReport()
+    {
+        showReport = true;
+        reportData.Clear();
+
+        if (selectedReportType == "Entrenadores")
+        {
+            reportData.Add(new List<string> { "Carlos Pérez", "Zumba", "15" });
+            reportData.Add(new List<string> { "Ana López", "CardioDance", "12" });
+        }
+        else if (selectedReportType == "Clases")
+        {
+            reportData.Add(new List<string> { "Clase de Yoga", "Carlos Pérez", "Zumba", "20" });
+            reportData.Add(new List<string> { "Clase de Pilates", "Ana López", "CardioDance", "18" });
+        }
+        else if (selectedReportType == "Máquinas")
+        {
+            reportData.Add(new List<string> { "Máquina Cardio", "Juan Martínez", "12 meses" });
+            reportData.Add(new List<string> { "Máquina Fuerza", "Pedro González", "8 meses" });
+        }
+    }
+
+    private void SaveReport()
+    {
+        string downloadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+        string fileName = "Reporte.csv";
+        string filePath = Path.Combine(downloadsFolder, fileName);
+
+        using (var writer = new StreamWriter(filePath))
+        {
+            // Escribir encabezado según el tipo de reporte
+            if (selectedReportType == "Entrenadores")
+            {
+                writer.WriteLine("Nombre del Entrenador,Punto Fuerte,Clientes Inscritos");
+            }
+            else if (selectedReportType == "Clases")
+            {
+                writer.WriteLine("Nombre de la Clase,Nombre del Entrenador,Punto Fuerte,Clientes Inscritos");
+            }
+            else if (selectedReportType == "Máquinas")
+            {
+                writer.WriteLine("Nombre de la Máquina,Nombre del Cliente,Vida Útil");
+            }
+
+            // Escribir los datos del reporte
+            foreach (var row in reportData)
+            {
+                writer.WriteLine(string.Join(",", row));
+            }
+        }
+
+        Console.WriteLine($"Reporte guardado en: {filePath}");
+        // Proporcionar un enlace para descargar el archivo CSV
+        var url = new Uri($"file:///{filePath}");
+        Navigation.NavigateTo(url.AbsoluteUri);
+    }
+
     private void GoToAdministrador()
     {
         // Navega a la página Administrador
         Navigation.NavigateTo("/Administrador");
     }
 }
+

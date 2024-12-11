@@ -9,26 +9,32 @@
     <ValidationSummary />
 
     <div class="form-group">
-        <label for="coach-name">Nombre del Entrenador</label>
-        <InputText id="coach-name" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachName" />
+        <label for="coach-id">ID del Entrenador</label>
+        <InputText id="coach-id" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachId" />
+        <button type="button" class="btn btn-primary mt-2" @onclick="SearchCoach">Buscar Entrenador</button>
     </div>
 
     <div class="form-group">
-        <label for="coach-id">ID del Entrenador</label>
-        <InputText id="coach-id" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachId" />
+        <label for="coach-name">Nombre del Entrenador</label>
+        <InputText id="coach-name" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachName" Disabled="true" />
     </div>
 
     <div class="form-group">
         <label for="current-strength">Punto Fuerte Actual</label>
-        <InputText id="current-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.CurrentStrength" />
+        <InputText id="current-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.CurrentStrength" Disabled="true" />
     </div>
 
     <div class="form-group">
         <label for="new-strength">Nuevo Punto Fuerte</label>
-        <InputText id="new-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.NewStrength" />
+        <InputSelect id="new-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.NewStrength">
+            <option value="">Seleccione una opción</option>
+            <option value="Zumba">Zumba</option>
+            <option value="CardioDance">CardioDance</option>
+            <option value="Funcionales">Funcionales</option>
+        </InputSelect>
     </div>
 
-    <button type="submit" class="btn btn-primary">Confirmar Cambios</button>
+    <button type="submit" class="btn btn-success">Cambiar Punto Fuerte</button>
 </EditForm>
 
 @if (isSuccess)
@@ -54,6 +60,22 @@
         isSuccess = true;
     }
 
+    private void SearchCoach()
+    {
+        // Simulación de búsqueda de entrenador por ID (se debería conectar a la base de datos)
+        if (cambiarPuntoFuerte.CoachId == "0")
+        {
+            cambiarPuntoFuerte.CoachName = "Entrenador Ejemplo";
+            cambiarPuntoFuerte.CurrentStrength = "Zumba";
+        }
+        else
+        {
+            cambiarPuntoFuerte.CoachName = string.Empty;
+            cambiarPuntoFuerte.CurrentStrength = string.Empty;
+            isSuccess = false;
+        }
+    }
+
     private void GoToAdministrador()
     {
         // Redirige al componente Administrador
@@ -63,12 +85,10 @@
     public class CambiarPuntoFuerteViewModel
     {
         [Required]
-        public string CoachName { get; set; }
-
-        [Required]
         public string CoachId { get; set; }
 
-        [Required]
+        public string CoachName { get; set; }
+
         public string CurrentStrength { get; set; }
 
         [Required]

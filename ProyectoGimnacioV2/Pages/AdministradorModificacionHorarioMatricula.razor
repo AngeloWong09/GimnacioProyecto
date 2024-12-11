@@ -1,15 +1,114 @@
 ﻿@page "/AdministradorModificacionHorarioMatricula"
 @inject NavigationManager Navigation
 
-<h3>AdministradorModificacionHorarioMatricula</h3>
+<h3>Modificación de Horario de Matrícula</h3>
+
+<div class="form-group">
+    <label for="class-id">Escribe la ID de la clase</label>
+    <InputText id="class-id" class="form-control" @bind-Value="classId" />
+    <button type="button" class="btn btn-primary mt-2" @onclick="SearchClass">Buscar Clase</button>
+</div>
+
+@if (classFound)
+{
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Entrenador Asignado</th>
+                <th>Punto Fuerte</th>
+                <th>Día Establecido</th>
+                <th>Hora Establecida</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@assignedCoach</td>
+                <td>@currentStrength</td>
+                <td>@currentDay</td>
+                <td>@currentTime</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group mt-3">
+        <label for="new-time">Seleccione Nuevo Horario</label>
+        <InputSelect id="new-time" class="form-control" @bind-Value="newTime">
+            <option value="">Seleccione una opción</option>
+            <option value="6:00 a.m - 8:00 a.m">6:00 a.m - 8:00 a.m</option>
+            <option value="9:00 a.m - 10:00 a.m">9:00 a.m - 10:00 a.m</option>
+            <option value="10:00 a.m - 11:00 a.m">10:00 a.m - 11:00 a.m</option>
+            <option value="1:00 p.m - 2:00 p.m">1:00 p.m - 2:00 p.m</option>
+            <option value="2:00 p.m - 4:00 p.m">2:00 p.m - 4:00 p.m</option>
+            <option value="4:00 p.m - 5:00 p.m">4:00 p.m - 5:00 p.m</option>
+            <option value="6:00 p.m - 7:00 p.m">6:00 p.m - 7:00 p.m</option>
+        </InputSelect>
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="new-day">Seleccione Nuevo Día</label>
+        <InputSelect id="new-day" class="form-control" @bind-Value="newDay">
+            <option value="">Seleccione una opción</option>
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miércoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sábado">Sábado</option>
+        </InputSelect>
+    </div>
+
+    <button type="button" class="btn btn-success mt-3" @onclick="ChangeSchedule">Cambiar Horario</button>
+}
 
 <!-- Botón para regresar a Administrador -->
-<button class="btn-primary" @onclick="GoToAdministrador">Ir a Administrador</button>
+<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
 
 @code {
+    private string classId;
+    private bool classFound = false;
+    private string assignedCoach;
+    private string currentStrength;
+    private string currentDay;
+    private string currentTime;
+    private string newTime;
+    private string newDay;
+
+    private void SearchClass()
+    {
+        // Simulación de búsqueda de clase (debe conectarse a la base de datos)
+        if (classId == "0")
+        {
+            classFound = true;
+            assignedCoach = "Juan Pérez";
+            currentStrength = "CardioDance";
+            currentDay = "Lunes";
+            currentTime = "9:00 a.m - 10:00 a.m";
+        }
+        else
+        {
+            classFound = false;
+        }
+        StateHasChanged(); // Asegura que la interfaz se actualice.
+    }
+
+    private void ChangeSchedule()
+    {
+        if (!string.IsNullOrEmpty(newTime) && !string.IsNullOrEmpty(newDay))
+        {
+            // Lógica para cambiar horario (debe conectarse a la base de datos)
+            currentTime = newTime;
+            currentDay = newDay;
+            newTime = string.Empty;
+            newDay = string.Empty;
+            classFound = false;
+        }
+        StateHasChanged(); // Actualiza la interfaz después del cambio.
+    }
+
     private void GoToAdministrador()
     {
         // Navega a la página Administrador
         Navigation.NavigateTo("/Administrador");
     }
 }
+

@@ -1,0 +1,80 @@
+﻿@page "/EntrenadorReporte"
+<h3>EntrenadorReporte</h3>
+
+<div>
+    <!-- Sección de búsqueda y tabla -->
+    <div class="Datos">
+        <label for="Nombre">Busca tu Nombre</label>
+        <input type="text" id="Nombre" name="Nombre" />
+        <br /><br />
+
+        <!-- Tabla de Reportes -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Num Clase</th>
+                    <th>ID Clase</th>
+                    <th>ID ENTRENADOR</th>
+                    <th>Clase</th>
+                    <th>Fecha</th>
+                    <th>Horario</th>
+                    <th>Cupos</th>
+                    <th>Precio Clase</th>
+                    <th>Usuarios Inscritos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí podrías iterar sobre los datos dinámicos de clases que se proporcionan en el backend -->
+                <tr>
+                    <td>1</td>
+                    <td>CL01</td>
+                    <td>ENT01</td>
+                    <td>Yoga</td>
+                    <td>2024-12-15</td>
+                    <td>08:00 AM</td>
+                    <td>10</td>
+                    <td>$20</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>CL02</td>
+                    <td>ENT02</td>
+                    <td>Pilates</td>
+                    <td>2024-12-16</td>
+                    <td>09:00 AM</td>
+                    <td>12</td>
+                    <td>$25</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>CL03</td>
+                    <td>ENT03</td>
+                    <td>Spinning</td>
+                    <td>2024-12-17</td>
+                    <td>10:00 AM</td>
+                    <td>15</td>
+                    <td>$30</td>
+                    <td>12</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br /><br />
+        <!-- Botones de filtro y guardar reportes -->
+        <button type="submit" class="send-btn">Filtrar por clase</button>
+        <button type="submit" class="send-btn">Filtrar por horario</button>
+        <button type="submit" class="send-btn">Usuarios anotados</button>
+        <button type="submit" class="send-btn">Mostrar todo</button>
+        <button type="submit" class="send-btn">Ver Reportes de Clases</button>
+        <button type="submit" class="send-btn">Guardar Reportes</button>
+
+        <!-- Botón para regresar a Entrenador.razor -->
+        <button onclick="location.href='/Entrenador'" class="send-btn">Volver a Entrenador</button>
+    </div>
+</div>
+
+@code {
+    // Aquí podrías agregar la lógica del código C# que gestionará los reportes y filtrados si fuera necesario.
+}

@@ -1,12 +1,100 @@
 ﻿@page "/AdministradorControlInventario"
 @inject NavigationManager Navigation
 
-<h3>AdministradorControlInventario</h3>
+<h3>Control de Inventario</h3>
+
+<div class="form-group">
+    <label for="machine-id">Busca ID de Máquina</label>
+    <InputText id="machine-id" class="form-control" @bind-Value="machineId" />
+    <button type="button" class="btn btn-primary mt-2" @onclick="SearchMachine">Buscar Máquina</button>
+</div>
+
+@if (machineFound)
+{
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Nombre de la Máquina</th>
+                <th>Cliente Asignado</th>
+                <th>Día Establecido</th>
+                <th>Hora Establecida</th>
+                <th>Fecha de Compra</th>
+                <th>Vida Útil (Meses)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@machineName</td>
+                <td>@clientName</td>
+                <td>@establishedDay</td>
+                <td>@establishedTime</td>
+                <td>@purchaseDate.ToShortDateString()</td>
+                <td>@lifeSpanMonths</td>
+            </tr>
+        </tbody>
+    </table>
+
+    @if (showWarning)
+    {
+        <div class="alert alert-warning mt-3">
+            <strong>¡Atención!</strong> La vida útil de la máquina pronto llegará a su fin.
+        </div>
+    }
+}
 
 <!-- Botón para regresar a Administrador -->
-<button class="btn-primary" @onclick="GoToAdministrador">Ir a Administrador</button>
+<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
 
 @code {
+    private string machineId;
+    private bool machineFound = false;
+    private bool showWarning = false;
+    private string machineName;
+    private string clientName;
+    private string establishedDay;
+    private string establishedTime;
+    private DateTime purchaseDate;
+    private int lifeSpanMonths;
+
+    private void SearchMachine()
+    {
+        if (machineId == "001")
+        {
+            machineFound = true;
+            showWarning = false;
+
+            machineName = "Máquina Cardio X100";
+            clientName = "Cliente A";
+            establishedDay = "Lunes";
+            establishedTime = "9:00 a.m - 10:00 a.m";
+            purchaseDate = DateTime.Now.AddMonths(-2); // Reciente
+            lifeSpanMonths = 12;
+        }
+        else if (machineId == "002")
+        {
+            machineFound = true;
+
+            machineName = "Máquina Fuerza Z200";
+            clientName = "Cliente B";
+            establishedDay = "Martes";
+            establishedTime = "10:00 a.m - 11:00 a.m";
+            purchaseDate = DateTime.Now.AddMonths(-9); // Pronto a expirar
+            lifeSpanMonths = 12;
+
+            // Verificar si faltan 3 meses o menos para el fin de la vida útil
+            var remainingMonths = lifeSpanMonths - (DateTime.Now.Month - purchaseDate.Month + (12 * (DateTime.Now.Year - purchaseDate.Year)));
+            if (remainingMonths <= 3)
+            {
+                showWarning = true;
+            }
+        }
+        else
+        {
+            machineFound = false;
+            showWarning = false;
+        }
+    }
+
     private void GoToAdministrador()
     {
         // Navega a la página Administrador

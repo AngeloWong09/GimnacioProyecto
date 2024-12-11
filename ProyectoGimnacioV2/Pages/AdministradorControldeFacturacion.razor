@@ -1,16 +1,71 @@
 ﻿@page "/AdministradorControldeFacturacion"
 @inject NavigationManager Navigation
+@inject IJSRuntime JS
 
-<h3>AdministradorControldeFacturacion</h3>
+<h3>Control de Facturación</h3>
+
+<!-- Tabla de Facturas -->
+<table class="table table-bordered" id="facturaTable">
+    <thead>
+        <tr>
+            <th>Id de Factura</th>
+            <th>Nombre de la Máquina</th>
+            <th>Precio</th>
+            <th>Vida Útil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var factura in facturas)
+        {
+            <tr>
+                <td>@factura.Id</td>
+                <td>@factura.NombreMaquina</td>
+                <td>@factura.Precio</td>
+                <td>@factura.VidaUtil</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botón para descargar la tabla como CSV -->
+<button class="btn btn-success mt-3" @onclick="DownloadTableAsCSV">Descargar como CSV</button>
 
 <!-- Botón para regresar a Administrador -->
-<button class="btn-primary" @onclick="GoToAdministrador">Ir a Administrador</button>
+<button class="btn btn-primary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
 
 @code {
+    private List<Factura> facturas = new List<Factura>
+    {
+        new Factura { Id = 1, NombreMaquina = "Máquina Cardio", Precio = 100, VidaUtil = "12 meses" },
+        new Factura { Id = 2, NombreMaquina = "Máquina Fuerza", Precio = 150, VidaUtil = "10 meses" },
+        new Factura { Id = 3, NombreMaquina = "Máquina Yoga", Precio = 200, VidaUtil = "8 meses" }
+    };
+
     private void GoToAdministrador()
     {
         // Navega a la página Administrador
         Navigation.NavigateTo("/Administrador");
     }
-}
 
+    // Método para descargar la tabla como CSV
+    private async Task DownloadTableAsCSV()
+    {
+        var csv = "Id de Factura,Nombre de la Máquina,Precio,Vida Útil\n";
+        foreach (var factura in facturas)
+        {
+            csv += $"{factura.Id},{factura.NombreMaquina},{factura.Precio},{factura.VidaUtil}\n";
+        }
+
+        // Llamada JavaScript para iniciar la descarga del archivo CSV
+        await JS.InvokeVoidAsync("downloadFile", new { Content = csv, ContentType = "text/csv", FileName = "Facturas.csv" });
+    }
+
+    // Clase para representar una factura
+    public class Factura
+    {
+        public int Id { get; set; }
+        public string NombreMaquina { get; set; }
+        public decimal Precio { get; set; }
+        public string VidaUtil { get; set; }
+    }
+}

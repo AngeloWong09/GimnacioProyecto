@@ -6,21 +6,29 @@
 
 <EditForm Model="@passwordModel" OnValidSubmit="ChangePassword">
     <div>
+        <label for="clientId">ID de Cliente:</label>
+        <InputText id="clientId" @bind-Value="passwordModel.ClientId" />
+        <ValidationMessage For="@(() => passwordModel.ClientId)" />
+        <button type="button" class="btn btn-primary mt-2" @onclick="SearchClient">Buscar ID</button>
+    </div>
+
+    <div>
+        <label for="clientName">Nombre del Cliente:</label>
+        <InputText id="clientName" @bind-Value="passwordModel.ClientName" Disabled="true" />
+    </div>
+
+    <div>
         <label for="currentPassword">Contraseña Actual:</label>
         <InputText id="currentPassword" type="password" @bind-Value="passwordModel.CurrentPassword" />
         <ValidationMessage For="@(() => passwordModel.CurrentPassword)" />
     </div>
+
     <div>
         <label for="newPassword">Nueva Contraseña:</label>
         <InputText id="newPassword" type="password" @bind-Value="passwordModel.NewPassword" />
         <ValidationMessage For="@(() => passwordModel.NewPassword)" />
+        <button type="submit" class="btn btn-success mt-2">Cambiar Contraseña</button>
     </div>
-    <div>
-        <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
-        <InputText id="confirmPassword" type="password" @bind-Value="passwordModel.ConfirmPassword" />
-        <ValidationMessage For="@(() => passwordModel.ConfirmPassword)" />
-    </div>
-    <button type="submit">Confirmar Cambios</button>
 </EditForm>
 
 @if (!string.IsNullOrEmpty(message))
@@ -37,14 +45,35 @@
 
     private void ChangePassword()
     {
-        if (passwordModel.NewPassword != passwordModel.ConfirmPassword)
+        if (string.IsNullOrWhiteSpace(passwordModel.ClientId))
         {
-            message = "Las contraseñas no coinciden.";
+            message = "Debe buscar y seleccionar un cliente antes de cambiar la contraseña.";
+            return;
+        }
+
+        if (passwordModel.NewPassword.Length < 6)
+        {
+            message = "La nueva contraseña debe tener al menos 6 caracteres.";
             return;
         }
 
         // Lógica para actualizar la contraseña en la base de datos
         message = "Contraseña actualizada exitosamente.";
+    }
+
+    private void SearchClient()
+    {
+        // Simulación de búsqueda de cliente por ID (se debería conectar a la base de datos)
+        if (passwordModel.ClientId == "0")
+        {
+            passwordModel.ClientName = "Cliente Ejemplo";
+            message = "Cliente encontrado.";
+        }
+        else
+        {
+            passwordModel.ClientName = string.Empty;
+            message = "Cliente no encontrado.";
+        }
     }
 
     private void GoToAdministrador()
@@ -55,15 +84,17 @@
 
     public class PasswordModel
     {
+        [Required(ErrorMessage = "El ID de cliente es obligatorio.")]
+        public string ClientId { get; set; }
+
+        public string ClientName { get; set; }
+
         [Required(ErrorMessage = "La contraseña actual es obligatoria.")]
         public string CurrentPassword { get; set; }
 
         [Required(ErrorMessage = "La nueva contraseña es obligatoria.")]
         [MinLength(6, ErrorMessage = "La nueva contraseña debe tener al menos 6 caracteres.")]
         public string NewPassword { get; set; }
-
-        [Required(ErrorMessage = "Confirmar contraseña es obligatorio.")]
-        public string ConfirmPassword { get; set; }
     }
 }
 
