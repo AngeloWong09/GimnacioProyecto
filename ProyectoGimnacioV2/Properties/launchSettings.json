@@ -38,4 +38,9 @@
       }
     }
   }
+  {
+    "ConnectionStrings": {
+      "GymDatabase": "Server=localhost:3306;Database=GYM;User=root;Password=;Pooling=true"
+    }
+  }
 }

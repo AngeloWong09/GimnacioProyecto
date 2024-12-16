@@ -1,0 +1,21 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th, td {
+    padding: 8px;
+}
+
+button1, button2 {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: blueviolet; color: white;
+}
+
+

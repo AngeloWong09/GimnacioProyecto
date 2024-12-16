@@ -1,0 +1,99 @@
+﻿@page "/gym"
+@using System.Data
+@using MySql.Data.MySqlClient
+
+<h1 style="text-align: center;">GymFASTFORCE</h1>
+
+<!-- Botones principales -->
+<div style="display: flex; justify-content: space-between; margin: 10px 20px;">
+    <button1 @onclick="location.href=InicioSecion">Cerrar Sesión</button1>
+    <button type="submit" class="send-btn">Guardar Reportes</button>
+    <button2 @onclick= "location.href=Membresia" >Actualizar Membresía</button2>
+</div>
+
+<div style="display: flex; justify-content: space-between; margin-top: 40px;">
+
+    <!-- Sección izquierda: ID y reservas -->
+    <div style="width: 45%; padding: 10px; border-right: 1px solid #ddd;">
+        <label for="idUsuario">ID:</label>
+        <input type="text" id="idUsuario" @bind="UsuarioID" style="width: 100%; margin-bottom: 10px;" />
+
+        <button @onclick="ConsultarReservas" style="background-color: blue; color: white; width: 100%;">Consultar Reservas</button>
+
+        <h3>Sus clases programadas:</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+                <tr style="background-color: #f4f4f4;">
+                    <th>ID Clase</th>
+                    <th>Clase</th>
+                    <th>Fecha</th>
+                    <th>Entrenador</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ReservasUsuario.Any())
+                {
+                    @foreach (var reserva in ReservasUsuario)
+                    {
+                        <tr>
+                            <td>@reserva.IDClase</td>
+                            <td>@reserva.NombreClase</td>
+                            <td>@reserva.FechaClase</td>
+                            <td>@reserva.NombreEntrenador</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="text-align: center;">No hay reservas disponibles.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Sección derecha: Clases disponibles -->
+    <div style="width: 45%; padding: 10px;">
+        <label for="claseInscribirse">Seleccione la clase a inscribirse:</label>
+        <select id="claseInscribirse" @bind="ClaseSeleccionada" style="width: 100%; margin-bottom: 10px;">
+            <option value="Zumba">Zumba</option>
+            <option value="Funcionales">Funcionales</option>
+            <option value="CardioDance">CardioDance</option>
+        </select>
+
+        <h3>Seleccione la clase que desea:</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+                <tr style="background-color: #f4f4f4;">
+                    <th>ID</th>
+                    <th>Clase</th>
+                    <th>Fecha</th>
+                    <th>Entrenador</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ClasesDisponibles.Any())
+                {
+                    @foreach (var clase in ClasesDisponibles)
+                    {
+                        <tr>
+                            <td>@clase.ID</td>
+                            <td>@clase.NombreClase</td>
+                            <td>@clase.FechaClase</td>
+                            <td>@clase.NombreEntrenador</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="text-align: center;">No hay clases disponibles.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button @onclick="GuardarReserva" style="background-color: purple; color: white; width: 100%; margin-top: 10px;">Guardar Reserva</button>
+    </div>
+</div>
