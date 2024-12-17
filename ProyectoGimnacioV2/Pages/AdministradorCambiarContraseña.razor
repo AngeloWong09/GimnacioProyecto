@@ -1,6 +1,8 @@
-﻿@page "/AdministradorCambiarContraseña"
+﻿
+@page "/AdministradorCambiarContraseña"
 @using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
+@using ProyectoGimnacioV2.Clases  
 
 <h2>Cambiar Contraseña</h2>
 
@@ -19,8 +21,9 @@
 
     <div>
         <label for="currentPassword">Contraseña Actual:</label>
-        <InputText id="currentPassword" type="password" @bind-Value="passwordModel.CurrentPassword" />
+        <InputText id="currentPassword" type="@currentPasswordType" @bind-Value="passwordModel.CurrentPassword" Disabled="true" />
         <ValidationMessage For="@(() => passwordModel.CurrentPassword)" />
+        <button type="button" class="btn btn-link" @onclick="TogglePasswordVisibility">Ver Contraseña</button>
     </div>
 
     <div>
@@ -42,10 +45,12 @@
 @code {
     private PasswordModel passwordModel = new PasswordModel();
     private string message = string.Empty;
+    private Usuario currentUser = null;
+    private string currentPasswordType = "password";  // Controla el tipo del campo para la contraseña
 
     private void ChangePassword()
     {
-        if (string.IsNullOrWhiteSpace(passwordModel.ClientId))
+        if (currentUser == null)
         {
             message = "Debe buscar y seleccionar un cliente antes de cambiar la contraseña.";
             return;
@@ -57,23 +62,44 @@
             return;
         }
 
-        // Lógica para actualizar la contraseña en la base de datos
-        message = "Contraseña actualizada exitosamente.";
+        // Cambiar la contraseña del usuario en la lista
+        var user = Usuarios.ListaUsuarios.FirstOrDefault(u => u.ClientId == passwordModel.ClientId);
+        if (user != null)
+        {
+            user.Password = passwordModel.NewPassword;  // Cambiar la contraseña en el objeto Usuario
+            message = "Contraseña actualizada exitosamente.";
+        }
+        else
+        {
+            message = "Cliente no encontrado en la lista.";
+        }
     }
+
 
     private void SearchClient()
     {
-        // Simulación de búsqueda de cliente por ID (se debería conectar a la base de datos)
-        if (passwordModel.ClientId == "0")
+        // Buscar cliente por ID en la lista de usuarios
+        currentUser = Usuarios.ListaUsuarios.FirstOrDefault(u => u.ClientId == passwordModel.ClientId);
+
+        if (currentUser != null)
         {
-            passwordModel.ClientName = "Cliente Ejemplo";
+            passwordModel.ClientName = currentUser.ClientName;
+            passwordModel.CurrentPassword = currentUser.Password;  // Mostrar la contraseña actual
             message = "Cliente encontrado.";
         }
         else
         {
             passwordModel.ClientName = string.Empty;
+            passwordModel.CurrentPassword = string.Empty;  // Borrar la contraseña si no se encuentra
             message = "Cliente no encontrado.";
+            currentUser = null;
         }
+    }
+
+    private void TogglePasswordVisibility()
+    {
+        // Cambia el tipo del campo para mostrar u ocultar la contraseña
+        currentPasswordType = currentPasswordType == "password" ? "text" : "password";
     }
 
     private void GoToAdministrador()
@@ -97,4 +123,3 @@
         public string NewPassword { get; set; }
     }
 }
-

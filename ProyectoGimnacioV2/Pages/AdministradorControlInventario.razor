@@ -1,5 +1,7 @@
-﻿@page "/AdministradorControlInventario"
+﻿
+@page "/AdministradorControlInventario"
 @inject NavigationManager Navigation
+@using ProyectoGimnacioV2.Clases
 
 <h3>Control de Inventario</h3>
 
@@ -37,7 +39,7 @@
     @if (showWarning)
     {
         <div class="alert alert-warning mt-3">
-            <strong>¡Atención!</strong> La vida útil de la máquina pronto llegará a su fin.
+            <strong>¡Atención!</strong> La máquina debe ser cambiada.
         </div>
     }
 }
@@ -58,38 +60,42 @@
 
     private void SearchMachine()
     {
-        if (machineId == "001")
+        // Obtener la lista de máquinas desde Maquinas.cs
+        var maquinas = Maquinas.ObtenerMaquinas();
+
+        // Buscar la máquina por ID
+        var maquina = maquinas.FirstOrDefault(m => m.Id.ToString() == machineId);
+
+        if (maquina != null)
         {
+            // Si se encuentra la máquina, mostrar sus datos
             machineFound = true;
             showWarning = false;
 
-            machineName = "Máquina Cardio X100";
-            clientName = "Cliente A";
-            establishedDay = "Lunes";
-            establishedTime = "9:00 a.m - 10:00 a.m";
-            purchaseDate = DateTime.Now.AddMonths(-2); // Reciente
-            lifeSpanMonths = 12;
-        }
-        else if (machineId == "002")
-        {
-            machineFound = true;
+            // Asignar los valores de la máquina encontrada a las variables
+            machineName = maquina.Nombre;
+            clientName = "Cliente A"; // O asignar el cliente correspondiente según tu lógica
+            establishedDay = "Lunes"; // O asignar el día correspondiente según tu lógica
+            establishedTime = "9:00 a.m - 10:00 a.m"; // O asignar la hora correspondiente según tu lógica
+            purchaseDate = DateTime.Parse(maquina.FechaEntrada); // Convertir la fecha de entrada
+            lifeSpanMonths = maquina.TiempoVida;
 
-            machineName = "Máquina Fuerza Z200";
-            clientName = "Cliente B";
-            establishedDay = "Martes";
-            establishedTime = "10:00 a.m - 11:00 a.m";
-            purchaseDate = DateTime.Now.AddMonths(-9); // Pronto a expirar
-            lifeSpanMonths = 12;
+            // Calcular la fecha límite (30 de diciembre del año actual)
+            var currentYear = DateTime.Now.Year;
+            var targetDate = new DateTime(currentYear, 12, 30);
 
-            // Verificar si faltan 3 meses o menos para el fin de la vida útil
-            var remainingMonths = lifeSpanMonths - (DateTime.Now.Month - purchaseDate.Month + (12 * (DateTime.Now.Year - purchaseDate.Year)));
-            if (remainingMonths <= 3)
+            // Verificar la diferencia de meses entre la fecha de entrada y el 30 de diciembre
+            var monthsRemaining = ((targetDate.Year - purchaseDate.Year) * 12 + targetDate.Month - purchaseDate.Month);
+
+            // Si faltan 3 meses o menos, mostrar la alerta
+            if (monthsRemaining <= 3)
             {
-                showWarning = true;
+                showWarning = true; // Mostrar la alerta si faltan 3 meses o menos
             }
         }
         else
         {
+            // Si no se encuentra la máquina
             machineFound = false;
             showWarning = false;
         }

@@ -1,17 +1,28 @@
-﻿@page "/AdministradorControldeFacturacion"
+﻿
+@page "/AdministradorControldeFacturacion"
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
+@using ProyectoGimnacioV2.Clases
 
 <h3>Control de Facturación</h3>
+
+<!-- Botones para cambiar entre tipos de facturas -->
+<div class="mb-3">
+    <button class="btn btn-info" @onclick="CargarFacturasEntrenador">Facturas de Entrenador</button>
+    <button class="btn btn-info" @onclick="CargarFacturasCliente">Facturas Cliente</button>
+    <button class="btn btn-info" @onclick="CargarFacturasMaquinas">Facturas Maquinas</button>
+</div>
 
 <!-- Tabla de Facturas -->
 <table class="table table-bordered" id="facturaTable">
     <thead>
         <tr>
-            <th>Id de Factura</th>
-            <th>Nombre de la Máquina</th>
-            <th>Precio</th>
-            <th>Vida Útil</th>
+            <th>Id</th>
+            <th>Cliente</th>
+            <th>Detalle</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody>
@@ -19,53 +30,70 @@
         {
             <tr>
                 <td>@factura.Id</td>
-                <td>@factura.NombreMaquina</td>
-                <td>@factura.Precio</td>
-                <td>@factura.VidaUtil</td>
+                <td>@factura.ClienteNombre</td>
+                <td>@factura.Detalle</td>
+                <td>@factura.Monto:C</td>
+                <td>@factura.Fecha.ToShortDateString()</td>
+                <td>@factura.Estado</td>
             </tr>
         }
     </tbody>
 </table>
 
-<!-- Botón para descargar la tabla como CSV -->
-<button class="btn btn-success mt-3" @onclick="DownloadTableAsCSV">Descargar como CSV</button>
-
-<!-- Botón para regresar a Administrador -->
-<button class="btn btn-primary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
+<!-- Botones de funcionalidad -->
+<div class="mt-3">
+    <button class="btn btn-success" @onclick="GuardarTablaComoTXT">Guardar en TXT</button>
+    <button class="btn btn-primary" @onclick="GoToAdministrador">Regresar a Administrador</button>
+</div>
 
 @code {
-    private List<Factura> facturas = new List<Factura>
-    {
-        new Factura { Id = 1, NombreMaquina = "Máquina Cardio", Precio = 100, VidaUtil = "12 meses" },
-        new Factura { Id = 2, NombreMaquina = "Máquina Fuerza", Precio = 150, VidaUtil = "10 meses" },
-        new Factura { Id = 3, NombreMaquina = "Máquina Yoga", Precio = 200, VidaUtil = "8 meses" }
-    };
+    private List<Factura> facturas;
 
+    protected override void OnInitialized()
+    {
+        // Cargar facturas por defecto (ejemplo: Cliente)
+        facturas = Facturas.ObtenerFacturasCliente();
+    }
+
+    // Métodos para cargar diferentes tipos de facturas
+    private void CargarFacturasEntrenador()
+    {
+        facturas = Facturas.ObtenerFacturasEntrenador();
+    }
+
+    private void CargarFacturasCliente()
+    {
+        facturas = Facturas.ObtenerFacturasCliente();
+    }
+
+    private void CargarFacturasMaquinas()
+    {
+        facturas = Facturas.ObtenerFacturasMaquinas();
+    }
+
+    // Método para regresar a la página del administrador
     private void GoToAdministrador()
     {
-        // Navega a la página Administrador
         Navigation.NavigateTo("/Administrador");
     }
 
-    // Método para descargar la tabla como CSV
-    private async Task DownloadTableAsCSV()
+    // Método para guardar la tabla mostrada en pantalla como archivo TXT
+    private async Task GuardarTablaComoTXT()
     {
-        var csv = "Id de Factura,Nombre de la Máquina,Precio,Vida Útil\n";
-        foreach (var factura in facturas)
+        // Concatenar las facturas de los tres tipos
+        var facturasCompletas = new List<Factura>();
+        facturasCompletas.AddRange(Facturas.ObtenerFacturasCliente());
+        facturasCompletas.AddRange(Facturas.ObtenerFacturasEntrenador());
+        facturasCompletas.AddRange(Facturas.ObtenerFacturasMaquinas());
+
+        // Construir el contenido TXT solo con los datos actualmente visibles
+        var txtContent = "Id\tCliente\tDetalle\tMonto\tFecha\tEstado\n";
+        foreach (var factura in facturasCompletas)
         {
-            csv += $"{factura.Id},{factura.NombreMaquina},{factura.Precio},{factura.VidaUtil}\n";
+            txtContent += $"{factura.Id}\t{factura.ClienteNombre}\t{factura.Detalle}\t{factura.Monto:C}\t{factura.Fecha.ToShortDateString()}\t{factura.Estado}\n";
         }
 
-        // Llamada JavaScript para iniciar la descarga del archivo CSV
-        await JS.InvokeVoidAsync("downloadFile", new { Content = csv, ContentType = "text/csv", FileName = "Facturas.csv" });
-    }
-
-    // Clase para representar una factura
-    public class Factura
-    {
-        public int Id { get; set; }
-        public string NombreMaquina { get; set; }
-        public decimal Precio { get; set; }
-        public string VidaUtil { get; set; }
+        // Usar JavaScript para descargar el archivo
+        await JS.InvokeVoidAsync("downloadFile", new { Content = txtContent, ContentType = "text/plain", FileName = "Facturas_Completas.txt" });
     }
 }

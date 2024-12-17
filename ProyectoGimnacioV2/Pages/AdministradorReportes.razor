@@ -1,40 +1,16 @@
-﻿@page "/AdministradorReportes"
+﻿
+@page "/AdministradorReporte"
 @inject NavigationManager Navigation
 @using System.IO
+@using ProyectoGimnacioV2.Clases
 
 <h3>Generar Reportes</h3>
 
 <div class="form-group">
     <label for="report-type">Seleccione el tipo de reporte:</label>
     <select id="report-type" class="form-control" @bind="selectedReportType">
-        <option>Entrenadores</option>
         <option>Clases</option>
         <option>Máquinas</option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="day">Buscar Día:</label>
-    <select id="day" class="form-control" @bind="selectedDay">
-        <option>Lunes</option>
-        <option>Martes</option>
-        <option>Miércoles</option>
-        <option>Jueves</option>
-        <option>Viernes</option>
-        <option>Sábado</option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label for="time">Buscar Hora:</label>
-    <select id="time" class="form-control" @bind="selectedTime">
-        <option>6:00 a.m - 8:00 a.m</option>
-        <option>9:00 a.m - 10:00 a.m</option>
-        <option>10:00 a.m - 11:00 a.m</option>
-        <option>1:00 p.m - 2:00 p.m</option>
-        <option>2:00 p.m - 4:00 p.m</option>
-        <option>4:00 p.m - 5:00 p.m</option>
-        <option>6:00 p.m - 7:00 p.m</option>
     </select>
 </div>
 
@@ -44,15 +20,7 @@
 {
     <table class="table table-bordered mt-3">
         <thead>
-            @if (selectedReportType == "Entrenadores")
-            {
-                <tr>
-                    <th>Nombre del Entrenador</th>
-                    <th>Punto Fuerte</th>
-                    <th>Clientes Inscritos</th>
-                </tr>
-            }
-            else if (selectedReportType == "Clases")
+            @if (selectedReportType == "Clases")
             {
                 <tr>
                     <th>Nombre de la Clase</th>
@@ -65,8 +33,9 @@
             {
                 <tr>
                     <th>Nombre de la Máquina</th>
-                    <th>Nombre del Cliente</th>
+                    <th>Fecha de Entrada</th>
                     <th>Vida Útil</th>
+                    <th>Ingresos</th>
                 </tr>
             }
         </thead>
@@ -91,8 +60,6 @@
 
 @code {
     private string selectedReportType;
-    private string selectedDay;
-    private string selectedTime;
     private bool showReport = false;
     private List<List<string>> reportData = new List<List<string>>();
 
@@ -101,20 +68,36 @@
         showReport = true;
         reportData.Clear();
 
-        if (selectedReportType == "Entrenadores")
+        if (selectedReportType == "Clases")
         {
-            reportData.Add(new List<string> { "Carlos Pérez", "Zumba", "15" });
-            reportData.Add(new List<string> { "Ana López", "CardioDance", "12" });
-        }
-        else if (selectedReportType == "Clases")
-        {
-            reportData.Add(new List<string> { "Clase de Yoga", "Carlos Pérez", "Zumba", "20" });
-            reportData.Add(new List<string> { "Clase de Pilates", "Ana López", "CardioDance", "18" });
+            var allClasses = ClaseEntrenamiento.ObtenerClases();
+
+            // No se filtra por día ni hora, se muestran todas las clases
+            foreach (var clase in allClasses)
+            {
+                reportData.Add(new List<string>
+                {
+                    clase.NombreClase,
+                    clase.NombreEntrenador,
+                    clase.Hora, // Puedes agregar más detalles si es necesario
+                    clase.Capacidad.ToString() // Por ejemplo, el número de clientes inscritos
+                });
+            }
         }
         else if (selectedReportType == "Máquinas")
         {
-            reportData.Add(new List<string> { "Máquina Cardio", "Juan Martínez", "12 meses" });
-            reportData.Add(new List<string> { "Máquina Fuerza", "Pedro González", "8 meses" });
+            var allMachines = Maquinas.ObtenerMaquinas();
+
+            foreach (var maquina in allMachines)
+            {
+                reportData.Add(new List<string>
+                {
+                    maquina.Nombre,
+                    maquina.FechaEntrada,
+                    maquina.TiempoVida.ToString(),
+                    maquina.Ingresos.ToString()
+                });
+            }
         }
     }
 
@@ -127,17 +110,13 @@
         using (var writer = new StreamWriter(filePath))
         {
             // Escribir encabezado según el tipo de reporte
-            if (selectedReportType == "Entrenadores")
-            {
-                writer.WriteLine("Nombre del Entrenador,Punto Fuerte,Clientes Inscritos");
-            }
-            else if (selectedReportType == "Clases")
+            if (selectedReportType == "Clases")
             {
                 writer.WriteLine("Nombre de la Clase,Nombre del Entrenador,Punto Fuerte,Clientes Inscritos");
             }
             else if (selectedReportType == "Máquinas")
             {
-                writer.WriteLine("Nombre de la Máquina,Nombre del Cliente,Vida Útil");
+                writer.WriteLine("Nombre de la Máquina,Fecha de Entrada,Vida Útil,Ingresos");
             }
 
             // Escribir los datos del reporte
@@ -159,4 +138,3 @@
         Navigation.NavigateTo("/Administrador");
     }
 }
-

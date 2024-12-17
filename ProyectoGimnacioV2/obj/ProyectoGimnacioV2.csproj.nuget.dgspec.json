@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Chris\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {}
+    "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Chris\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {
+    "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Chris\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
+        "projectUniqueName": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
         "projectName": "ProyectoGimnacioV2",
-        "projectPath": "C:\\Users\\Chris\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
-        "packagesPath": "C:\\Users\\Chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Chris\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\obj\\",
+        "projectPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
+        "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,14 +43,21 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Blazored.SessionStorage": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[33.0.1, )"
+            },
             "Microsoft.AspNetCore.Components.WebAssembly": {
               "target": "Package",
               "version": "[8.0.6, )"
@@ -63,13 +70,13 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.11, )",
+              "version": "[8.0.6, )",
               "autoReferenced": true
             },
             "Microsoft.NET.Sdk.WebAssembly.Pack": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.0, )",
+              "version": "[8.0.5, )",
               "autoReferenced": true
             },
             "MySql.Data": {
@@ -91,7 +98,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-              "version": "[8.0.11, 8.0.11]"
+              "version": "[8.0.5, 8.0.5]"
             }
           ],
           "frameworkReferences": {
@@ -99,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

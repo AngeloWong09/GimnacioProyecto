@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Servicios\**" />
-    <Content Remove="Servicios\**" />
-    <EmbeddedResource Remove="Servicios\**" />
-    <None Remove="Servicios\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Pages\Administrador.razor.css" />
     <None Remove="Pages\Entrenador.razor.css" />
     <None Remove="Pages\InicioSesion.razor.css" />
@@ -23,13 +16,18 @@
 
   <ItemGroup>
     <Content Include="Pages\Administrador.razor.css" />
-    <Content Include="Pages\Entrenador.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.SessionStorage" Version="2.4.0" />
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.6" PrivateAssets="all" />
     <PackageReference Include="MySql.Data" Version="9.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

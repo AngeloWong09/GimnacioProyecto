@@ -1,4 +1,5 @@
 ﻿@page "/AdministradorCambiarPuntoFuerte"
+@using ProyectoGimnacioV2
 @using System.ComponentModel.DataAnnotations
 @inject NavigationManager Navigation
 
@@ -40,45 +41,61 @@
 @if (isSuccess)
 {
     <div class="alert alert-success mt-3">
-        <strong>¡Éxito!</strong> Los cambios fueron realizados correctamente.
+        <strong>¡Éxito!</strong> El Punto Fuerte del entrenador fue actualizado correctamente.
     </div>
 }
 
-<!-- Botón para ir a la página Administrador -->
+@if (isError)
+{
+    <div class="alert alert-danger mt-3">
+        <strong>Error:</strong> No se encontró un entrenador con el ID proporcionado.
+    </div>
+}
+
 <button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
 
 @code {
     private CambiarPuntoFuerteViewModel cambiarPuntoFuerte = new CambiarPuntoFuerteViewModel();
     private bool isSuccess = false;
-
-    private async Task HandleValidSubmit()
-    {
-        // Lógica para actualizar el punto fuerte del entrenador
-        // Puedes guardar estos datos en una base de datos o procesarlos de alguna manera
-
-        // Simulando un éxito en el proceso
-        isSuccess = true;
-    }
+    private bool isError = false;
 
     private void SearchCoach()
     {
-        // Simulación de búsqueda de entrenador por ID (se debería conectar a la base de datos)
-        if (cambiarPuntoFuerte.CoachId == "0")
+        var entrenador = EntrenadoresData.ListaEntrenadores.FirstOrDefault(e => e.Id.ToString() == cambiarPuntoFuerte.CoachId);
+
+        if (entrenador != null)
         {
-            cambiarPuntoFuerte.CoachName = "Entrenador Ejemplo";
-            cambiarPuntoFuerte.CurrentStrength = "Zumba";
+            cambiarPuntoFuerte.CoachName = $"{entrenador.Nombre} {entrenador.Apellido}";
+            cambiarPuntoFuerte.CurrentStrength = entrenador.PuntosFuertes;
+            isError = false;
         }
         else
         {
             cambiarPuntoFuerte.CoachName = string.Empty;
             cambiarPuntoFuerte.CurrentStrength = string.Empty;
+            isError = true;
+        }
+    }
+
+    private void HandleValidSubmit()
+    {
+        var entrenador = EntrenadoresData.ListaEntrenadores.FirstOrDefault(e => e.Id.ToString() == cambiarPuntoFuerte.CoachId);
+
+        if (entrenador != null)
+        {
+            entrenador.PuntosFuertes = cambiarPuntoFuerte.NewStrength;
+            isSuccess = true;
+            isError = false;
+        }
+        else
+        {
             isSuccess = false;
+            isError = true;
         }
     }
 
     private void GoToAdministrador()
     {
-        // Redirige al componente Administrador
         Navigation.NavigateTo("/Administrador");
     }
 
@@ -95,5 +112,3 @@
         public string NewStrength { get; set; }
     }
 }
-
-

@@ -213,64 +213,28 @@ div10[b-x244yf2uzo] {
     text-decoration: none;
     color: black;
 }
-/* /Pages/Entrenador.razor.rz.scp.css */
-body[b-yxmoqffiwz] {
-    padding: 25px;
+/* /Pages/Error.razor.rz.scp.css */
+body[b-lq7zpl2vgr] {
+    font-family: Arial, sans-serif;
 }
 
-.title[b-yxmoqffiwz] {
-    color: #5C6AC4;
-}
-
-.mod-title[b-yxmoqffiwz] {
-    font-size: 1.5em; /* Ajusta el tamaño del título a un tamaño mediano */
-    color: #5C6AC4;
-    margin-bottom: 20px; /* Espacio debajo del título */
-}
-
-button[b-yxmoqffiwz] {
-    background-color: #A34054;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 5px;
-    text-align: center;
-    display: inline-block;
-    cursor: pointer;
-}
-
-    button:hover[b-yxmoqffiwz] {
-        background-color: #8e2e45; /* Cambia el color del botón cuando pasa el mouse */
-    }
-
-.button-container[b-yxmoqffiwz] {
-    display: flex;
-    gap: 10px; /* Añade un pequeño espacio entre los botones */
-    margin-bottom: 20px; /* Añade espacio entre los botones y el campo de búsqueda */
-}
-
-.Datos[b-yxmoqffiwz] {
-    margin-top: 20px;
-}
-
-table[b-yxmoqffiwz] {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th[b-yxmoqffiwz], td[b-yxmoqffiwz] {
-    padding: 8px;
+table[b-lq7zpl2vgr], th[b-lq7zpl2vgr], td[b-lq7zpl2vgr] {
     border: 1px solid #ddd;
-    text-align: center;
+    text-align: left;
 }
 
-th[b-yxmoqffiwz] {
-    background-color: #f4f4f4;
+th[b-lq7zpl2vgr], td[b-lq7zpl2vgr] {
+    padding: 8px;
 }
 
-#currentTime[b-yxmoqffiwz] {
-    text-align: center;
-    margin-top: 20px;
+button1[b-lq7zpl2vgr], button2[b-lq7zpl2vgr] {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: blueviolet; color: white;
 }
+
+
 /* /Pages/InicioSecion.razor.rz.scp.css */
 /* Asegura que el cuerpo ocupe toda la pantalla */
 body[b-a5g3itsmgl] {

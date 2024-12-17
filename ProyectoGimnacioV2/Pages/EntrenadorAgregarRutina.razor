@@ -1,15 +1,113 @@
-﻿@page "/EntrenadorAgregarRutina"
+﻿
+@page "/EntrenadorAgregarRutina"
 
-@inject NavigationManager NavigationManager
+@using ProyectoGimnacioV2.Clases
+@inject NavigationManager Navigation
 
-<h3>Agregar Rutina</h3>
+<h3>Buscar Usuario</h3>
 
-<!-- Botón para regresar a la página Entrenador -->
-<button @onclick="GoToEntrenador" class="send-btn">Volver al Menú Entrenador</button>
+<!-- Campo de búsqueda para ClientId -->
+<div>
+    <label for="searchId">Buscar por ClientId:</label>
+    <input type="text" id="searchId" @bind="searchId" placeholder="Ingresa ClientId" />
+    <button @onclick="BuscarUsuario">Buscar</button>
+</div>
+
+<!-- Mostrar los datos del usuario encontrado en una tabla -->
+@if (usuarioEncontrado != null)
+{
+    <h4>Datos del Usuario Encontrado:</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido1</th>
+                <th>Apellido2</th>
+                <th>Rutina</th>
+                <th>Series</th>
+                <th>Repeticiones</th>
+                <th>Actualizar Rutina</th>
+                <th>Cambiar Series/Repeticiones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@usuarioEncontrado.ClientName</td>
+                <td>@usuarioEncontrado.Apellido1</td>
+                <td>@usuarioEncontrado.Apellido2</td>
+                <td>@usuarioEncontrado.Rutina.Nombre</td>
+                <td>@usuarioEncontrado.Rutina.Series</td>
+                <td>@usuarioEncontrado.Rutina.Repeticiones</td>
+                <td>
+                    <select @bind="selectedRutina">
+                        <option>Pecho</option>
+                        <option>Bíceps</option>
+                        <option>Tríceps</option>
+                        <option>Piernas</option>
+                    </select>
+                    <button @onclick="ActualizarRutina">Actualizar</button>
+                </td>
+                <td>
+                    <!-- Campos para cambiar Series y Repeticiones -->
+                    <input type="number" @bind="newSeries" min="1" placeholder="Series" />
+                    <input type="number" @bind="newRepeticiones" min="1" placeholder="Repeticiones" />
+                    <button @onclick="CambiarSeriesRepeticiones">Cambiar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+else if (searchId.Length > 0)
+{
+    <p>No se encontró el usuario con el ClientId: @searchId</p>
+}
+
+<!-- Botón para ir a EntrenadorL.razor -->
+<div>
+    <button @onclick="IrAEntrenadorL">Ir a EntrenadorL</button>
+</div>
 
 @code {
-    private void GoToEntrenador()
+    private string searchId = ""; // ID que el usuario quiere buscar
+    private Usuario usuarioEncontrado = null; // Usuario encontrado o null
+    private string selectedRutina = "Pecho"; // Rutina seleccionada por el usuario
+    private int newSeries = 3; // Nueva cantidad de series
+    private int newRepeticiones = 8; // Nueva cantidad de repeticiones
+
+    // Función para buscar el usuario
+    private void BuscarUsuario()
     {
-        NavigationManager.NavigateTo("/Entrenador");
+        usuarioEncontrado = Usuarios.ListaUsuarios.FirstOrDefault(u => u.ClientId == searchId);
+    }
+
+    // Función para actualizar la rutina del usuario encontrado
+    private void ActualizarRutina()
+    {
+        if (usuarioEncontrado != null)
+        {
+            usuarioEncontrado.Rutina = new Rutina
+                {
+                    Nombre = selectedRutina,
+                    Series = new Random().Next(3, 6),
+                    Repeticiones = new Random().Next(8, 15)
+                };
+        }
+    }
+
+    // Función para cambiar manualmente las series y repeticiones
+    private void CambiarSeriesRepeticiones()
+    {
+        if (usuarioEncontrado != null)
+        {
+            usuarioEncontrado.Rutina.Series = newSeries;
+            usuarioEncontrado.Rutina.Repeticiones = newRepeticiones;
+        }
+    }
+
+    // Función para redirigir a la página EntrenadorL
+    private void IrAEntrenadorL()
+    {
+        Navigation.NavigateTo("/EntrenadorL");
     }
 }
+

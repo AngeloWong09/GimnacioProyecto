@@ -1,0 +1,40 @@
+﻿@page "/EntrenadorL"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Entrenador</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <br />
+
+    <!-- Título principal -->
+    <h1 class="title">BIENVENIDO ENTRENADOR</h1>
+
+    <div>
+        <!-- Opciones de Modificación -->
+        <h2 class="mod-title">Opciones de Modificación</h2>
+        <div class="button-container">
+            <button onclick="location.href='/EntrenadorProgramarClases'" class="send-btn">Programar Clases</button>
+            <button onclick="location.href='/EntrenadorAgregarRutina'" class="send-btn">Agregar Rutina</button>
+            <button onclick="location.href='/EntrenadorEmitirFacturas'" class="send-btn">Emitir Facturas</button>
+            <button onclick="location.href='/EntrenadorReporte'" class="send-btn">Ver Reportes</button>
+        </div>
+
+        <br /><br />
+    </div>
+
+    <p id="currentTime"></p>
+
+    <!-- Script (si lo necesitas para actualizaciones dinámicas, etc.) -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
