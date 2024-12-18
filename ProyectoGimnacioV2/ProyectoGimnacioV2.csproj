@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\ClienteVerReservas.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Pages\Administrador.razor.css" />
     <None Remove="Pages\Entrenador.razor.css" />
     <None Remove="Pages\InicioSesion.razor.css" />
@@ -19,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\ClienteVerReservas.razor" />
     <None Include="wwwroot\sample-data\Administrador.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

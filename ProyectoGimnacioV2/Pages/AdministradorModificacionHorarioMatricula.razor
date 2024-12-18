@@ -1,31 +1,43 @@
 ﻿
 @page "/AdministradorModificacionHorarioMatricula"
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-    <title>Bienvenido a GYM FAST FORCE!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a GYM FAST FORCE</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+
+    <!-- Agregar botón para volver al menú -->
+    <div>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
+    </div> 
+    <!-- Encabezado principal -->
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
+    <!-- Título de sección para mostrar archivo CSV -->
     <h2>Mostrar Archivo CSV</h2>
     <div>
-        <!-- Eliminamos el input para seleccionar archivo -->
+        <!-- Botón para cargar y mostrar la tabla de datos del archivo CSV -->
         <button onclick="mostrarTabla()">Mostrar Tabla</button>
     </div>
     <br />
 
-    <!-- Botón para guardar el CSV -->
+    <!-- Botón para guardar los datos editados de la tabla como archivo CSV -->
     <div>
         <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
     </div>
     <br />
 
+    <!-- Título de sección para edición de datos en el CSV -->
     <h2>Editar Datos CSV</h2>
     <p>Haz clic en los campos de la tabla para editar.</p>
 
-    <!-- Tabla donde se mostrarán los datos -->
+    <!-- Tabla que contendrá los datos del archivo CSV -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
@@ -35,98 +47,123 @@
                 <th>Fecha de Inicio</th>
                 <th>Duración (meses)</th>
                 <th>Plan de Membresía</th>
-                <th>Acciones</th> <!-- Columna para botones Editar/Guardar -->
+                <th>Acciones</th> <!-- Columna para los botones Editar/Guardar -->
             </tr>
         </thead>
         <tbody id="csvTableBody"></tbody>
     </table>
 
+    <br />
+
+    <!-- Botón para volver al menú principal -->
+    <div>
+        <button onclick="volverMenu()">Volver al Menú</button>
+    </div>
+
+    <!-- Este es el área para mostrar la hora actual, si se requiere -->
     <p id="currentTime"></p>
+
+    <!-- Script para enlazar la lógica con el HTML -->
     <script src="script.js"></script>
 
     <script>
-        let datosCSV = []; // Para almacenar los datos del CSV
+        // Array para almacenar los datos leídos del archivo CSV
+        let datosCSV = [];
 
-        // Función para cargar y mostrar el archivo Matriculas.csv
+        // Función para cargar y mostrar el archivo CSV
         function mostrarTabla() {
             // Usamos fetch para obtener el archivo Matriculas.csv desde el servidor
             fetch('sample-data/Matriculas.csv')
-                .then(response => response.text())
+                .then(response => response.text()) // Convertimos la respuesta en texto
                 .then(contenido => {
-                    const lineas = contenido.split("\n");
+                    const lineas = contenido.split("\n"); // Dividimos las líneas del CSV
                     const tablaBody = document.getElementById("csvTableBody");
-                    tablaBody.innerHTML = ""; // Limpiar la tabla
-                    datosCSV = []; // Reiniciar los datos del CSV
+                    tablaBody.innerHTML = ""; // Limpiar la tabla antes de agregar los nuevos datos
+                    datosCSV = []; // Reiniciamos el array que almacena los datos
 
-                    // Iterar sobre las líneas del CSV
+                    // Iteramos sobre cada línea del archivo CSV
                     lineas.forEach((linea, index) => {
-                        if (linea.trim() === "" || index === 0) return; // Ignorar líneas vacías o la primera línea (encabezado)
+                        // Ignoramos las líneas vacías y la primera línea de encabezado
+                        if (linea.trim() === "" || index === 0) return;
 
-                        const columnas = linea.split(";"); // Separar por punto y coma, ya que la estructura es separada por punto y coma
+                        // Separar por punto y coma (estructura del CSV)
+                        const columnas = linea.split(";");
 
-                        // Añadir los datos al array
+                        // Añadir las columnas al array de datos CSV
                         datosCSV.push(columnas);
 
+                        // Creamos una nueva fila para la tabla
                         const fila = document.createElement("tr");
 
+                        // Iteramos sobre las columnas de datos y creamos las celdas correspondientes
                         columnas.forEach((columna) => {
                             const celda = document.createElement("td");
-
-                            // Hacer las celdas editables
+                            // Hacemos las celdas editables
                             celda.contentEditable = true;
                             celda.textContent = columna.trim();
-                            fila.appendChild(celda);
+                            fila.appendChild(celda); // Añadimos la celda a la fila
                         });
 
+                        // Creamos una celda de acciones con el botón Guardar
                         const celdaAcciones = document.createElement("td");
                         const botonGuardar = document.createElement("button");
                         botonGuardar.textContent = "Guardar";
-                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                        celdaAcciones.appendChild(botonGuardar);
-                        fila.appendChild(celdaAcciones);
+                        botonGuardar.onclick = function () {
+                            guardarCambios(fila, columnas); // Guardamos los cambios en la fila
+                        };
+                        celdaAcciones.appendChild(botonGuardar); // Añadimos el botón de guardar a la celda de acciones
+                        fila.appendChild(celdaAcciones); // Añadimos la celda de acciones a la fila
 
+                        // Añadimos la fila completa a la tabla
                         tablaBody.appendChild(fila);
                     });
                 })
                 .catch(error => {
                     alert("Hubo un problema al cargar el archivo Matriculas.csv.");
+                    console.error("Error:", error); // Registro del error para depuración
                 });
         }
 
-        // Función para guardar los cambios en una fila
+        // Función para guardar los cambios realizados en una fila de la tabla
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Guardar los valores de las celdas editadas en el array
-            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
-                columnas[i] = celdas[i].textContent.trim();
+            // Actualizamos los valores de las celdas editadas en el array de columnas
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluimos la última celda de "acciones"
+                columnas[i] = celdas[i].textContent.trim(); // Guardamos el contenido editado
             }
 
             alert("Cambios guardados.");
 
-            // Actualizar los datos en el array
-            const filaIndex = datosCSV.findIndex((item) => item[0] === columnas[0]); // Usar el "ID Cliente" para encontrar la fila correcta
+            // Actualizamos los datos en el array de CSV, usando el ID Cliente para identificar la fila correcta
+            const filaIndex = datosCSV.findIndex((item) => item[0] === columnas[0]);
             if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas; // Actualiza los datos
+                datosCSV[filaIndex] = columnas; // Actualizamos la fila en los datos del array
             }
         }
 
-        // Función para guardar los datos de la tabla como archivo CSV
+        // Función para guardar los datos modificados de la tabla como un archivo CSV
         function guardarCSV() {
-            let csvContent = "ID Cliente;Fecha de Inscripción;Hora de Inscripción;Fecha de Inicio;Duración (meses);Plan de Membresía\n"; // Añadimos los encabezados nuevamente
+            let csvContent = "ID Cliente;Fecha de Inscripción;Hora de Inscripción;Fecha de Inicio;Duración (meses);Plan de Membresía\n"; // Encabezado
 
-            // Generar CSV a partir de los datos almacenados
+            // Generamos el contenido CSV a partir del array de datos
             datosCSV.forEach(filaData => {
-                csvContent += filaData.join(";") + "\n"; // Separar por punto y coma
+                csvContent += filaData.join(";") + "\n"; // Unimos las columnas con punto y coma
             });
 
-            // Crear un archivo blob y descargarlo
+            // Creamos un Blob con los datos CSV y lo preparamos para descarga
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "Matriculas_guardadas.csv";
-            link.click();
+            link.download = "Matriculas_guardadas.csv"; // Nombre del archivo de salida
+            link.click(); // Activamos la descarga
+        }
+
+        // Función para redirigir al menú principal
+        function volverMenu() {
+            window.location.href = '/Administrador.razor'; // Redirigimos al menú de administración
         }
     </script>
 </body>
+
 </html>

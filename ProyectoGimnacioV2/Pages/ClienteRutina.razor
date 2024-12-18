@@ -1,0 +1,143 @@
+﻿
+@page "/ClienteRutina"
+@using System.Globalization
+@inject IJSRuntime JSRuntime // Inyección del servicio para interactuar con JavaScript
+@inject NavigationManager NavigationManager // Inyección del servicio para gestionar la navegación en Blazor
+
+<!-- Título de la página -->
+<h1>INGRESE SUS METRICAS CORPORALES</h1>
+
+<!-- Label de las métricas -->
+<h2>Sus Métricas Corporales</h2>
+
+<!-- Campo para filtrar las métricas por ID -->
+<div>
+    <label for="idFilter">Filtrar por ID:</label>
+    <input type="text" id="idFilter" @bind="idFilter" /> <!-- Vincula el filtro de ID con la propiedad en el backend -->
+</div>
+
+<!-- Campos para introducir las nuevas métricas -->
+<div>
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" @bind="newMetric.Fecha" />
+</div>
+
+<div>
+    <label for="brazos">Brazos:</label>
+    <input type="number" id="brazos" @bind="newMetric.Brazos" />
+</div>
+
+<div>
+    <label for="pechoHombros">Pecho-Hombros:</label>
+    <input type="number" id="pechoHombros" @bind="newMetric.PechoHombros" />
+</div>
+
+<div>
+    <label for="abdomen">Abdomen:</label>
+    <input type="number" id="abdomen" @bind="newMetric.Abdomen" />
+</div>
+
+<div>
+    <label for="piernas">Piernas:</label>
+    <input type="number" id="piernas" @bind="newMetric.Piernas" />
+</div>
+
+<!-- Botón para agregar una nueva métrica -->
+<div>
+    <button @onclick="AgregarMetricas">Agregar Métrica</button>
+</div>
+
+<!-- Tabla para mostrar las métricas filtradas -->
+<table border="1" class="metric-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Brazos</th>
+            <th>Pecho-Hombros</th>
+            <th>Abdomen</th>
+            <th>Piernas</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Renderiza las métricas filtradas -->
+        @foreach (var metric in FilteredMetrics)
+        {
+            <tr>
+                <td>@metric.ID</td>
+                <td>@metric.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@metric.Brazos</td>
+                <td>@metric.PechoHombros</td>
+                <td>@metric.Abdomen</td>
+                <td>@metric.Piernas</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botón para volver al menú principal -->
+<div>
+    <button @onclick="VolverAlMenu">Volver al Menú</button>
+</div>
+
+@code {
+    private string idFilter = ""; // Filtro por ID ingresado por el usuario
+    private Metric newMetric = new Metric(); // Modelo temporal para almacenar la nueva métrica
+    private List<Metric> metrics = new List<Metric>(); // Lista que contiene las métricas ingresadas
+                                                       // Propiedad calculada: filtra métricas según el ID ingresado
+    private List<Metric> FilteredMetrics => metrics
+        .Where(m => string.IsNullOrEmpty(idFilter) || m.ID.Contains(idFilter)) // Filtra si el ID coincide
+        .ToList();
+
+    // Navega a la página de inicio de sesión
+    private void CerrarSesion()
+    {
+        NavigationManager.NavigateTo("/InicioSecion"); // Redirige a la ruta de inicio de sesión
+    }
+
+    // Función para agregar una nueva métrica al sistema
+    private void AgregarMetricas()
+    {
+        // Generar un ID único para la nueva métrica
+        newMetric.ID = $"P{metrics.Count + 1239}";
+        newMetric.Fecha = DateTime.Now; // Asigna la fecha actual
+
+        metrics.Add(newMetric); // Agrega la métrica a la lista principal
+        SaveMetrics(); // Llama a la función para guardar los datos en un archivo CSV
+        newMetric = new Metric(); // Reinicia el modelo para nuevos datos
+    }
+
+    // Guarda la lista de métricas en un archivo CSV usando JavaScript
+    private void SaveMetrics()
+    {
+        var csvContent = "ID;Fecha;Brazos;Pecho-Hombros;Abdomen;Piernas\n";
+
+        // Genera el contenido del CSV uniendo cada métrica como una línea
+        foreach (var metric in metrics)
+        {
+            csvContent += $"{metric.ID};{metric.Fecha.ToString("dd/MM/yyyy")};{metric.Brazos};{metric.PechoHombros};{metric.Abdomen};{metric.Piernas}\n";
+        }
+
+        // Convierte el contenido a bytes y usa JSRuntime para descargar el archivo
+        var data = System.Text.Encoding.UTF8.GetBytes(csvContent);
+        var fileName = "Metricas.csv";
+        JSRuntime.InvokeVoidAsync("saveAsFile", fileName, data); // Llama a la función de JavaScript
+    }
+
+    // Navega de vuelta al menú principal (Cliente.razor)
+    private void VolverAlMenu()
+    {
+        NavigationManager.NavigateTo("/Cliente"); // Redirige a la ruta del menú principal
+    }
+
+    // Modelo de datos para representar una métrica
+    public class Metric
+    {
+        public string ID { get; set; } // Identificador único
+        public DateTime Fecha { get; set; } // Fecha de registro
+        public int Brazos { get; set; } // Métrica de brazos
+        public int PechoHombros { get; set; } // Métrica de pecho y hombros
+        public int Abdomen { get; set; } // Métrica de abdomen
+        public int Piernas { get; set; } // Métrica de piernas
+    }
+}

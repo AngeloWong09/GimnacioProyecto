@@ -1,32 +1,36 @@
-﻿@page "/Administrador"
-
+﻿
+@page "/Administrador"
 <!DOCTYPE html>
+  <!-- Indicamos que es un documento HTML5 -->
 <html lang="es">
+ <!-- Idioma español para la página -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">  <!-- Definimos la codificación de caracteres en UTF-8 para soportar caracteres especiales -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Aseguramos una visualización responsiva en dispositivos móviles -->
+    <title>Administrador</title> <!-- Título de la página que aparece en la pestaña del navegador -->
+    <link rel="stylesheet" href="styles.css"> <!-- Vinculamos el archivo de estilos CSS -->
 </head>
 <body>
-    <!-- Encabezado -->
+    <!-- Encabezado de la página que contiene el título -->
     <header>
-        <h1 class="title">Bienvenido Administrador</h1>
+        <h1 class="title">Bienvenido Administrador</h1>  <!-- Título visible al usuario con una clase de estilo -->
     </header>
 
-    <!-- Contenedor principal -->
+    <!-- Contenedor principal de la página -->
     <main>
-        <!-- Menú de opciones -->
+        <!-- Menú de opciones para el administrador -->
         <section class="menu-section">
-           
+            <!-- Navegación del menú de opciones -->
             <nav>
+                <!-- Lista de navegación utilizando listas no ordenadas -->
                 <ul class="menu-list" style="list-style: none; padding: 0;">
-                    <li><button class="btn-primary" data-navigation="/AdministradorCambiarContraseña">Cambiar Contraseña</button></li>
-                    <li><button class="btn-primary" data-navigation="/AdministradorCambiarPuntoFuerte">Cambiar Punto Fuerte</button></li>
-                    <li><button class="btn-primary" data-navigation="/AdministradorControlInventario">Control de Inventarios</button></li>
-                    <li><button class="btn-primary" data-navigation="/AdministradorModificacionHorarioMatricula">Modificación de Horarios de la Matrícula</button></li>
-                    <li><button class="btn-primary" data-navigation="/AdministradorControldeFacturacion">Control de Facturación</button></li>
-                    <li><button class="btn-primary" data-navigation="/AdministradorReportes">Reportes</button></li>
+                    <!-- Opciones de navegación representadas por enlaces <a> para redirigir al Razor -->
+                    <li><a class="btn-primary" href="/AdministradorCambiarContraseña">Cambiar Contraseña</a></li>
+                    <li><a class="btn-primary" href="/AdministradorCambiarPuntoFuerte">Cambiar Punto Fuerte</a></li>
+                    <li><a class="btn-primary" href="/AdministradorControlInventario">Control de Inventarios</a></li>
+                    <li><a class="btn-primary" href="/AdministradorModificacionHorarioMatricula">Modificación de Horarios de la Matrícula</a></li>
+                    <li><a class="btn-primary" href="/AdministradorControldeFacturacion">Control de Facturación</a></li>
+                    <li><a class="btn-primary" href="/AdministradorReportes">Reportes</a></li>
                 </ul>
             </nav>
         </section>
@@ -34,12 +38,15 @@
 
     <!-- Pie de página -->
     <footer>
-        <p id="currentTime"></p>
+        <p id="currentTime"></p>  <!-- Aquí se mostrará la hora actual utilizando JavaScript -->
     </footer>
 
+    <!-- Vinculamos el script JS externo -->
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
 

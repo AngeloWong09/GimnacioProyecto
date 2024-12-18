@@ -1,13 +1,14 @@
 ﻿@page "/ClienteMembresia"
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido a GYM FAST FORCE</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
@@ -20,8 +21,6 @@
 
     <h2>Editar Datos CSV</h2>
     <p>Haz clic en los campos de la tabla para editar.</p>
-
-    <!-- Tabla donde se mostrarán los datos -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
@@ -35,13 +34,18 @@
         </thead>
         <tbody id="csvTableBody"></tbody>
     </table>
+    <br />
 
-    <script src="script.js"></script>
+    <!-- Botón Volver al Menú como enlace -->
+    <div>
+        <a href="/Cliente" class="button">Volver al Menú</a>
+    </div>
 
     <script>
+        // El resto del código JavaScript permanece igual
+
         let datosCSV = [];
 
-        // Procesar archivo CSV sin bloquear el ciclo de vida de Blazor
         function procesarCSV(event) {
             const archivo = event.target.files[0];
             if (!archivo) {
@@ -49,32 +53,29 @@
                 return;
             }
 
-            // Usar FileReader asíncrono
             const lector = new FileReader();
             lector.onload = function (e) {
                 const contenido = e.target.result;
                 const lineas = contenido.split("\n");
                 const tablaBody = document.getElementById("csvTableBody");
-                tablaBody.innerHTML = ""; // Limpiar tabla
+                tablaBody.innerHTML = "";
 
-                datosCSV = []; // Reiniciar datos CSV
-
+                datosCSV = [];
                 for (let linea of lineas) {
                     if (linea.trim() === "") continue;
 
-                    const columnas = linea.split(";");  // Ajustar según el separador usado en el CSV
-                    if (columnas.length === 7 || columnas.length === 5) { // Diferentes tipos de archivos
+                    const columnas = linea.split(";");
+                    if (columnas.length === 5) {
                         datosCSV.push(columnas);
 
                         const fila = document.createElement("tr");
-                        columnas.forEach((columna, index) => {
+                        columnas.forEach(columna => {
                             const celda = document.createElement("td");
-                            celda.contentEditable = true; // Hacer editable
+                            celda.contentEditable = true;
                             celda.textContent = columna.trim();
                             fila.appendChild(celda);
                         });
 
-                        // Columna de Acciones (Guardar)
                         const celdaAcciones = document.createElement("td");
                         const botonGuardar = document.createElement("button");
                         botonGuardar.textContent = "Guardar";
@@ -94,29 +95,25 @@
             lector.readAsText(archivo);
         }
 
-        // Guardar cambios realizados en una fila
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Guardar valores editados
             for (let i = 0; i < celdas.length - 1; i++) {
                 columnas[i] = celdas[i].textContent.trim();
             }
 
             alert("Cambios guardados.");
-
-            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Buscar por ID
+            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]);
             if (filaIndex > -1) {
                 datosCSV[filaIndex] = columnas;
             }
         }
 
-        // Función para guardar CSV en el sistema
         function guardarCSV() {
             let csvContent = "";
 
             datosCSV.forEach(filaData => {
-                csvContent += filaData.join(";") + "\n"; // Unir columnas con el separador adecuado
+                csvContent += filaData.join(";") + "\n";
             });
 
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
@@ -127,6 +124,5 @@
         }
     </script>
 </body>
+
 </html>
-
-

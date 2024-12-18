@@ -1,8 +1,187 @@
-﻿@page "/ClienteClase"
+﻿
+@page "/ClienteClase"
 
+<!DOCTYPE html>
+<html lang="es">
 
-<h3>ClienteVerClase</h3>
+<head>
+    <!-- Meta información -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
 
-@code {
+<body>
+    <!-- Título principal -->
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-}
+    <!-- Sección para búsqueda de datos en la tabla CSV -->
+    <h2>Mostrar Archivo CSV</h2>
+    <div>
+        <label for="searchID">Buscar por ID:</label>
+        <!-- Campo de entrada para la búsqueda por ID -->
+        <input type="text" id="searchID" placeholder="Ingresa la ID..." />
+        <!-- Botón para activar el filtro por ID -->
+        <button onclick="filtrarPorID()">Buscar</button>
+    </div>
+    <br />
+
+    <div>
+        <!-- Botón para cargar y mostrar la tabla desde el archivo CSV -->
+        <button onclick="mostrarTabla()">Mostrar Tabla de BasedatosClase</button>
+    </div>
+    <br />
+
+    <!-- Botón para guardar la tabla como un nuevo archivo CSV -->
+    <div>
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+    </div>
+    <br />
+
+    <!-- Título de la sección donde se mostrará la tabla -->
+    <h2>Ver Datos CSV</h2>
+    <p>Los datos están deshabilitados para edición.</p>
+
+    <!-- Tabla dinámica que muestra los datos cargados desde el CSV -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <!-- Encabezado de la tabla -->
+            <tr id="tablaHeaders"></tr>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
+
+    <!-- Botón para volver al menú principal -->
+    <div>
+        <button onclick="irACliente()">Volver al Menú</button>
+    </div>
+    <br />
+
+    <!-- Muestra la hora actual para informar al usuario -->
+    <p id="currentTime"></p>
+
+    <!-- Importar archivo JavaScript externo -->
+    <script src="script.js"></script>
+
+    <script>
+        // Variable global para almacenar los datos del archivo CSV
+        let datosCSV = [];
+
+        /**
+         * Función para cargar y mostrar los datos desde el archivo CSV.
+         */
+        function mostrarTabla() {
+            const archivoCSV = 'sample-data/BasedatosClase.csv'; // Ruta al archivo CSV
+
+            fetch(archivoCSV) // Cargar archivo CSV
+                .then(response => response.text())
+                .then(contenido => {
+                    const lineas = contenido.split("\n"); // Separar contenido por líneas
+                    const tablaBody = document.getElementById("csvTableBody");
+                    tablaBody.innerHTML = ""; // Limpiar la tabla
+                    datosCSV = []; // Reiniciar datos
+
+                    const tablaHeaders = document.getElementById("tablaHeaders");
+                    tablaHeaders.innerHTML = `
+                                <th>Nombre</th>
+                                <th>Apellido 1</th>
+                                <th>Apellido 2</th>
+                                <th>ID</th>
+                                <th>ID Clase</th>`; // Agregar encabezados a la tabla
+
+                    let datosPersonas = false; // Bandera para distinguir la sección de personas
+
+                    // Iterar sobre las líneas del archivo CSV
+                    lineas.forEach((linea) => {
+                        if (linea.trim() === "") return; // Ignorar líneas vacías
+
+                        // Detectar inicio de datos de personas
+                        if (!datosPersonas && linea.includes("Nombre;Apellido")) {
+                            datosPersonas = true;
+                            return;
+                        }
+
+                        if (datosPersonas) {
+                            const columnas = linea.split(";"); // Separar columnas por punto y coma
+                            if (columnas.length === 5) { // Validar formato correcto
+                                datosCSV.push(columnas); // Guardar datos en memoria
+                            }
+                        }
+                    });
+
+                    // Actualizar vista con los datos cargados (separado para respetar SRP)
+                    actualizarVistaConDatos();
+                })
+                .catch(() => {
+                    alert("Hubo un problema al cargar el archivo BasedatosClase.csv."); // Manejo de errores
+                });
+        }
+
+        /**
+         * Función para filtrar los datos por ID.
+         */
+        function filtrarPorID() {
+            const idBuscada = document.getElementById("searchID").value.trim(); // Obtener el ID buscado
+            if (idBuscada === "") {
+                alert("Por favor ingrese un ID para buscar.");
+                return;
+            }
+
+            const resultados = datosCSV.filter(fila => fila[3] === idBuscada); // Filtrar por ID (columna 4)
+
+            if (resultados.length === 0) {
+                alert("No se encontraron resultados para el ID proporcionado.");
+                return;
+            }
+
+            // Actualizar la vista con los resultados encontrados
+            actualizarVistaConDatos(resultados);
+        }
+
+        /**
+         * Función para guardar los datos actuales en un archivo CSV.
+         */
+        function guardarCSV() {
+            let csvContent = "Nombre;Apellido 1;Apellido 2;ID;ID Clase\n"; // Encabezados CSV
+
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(";") + "\n"; // Generar contenido CSV
+            });
+
+            // Crear blob para descargar el archivo CSV
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "BasedatosClase_personas.csv";
+            link.click(); // Descargar archivo
+        }
+
+        /**
+         * Función para actualizar la vista con los datos proporcionados.
+         */
+        function actualizarVistaConDatos(datos = datosCSV) {
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = ""; // Limpiar tabla
+
+            datos.forEach(fila => {
+                const filaHTML = document.createElement("tr");
+                fila.forEach(columna => {
+                    const celda = document.createElement("td");
+                    celda.textContent = columna.trim(); // Eliminar espacios extras
+                    filaHTML.appendChild(celda);
+                });
+                tablaBody.appendChild(filaHTML); // Agregar fila a la tabla
+            });
+        }
+
+        /**
+         * Función para redirigir al menú principal.
+         */
+        function irACliente() {
+            location.href = '/Cliente'; // Navegar a Cliente.razor
+        }
+    </script>
+</body>
+
+</html>

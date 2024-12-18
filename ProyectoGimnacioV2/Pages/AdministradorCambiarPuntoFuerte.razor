@@ -1,39 +1,42 @@
 ﻿
-@page "/AdministradorCambiarPuntoFuerte"
+@page "/AdministradorCambiarPuntoFuerte"  
 
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html>  <!-- Indicamos que es un documento HTML5 -->
+<html lang="es"> <!-- Especificamos que el idioma de la página es español -->
 <head>
-    <title>Bienvenido a GYM FAST FORCE!</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">  <!-- Establecemos la codificación de caracteres en UTF-8 para soportar caracteres especiales -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Aseguramos una visualización responsiva en dispositivos móviles -->
+    <title>Bienvenido a GYM FAST FORCE!</title> <!-- Título de la página visible en la pestaña del navegador -->
+    <link rel="stylesheet" href="styles.css" />  <!-- Vinculamos el archivo de estilos CSS -->
 </head>
 <body>
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>  <!-- Título visible en la página principal -->
 
     <h2>Mostrar Entrenadores</h2>
-    <!-- Botón para cargar los datos de Entrenadores.csv -->
+    <!-- Botón para cargar los datos de Entrenadores desde un archivo CSV -->
     <div>
         <button onclick="cargarEntrenadores()">Mostrar Entrenadores</button>
     </div>
     <br />
 
-    <h2>Editar Datos CSV</h2>
-    <p>Haz clic en los campos de la tabla para editar.</p>
+    <h2>Editar Datos CSV</h2>  <!-- Título para la sección de edición -->
+    <p>Haz clic en los campos de la tabla para editar.</p>  <!-- Instrucción al usuario sobre cómo editar los datos -->
 
-    <!-- Tabla donde se mostrarán los datos -->
+    <!-- Tabla donde se mostrarán los datos del archivo CSV -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
+                <!-- Encabezados de la tabla -->
                 <th>Usuario</th>
                 <th>Contraseña</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>ID</th>
                 <th>Puntos fuertes</th>
-                <th>Acciones</th> <!-- Columna para botones Editar/Guardar -->
+                <th>Acciones</th> <!-- Columna para los botones de Editar/Guardar -->
             </tr>
         </thead>
-        <tbody id="csvTableBody"></tbody>
+        <tbody id="csvTableBody"></tbody>  <!-- Cuerpo de la tabla donde se cargarán los datos -->
     </table>
 
     <br />
@@ -45,108 +48,115 @@
 
     <br />
 
-    <p id="currentTime"></p>
-    <script src="script.js"></script>
+    <!-- Agregar botón para volver al menú -->
+    <div>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
+    </div>
 
+    <br />
+
+    <p id="currentTime"></p>  <!-- Se mostrará la hora actual utilizando JavaScript -->
+    <script src="script.js"></script>  <!-- Vinculamos el archivo JS externo -->
+  
     <script>
-        let datosCSV = []; // Para almacenar los datos del CSV
-        let encabezadoCSV = "Usuario;Contraseña;Nombre;Apellido;Id;Puntos fuertes"; // Encabezado específico
+        // Variable para almacenar los datos del CSV
+        let datosCSV = []; 
+        // Encabezado del CSV de Entrenadores
+        let encabezadoCSV = "Usuario;Contraseña;Nombre;Apellido;Id;Puntos fuertes"; 
 
         // Función para cargar los datos de Entrenadores.csv
         async function cargarEntrenadores() {
             try {
-                const respuesta = await fetch('/sample-data/Entrenadores.csv'); // Ruta al archivo de Entrenadores.csv
+                const respuesta = await fetch('/sample-data/Entrenadores.csv');  // Ruta al archivo CSV de Entrenadores
                 if (!respuesta.ok) {
                     alert("No se pudo cargar el archivo de Entrenadores.");
                     return;
                 }
-
-                const contenido = await respuesta.text(); // Lee el contenido del archivo
-                procesarCSVTexto(contenido); // Procesa el contenido del archivo CSV
+                const contenido = await respuesta.text();  // Se lee el contenido del archivo CSV
+                procesarCSVTexto(contenido);  // Procesar el contenido del archivo CSV
             } catch (error) {
                 alert("Hubo un problema al cargar el archivo.");
-                console.error("Error al cargar el archivo", error);
+                console.error("Error al cargar el archivo", error);  // Log de error para el desarrollador
             }
         }
 
-        // Función para procesar el contenido del CSV, ignorando la primera línea (encabezado)
+        // Función para procesar el contenido CSV
         function procesarCSVTexto(texto) {
             const lineas = texto.split("\n").filter((linea, index) => {
-                // Omite la primera línea (encabezado) y las líneas vacías
+                // Ignora la primera línea (encabezado) y las líneas vacías
                 return index > 0 && linea.trim() !== "";
             });
 
-            datosCSV = lineas.map(linea => linea.split(";")); // Divide las líneas en columnas y las almacena
+            datosCSV = lineas.map(linea => linea.split(";"));  // Divide las líneas en columnas y las almacena en el arreglo
 
-            // Actualiza la tabla con los nuevos datos cargados
+            // Llamamos a la función para mostrar los datos en la tabla
             mostrarDatosActualizados();
         }
 
-        // Función para mostrar los datos actualizados en la tabla
+        // Función para renderizar los datos en la tabla
         function mostrarDatosActualizados() {
             const tablaBody = document.getElementById("csvTableBody");
-            tablaBody.innerHTML = ""; // Limpiar la tabla
+            tablaBody.innerHTML = "";  // Limpiamos la tabla antes de volver a cargarla
 
             // Renderiza las filas de datos
             datosCSV.forEach(fila => {
                 const filaTabla = document.createElement("tr");
 
-                fila.forEach((columna, index) => {
+                fila.forEach((columna) => {
                     const celda = document.createElement("td");
-                    celda.contentEditable = true; // Hacer editable
+                    celda.contentEditable = true;  // Hacer que la celda sea editable
                     celda.textContent = columna.trim();
-                    filaTabla.appendChild(celda);
+                    filaTabla.appendChild(celda);  // Añade cada celda a la fila
                 });
 
                 const celdaAcciones = document.createElement("td");
                 const botonGuardar = document.createElement("button");
                 botonGuardar.textContent = "Guardar";
-                botonGuardar.onclick = function () { guardarCambios(filaTabla, fila); };
+                botonGuardar.onclick = function () { guardarCambios(filaTabla, fila); };  // Llama a la función para guardar cambios
                 celdaAcciones.appendChild(botonGuardar);
                 filaTabla.appendChild(celdaAcciones);
 
-                tablaBody.appendChild(filaTabla);
+                tablaBody.appendChild(filaTabla);  // Añade la fila a la tabla
             });
         }
 
-        // Función para guardar los cambios en una fila
+        // Función para guardar los cambios realizados en una fila
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Guardar los valores de las celdas editadas en el array
-            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
+            // Actualiza el array con los nuevos valores de las celdas
+            for (let i = 0; i < celdas.length - 1; i++) {  // Excluimos la última celda de acciones
                 columnas[i] = celdas[i].textContent.trim();
             }
 
             alert("Cambios guardados.");
 
-            // Actualizar los datos en el array
-            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Usar el ID para encontrar la fila correcta
+            // Encuentra la fila por el ID (usando el índice 4 que es el ID)
+            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]);
             if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas; // Actualiza los datos
+                datosCSV[filaIndex] = columnas;  // Actualiza los datos en el array
             }
 
-            // Después de guardar, refrescar la tabla con los datos actualizados
+            // Llamamos para actualizar la tabla
             mostrarDatosActualizados();
         }
 
         // Función para guardar los datos editados como archivo CSV
         function guardarCSV() {
-            let csvContent = encabezadoCSV + "\n"; // Incluye el encabezado de Entrenadores
+            let csvContent = encabezadoCSV + "\n";  // Se agrega el encabezado
 
-            // Generar CSV a partir de los datos almacenados
+            // Genera el contenido CSV a partir de los datos almacenados
             datosCSV.forEach(filaData => {
-                csvContent += filaData.join(";") + "\n";
+                csvContent += filaData.join(";") + "\n";  // Se separan las columnas con ";" y se añade una nueva línea
             });
 
-            // Crear un archivo blob y descargarlo
+            // Creamos un blob con el contenido CSV y lo descargamos como archivo
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "entradores_guardados.csv";
+            link.download = "entradores_guardados.csv";  // El archivo generado se llamará "entradores_guardados.csv"
             link.click();
         }
     </script>
 </body>
 </html>
-

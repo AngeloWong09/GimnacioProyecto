@@ -1,16 +1,27 @@
 ﻿
 @page "/AdministradorControldeFacturacion"
+@inject NavigationManager Navigation
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido a GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
+<body>
+    <!-- Botón Volver al Menú -->
+    <div>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
+    </div>
+
+    <!-- Mostrar Datos de Pagos -->
     <h2>Mostrar Datos de Pagos</h2>
     <div>
+        <!-- Botón para cargar los pagos -->
         <button onclick="cargarPagos()">Mostrar Pagos</button>
     </div>
 
@@ -72,54 +83,55 @@
     </table>
 
     <p id="currentTime"></p>
+
     <script src="script.js"></script>
 
     <script>
         let datosCSV = []; // Para almacenar los datos del CSV
         let datosFiltrados = []; // Para almacenar las filas filtradas
 
-        // Función para cargar el archivo "Pagos.csv" desde la carpeta "sample-data"
+        // Función para cargar el archivo CSV y mostrar sus datos en la tabla
         async function cargarPagos() {
             try {
-                const respuesta = await fetch('/sample-data/Pagos.csv'); // Ruta al archivo de Pagos.csv
-                if (!respuesta.ok) {
-                    alert("No se pudo cargar el archivo de pagos.");
-                    return;
-                }
+                // Realiza la solicitud de los datos desde el archivo
+                const respuesta = await fetch('/sample-data/Pagos.csv');
+                if (!respuesta.ok) throw new Error("No se pudo cargar el archivo de pagos.");
 
-                const contenido = await respuesta.text();
-                procesarCSVTexto(contenido); // Procesa el contenido del archivo CSV
+                const contenido = await respuesta.text(); // Obtiene el contenido del CSV
+                procesarCSVTexto(contenido); // Procesa el contenido cargado
             } catch (error) {
                 alert("Hubo un problema al cargar el archivo.");
-                console.error("Error al cargar el archivo", error);
+                console.error("Error al cargar el archivo:", error);
             }
         }
 
-        // Función para procesar el contenido del CSV y mostrarlo en la tabla
+        // Procesa el contenido del archivo CSV
         function procesarCSVTexto(texto) {
-            const lineas = texto.split("\n").filter((linea, index) => index > 0 && linea.trim() !== ""); // Ignorar primera línea (encabezado)
+            const lineas = texto.split("\n").filter((linea, index) => index > 0 && linea.trim() !== "");
 
-            datosCSV = []; // Limpiar los datos previos
-            datosFiltrados = []; // Limpiar datos filtrados
+            // Limpiar datos anteriores
+            datosCSV = [];
+            datosFiltrados = [];
 
+            // Crear la tabla con los datos cargados
             lineas.forEach(linea => {
                 const columnas = linea.split(";");
-
                 datosCSV.push(columnas);
-                datosFiltrados.push(columnas); // Inicializar los datos filtrados con todos los datos
+                datosFiltrados.push(columnas);
 
                 const fila = document.createElement("tr");
                 columnas.forEach(columna => {
                     const celda = document.createElement("td");
-                    celda.contentEditable = true; // Hacer editable
+                    celda.contentEditable = true;
                     celda.textContent = columna.trim();
                     fila.appendChild(celda);
                 });
 
+                // Añadir botón "Guardar"
                 const celdaAcciones = document.createElement("td");
                 const botonGuardar = document.createElement("button");
                 botonGuardar.textContent = "Guardar";
-                botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                botonGuardar.onclick = () => guardarCambios(fila, columnas);
                 celdaAcciones.appendChild(botonGuardar);
                 fila.appendChild(celdaAcciones);
 
@@ -127,36 +139,31 @@
             });
         }
 
-        // Función para guardar los cambios en una fila
+        // Función para guardar los cambios realizados en la tabla
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
-
-            // Guardar los valores de las celdas editadas en el array
-            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
-                columnas[i] = celdas[i].textContent.trim();
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluyendo la última celda (acciones)
+                columnas[i] = celdas[i].textContent.trim(); // Actualizar la fila
             }
 
             alert("Cambios guardados.");
-
-            // Actualizar los datos en el array
-            const filaIndex = datosCSV.findIndex((item) => item[0] === columnas[0]); // Usar el "FacturaId" como identificador
+            // Actualizar el arreglo con los cambios realizados
+            const filaIndex = datosCSV.findIndex(item => item[0] === columnas[0]);
             if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas; // Actualiza los datos
+                datosCSV[filaIndex] = columnas;
             }
         }
 
-        // Función para filtrar las facturas según el mes seleccionado
+        // Función para filtrar las filas por mes
         function filtrarPorMes() {
             const mesSeleccionado = document.getElementById("mesFiltro").value;
             const tablaBody = document.getElementById("csvTableBody");
-            tablaBody.innerHTML = ""; // Limpiar la tabla antes de agregar los elementos filtrados
+            tablaBody.innerHTML = ""; // Limpiar la tabla
 
-            // Filtrar los datos del CSV por MesPago
-            const facturasFiltradas = mesSeleccionado
-                ? datosCSV.filter(fila => fila[2].includes(mesSeleccionado)) // Si hay un mes seleccionado, filtrar
-                : datosCSV; // Si no, mostrar todas las facturas
+            // Filtrar las filas por mes
+            const facturasFiltradas = mesSeleccionado ?
+                datosCSV.filter(fila => fila[2].includes(mesSeleccionado)) : datosCSV;
 
-            // Actualizar la tabla solo con las filas filtradas
             facturasFiltradas.forEach(fila => {
                 const row = document.createElement("tr");
                 fila.forEach((columna) => {
@@ -169,7 +176,7 @@
                 const celdaAcciones = document.createElement("td");
                 const botonGuardar = document.createElement("button");
                 botonGuardar.textContent = "Guardar";
-                botonGuardar.onclick = function () { guardarCambios(row, fila); };
+                botonGuardar.onclick = () => guardarCambios(row, fila);
                 celdaAcciones.appendChild(botonGuardar);
                 row.appendChild(celdaAcciones);
 
@@ -177,21 +184,18 @@
             });
         }
 
-        // Función para guardar solo las filas filtradas como CSV
+        // Función para guardar la tabla filtrada como un archivo CSV
         function guardarCSV() {
             let csvContent = "";
             const tablaBody = document.getElementById("csvTableBody");
 
-            // Obtener las filas visibles
-            const filasVisibles = Array.from(tablaBody.rows);
-
             // Generar CSV con las filas visibles (filtradas)
-            filasVisibles.forEach(row => {
+            Array.from(tablaBody.rows).forEach(row => {
                 const filaData = Array.from(row.cells).map(cell => cell.textContent.trim());
                 csvContent += filaData.join(";") + "\n";
             });
 
-            // Crear un archivo blob y descargarlo
+            // Crear un Blob y descargar el archivo CSV
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
@@ -199,41 +203,38 @@
             link.click();
         }
 
-        // Función para agregar una nueva fila
+        // Función para agregar una nueva fila a la tabla
         function agregarFila() {
             const tablaBody = document.getElementById("csvTableBody");
             const nuevaFila = document.createElement("tr");
 
             const columnas = [
-                "F000",
-                "1",
-                "Enero 2024",
-                "0",
-                "15/01/2024",
-                "15/02/2024",
-                "Pagada",
-                "CardioDance"
+                "F000", "1", "Enero 2024", "0", "15/01/2024", "15/02/2024", "Pagada", "CardioDance"
             ];
 
             columnas.forEach(() => {
                 const celda = document.createElement("td");
-                celda.contentEditable = true; // Hacer editable
+                celda.contentEditable = true;
                 nuevaFila.appendChild(celda);
             });
 
             const celdaAcciones = document.createElement("td");
             const botonGuardar = document.createElement("button");
             botonGuardar.textContent = "Guardar";
-            botonGuardar.onclick = function () { guardarCambios(nuevaFila, columnas); };
+            botonGuardar.onclick = () => guardarCambios(nuevaFila, columnas);
             celdaAcciones.appendChild(botonGuardar);
             nuevaFila.appendChild(celdaAcciones);
 
             tablaBody.appendChild(nuevaFila);
         }
+
+                // Función para redirigir al menú de administración
+                private void VolverAlMenu()
+        {
+            Navigation.NavigateTo("/Administrador"); // Redirige a la página del Administrador
+        }
     </script>
+
 </body>
+
 </html>
-
-
-
-

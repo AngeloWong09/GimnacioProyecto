@@ -1,40 +1,66 @@
-﻿@page "/Entrenador"
+﻿
+@page "/Entrenador" 
+
 <!DOCTYPE html>
 <html>
+
 <head>
+    <!-- Meta información básica -->
     <title>Entrenador</title>
+    
+    <!-- Enlace a un archivo de estilos externo -->
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+    <!-- Espaciado inicial -->
     <br />
 
-    <!-- Título principal -->
+    <!-- Título principal para la página -->
     <h1 class="title">BIENVENIDO ENTRENADOR</h1>
 
     <div>
-        <!-- Opciones de Modificación -->
+        <!-- Subtítulo para la sección de opciones de modificación -->
         <h2 class="mod-title">Opciones de Modificación</h2>
+
+        <!-- Contenedor para organizar los botones -->
         <div class="button-container">
-            <button onclick="location.href='/EntrenadorProgramarClases'" class="send-btn">Programar Clases</button>
-            <button onclick="location.href='/EntrenadorAgregarRutina'" class="send-btn">Agregar Rutina</button>
-            <button onclick="location.href='/EntrenadorEmitirFacturas'" class="send-btn">Emitir Facturas</button>
-            <button onclick="location.href='/EntrenadorReporte'" class="send-btn">Ver Reportes</button>
+            <!-- Botón para redirigir a la página de programación de clases -->
+            <button onclick="location.href='/EntrenadorProgramarClases'" class="send-btn">
+                Programar Clases
+            </button>
+
+            <!-- Botón para redirigir a la página de agregar rutinas -->
+            <button onclick="location.href='/EntrenadorAgregarRutina'" class="send-btn">
+                Agregar Rutina
+            </button>
+
+            <!-- Botón para redirigir a la página de emitir facturas -->
+            <button onclick="location.href='/EntrenadorEmitirFacturas'" class="send-btn">
+                Emitir Facturas
+            </button>
+
+            <!-- Botón para redirigir a la página de reportes -->
+            <button onclick="location.href='/EntrenadorReporte'" class="send-btn">
+                Ver Reportes
+            </button>
+
+            <!-- Botón para redirigir a la página de clases inscritas -->
+            <button onclick="location.href='/EntrenadorVerClasesInscritas'" class="send-btn">
+                Ver Clases Inscritas
+            </button>
         </div>
 
+        <!-- Espaciado adicional debajo de los botones -->
         <br /><br />
     </div>
 
+    <!-- Elemento para mostrar la hora actual si se implementa -->
     <p id="currentTime"></p>
 
-    <!-- Script (si lo necesitas para actualizaciones dinámicas, etc.) -->
+    <!-- Archivo de script externo (si contiene funciones para actualizaciones dinámicas) -->
     <script src="script.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
 

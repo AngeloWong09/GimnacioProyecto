@@ -1,22 +1,31 @@
 ﻿
 @page "/AdministradorControlInventario"
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-    <title>Bienvenido a GYM FAST FORCE!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a GYM FAST FORCE</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+    <!-- Agregar botón para volver al menú -->
+    <div>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
+    </div> 
+
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
     <h2>Mostrar Archivo CSV</h2>
     <div>
-        <!-- Eliminamos el input para seleccionar archivo -->
+        <!-- Botón para cargar el archivo Maquinas.csv y mostrarlo -->
         <button onclick="mostrarTabla()">Mostrar Tabla</button>
     </div>
     <br />
 
-    <!-- Botón para guardar el CSV -->
+    <!-- Botón para guardar la tabla filtrada como archivo CSV -->
     <div>
         <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
     </div>
@@ -25,7 +34,7 @@
     <h2>Editar Datos CSV</h2>
     <p>Haz clic en los campos de la tabla para editar.</p>
 
-    <!-- Tabla donde se mostrarán los datos -->
+    <!-- Tabla donde se mostrarán los datos del CSV -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
@@ -41,93 +50,116 @@
         <tbody id="csvTableBody"></tbody>
     </table>
 
+    <br />
+
+    <!-- Botón para regresar al menú del Administrador -->
+    <div>
+        <button onclick="volverMenu()">Volver al Menú</button>
+    </div>
+
     <p id="currentTime"></p>
+
+    <!-- Enlazamos el archivo Javascript -->
     <script src="script.js"></script>
 
     <script>
-        let datosCSV = []; // Para almacenar los datos del CSV
+        let datosCSV = []; // Array para almacenar los datos del CSV
 
         // Función para cargar y mostrar el archivo Maquinas.csv
         function mostrarTabla() {
             // Usamos fetch para obtener el archivo Maquinas.csv desde el servidor
             fetch('sample-data/Maquinas.csv')
-                .then(response => response.text())
+                .then(response => response.text()) // Leer el archivo como texto
                 .then(contenido => {
-                    const lineas = contenido.split("\n");
+                    const lineas = contenido.split("\n"); // Dividimos las líneas
                     const tablaBody = document.getElementById("csvTableBody");
-                    tablaBody.innerHTML = ""; // Limpiar la tabla
-                    datosCSV = []; // Reiniciar los datos del CSV
+                    tablaBody.innerHTML = ""; // Limpiamos la tabla antes de agregar las nuevas filas
+                    datosCSV = []; // Reiniciamos los datos
 
-                    // Iterar sobre las líneas del CSV
+                    // Iteramos sobre las líneas del archivo CSV
                     lineas.forEach((linea, index) => {
-                        if (linea.trim() === "" || index === 0) return; // Ignorar líneas vacías o la primera línea (encabezado)
+                        if (linea.trim() === "" || index === 0) return; // Ignoramos líneas vacías o la primera línea de encabezado
 
-                        const columnas = linea.split(","); // Separar por comas, ya que la estructura es separada por comas
+                        const columnas = linea.split(","); // Dividimos cada línea en columnas por coma
 
-                        // Añadir los datos al array
+                        // Agregamos los datos al array datosCSV
                         datosCSV.push(columnas);
 
+                        // Creamos una nueva fila para la tabla
                         const fila = document.createElement("tr");
 
+                        // Iteramos sobre las columnas para crear las celdas correspondientes
                         columnas.forEach((columna) => {
                             const celda = document.createElement("td");
 
-                            // Hacer las celdas editables
+                            // Hacemos las celdas editables
                             celda.contentEditable = true;
                             celda.textContent = columna.trim();
-                            fila.appendChild(celda);
+                            fila.appendChild(celda); // Añadimos la celda a la fila
                         });
 
+                        // Columna para la acción de guardar cambios
                         const celdaAcciones = document.createElement("td");
                         const botonGuardar = document.createElement("button");
                         botonGuardar.textContent = "Guardar";
-                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                        celdaAcciones.appendChild(botonGuardar);
-                        fila.appendChild(celdaAcciones);
+                        botonGuardar.onclick = function () {
+                            guardarCambios(fila, columnas);
+                        };
+                        celdaAcciones.appendChild(botonGuardar); // Añadimos el botón de guardar a la celda de acciones
+                        fila.appendChild(celdaAcciones); // Añadimos la celda de acciones a la fila
 
+                        // Añadimos la fila a la tabla
                         tablaBody.appendChild(fila);
                     });
                 })
                 .catch(error => {
                     alert("Hubo un problema al cargar el archivo Maquinas.csv.");
+                    console.error("Error:", error);
                 });
         }
 
-        // Función para guardar los cambios en una fila
+        // Función para guardar los cambios realizados en una fila de la tabla
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Guardar los valores de las celdas editadas en el array
-            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
+            // Guardamos los valores de las celdas editadas
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluimos la última celda de "acciones"
                 columnas[i] = celdas[i].textContent.trim();
             }
 
             alert("Cambios guardados.");
 
-            // Actualizar los datos en el array
-            const filaIndex = datosCSV.findIndex((item) => item[5] === columnas[5]); // Usar el "ID" para encontrar la fila correcta
+            // Actualizamos los datos en el array utilizando el ID como clave única
+            const filaIndex = datosCSV.findIndex((item) => item[5] === columnas[5]); // Usamos "ID" como identificador
             if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas; // Actualiza los datos
+                datosCSV[filaIndex] = columnas; // Actualizamos la fila en los datos
             }
         }
 
         // Función para guardar los datos de la tabla como archivo CSV
         function guardarCSV() {
-            let csvContent = "Nombre,FechaEntrada,TiempoVida,Ingresos,Clase ID,ID\n"; // Añadimos los encabezados nuevamente
+            let csvContent = "Nombre,FechaEntrada,TiempoVida,Ingresos,Clase ID,ID\n"; // Encabezado CSV
 
-            // Generar CSV a partir de los datos almacenados
+            // Generamos el CSV a partir de los datos almacenados
             datosCSV.forEach(filaData => {
-                csvContent += filaData.join(",") + "\n"; // Separar por coma
+                csvContent += filaData.join(",") + "\n"; // Unimos cada fila por comas y las separamos por líneas
             });
 
-            // Crear un archivo blob y descargarlo
+            // Creamos un archivo Blob con los datos CSV y lo preparamos para su descarga
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "Maquinas_guardadas.csv";
-            link.click();
+            link.download = "Maquinas_guardadas.csv"; // Establecemos el nombre de archivo para la descarga
+            link.click(); // Activamos la descarga
+        }
+
+        // Función para redirigir al menú del Administrador
+        function volverMenu() {
+            window.location.href = '/Administrador.razor'; // Redirige a la página de Administrador
         }
     </script>
 </body>
+
 </html>
+
 

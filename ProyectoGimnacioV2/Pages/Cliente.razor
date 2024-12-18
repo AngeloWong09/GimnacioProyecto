@@ -2,24 +2,62 @@
 @page "/Cliente"
 
 
+
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-    <title>Navegación</title>
-    <link rel="stylesheet" href="styles.css" />
+    <!-- Meta información para el documento -->
+    <meta charset="UTF-8"> <!-- Definimos el juego de caracteres para el archivo -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura la adaptabilidad en dispositivos móviles -->
+    <title>Navegación - GYM FAST FORCE</title> <!-- Título de la página -->
+    <link rel="stylesheet" href="styles.css" /> <!-- Archivo CSS para dar formato a la página -->
 </head>
+
 <body>
+    <!-- Título principal de la página -->
     <h1 class="title">GYM FAST FORCE</h1>
 
+    <!-- Sección con botones de navegación -->
     <div>
-        <!-- Botón para redirigir a ClienteClase.razor -->
-        <button onclick="location.href='/ClienteClase'">Ir a Cliente Clase</button>
+        <!-- Botón para redirigir a la página ClienteClase.razor -->
+        <button onclick="irA('/ClienteClase')">Ir a Cliente Clase</button> <!-- Invoca la función irA para la redirección -->
     </div>
     <br />
+
     <div>
-        <!-- Botón para redirigir a ClienteMembresia.razor -->
-        <button onclick="location.href='/ClienteMembresia'">Ir a Cliente Membresía</button>
+        <!-- Botón para redirigir a la página ClienteMembresia.razor -->
+        <button onclick="irA('/ClienteMembresia')">Ir a Cliente Membresía</button>
     </div>
+    <br />
+
+    <div>
+        <!-- Botón para redirigir a la página ClienteRutina.razor -->
+        <button onclick="irA('/ClienteRutina')">Ir a Cliente Rutina</button>
+    </div>
+    <br />
+
+    <div>
+        <!-- Botón para redirigir a la página ClienteVerClase.razor -->
+        <button onclick="irA('/ClienteClase')">Ir a Cliente Ver Clase</button>
+    </div>
+    <br />
+
+    
+
+
+    <!-- Aquí podemos incluir más secciones en caso de que sea necesario -->
 </body>
+
+<script>
+    /**
+     * Función para manejar la redirección a una página específica
+     *
+     */
+    function irA(pagina) {
+        location.href = pagina; // Redirige a la página proporcionada como parámetro
+    }
+</script>
+
 </html>
 

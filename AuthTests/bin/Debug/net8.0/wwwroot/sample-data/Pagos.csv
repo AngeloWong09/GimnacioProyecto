@@ -1,0 +1,25 @@
+FacturaId;UsuarioId;MesPago;Monto;FechaEmisión;FechaVencimiento;EstadoFactura;Clase
+F001;1;Enero 2024;20000;15/01/2024;15/02/2024;Pagada;CardioDance;
+F002;1;Febrero 2024;20000;15/02/2024;15/03/2024;Pendiente;Zumba;
+F003;2;Enero 2024;20000;10/01/2024;10/02/2024;Pagada;Funcionales;
+F004;3;Enero 2024;18000;12/01/2024;12/02/2024;Pendiente;CardioDance;
+F005;4;Febrero 2024;22000;18/02/2024;18/03/2024;Pendiente;Zumba;
+F006;5;Marzo 2024;21000;03/03/2024;03/04/2024;Pagada;Funcionales;
+F007;6;Enero 2024;25000;05/01/2024;05/02/2024;Pagada;CardioDance;
+F008;7;Marzo 2024;24000;10/03/2024;10/04/2024;Pendiente;Zumba;
+F009;8;Enero 2024;19000;20/01/2024;20/02/2024;Pagada;Funcionales;
+F010;9;Febrero 2024;23000;25/02/2024;25/03/2024;Pagada;CardioDance;
+F011;10;Marzo 2024;22000;01/03/2024;01/04/2024;Pendiente;Zumba;
+F012;11;Abril 2024;21000;05/04/2024;05/05/2024;Pagada;CardioDance;
+F013;12;Abril 2024;20000;10/04/2024;10/05/2024;Pendiente;Funcionales;
+F014;13;Mayo 2024;24000;10/05/2024;10/06/2024;Pagada;Zumba;
+F015;14;Mayo 2024;25000;20/05/2024;20/06/2024;Pendiente;CardioDance;
+F016;15;Junio 2024;23000;05/06/2024;05/07/2024;Pagada;Funcionales;
+F017;16;Julio 2024;20000;10/07/2024;10/08/2024;Pendiente;CardioDance;
+F018;17;Agosto 2024;21000;01/08/2024;01/09/2024;Pagada;Zumba;
+F019;18;Septiembre 2024;22000;12/09/2024;12/10/2024;Pendiente;Funcionales;
+F020;19;Octubre 2024;23000;15/10/2024;15/11/2024;Pagada;CardioDance;
+F021;20;Noviembre 2024;24000;10/11/2024;10/12/2024;Pendiente;Zumba;
+F022;21;Diciembre 2024;25000;05/12/2024;05/01/2025;Pagada;Funcionales;
+F023;22;Diciembre 2024;26000;10/12/2024;10/01/2025;Pendiente;CardioDance;
+F023;22;Diciembre 2024;26000;10/12/2024;11/01/2025;Pendiente;Zumba;

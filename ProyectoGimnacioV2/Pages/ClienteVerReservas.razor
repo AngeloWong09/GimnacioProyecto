@@ -1,0 +1,176 @@
+﻿
+@page "/ClienteVerReservas"
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquí están tus Clases!</title>
+
+    <!-- Archivo de estilos externos -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- Título de la página -->
+    <h1 class="title">Aquí están tus Clases!</h1>
+
+    <!-- Botón para cerrar sesión -->
+    <button onclick="cerrarSesion()" class="logout-button">Cerrar Sesión</button>
+
+    <!-- Botón para volver al menú principal -->
+    <button onclick="volverAlMenu()" class="menu-button">Volver al Menú</button>
+
+    <!-- Campo para ingresar el ID del usuario -->
+    <label for="userId">Digite su ID:</label>
+    <input type="text" id="userId" required />
+
+    <!-- Botón para consultar las clases reservadas -->
+    <button onclick="consultarReservas()" class="consultar-button">Consultar Clases Reservadas</button>
+
+    <!-- Sección de tabla para las reservas -->
+    <h2>Sus clases programadas:</h2>
+    <table id="reservasTable" class="reservas-table">
+        <thead>
+            <tr>
+                <th>Reserva ID</th>
+                <th>Clase</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody></tbody> <!-- Aquí se renderizan dinámicamente las reservas -->
+    </table>
+
+    <!-- Campo para seleccionar una clase a inscribirse -->
+    <label for="claseSelect">Seleccione la clase en la que desea inscribirse:</label>
+    <select id="claseSelect">
+        <!-- Lista de opciones predefinidas -->
+        <option value="Zumba">Zumba</option>
+        <option value="CardioDance">CardioDance</option>
+        <option value="Funcionales">Funcionales</option>
+    </select>
+
+    <!-- Botón para buscar clases disponibles -->
+    <button onclick="buscarClases()" class="buscar-button">Buscar Clase</button>
+
+    <!-- Tabla para mostrar las clases disponibles -->
+    <h2>Seleccione la clase que desea:</h2>
+    <table id="clasesTable" class="clases-table">
+        <thead>
+            <tr>
+                <th>ID Clase</th>
+                <th>Clase</th>
+                <th>Fecha</th>
+                <th>Horario</th>
+                <th>Cupos</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody></tbody> <!-- Aquí se renderizan dinámicamente las clases -->
+    </table>
+
+    <!-- Botón para guardar una nueva reserva -->
+    <button onclick="guardarReserva()" class="guardar-button">Guardar Reserva</button>
+
+    <script>
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            // Redirige a la página de inicio de sesión
+            window.location.href = "/InicioSecion";
+        }
+
+        // Función para volver al menú principal
+        function volverAlMenu() {
+            // Redirige a la página de Cliente (Cliente.razor)
+            window.location.href = "/Cliente";
+        }
+
+        // Función para consultar las reservas del usuario
+        function consultarReservas() {
+            const userId = document.getElementById("userId").value; // Captura el ID del usuario
+
+            if (!userId) { // Valida que el ID esté ingresado
+                alert("Por favor ingrese su ID.");
+                return;
+            }
+
+            // Simulación de lectura de archivo CSV con fetch
+            fetch('Reservas.csv')
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split('\n').filter(line => line.trim() !== ""); // Separa las líneas no vacías
+                    const reservas = lines.map(line => line.split(';')); // Divide por ';' cada registro
+
+                    const tbody = document.getElementById("reservasTable").querySelector("tbody");
+                    tbody.innerHTML = ""; // Limpia la tabla antes de agregar contenido nuevo
+
+                    // Filtra y muestra las reservas que coincidan con el ID del usuario
+                    reservas.forEach(reserva => {
+                        if (reserva[0] === userId) {
+                            const row = `<tr>
+                                        <td>${reserva[1]}</td>
+                                        <td>${reserva[2]}</td>
+                                        <td>${reserva[3]}</td>
+                                    </tr>`;
+                            tbody.innerHTML += row; // Agrega la fila a la tabla
+                        }
+                    });
+                })
+                .catch(error => console.error("Error al cargar el archivo CSV: ", error)); // Manejo de errores
+        }
+
+        // Función para buscar clases disponibles
+        function buscarClases() {
+            const claseSeleccionada = document.getElementById("claseSelect").value; // Captura la clase seleccionada
+
+            fetch('Clases.csv') // Simula la carga de un archivo CSV de clases
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split('\n').filter(line => line.trim() !== ""); // Filtra líneas vacías
+                    const clases = lines.map(line => line.split(';')); // Divide cada línea en columnas
+
+                    const tbody = document.getElementById("clasesTable").querySelector("tbody");
+                    tbody.innerHTML = ""; // Limpia la tabla antes de agregar contenido nuevo
+
+                    // Filtra y muestra las clases disponibles para la clase seleccionada
+                    clases.forEach(clase => {
+                        if (clase[3] === claseSeleccionada) {
+                            const row = `<tr>
+                                        <td>${clase[1]}</td>
+                                        <td>${clase[3]}</td>
+                                        <td>${clase[4]}</td>
+                                        <td>${clase[5]}</td>
+                                        <td>${clase[6]}</td>
+                                        <td>${clase[7]}</td>
+                                    </tr>`;
+                            tbody.innerHTML += row; // Agrega la fila a la tabla
+                        }
+                    });
+                })
+                .catch(error => console.error("Error al cargar el archivo CSV: ", error)); // Manejo de errores
+        }
+
+        // Función para guardar una nueva reserva
+        function guardarReserva() {
+            const userId = document.getElementById("userId").value; // Captura el ID del usuario
+            const claseSeleccionada = document.getElementById("claseSelect").value; // Captura la clase seleccionada
+
+            // Valida que el ID y la clase estén seleccionados
+            if (!userId || !claseSeleccionada) {
+                alert("Por favor ingrese su ID y seleccione una clase.");
+                return;
+            }
+
+            // Genera una nueva reserva con datos básicos
+            const nuevaReserva = `${userId};${Math.floor(Math.random() * 1000000)};${claseSeleccionada};${new Date().toLocaleDateString('es-ES')}`;
+
+            console.log("Reserva guardada: ", nuevaReserva); // Simula el guardado
+            alert("Reserva guardada con éxito."); // Muestra confirmación
+        }
+    </script>
+</body>
+
+</html>
