@@ -1,0 +1,149 @@
+﻿/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título Principal */
+h1.title {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+h2 {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Contenedores de acciones */
+div {
+    margin-bottom: 20px;
+}
+
+/* Botones principales */
+button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+/* Entrada de archivo */
+input[type="file"] {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Tabla CSV */
+table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+    table thead {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    table th, table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    table tbody tr:hover {
+        background-color: #eaeaea;
+    }
+
+    /* Celdas editables */
+    table td {
+        font-size: 14px;
+        color: #333;
+    }
+
+        table td[contenteditable="true"] {
+            background-color: #fcf8e3;
+            border: 1px dashed #f0ad4e;
+            outline: none;
+        }
+
+            table td[contenteditable="true"]:focus {
+                background-color: #fff8dc;
+                border: 1px solid #f39c12;
+            }
+
+/* Pie de página */
+footer {
+    margin-top: 30px;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"] {
+        font-size: 12px;
+    }
+}

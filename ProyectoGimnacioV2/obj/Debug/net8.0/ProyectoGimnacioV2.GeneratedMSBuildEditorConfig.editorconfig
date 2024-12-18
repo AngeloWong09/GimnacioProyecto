@@ -26,10 +26,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorCambiarContraseña.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNhbWJpYXJDb250cmFzZcOxYS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorCambiarPuntoFuerte.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNhbWJpYXJQdW50b0Z1ZXJ0ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,52 +34,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNvbnRyb2xkZUZhY3R1cmFjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorControlInventario.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNvbnRyb2xJbnZlbnRhcmlvLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorModificacionHorarioMatricula.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvck1vZGlmaWNhY2lvbkhvcmFyaW9NYXRyaWN1bGEucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorReportes.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvclJlcG9ydGVzLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/Cliente.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteClase.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZUNsYXNlLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteMembresia.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZU1lbWJyZXNpYS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteRutina.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZVJ1dGluYS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/Entrenador.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorAgregarRutina.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvckFncmVnYXJSdXRpbmEucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorEmitirFacturas.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvckVtaXRpckZhY3R1cmFzLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorProgramarClases.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvclByb2dyYW1hckNsYXNlcy5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorReporte.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvclJlcG9ydGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorVerClasesInscritas.razor]
@@ -105,6 +57,54 @@ build_metadata.AdditionalFiles.CssScope = b-6256p3p1ek
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/Administrador.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-x244yf2uzo
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorCambiarContraseña.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNhbWJpYXJDb250cmFzZcOxYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-c22748i1v9
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorControlInventario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNvbnRyb2xJbnZlbnRhcmlvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-pdopp98mpe
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorModificacionHorarioMatricula.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvck1vZGlmaWNhY2lvbkhvcmFyaW9NYXRyaWN1bGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-r8hw5hh0zz
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorReportes.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvclJlcG9ydGVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-y635zqsso9
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/Cliente.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-srb5ftpg42
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteMembresia.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZU1lbWJyZXNpYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-3ypw297ayh
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteRutina.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZVJ1dGluYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-r5see46why
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/Entrenador.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-yxmoqffiwz
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorAgregarRutina.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvckFncmVnYXJSdXRpbmEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-6w62x0apee
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorEmitirFacturas.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvckVtaXRpckZhY3R1cmFzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-9ru5koat9x
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorProgramarClases.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvclByb2dyYW1hckNsYXNlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-byrucf3lz2
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorReporte.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvclJlcG9ydGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-bj4eddavmo
 
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/InicioSecion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvU2VjaW9uLnJhem9y

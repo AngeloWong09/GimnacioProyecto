@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <None Remove="Pages\Administrador.razor.css" />
-    <None Remove="Pages\Entrenador.razor.css" />
     <None Remove="Pages\InicioSesion.razor.css" />
     <None Remove="Pages\Login.razor.css" />
     <None Remove="Pages\Pagina1.razor.css" />

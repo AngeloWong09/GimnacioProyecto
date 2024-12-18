@@ -1,0 +1,65 @@
+body[b-r5see46why] {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+h1[b-r5see46why] {
+    text-align: center;
+    color: #333;
+}
+
+h2[b-r5see46why] {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+div[b-r5see46why] {
+    margin: 10px;
+}
+
+label[b-r5see46why] {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+input[b-r5see46why] {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[b-r5see46why] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    button:hover[b-r5see46why] {
+        background-color: #45a049;
+    }
+
+table[b-r5see46why] {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th[b-r5see46why], td[b-r5see46why] {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th[b-r5see46why] {
+    background-color: #f2f2f2;
+}
+
+input[type="text"][b-r5see46why], input[type="date"][b-r5see46why], input[type="number"][b-r5see46why] {
+    width: 200px;
+}

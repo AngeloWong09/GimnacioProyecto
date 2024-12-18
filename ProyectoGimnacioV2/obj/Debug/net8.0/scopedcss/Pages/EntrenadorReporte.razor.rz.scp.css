@@ -1,0 +1,134 @@
+/* General Reset */
+*[b-bj4eddavmo] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-bj4eddavmo] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-bj4eddavmo] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+h2[b-bj4eddavmo] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Entrada de archivo */
+input[type="file"][b-bj4eddavmo] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+select[b-bj4eddavmo] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Botones */
+button[b-bj4eddavmo] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover[b-bj4eddavmo] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-bj4eddavmo] {
+        transform: scale(0.98);
+    }
+
+/* Tabla */
+table[b-bj4eddavmo] {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    table thead[b-bj4eddavmo] {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    table th[b-bj4eddavmo], table td[b-bj4eddavmo] {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    table th[b-bj4eddavmo] {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even)[b-bj4eddavmo] {
+        background-color: #f9f9f9;
+    }
+
+    table tbody tr:hover[b-bj4eddavmo] {
+        background-color: #f2f2f2;
+    }
+
+/* Estilo del pie de página */
+footer[b-bj4eddavmo] {
+    margin-top: 30px;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-bj4eddavmo] {
+        font-size: 2em;
+    }
+
+    h2[b-bj4eddavmo] {
+        font-size: 1.5em;
+    }
+
+    table[b-bj4eddavmo] {
+        font-size: 12px;
+    }
+
+    button[b-bj4eddavmo] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-bj4eddavmo], select[b-bj4eddavmo] {
+        font-size: 12px;
+    }
+}

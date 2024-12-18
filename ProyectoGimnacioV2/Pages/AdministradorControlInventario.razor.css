@@ -1,0 +1,140 @@
+﻿/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fb;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Títulos secundarios */
+h2 {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el input de archivo y el botón */
+input[type="file"], input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+    button:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+/* Estilo de las tablas */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+
+td {
+    font-size: 14px;
+}
+
+/* Botón de guardar dentro de la tabla */
+button {
+    background-color: #27ae60;
+}
+
+    button:hover {
+        background-color: #2ecc71;
+    }
+
+/* Estilo para campos de búsqueda */
+input[type="text"] {
+    width: 300px;
+    margin: 10px 0;
+}
+
+/* Mensajes de notificación */
+#mensaje {
+    font-size: 1.2em;
+    color: green;
+    margin-top: 15px;
+}
+
+/* Estilo para la tabla con datos CSV */
+tr.highlight {
+    background-color: red;
+    color: white;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"], input[type="text"] {
+        font-size: 12px;
+        padding: 8px;
+        width: 90%;
+    }
+
+    table {
+        width: 100%;
+        font-size: 12px;
+    }
+}

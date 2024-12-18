@@ -213,6 +213,1298 @@ div10[b-x244yf2uzo] {
     text-decoration: none;
     color: black;
 }
+/* /Pages/AdministradorCambiarContraseña.razor.rz.scp.css */
+/* General Reset */
+*[b-c22748i1v9] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-c22748i1v9] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título Principal */
+h1.title[b-c22748i1v9] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+h2[b-c22748i1v9] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Contenedores de acciones */
+div[b-c22748i1v9] {
+    margin-bottom: 20px;
+}
+
+/* Botones principales */
+button[b-c22748i1v9] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover[b-c22748i1v9] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-c22748i1v9] {
+        transform: scale(0.98);
+    }
+
+/* Entrada de archivo */
+input[type="file"][b-c22748i1v9] {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Tabla CSV */
+table[b-c22748i1v9] {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+    table thead[b-c22748i1v9] {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    table th[b-c22748i1v9], table td[b-c22748i1v9] {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    table th[b-c22748i1v9] {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even)[b-c22748i1v9] {
+        background-color: #f2f2f2;
+    }
+
+    table tbody tr:hover[b-c22748i1v9] {
+        background-color: #eaeaea;
+    }
+
+    /* Celdas editables */
+    table td[b-c22748i1v9] {
+        font-size: 14px;
+        color: #333;
+    }
+
+        table td[contenteditable="true"][b-c22748i1v9] {
+            background-color: #fcf8e3;
+            border: 1px dashed #f0ad4e;
+            outline: none;
+        }
+
+            table td[contenteditable="true"]:focus[b-c22748i1v9] {
+                background-color: #fff8dc;
+                border: 1px solid #f39c12;
+            }
+
+/* Pie de página */
+footer[b-c22748i1v9] {
+    margin-top: 30px;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-c22748i1v9] {
+        font-size: 2em;
+    }
+
+    h2[b-c22748i1v9] {
+        font-size: 1.5em;
+    }
+
+    table[b-c22748i1v9] {
+        font-size: 12px;
+    }
+
+    button[b-c22748i1v9] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-c22748i1v9] {
+        font-size: 12px;
+    }
+}
+/* /Pages/AdministradorControlInventario.razor.rz.scp.css */
+/* General Reset */
+*[b-pdopp98mpe] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-pdopp98mpe] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fb;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-pdopp98mpe] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Títulos secundarios */
+h2[b-pdopp98mpe] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el input de archivo y el botón */
+input[type="file"][b-pdopp98mpe], input[type="text"][b-pdopp98mpe] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+button[b-pdopp98mpe] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+    button:hover[b-pdopp98mpe] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-pdopp98mpe] {
+        transform: scale(0.98);
+    }
+
+/* Estilo de las tablas */
+table[b-pdopp98mpe] {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+th[b-pdopp98mpe], td[b-pdopp98mpe] {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th[b-pdopp98mpe] {
+    background-color: #3498db;
+    color: white;
+}
+
+td[b-pdopp98mpe] {
+    font-size: 14px;
+}
+
+/* Botón de guardar dentro de la tabla */
+button[b-pdopp98mpe] {
+    background-color: #27ae60;
+}
+
+    button:hover[b-pdopp98mpe] {
+        background-color: #2ecc71;
+    }
+
+/* Estilo para campos de búsqueda */
+input[type="text"][b-pdopp98mpe] {
+    width: 300px;
+    margin: 10px 0;
+}
+
+/* Mensajes de notificación */
+#mensaje[b-pdopp98mpe] {
+    font-size: 1.2em;
+    color: green;
+    margin-top: 15px;
+}
+
+/* Estilo para la tabla con datos CSV */
+tr.highlight[b-pdopp98mpe] {
+    background-color: red;
+    color: white;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-pdopp98mpe] {
+        font-size: 2em;
+    }
+
+    h2[b-pdopp98mpe] {
+        font-size: 1.5em;
+    }
+
+    button[b-pdopp98mpe] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-pdopp98mpe], input[type="text"][b-pdopp98mpe] {
+        font-size: 12px;
+        padding: 8px;
+        width: 90%;
+    }
+
+    table[b-pdopp98mpe] {
+        width: 100%;
+        font-size: 12px;
+    }
+}
+/* /Pages/AdministradorModificacionHorarioMatricula.razor.rz.scp.css */
+body[b-r8hw5hh0zz] {
+}
+/* /Pages/AdministradorReportes.razor.rz.scp.css */
+/* General Reset */
+*[b-y635zqsso9] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-y635zqsso9] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fb;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-y635zqsso9] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Títulos secundarios */
+h2[b-y635zqsso9] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Sección de archivo CSV */
+input[type="file"][b-y635zqsso9] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+select[b-y635zqsso9] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button[b-y635zqsso9] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+    button:hover[b-y635zqsso9] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-y635zqsso9] {
+        transform: scale(0.98);
+    }
+
+/* Estilo de las tablas */
+table[b-y635zqsso9] {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+th[b-y635zqsso9], td[b-y635zqsso9] {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th[b-y635zqsso9] {
+    background-color: #3498db;
+    color: white;
+}
+
+td[b-y635zqsso9] {
+    font-size: 14px;
+}
+
+button[b-y635zqsso9] {
+    background-color: #27ae60;
+}
+
+    button:hover[b-y635zqsso9] {
+        background-color: #2ecc71;
+    }
+
+/* Área de resultados */
+#resultadosIngresos[b-y635zqsso9] {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #34495e;
+}
+
+ul[b-y635zqsso9] {
+    list-style-type: none;
+    padding: 0;
+}
+
+    ul li[b-y635zqsso9] {
+        margin: 5px 0;
+    }
+
+/* Mensajes de notificación */
+#mensaje[b-y635zqsso9] {
+    font-size: 1.2em;
+    color: green;
+    margin-top: 15px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-y635zqsso9] {
+        font-size: 2em;
+    }
+
+    h2[b-y635zqsso9] {
+        font-size: 1.5em;
+    }
+
+    button[b-y635zqsso9] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-y635zqsso9], select[b-y635zqsso9] {
+        font-size: 12px;
+        padding: 8px;
+        width: 90%;
+    }
+
+    table[b-y635zqsso9] {
+        width: 100%;
+        font-size: 12px;
+    }
+}
+/* /Pages/Cliente.razor.rz.scp.css */
+body[b-srb5ftpg42] {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.title[b-srb5ftpg42] {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+
+.container[b-srb5ftpg42] {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn[b-srb5ftpg42] {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .btn:hover[b-srb5ftpg42] {
+        background-color: #0056b3;
+    }
+
+.info[b-srb5ftpg42] {
+    margin: 20px 0;
+    text-align: center;
+}
+
+    .info label[b-srb5ftpg42] {
+        display: block;
+        font-size: 18px;
+        color: #555;
+    }
+
+    .info.alert label[b-srb5ftpg42] {
+        color: red;
+        font-weight: bold;
+    }
+/* /Pages/ClienteMembresia.razor.rz.scp.css */
+body[b-3ypw297ayh] {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.title[b-3ypw297ayh] {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+
+.container[b-3ypw297ayh] {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn[b-3ypw297ayh] {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .btn:hover[b-3ypw297ayh] {
+        background-color: #0056b3;
+    }
+
+.info[b-3ypw297ayh] {
+    margin: 20px 0;
+    text-align: center;
+}
+
+    .info label[b-3ypw297ayh] {
+        display: block;
+        font-size: 18px;
+        color: #555;
+    }
+
+    .info.alert label[b-3ypw297ayh] {
+        color: red;
+        font-weight: bold;
+    }
+/* /Pages/ClienteRutina.razor.rz.scp.css */
+body[b-r5see46why] {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+h1[b-r5see46why] {
+    text-align: center;
+    color: #333;
+}
+
+h2[b-r5see46why] {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+div[b-r5see46why] {
+    margin: 10px;
+}
+
+label[b-r5see46why] {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+input[b-r5see46why] {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[b-r5see46why] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    button:hover[b-r5see46why] {
+        background-color: #45a049;
+    }
+
+table[b-r5see46why] {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th[b-r5see46why], td[b-r5see46why] {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th[b-r5see46why] {
+    background-color: #f2f2f2;
+}
+
+input[type="text"][b-r5see46why], input[type="date"][b-r5see46why], input[type="number"][b-r5see46why] {
+    width: 200px;
+}
+/* /Pages/Entrenador.razor.rz.scp.css */
+/* General Reset */
+*[b-yxmoqffiwz] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-yxmoqffiwz] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 20px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Títulos */
+h1.title[b-yxmoqffiwz] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+h2.mod-title[b-yxmoqffiwz] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+/* Botones */
+.button-container[b-yxmoqffiwz] {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+button[b-yxmoqffiwz] {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover[b-yxmoqffiwz] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-yxmoqffiwz] {
+        transform: scale(0.98);
+    }
+
+.send-btn[b-yxmoqffiwz] {
+    width: 200px;
+}
+
+/* Tiempo actual (si es necesario usarlo dinámicamente) */
+p#currentTime[b-yxmoqffiwz] {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* Espaciado */
+br[b-yxmoqffiwz] {
+    margin-bottom: 15px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-yxmoqffiwz] {
+        font-size: 2em;
+    }
+
+    h2.mod-title[b-yxmoqffiwz] {
+        font-size: 1.5em;
+    }
+
+    button[b-yxmoqffiwz] {
+        font-size: 14px;
+        padding: 10px 15px;
+        width: 160px;
+    }
+}
+/* /Pages/EntrenadorAgregarRutina.razor.rz.scp.css */
+/* General Reset */
+*[b-6w62x0apee] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-6w62x0apee] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f1f1;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-6w62x0apee] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+h2[b-6w62x0apee] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Entrada de archivo */
+input[type="file"][b-6w62x0apee] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Botones */
+button[b-6w62x0apee] {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover[b-6w62x0apee] {
+        background-color: #27ae60;
+        transform: scale(1.05);
+    }
+
+    button:active[b-6w62x0apee] {
+        transform: scale(0.98);
+    }
+
+/* Tabla */
+table[b-6w62x0apee] {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    table thead[b-6w62x0apee] {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    table th[b-6w62x0apee], table td[b-6w62x0apee] {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    table th[b-6w62x0apee] {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even)[b-6w62x0apee] {
+        background-color: #f9f9f9;
+    }
+
+    table tbody tr:hover[b-6w62x0apee] {
+        background-color: #f2f2f2;
+    }
+
+    /* Celdas editables */
+    table td[contenteditable="true"][b-6w62x0apee] {
+        background-color: #e6f7ff;
+        border: 1px solid #a3c9f7;
+        outline: none;
+    }
+
+        table td[contenteditable="true"]:focus[b-6w62x0apee] {
+            background-color: #fff;
+            border: 1px solid #3498db;
+        }
+
+/* Estilo del pie de página */
+footer[b-6w62x0apee] {
+    margin-top: 30px;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-6w62x0apee] {
+        font-size: 2em;
+    }
+
+    h2[b-6w62x0apee] {
+        font-size: 1.5em;
+    }
+
+    table[b-6w62x0apee] {
+        font-size: 12px;
+    }
+
+    button[b-6w62x0apee] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-6w62x0apee] {
+        font-size: 12px;
+    }
+}
+/* /Pages/EntrenadorEmitirFacturas.razor.rz.scp.css */
+/* General Reset */
+*[b-9ru5koat9x] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-9ru5koat9x] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fb;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-9ru5koat9x] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Títulos secundarios */
+h2[b-9ru5koat9x] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Formulario de login */
+#loginForm[b-9ru5koat9x] {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group[b-9ru5koat9x] {
+    margin-bottom: 15px;
+}
+
+label[b-9ru5koat9x] {
+    font-size: 1em;
+    color: #555;
+}
+
+input[type="text"][b-9ru5koat9x], input[type="password"][b-9ru5koat9x] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+button[b-9ru5koat9x] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+    button:hover[b-9ru5koat9x] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-9ru5koat9x] {
+        transform: scale(0.98);
+    }
+
+/* Estilo para la verificación de ID */
+#idInput[b-9ru5koat9x] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+    margin-top: 10px;
+}
+
+#mensaje[b-9ru5koat9x] {
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+/* Estilo para la carga de archivos CSV */
+input[type="file"][b-9ru5koat9x] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Notificación de mensajes */
+#mensaje[b-9ru5koat9x] {
+    font-size: 1.2em;
+    color: green;
+    margin-top: 15px;
+}
+
+/* Respuesta del sistema al cargar CSV */
+h2[b-9ru5koat9x] {
+    font-size: 1.5em;
+    color: #34495e;
+    margin-top: 30px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-9ru5koat9x] {
+        font-size: 2em;
+    }
+
+    h2[b-9ru5koat9x] {
+        font-size: 1.5em;
+    }
+
+    button[b-9ru5koat9x] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="text"][b-9ru5koat9x], input[type="password"][b-9ru5koat9x], input[type="file"][b-9ru5koat9x], #idInput[b-9ru5koat9x] {
+        font-size: 12px;
+        padding: 8px;
+        width: 90%;
+    }
+}
+/* /Pages/EntrenadorProgramarClases.razor.rz.scp.css */
+/* General Reset */
+*[b-byrucf3lz2] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-byrucf3lz2] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-byrucf3lz2] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+h2[b-byrucf3lz2] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Entrada de archivo */
+input[type="file"][b-byrucf3lz2] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button[b-byrucf3lz2] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover[b-byrucf3lz2] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-byrucf3lz2] {
+        transform: scale(0.98);
+    }
+
+/* Mensaje informativo */
+p[b-byrucf3lz2] {
+    font-size: 1.1em;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+/* Tabla */
+table[b-byrucf3lz2] {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    table thead[b-byrucf3lz2] {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    table th[b-byrucf3lz2], table td[b-byrucf3lz2] {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    table th[b-byrucf3lz2] {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even)[b-byrucf3lz2] {
+        background-color: #f9f9f9;
+    }
+
+    table tbody tr:hover[b-byrucf3lz2] {
+        background-color: #f2f2f2;
+    }
+
+/* Celdas editables */
+td[contenteditable][b-byrucf3lz2] {
+    background-color: #e6f7ff;
+    text-align: center;
+}
+
+/* Botón "Guardar" */
+button[b-byrucf3lz2] {
+    background-color: #27ae60;
+    color: white;
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+    button:hover[b-byrucf3lz2] {
+        background-color: #2ecc71;
+    }
+
+    button:active[b-byrucf3lz2] {
+        background-color: #1abc9c;
+    }
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-byrucf3lz2] {
+        font-size: 2em;
+    }
+
+    h2[b-byrucf3lz2] {
+        font-size: 1.5em;
+    }
+
+    table[b-byrucf3lz2] {
+        font-size: 12px;
+    }
+
+    button[b-byrucf3lz2] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-byrucf3lz2] {
+        font-size: 12px;
+    }
+}
+/* /Pages/EntrenadorReporte.razor.rz.scp.css */
+/* General Reset */
+*[b-bj4eddavmo] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-bj4eddavmo] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-bj4eddavmo] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+h2[b-bj4eddavmo] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Entrada de archivo */
+input[type="file"][b-bj4eddavmo] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+select[b-bj4eddavmo] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Botones */
+button[b-bj4eddavmo] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover[b-bj4eddavmo] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-bj4eddavmo] {
+        transform: scale(0.98);
+    }
+
+/* Tabla */
+table[b-bj4eddavmo] {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    table thead[b-bj4eddavmo] {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    table th[b-bj4eddavmo], table td[b-bj4eddavmo] {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    table th[b-bj4eddavmo] {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even)[b-bj4eddavmo] {
+        background-color: #f9f9f9;
+    }
+
+    table tbody tr:hover[b-bj4eddavmo] {
+        background-color: #f2f2f2;
+    }
+
+/* Estilo del pie de página */
+footer[b-bj4eddavmo] {
+    margin-top: 30px;
+    font-style: italic;
+    color: #7f8c8d;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-bj4eddavmo] {
+        font-size: 2em;
+    }
+
+    h2[b-bj4eddavmo] {
+        font-size: 1.5em;
+    }
+
+    table[b-bj4eddavmo] {
+        font-size: 12px;
+    }
+
+    button[b-bj4eddavmo] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-bj4eddavmo], select[b-bj4eddavmo] {
+        font-size: 12px;
+    }
+}
 /* /Pages/InicioSecion.razor.rz.scp.css */
 /* Asegura que el cuerpo ocupe toda la pantalla */
 body[b-a5g3itsmgl] {

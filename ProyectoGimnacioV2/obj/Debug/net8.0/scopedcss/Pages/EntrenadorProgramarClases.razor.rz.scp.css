@@ -1,0 +1,151 @@
+/* General Reset */
+*[b-byrucf3lz2] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-byrucf3lz2] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-byrucf3lz2] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Subtítulos */
+h2[b-byrucf3lz2] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Entrada de archivo */
+input[type="file"][b-byrucf3lz2] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button[b-byrucf3lz2] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    button:hover[b-byrucf3lz2] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-byrucf3lz2] {
+        transform: scale(0.98);
+    }
+
+/* Mensaje informativo */
+p[b-byrucf3lz2] {
+    font-size: 1.1em;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+/* Tabla */
+table[b-byrucf3lz2] {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    table thead[b-byrucf3lz2] {
+        background-color: #34495e;
+        color: #fff;
+    }
+
+    table th[b-byrucf3lz2], table td[b-byrucf3lz2] {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    table th[b-byrucf3lz2] {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    table tbody tr:nth-child(even)[b-byrucf3lz2] {
+        background-color: #f9f9f9;
+    }
+
+    table tbody tr:hover[b-byrucf3lz2] {
+        background-color: #f2f2f2;
+    }
+
+/* Celdas editables */
+td[contenteditable][b-byrucf3lz2] {
+    background-color: #e6f7ff;
+    text-align: center;
+}
+
+/* Botón "Guardar" */
+button[b-byrucf3lz2] {
+    background-color: #27ae60;
+    color: white;
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+    button:hover[b-byrucf3lz2] {
+        background-color: #2ecc71;
+    }
+
+    button:active[b-byrucf3lz2] {
+        background-color: #1abc9c;
+    }
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-byrucf3lz2] {
+        font-size: 2em;
+    }
+
+    h2[b-byrucf3lz2] {
+        font-size: 1.5em;
+    }
+
+    table[b-byrucf3lz2] {
+        font-size: 12px;
+    }
+
+    button[b-byrucf3lz2] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="file"][b-byrucf3lz2] {
+        font-size: 12px;
+    }
+}

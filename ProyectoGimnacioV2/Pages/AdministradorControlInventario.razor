@@ -1,5 +1,4 @@
-﻿
-@page "/AdministradorControlInventario"
+﻿@page "/AdministradorControlInventario"
 <!DOCTYPE html>
 <html lang="es">
 
@@ -14,7 +13,7 @@
     <!-- Agregar botón para volver al menú -->
     <div>
         <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
-    </div> 
+    </div>
 
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
@@ -68,8 +67,13 @@
         // Función para cargar y mostrar el archivo Maquinas.csv
         function mostrarTabla() {
             // Usamos fetch para obtener el archivo Maquinas.csv desde el servidor
-            fetch('sample-data/Maquinas.csv')
-                .then(response => response.text()) // Leer el archivo como texto
+            fetch('/sample-data/Maquinas.csv')
+                .then(response => {
+                    if (!response.ok) {  // Verificar si la respuesta es correcta
+                        throw new Error('Error al cargar el archivo CSV');
+                    }
+                    return response.text(); // Leer el archivo como texto
+                })
                 .then(contenido => {
                     const lineas = contenido.split("\n"); // Dividimos las líneas
                     const tablaBody = document.getElementById("csvTableBody");
@@ -155,11 +159,9 @@
 
         // Función para redirigir al menú del Administrador
         function volverMenu() {
-            window.location.href = '/Administrador.razor'; // Redirige a la página de Administrador
+            window.location.href = '/Administrador'; // Redirige a la página de Administrador
         }
     </script>
 </body>
 
 </html>
-
-

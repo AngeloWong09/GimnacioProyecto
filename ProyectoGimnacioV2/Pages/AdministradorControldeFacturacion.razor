@@ -1,5 +1,4 @@
-﻿
-@page "/AdministradorControldeFacturacion"
+﻿@page "/AdministradorControldeFacturacion"
 @inject NavigationManager Navigation
 
 <!DOCTYPE html>
@@ -65,7 +64,7 @@
     <p>Haz clic en los campos de la tabla para editar.</p>
 
     <!-- Tabla donde se mostrarán los datos -->
-    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse; display:none;">
         <thead>
             <tr>
                 <th>FacturaId</th>
@@ -82,8 +81,6 @@
         <tbody id="csvTableBody"></tbody>
     </table>
 
-    <p id="currentTime"></p>
-
     <script src="script.js"></script>
 
     <script>
@@ -98,7 +95,12 @@
                 if (!respuesta.ok) throw new Error("No se pudo cargar el archivo de pagos.");
 
                 const contenido = await respuesta.text(); // Obtiene el contenido del CSV
+                console.log("Contenido del archivo CSV:", contenido); // Para depuración
                 procesarCSVTexto(contenido); // Procesa el contenido cargado
+
+                // Hacer visible la tabla después de cargar los datos
+                document.getElementById("csvTable").style.display = "table";
+
             } catch (error) {
                 alert("Hubo un problema al cargar el archivo.");
                 console.error("Error al cargar el archivo:", error);
@@ -115,7 +117,7 @@
 
             // Crear la tabla con los datos cargados
             lineas.forEach(linea => {
-                const columnas = linea.split(";");
+                const columnas = linea.split(";"); // Asegúrate de que las columnas estén separadas por punto y coma
                 datosCSV.push(columnas);
                 datosFiltrados.push(columnas);
 
@@ -227,14 +229,8 @@
 
             tablaBody.appendChild(nuevaFila);
         }
-
-                // Función para redirigir al menú de administración
-                private void VolverAlMenu()
-        {
-            Navigation.NavigateTo("/Administrador"); // Redirige a la página del Administrador
-        }
     </script>
-
 </body>
 
 </html>
+

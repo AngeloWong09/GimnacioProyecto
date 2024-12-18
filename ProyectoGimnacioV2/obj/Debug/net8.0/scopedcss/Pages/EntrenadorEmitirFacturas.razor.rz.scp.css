@@ -1,0 +1,142 @@
+/* General Reset */
+*[b-9ru5koat9x] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-9ru5koat9x] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fb;
+    color: #333;
+    line-height: 1.6;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Título principal */
+h1.title[b-9ru5koat9x] {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Títulos secundarios */
+h2[b-9ru5koat9x] {
+    font-size: 1.8em;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+/* Formulario de login */
+#loginForm[b-9ru5koat9x] {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group[b-9ru5koat9x] {
+    margin-bottom: 15px;
+}
+
+label[b-9ru5koat9x] {
+    font-size: 1em;
+    color: #555;
+}
+
+input[type="text"][b-9ru5koat9x], input[type="password"][b-9ru5koat9x] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+button[b-9ru5koat9x] {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+    button:hover[b-9ru5koat9x] {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    button:active[b-9ru5koat9x] {
+        transform: scale(0.98);
+    }
+
+/* Estilo para la verificación de ID */
+#idInput[b-9ru5koat9x] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+    margin-top: 10px;
+}
+
+#mensaje[b-9ru5koat9x] {
+    font-size: 1.1em;
+    margin-top: 10px;
+}
+
+/* Estilo para la carga de archivos CSV */
+input[type="file"][b-9ru5koat9x] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Notificación de mensajes */
+#mensaje[b-9ru5koat9x] {
+    font-size: 1.2em;
+    color: green;
+    margin-top: 15px;
+}
+
+/* Respuesta del sistema al cargar CSV */
+h2[b-9ru5koat9x] {
+    font-size: 1.5em;
+    color: #34495e;
+    margin-top: 30px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    h1.title[b-9ru5koat9x] {
+        font-size: 2em;
+    }
+
+    h2[b-9ru5koat9x] {
+        font-size: 1.5em;
+    }
+
+    button[b-9ru5koat9x] {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    input[type="text"][b-9ru5koat9x], input[type="password"][b-9ru5koat9x], input[type="file"][b-9ru5koat9x], #idInput[b-9ru5koat9x] {
+        font-size: 12px;
+        padding: 8px;
+        width: 90%;
+    }
+}

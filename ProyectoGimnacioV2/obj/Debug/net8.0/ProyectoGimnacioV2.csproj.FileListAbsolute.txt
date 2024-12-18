@@ -2154,3 +2154,15 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Pagos.csv
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Reservas.csv
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Matriculas.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\AdministradorCambiarContraseña.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\AdministradorControlInventario.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\AdministradorModificacionHorarioMatricula.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\AdministradorReportes.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\Cliente.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\ClienteMembresia.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\ClienteRutina.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\Entrenador.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\EntrenadorAgregarRutina.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\EntrenadorEmitirFacturas.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\EntrenadorProgramarClases.razor.rz.scp.css
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\EntrenadorReporte.razor.rz.scp.css
