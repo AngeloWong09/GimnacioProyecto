@@ -1,11 +1,12 @@
 ﻿@page "/Administrador"
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Encabezado -->
@@ -15,47 +16,19 @@
 
     <!-- Contenedor principal -->
     <main>
-        <!-- Cambiar contraseña -->
-        <section class="form-section">
-            <h2>Gestiones</h2>
-            <button class="btn-primary" onclick="location.href='/AdministradorCambiarContraseña'">
-                Cambiar Contraseña
-            </button>
-        </section>
-
-        <!-- Cambiar Punto Fuerte -->
-        <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/AdministradorCambiarPuntoFuerte'">
-                Cambiar Punto Fuerte
-            </button>
-        </section>
-
-        <!-- Control de Inventarios -->
-        <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/AdministradorControlInventario'">
-                Control de Inventarios
-            </button>
-        </section>
-
-        <!-- Modificación de Horarios de la Matrícula -->
-        <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/AdministradorModificacionHorarioMatricula'">
-                Modificación de Horarios de la Matrícula
-            </button>
-        </section>
-
-        <!-- Control de Facturación -->
-        <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/AdministradorControldeFacturacion'">
-                Control de Facturación
-            </button>
-        </section>
-
-        <!-- Reportes -->
-        <section class="form-section">
-            <button class="btn-primary" onclick="location.href='/AdministradorReportes'">
-                Reportes
-            </button>
+        <!-- Menú de opciones -->
+        <section class="menu-section">
+           
+            <nav>
+                <ul class="menu-list" style="list-style: none; padding: 0;">
+                    <li><button class="btn-primary" data-navigation="/AdministradorCambiarContraseña">Cambiar Contraseña</button></li>
+                    <li><button class="btn-primary" data-navigation="/AdministradorCambiarPuntoFuerte">Cambiar Punto Fuerte</button></li>
+                    <li><button class="btn-primary" data-navigation="/AdministradorControlInventario">Control de Inventarios</button></li>
+                    <li><button class="btn-primary" data-navigation="/AdministradorModificacionHorarioMatricula">Modificación de Horarios de la Matrícula</button></li>
+                    <li><button class="btn-primary" data-navigation="/AdministradorControldeFacturacion">Control de Facturación</button></li>
+                    <li><button class="btn-primary" data-navigation="/AdministradorReportes">Reportes</button></li>
+                </ul>
+            </nav>
         </section>
     </main>
 
@@ -67,6 +40,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 

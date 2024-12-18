@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\sample-data\Administrador.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

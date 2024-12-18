@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9/I5J/LJONU/EhczFQuYCQnfx6wXB1BrJnPBHfUnu8Q=",
+  "Hash": "YkqGO3qJvaxo2hpc2FlCIjC0NRgjuLZYq3V4Kt26wr4=",
   "Source": "ProyectoGimnacioV2",
   "BasePath": "/",
   "Mode": "Root",
@@ -8527,6 +8527,25 @@
       "CopyToOutputDirectory": "Always",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Cliente.csv"
+    },
+    {
+      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\datos_filtrados.csv",
+      "SourceId": "ProyectoGimnacioV2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "sample-data/datos_filtrados.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\sample-data\\datos_filtrados.csv"
     },
     {
       "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Entrenadores.csv",

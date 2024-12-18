@@ -2135,7 +2135,6 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\compressed\t70q6ajlvi.gz
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\compressed\johjrkufov.gz
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\compressed\xzla58tk8e.gz
-C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\Error.razor.rz.scp.css
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\_framework\Blazored.SessionStorage.wasm
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\_framework\Blazored.SessionStorage.wasm.gz
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\Blazored.SessionStorage.dll

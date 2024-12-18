@@ -213,28 +213,6 @@ div10[b-x244yf2uzo] {
     text-decoration: none;
     color: black;
 }
-/* /Pages/Error.razor.rz.scp.css */
-body[b-lq7zpl2vgr] {
-    font-family: Arial, sans-serif;
-}
-
-table[b-lq7zpl2vgr], th[b-lq7zpl2vgr], td[b-lq7zpl2vgr] {
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-th[b-lq7zpl2vgr], td[b-lq7zpl2vgr] {
-    padding: 8px;
-}
-
-button1[b-lq7zpl2vgr], button2[b-lq7zpl2vgr] {
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    background-color: blueviolet; color: white;
-}
-
-
 /* /Pages/InicioSecion.razor.rz.scp.css */
 /* Asegura que el cuerpo ocupe toda la pantalla */
 body[b-a5g3itsmgl] {

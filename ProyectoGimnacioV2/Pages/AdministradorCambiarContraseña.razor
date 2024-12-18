@@ -1,5 +1,6 @@
 ﻿
 @page "/AdministradorCambiarContraseña"
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,16 +10,11 @@
 <body>
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-    <h2>Mostrar Archivo CSV</h2>
+    <!-- Botones para mostrar los diferentes CSV -->
     <div>
-        <input type="file" id="csvFileInput" accept=".csv" />
-        <button onclick="procesarCSV()">Mostrar Tabla</button>
-    </div>
-    <br />
-
-    <!-- Botón para guardar el CSV -->
-    <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="mostrarDatos('Administrador')">Mostrar Administradores</button>
+        <button onclick="mostrarDatos('Cliente')">Mostrar Clientes</button>
+        <button onclick="mostrarDatos('Entrenadores')">Mostrar Entrenadores</button>
     </div>
     <br />
 
@@ -40,84 +36,92 @@
         <tbody id="csvTableBody"></tbody>
     </table>
 
+    <br />
+
+    <!-- Botón para guardar el CSV -->
+    <div>
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+    </div>
+
+    <br />
+
     <p id="currentTime"></p>
     <script src="script.js"></script>
 
     <script>
         let datosCSV = []; // Para almacenar los datos del CSV
+        let encabezadoCSV = []; // Para almacenar el encabezado del CSV
 
-        // Función para procesar el archivo CSV seleccionado
-        function procesarCSV() {
-            const archivo = document.getElementById("csvFileInput").files[0];
-            if (!archivo) {
-                alert("Por favor seleccione un archivo CSV.");
-                return;
+        // Función para cargar los datos de los CSV de Administrador, Cliente, o Entrenadores
+        async function cargarCSV(tipo) {
+            let ruta;
+            if (tipo === 'Administrador') {
+                ruta = '/sample-data/Administrador.csv';
+            } else if (tipo === 'Cliente') {
+                ruta = '/sample-data/Cliente.csv';
+            } else if (tipo === 'Entrenadores') {
+                ruta = '/sample-data/Entrenadores.csv';
             }
 
-            const lector = new FileReader();
-
-            lector.onload = function (e) {
-                const contenido = e.target.result;
-                const lineas = contenido.split("\n");
-                const tablaBody = document.getElementById("csvTableBody");
-                tablaBody.innerHTML = ""; // Limpiar la tabla
-
-                datosCSV = []; // Reiniciar los datos del CSV
-
-                for (let linea of lineas) {
-                    if (linea.trim() === "") continue;
-                    const columnas = linea.split(";");
-
-                    // Verificar si es un archivo para Administradores o Entrenadores (7 columnas)
-                    if (columnas.length === 7) {
-                        datosCSV.push(columnas);
-
-                        const fila = document.createElement("tr");
-                        columnas.forEach((columna, index) => {
-                            const celda = document.createElement("td");
-                            celda.contentEditable = true; // Hacer editable
-                            celda.textContent = columna.trim();
-                            fila.appendChild(celda);
-                        });
-
-                        const celdaAcciones = document.createElement("td");
-                        const botonGuardar = document.createElement("button");
-                        botonGuardar.textContent = "Guardar";
-                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                        celdaAcciones.appendChild(botonGuardar);
-                        fila.appendChild(celdaAcciones);
-
-                        tablaBody.appendChild(fila);
-
-                    } else if (columnas.length === 5) { // Verificar archivo para Clientes (5 columnas)
-                        // Añadir los datos de Cliente al array
-                        datosCSV.push(columnas);
-
-                        const fila = document.createElement("tr");
-                        columnas.forEach((columna, index) => {
-                            const celda = document.createElement("td");
-                            celda.contentEditable = true; // Hacer editable
-                            celda.textContent = columna.trim();
-                            fila.appendChild(celda);
-                        });
-
-                        const celdaAcciones = document.createElement("td");
-                        const botonGuardar = document.createElement("button");
-                        botonGuardar.textContent = "Guardar";
-                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                        celdaAcciones.appendChild(botonGuardar);
-                        fila.appendChild(celdaAcciones);
-
-                        tablaBody.appendChild(fila);
-                    }
+            try {
+                const respuesta = await fetch(ruta); // Ruta al archivo CSV correspondiente
+                if (!respuesta.ok) {
+                    alert("No se pudo cargar el archivo " + tipo + ".csv.");
+                    return;
                 }
-            };
+                const contenido = await respuesta.text(); // Lee el contenido del archivo
+                procesarCSVTexto(contenido, tipo); // Procesa el contenido del CSV
+            } catch (error) {
+                alert("Hubo un problema al cargar el archivo.");
+                console.error("Error al cargar el archivo", error);
+            }
+        }
 
-            lector.onerror = function () {
-                alert("Hubo un problema al leer el archivo.");
-            };
+        // Función para procesar el contenido del CSV en líneas y columnas
+        function procesarCSVTexto(texto, tipo) {
+            const lineas = texto.split("\n").filter((linea, index) => {
+                // Omite la primera línea (encabezado) y las líneas vacías
+                return index > 0 && linea.trim() !== "";
+            });
 
-            lector.readAsText(archivo);
+            // Guarda la primera línea como encabezado
+            encabezadoCSV = texto.split("\n")[0].trim();
+
+            datosCSV = lineas.map(linea => linea.split(";")); // Divide las líneas en columnas
+
+            // Dependiendo del tipo, ajusta los encabezados para las tablas
+            let headers = ["Usuario", "Contraseña", "Nombre", "Apellido", "ID"];
+            if (tipo === 'Entrenadores') {
+                headers.push("Puntos fuertes");
+            }
+
+            // Actualiza la tabla
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = ""; // Limpiar la tabla
+            datosCSV.forEach(fila => {
+                const filaTabla = document.createElement("tr");
+
+                fila.forEach((columna, index) => {
+                    const celda = document.createElement("td");
+                    celda.contentEditable = true; // Hacer editable
+                    celda.textContent = columna.trim();
+                    filaTabla.appendChild(celda);
+                });
+
+                const celdaAcciones = document.createElement("td");
+                const botonGuardar = document.createElement("button");
+                botonGuardar.textContent = "Guardar";
+                botonGuardar.onclick = function () { guardarCambios(filaTabla, fila); };
+                celdaAcciones.appendChild(botonGuardar);
+                filaTabla.appendChild(celdaAcciones);
+
+                tablaBody.appendChild(filaTabla);
+            });
+        }
+
+        // Función para mostrar los datos en la tabla
+        function mostrarDatos(tipo) {
+            cargarCSV(tipo); // Cargar los datos del tipo seleccionado (Administrador, Cliente o Entrenador)
         }
 
         // Función para guardar los cambios en una fila
@@ -139,7 +143,7 @@
 
         // Función para guardar los datos de la tabla como archivo CSV
         function guardarCSV() {
-            let csvContent = "";
+            let csvContent = encabezadoCSV + "\n"; // Incluye el encabezado original
 
             // Generar CSV a partir de los datos almacenados
             datosCSV.forEach(filaData => {
@@ -156,3 +160,5 @@
     </script>
 </body>
 </html>
+
+

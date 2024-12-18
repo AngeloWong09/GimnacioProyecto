@@ -73,6 +73,10 @@
       "PackagePath": "staticwebassets\\sample-data\\RutinaCliente.csv"
     },
     {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\datos_filtrados.csv",
+      "PackagePath": "staticwebassets\\sample-data\\datos_filtrados.csv"
+    },
+    {
       "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\weather.json",
       "PackagePath": "staticwebassets\\sample-data\\weather.json"
     },

@@ -1,4 +1,5 @@
-﻿@page "/AdministradorControlInventario"
+﻿
+@page "/AdministradorControlInventario"
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +11,8 @@
 
     <h2>Mostrar Archivo CSV</h2>
     <div>
-        <input type="file" id="csvFileInput" accept=".csv" />
-        <button onclick="procesarCSV()">Mostrar Tabla</button>
-    </div>
-    <br />
-
-    <!-- Campo para buscar máquina por ID -->
-    <h2>Buscar Máquina por ID</h2>
-    <div>
-        <input type="text" id="buscarIdInput" placeholder="Introduzca ID de la máquina" />
-        <button onclick="buscarMaquinaPorId()">Buscar</button>
+        <!-- Eliminamos el input para seleccionar archivo -->
+        <button onclick="mostrarTabla()">Mostrar Tabla</button>
     </div>
     <br />
 
@@ -54,83 +47,50 @@
     <script>
         let datosCSV = []; // Para almacenar los datos del CSV
 
-        // Función para procesar el archivo CSV seleccionado
-        function procesarCSV() {
-            const archivo = document.getElementById("csvFileInput").files[0];
-            if (!archivo) {
-                alert("Por favor seleccione un archivo CSV.");
-                return;
-            }
+        // Función para cargar y mostrar el archivo Maquinas.csv
+        function mostrarTabla() {
+            // Usamos fetch para obtener el archivo Maquinas.csv desde el servidor
+            fetch('sample-data/Maquinas.csv')
+                .then(response => response.text())
+                .then(contenido => {
+                    const lineas = contenido.split("\n");
+                    const tablaBody = document.getElementById("csvTableBody");
+                    tablaBody.innerHTML = ""; // Limpiar la tabla
+                    datosCSV = []; // Reiniciar los datos del CSV
 
-            const lector = new FileReader();
+                    // Iterar sobre las líneas del CSV
+                    lineas.forEach((linea, index) => {
+                        if (linea.trim() === "" || index === 0) return; // Ignorar líneas vacías o la primera línea (encabezado)
 
-            lector.onload = function (e) {
-                const contenido = e.target.result;
-                const lineas = contenido.split("\n");
-                const tablaBody = document.getElementById("csvTableBody");
-                tablaBody.innerHTML = ""; // Limpiar la tabla
+                        const columnas = linea.split(","); // Separar por comas, ya que la estructura es separada por comas
 
-                datosCSV = []; // Reiniciar los datos del CSV
+                        // Añadir los datos al array
+                        datosCSV.push(columnas);
 
-                // Fecha límite del 30 de septiembre de 2024
-                const fechaLimiteSeptiembre = new Date('2024-09-30');
-                const fechaLimiteOctubre = new Date('2024-10-30');
-                const fechaLimiteNoviembre = new Date('2024-11-30');
-                const fechaLimiteDiciembre = new Date('2024-12-30');
+                        const fila = document.createElement("tr");
 
-                for (let linea of lineas) {
-                    if (linea.trim() === "") continue;
-                    const columnas = linea.split(",");
+                        columnas.forEach((columna) => {
+                            const celda = document.createElement("td");
 
-                    // Añadir los datos al array
-                    datosCSV.push(columnas);
+                            // Hacer las celdas editables
+                            celda.contentEditable = true;
+                            celda.textContent = columna.trim();
+                            fila.appendChild(celda);
+                        });
 
-                    const fila = document.createElement("tr");
+                        const celdaAcciones = document.createElement("td");
+                        const botonGuardar = document.createElement("button");
+                        botonGuardar.textContent = "Guardar";
+                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                        celdaAcciones.appendChild(botonGuardar);
+                        fila.appendChild(celdaAcciones);
 
-                    columnas.forEach((columna, index) => {
-                        const celda = document.createElement("td");
-
-                        // Si la columna es "FechaEntrada", comprobar si está en el rango
-                        if (index === 1) {  // "FechaEntrada" es la columna 1 (índice 1)
-                            const fechaEntrada = stringToDate(columna.trim());
-
-                            // Comprobar si la fecha de entrada está entre el 1 de septiembre y el 30 de diciembre del 2024
-                            if ((fechaEntrada >= fechaLimiteSeptiembre && fechaEntrada <= fechaLimiteDiciembre) ||
-                                (fechaEntrada >= fechaLimiteOctubre && fechaEntrada <= fechaLimiteDiciembre) ||
-                                (fechaEntrada >= fechaLimiteNoviembre && fechaEntrada <= fechaLimiteDiciembre)) {
-                                // Si está en el rango, aplicar color rojo
-                                celda.style.backgroundColor = "red";
-                                celda.style.color = "white"; // Cambiar color de texto para contraste
-                            }
-                        }
-
-                        celda.contentEditable = true; // Hacer editable
-                        celda.textContent = columna.trim();
-                        fila.appendChild(celda);
+                        tablaBody.appendChild(fila);
                     });
-
-                    const celdaAcciones = document.createElement("td");
-                    const botonGuardar = document.createElement("button");
-                    botonGuardar.textContent = "Guardar";
-                    botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                    celdaAcciones.appendChild(botonGuardar);
-                    fila.appendChild(celdaAcciones);
-
-                    tablaBody.appendChild(fila);
-                }
-            };
-
-            lector.onerror = function () {
-                alert("Hubo un problema al leer el archivo.");
-            };
-
-            lector.readAsText(archivo);
-        }
-
-        // Función para convertir string a Date en formato dd/mm/yyyy
-        function stringToDate(str) {
-            const partes = str.split("/");
-            return new Date(partes[2], partes[1] - 1, partes[0]);
+                })
+                .catch(error => {
+                    alert("Hubo un problema al cargar el archivo Maquinas.csv.");
+                });
         }
 
         // Función para guardar los cambios en una fila
@@ -153,78 +113,21 @@
 
         // Función para guardar los datos de la tabla como archivo CSV
         function guardarCSV() {
-            let csvContent = "";
+            let csvContent = "Nombre,FechaEntrada,TiempoVida,Ingresos,Clase ID,ID\n"; // Añadimos los encabezados nuevamente
 
             // Generar CSV a partir de los datos almacenados
             datosCSV.forEach(filaData => {
-                csvContent += filaData.join(",") + "\n";
+                csvContent += filaData.join(",") + "\n"; // Separar por coma
             });
 
             // Crear un archivo blob y descargarlo
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "datos_guardados.csv";
+            link.download = "Maquinas_guardadas.csv";
             link.click();
-        }
-
-        // Función para buscar máquina por ID
-        function buscarMaquinaPorId() {
-            const idBuscada = document.getElementById("buscarIdInput").value.trim();
-            if (!idBuscada) {
-                alert("Por favor ingrese un ID.");
-                return;
-            }
-
-            // Filtrar las máquinas que coincidan con la ID proporcionada (compara la columna 5 de "ID")
-            const maquinasFiltradas = datosCSV.filter(item => item[5] === idBuscada);
-
-            // Mostrar solo las máquinas filtradas
-            mostrarMaquinas(maquinasFiltradas);
-        }
-
-        // Función para mostrar las máquinas en la tabla
-        function mostrarMaquinas(maquinas) {
-            const tablaBody = document.getElementById("csvTableBody");
-            tablaBody.innerHTML = ""; // Limpiar la tabla
-
-            maquinas.forEach((columnas) => {
-                const fila = document.createElement("tr");
-                columnas.forEach((columna) => {
-                    const celda = document.createElement("td");
-
-                    const fechaEntrada = new Date(columnas[1].trim());
-
-                    // Si la fecha de entrada está dentro de 1, 2 o 3 meses antes del 30 de diciembre, marcarla
-                    const fechaLimiteSeptiembre = new Date('2024-09-30');
-                    const fechaLimiteOctubre = new Date('2024-10-30');
-                    const fechaLimiteNoviembre = new Date('2024-11-30');
-                    const fechaLimiteDiciembre = new Date('2024-12-30');
-
-                    if ((fechaEntrada >= fechaLimiteSeptiembre && fechaEntrada <= fechaLimiteDiciembre)) {
-                        celda.style.backgroundColor = "red"; // Colorear en rojo
-                        celda.style.color = "white"; // Para asegurar que el texto se vea bien
-                    }
-
-                    celda.contentEditable = true;
-                    celda.textContent = columna.trim();
-                    fila.appendChild(celda);
-                });
-
-                const celdaAcciones = document.createElement("td");
-                const botonGuardar = document.createElement("button");
-                botonGuardar.textContent = "Guardar";
-                botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                celdaAcciones.appendChild(botonGuardar);
-                fila.appendChild(celdaAcciones);
-
-                tablaBody.appendChild(fila);
-            });
         }
     </script>
 </body>
 </html>
-
-
-
 
