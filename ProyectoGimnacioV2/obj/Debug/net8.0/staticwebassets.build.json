@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YkqGO3qJvaxo2hpc2FlCIjC0NRgjuLZYq3V4Kt26wr4=",
+  "Hash": "QUTQuTCFZCSJ/HDPsqMrvVMPY9p0Jcke9iSbUAM6csQ=",
   "Source": "ProyectoGimnacioV2",
   "BasePath": "/",
   "Mode": "Root",
@@ -8529,25 +8529,6 @@
       "OriginalItemSpec": "wwwroot\\sample-data\\Cliente.csv"
     },
     {
-      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\datos_filtrados.csv",
-      "SourceId": "ProyectoGimnacioV2",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "sample-data/datos_filtrados.csv",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\sample-data\\datos_filtrados.csv"
-    },
-    {
       "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Entrenadores.csv",
       "SourceId": "ProyectoGimnacioV2",
       "SourceType": "Discovered",
@@ -8584,6 +8565,25 @@
       "CopyToOutputDirectory": "Always",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Maquinas.csv"
+    },
+    {
+      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Matriculas.csv",
+      "SourceId": "ProyectoGimnacioV2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "sample-data/Matriculas.csv",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\sample-data\\Matriculas.csv"
     },
     {
       "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Pagos.csv",

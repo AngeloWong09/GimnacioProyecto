@@ -2153,3 +2153,4 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Maquinas.csv
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Pagos.csv
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Reservas.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Matriculas.csv

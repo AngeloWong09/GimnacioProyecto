@@ -61,6 +61,10 @@
       "PackagePath": "staticwebassets\\sample-data\\Maquinas.csv"
     },
     {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Matriculas.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Matriculas.csv"
+    },
+    {
       "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Pagos.csv",
       "PackagePath": "staticwebassets\\sample-data\\Pagos.csv"
     },
@@ -71,10 +75,6 @@
     {
       "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\RutinaCliente.csv",
       "PackagePath": "staticwebassets\\sample-data\\RutinaCliente.csv"
-    },
-    {
-      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\datos_filtrados.csv",
-      "PackagePath": "staticwebassets\\sample-data\\datos_filtrados.csv"
     },
     {
       "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\weather.json",

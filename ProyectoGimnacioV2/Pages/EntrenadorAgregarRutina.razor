@@ -11,9 +11,10 @@
 <body>
     <h1 class="title">Rutinas de Clientes - GYM FAST FORCE</h1>
 
-    <h2>Subir Archivo de Rutinas</h2>
+    <h2>Opciones</h2>
     <div>
-        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarCSV(event)" />
+        <!-- Botón para cargar RutinaCliente.csv -->
+        <button onclick="cargarDesdeArchivo()">Ver RutinaCliente.csv</button>
         <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
     </div>
     <br />
@@ -41,73 +42,68 @@
     <script>
         let datosCSV = []; // Aquí se almacenarán las filas del CSV
 
-        // Procesar archivo CSV
-        function procesarCSV(event) {
-            const archivo = event.target.files[0];
-            if (!archivo) {
-                alert("Por favor selecciona un archivo CSV.");
-                return;
-            }
-
-            const lector = new FileReader();
-            lector.onload = function (e) {
-                const contenido = e.target.result;
-                const lineas = contenido.split("\n");
-                const tablaBody = document.getElementById("csvTableBody");
-
-                tablaBody.innerHTML = ""; // Limpiar tabla
-                datosCSV = []; // Reiniciar datos
-
-                for (let linea of lineas) {
-                    if (linea.trim() === "") continue;
-
-                    const columnas = linea.split(";");
-                    if (columnas.length === 7) { // Validar estructura esperada
-                        datosCSV.push(columnas);
-
-                        const fila = document.createElement("tr");
-
-                        // Crear celdas
-                        columnas.forEach((columna, index) => {
-                            const celda = document.createElement("td");
-
-                            // Solo permitir edición en "Rutina 1" (índice 5) y "Repeticiones" (índice 6)
-                            if (index === 5 || index === 6) {
-                                celda.contentEditable = true; // Editable solo en estas columnas
-                                celda.style.backgroundColor = "#e6f7ff"; // Color para destacar que es editable
-                            }
-
-                            celda.textContent = columna.trim();
-                            fila.appendChild(celda);
-                        });
-
-                        // Botón Guardar
-                        const celdaAcciones = document.createElement("td");
-                        const botonGuardar = document.createElement("button");
-                        botonGuardar.textContent = "Guardar";
-                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                        celdaAcciones.appendChild(botonGuardar);
-                        fila.appendChild(celdaAcciones);
-
-                        tablaBody.appendChild(fila);
-                    }
-                }
-            };
-
-            lector.onerror = function () {
-                alert("Error al leer el archivo.");
-            };
-
-            lector.readAsText(archivo);
+        // Cargar archivo predeterminado RutinaCliente.csv
+        function cargarDesdeArchivo() {
+            fetch('sample-data/RutinaCliente.csv')
+                .then(response => response.text())
+                .then(contenido => {
+                    cargarDatosDesdeTexto(contenido);
+                })
+                .catch(error => {
+                    alert("No se pudo cargar RutinaCliente.csv.");
+                });
         }
 
-        // Guardar cambios
+        // Cargar datos desde texto CSV
+        function cargarDatosDesdeTexto(contenido) {
+            const lineas = contenido.split("\n");
+            const tablaBody = document.getElementById("csvTableBody");
+
+            tablaBody.innerHTML = ""; // Limpiar tabla
+            datosCSV = []; // Reiniciar datos
+
+            for (let linea of lineas) {
+                if (linea.trim() === "") continue;
+
+                const columnas = linea.split(";"); // Separar columnas por ";"
+                if (columnas.length === 7) { // Validar que coincidan las columnas esperadas
+                    datosCSV.push(columnas);
+
+                    const fila = document.createElement("tr");
+
+                    columnas.forEach((columna, index) => {
+                        const celda = document.createElement("td");
+
+                        // Solo permitir edición en "Rutina 1" (índice 5) y "Repeticiones" (índice 6)
+                        if (index === 5 || index === 6) {
+                            celda.contentEditable = true;
+                            celda.style.backgroundColor = "#e6f7ff"; // Destacar como editable
+                        }
+
+                        celda.textContent = columna.trim();
+                        fila.appendChild(celda);
+                    });
+
+                    // Botón Guardar
+                    const celdaAcciones = document.createElement("td");
+                    const botonGuardar = document.createElement("button");
+                    botonGuardar.textContent = "Guardar";
+                    botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                    celdaAcciones.appendChild(botonGuardar);
+                    fila.appendChild(celdaAcciones);
+
+                    tablaBody.appendChild(fila);
+                }
+            }
+        }
+
+        // Guardar cambios en datosCSV
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Solo actualizar las columnas 5 (Rutina 1) y 6 (Repeticiones)
-            columnas[5] = celdas[5].textContent.trim(); // Rutina 1
-            columnas[6] = celdas[6].textContent.trim(); // Repeticiones
+            // Actualizar solo las columnas 5 (Rutina 1) y 6 (Repeticiones)
+            columnas[5] = celdas[5].textContent.trim();
+            columnas[6] = celdas[6].textContent.trim();
 
             // Encontrar y actualizar en datosCSV
             const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Buscar por ID
@@ -118,7 +114,7 @@
             alert("Cambios guardados correctamente.");
         }
 
-        // Guardar CSV
+        // Guardar datos CSV como archivo
         function guardarCSV() {
             let csvContent = datosCSV.map(fila => fila.join(";")).join("\n");
 
@@ -131,5 +127,3 @@
     </script>
 </body>
 </html>
-
-

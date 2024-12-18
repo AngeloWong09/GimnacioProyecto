@@ -1,13 +1,9 @@
-﻿@page "/"
-
+﻿
 @page "/AdministradorModificacionHorarioMatricula"
-
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a GYM FAST FORCE</title>
+    <title>Bienvenido a GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -15,7 +11,13 @@
 
     <h2>Mostrar Archivo CSV</h2>
     <div>
-        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarCSV(event)" />
+        <!-- Eliminamos el input para seleccionar archivo -->
+        <button onclick="mostrarTabla()">Mostrar Tabla</button>
+    </div>
+    <br />
+
+    <!-- Botón para guardar el CSV -->
+    <div>
         <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
     </div>
     <br />
@@ -27,51 +29,51 @@
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
-                <th>Usuario</th>
-                <th>Contraseña</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>ID</th>
-                <th>Acciones</th>
+                <th>ID Cliente</th>
+                <th>Fecha de Inscripción</th>
+                <th>Hora de Inscripción</th>
+                <th>Fecha de Inicio</th>
+                <th>Duración (meses)</th>
+                <th>Plan de Membresía</th>
+                <th>Acciones</th> <!-- Columna para botones Editar/Guardar -->
             </tr>
         </thead>
         <tbody id="csvTableBody"></tbody>
     </table>
 
+    <p id="currentTime"></p>
     <script src="script.js"></script>
 
     <script>
-        let datosCSV = [];
+        let datosCSV = []; // Para almacenar los datos del CSV
 
-        // Procesar archivo CSV sin bloquear el ciclo de vida de Blazor
-        function procesarCSV(event) {
-            const archivo = event.target.files[0];
-            if (!archivo) {
-                alert("Por favor seleccione un archivo CSV.");
-                return;
-            }
+        // Función para cargar y mostrar el archivo Matriculas.csv
+        function mostrarTabla() {
+            // Usamos fetch para obtener el archivo Matriculas.csv desde el servidor
+            fetch('sample-data/Matriculas.csv')
+                .then(response => response.text())
+                .then(contenido => {
+                    const lineas = contenido.split("\n");
+                    const tablaBody = document.getElementById("csvTableBody");
+                    tablaBody.innerHTML = ""; // Limpiar la tabla
+                    datosCSV = []; // Reiniciar los datos del CSV
 
-            // Usar FileReader asíncrono
-            const lector = new FileReader();
-            lector.onload = function (e) {
-                const contenido = e.target.result;
-                const lineas = contenido.split("\n");
-                const tablaBody = document.getElementById("csvTableBody");
-                tablaBody.innerHTML = ""; // Limpiar tabla
+                    // Iterar sobre las líneas del CSV
+                    lineas.forEach((linea, index) => {
+                        if (linea.trim() === "" || index === 0) return; // Ignorar líneas vacías o la primera línea (encabezado)
 
-                datosCSV = []; // Reiniciar datos CSV
+                        const columnas = linea.split(";"); // Separar por punto y coma, ya que la estructura es separada por punto y coma
 
-                for (let linea of lineas) {
-                    if (linea.trim() === "") continue;
-
-                    const columnas = linea.split(";");
-                    if (columnas.length === 7 || columnas.length === 5) { // Diferentes tipos de archivos
+                        // Añadir los datos al array
                         datosCSV.push(columnas);
 
                         const fila = document.createElement("tr");
-                        columnas.forEach((columna, index) => {
+
+                        columnas.forEach((columna) => {
                             const celda = document.createElement("td");
-                            celda.contentEditable = true; // Hacer editable
+
+                            // Hacer las celdas editables
+                            celda.contentEditable = true;
                             celda.textContent = columna.trim();
                             fila.appendChild(celda);
                         });
@@ -84,58 +86,47 @@
                         fila.appendChild(celdaAcciones);
 
                         tablaBody.appendChild(fila);
-                    }
-                }
-            };
-
-            lector.onerror = function () {
-                alert("Hubo un problema al leer el archivo.");
-            };
-
-            lector.readAsText(archivo);
+                    });
+                })
+                .catch(error => {
+                    alert("Hubo un problema al cargar el archivo Matriculas.csv.");
+                });
         }
 
-        // Guardar cambios realizados en una fila
+        // Función para guardar los cambios en una fila
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Guardar valores editados
-            for (let i = 0; i < celdas.length - 1; i++) {
+            // Guardar los valores de las celdas editadas en el array
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
                 columnas[i] = celdas[i].textContent.trim();
             }
 
             alert("Cambios guardados.");
 
-            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Buscar por ID
+            // Actualizar los datos en el array
+            const filaIndex = datosCSV.findIndex((item) => item[0] === columnas[0]); // Usar el "ID Cliente" para encontrar la fila correcta
             if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas;
+                datosCSV[filaIndex] = columnas; // Actualiza los datos
             }
         }
 
-        // Función para guardar CSV en el sistema
+        // Función para guardar los datos de la tabla como archivo CSV
         function guardarCSV() {
-            let csvContent = "";
+            let csvContent = "ID Cliente;Fecha de Inscripción;Hora de Inscripción;Fecha de Inicio;Duración (meses);Plan de Membresía\n"; // Añadimos los encabezados nuevamente
 
+            // Generar CSV a partir de los datos almacenados
             datosCSV.forEach(filaData => {
-                csvContent += filaData.join(";") + "\n";
+                csvContent += filaData.join(";") + "\n"; // Separar por punto y coma
             });
 
+            // Crear un archivo blob y descargarlo
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "datos_guardados.csv";
+            link.download = "Matriculas_guardadas.csv";
             link.click();
         }
     </script>
 </body>
 </html>
-
-        Cliente.csv
-Que esta ubicado en sample-data/Cliente.csv
-Y esta es su estrecutura:
-Usuario;Contraseña;Nombre;Apellidos;ID
-
-Entrenador.csv
-Que esta ubicado en sample-data/Entrenador.csv
-Y esta es su estrecutura:
-Usuario;Contraseña;Nombre;Apellido;Id;Puntos fuertes;

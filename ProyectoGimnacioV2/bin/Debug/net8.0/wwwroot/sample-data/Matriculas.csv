@@ -1,7 +1,7 @@
-Nombre,Apellido,Fecha de Inscripción,Hora de Inscripción,Fecha de Inicio,Duración (meses),Plan de Membresía
-Juan,Pérez,2024-12-18,09:00:00,2024-12-20,6,Básico
-Ana,Gómez,2024-12-18,10:00:00,2024-12-22,12,Premium
-Luis,Martínez,2024-12-18,11:00:00,2024-12-25,3,Avanzado
-Marta,Lopez,2024-12-18,14:00:00,2024-12-20,6,Básico
-Carlos,García,2024-12-19,09:30:00,2024-12-21,12,Premium
+ID Cliente;Fecha de Inscripci�n;Hora de Inscripci�n;Fecha de Inicio;Duraci�n (meses);Plan de Membres�a
+001;18/12/2024;09:00:00;20/12/2024;6;B�sico
+002;18/12/2024;10:00:00;22/12/2024;12;Premium
+003;18/12/2024;11:00:00;25/12/2024;3;Avanzado
+004;18/12/2024;14:00:00;20/12/2024;6;B�sico
+005;19/12/2024;09:30:00;21/12/2024;12;Premium
 

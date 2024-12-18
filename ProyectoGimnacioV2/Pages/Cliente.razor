@@ -1,6 +1,25 @@
-﻿@page "/Cliente"
-<title>Bienvenido a GYM FAST FORCE usuario!</title>
+﻿
+@page "/Cliente"
 
-@code {
 
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navegación</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">GYM FAST FORCE</h1>
+
+    <div>
+        <!-- Botón para redirigir a ClienteClase.razor -->
+        <button onclick="location.href='/ClienteClase'">Ir a Cliente Clase</button>
+    </div>
+    <br />
+    <div>
+        <!-- Botón para redirigir a ClienteMembresia.razor -->
+        <button onclick="location.href='/ClienteMembresia'">Ir a Cliente Membresía</button>
+    </div>
+</body>
+</html>
+

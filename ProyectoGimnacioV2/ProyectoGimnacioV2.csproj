@@ -48,6 +48,9 @@
     <Content Update="wwwroot\sample-data\Maquinas.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\sample-data\Matriculas.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\sample-data\Pagos.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

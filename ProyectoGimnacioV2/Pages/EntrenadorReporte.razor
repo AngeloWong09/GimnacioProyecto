@@ -1,34 +1,35 @@
-﻿
+﻿@page "/"
 @page "/EntrenadorReporte"
 
+
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a GYM FAST FORCE</title>
+    <title>Bienvenido a GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-    <h2>Subir Archivos CSV</h2>
+    <h2>Mostrar Archivo CSV</h2>
     <div>
-        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarArchivos(event)" multiple />
+        <!-- Botón para cargar y mostrar la tabla de Maquinas.csv -->
+        <button onclick="mostrarTabla('maquinas')">Mostrar Tabla de Máquinas</button>
+        <!-- Botón para cargar y mostrar la tabla de Clases.csv -->
+        <button onclick="mostrarTabla('clases')">Mostrar Tabla de Clases</button>
     </div>
     <br />
 
-    <h2>Selecciona los datos que deseas ver</h2>
+    <!-- Botón para guardar el CSV -->
     <div>
-        <label for="archivoSeleccionado">Selecciona tipo de archivo: </label>
-        <select id="archivoSeleccionado" onchange="mostrarDatosSeleccionados()">
-            <option value="clases">Clases</option>
-            <option value="maquinas">Máquinas</option>
-        </select>
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
     </div>
+    <br />
 
-    <!-- Tabla para mostrar datos -->
-    <h2>Datos CSV</h2>
+    <h2>Ver Datos CSV</h2>
+    <p>Los datos están deshabilitados para edición.</p>
+
+    <!-- Tabla donde se mostrarán los datos -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr id="tablaHeaders"></tr>
@@ -36,104 +37,90 @@
         <tbody id="csvTableBody"></tbody>
     </table>
 
-    <!-- Botón para guardar CSV -->
-    <button onclick="guardarCSV()">Guardar CSV</button>
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
 
     <script>
-        let clasesCSV = [];
-        let maquinasCSV = [];
+        let datosCSV = []; // Para almacenar los datos del CSV
+        let tipoCSV = "";   // Para controlar el tipo de CSV cargado (máquinas o clases)
 
-        // Procesar múltiples archivos CSV
-        function procesarArchivos(event) {
-            const archivos = event.target.files;
-            if (archivos.length === 0) return;
+        // Función para cargar y mostrar el archivo CSV dependiendo de la opción seleccionada
+        function mostrarTabla(tipo) {
+            tipoCSV = tipo; // Guardar el tipo de archivo CSV a cargar
 
-            clasesCSV = [];
-            maquinasCSV = [];
+            // Usamos fetch para obtener el archivo correspondiente dependiendo del tipo
+            let archivoCSV = tipo === 'maquinas' ? 'sample-data/Maquinas.csv' : 'sample-data/Clases.csv';
 
-            Array.from(archivos).forEach(archivo => {
-                const lector = new FileReader();
-                lector.onload = function (e) {
-                    const lineas = e.target.result.split("\n");
-                    if (archivo.name.includes("Clases.csv")) procesarClases(lineas);
-                    else if (archivo.name.includes("Maquinas.csv")) procesarMaquinas(lineas);
-                };
-                lector.readAsText(archivo);
-            });
+            fetch(archivoCSV)
+                .then(response => response.text())
+                .then(contenido => {
+                    const lineas = contenido.split("\n");
+                    const tablaBody = document.getElementById("csvTableBody");
+                    tablaBody.innerHTML = ""; // Limpiar la tabla
+                    datosCSV = []; // Reiniciar los datos del CSV
+
+                    // Ajustamos los encabezados de acuerdo al tipo de CSV
+                    const tablaHeaders = document.getElementById("tablaHeaders");
+                    if (tipo === 'maquinas') {
+                        tablaHeaders.innerHTML = `
+                                            <th>Nombre</th>
+                                            <th>Fecha Entrada</th>
+                                            <th>Tiempo Vida (días)</th>
+                                            <th>Ingresos</th>
+                                            <th>Clase ID</th>
+                                            <th>ID</th>`; // Encabezado para "Maquinas.csv"
+                    } else if (tipo === 'clases') {
+                        tablaHeaders.innerHTML = `
+                                            <th>Num Clase</th>
+                                            <th>ID Clase</th>
+                                            <th>ID Entrenador</th>
+                                            <th>Clase</th>
+                                            <th>Fecha</th>
+                                            <th>Horario</th>
+                                            <th>Cupos</th>
+                                            <th>Precio Clase</th>`; // Encabezado para "Clases.csv"
+                    }
+
+                    // Iterar sobre las líneas del CSV
+                    lineas.forEach((linea, index) => {
+                        if (linea.trim() === "" || index === 0) return; // Ignorar líneas vacías o la primera línea (encabezado)
+
+                        const columnas = tipo === 'maquinas' ? linea.split(",") : linea.split(";");
+                        datosCSV.push(columnas);
+
+                        const fila = document.createElement("tr");
+
+                        columnas.forEach((columna) => {
+                            const celda = document.createElement("td");
+                            celda.textContent = columna.trim(); // Ya no se necesita "contentEditable"
+                            fila.appendChild(celda);
+                        });
+
+                        // Agregar fila a la tabla
+                        tablaBody.appendChild(fila);
+                    });
+                })
+                .catch(error => {
+                    alert("Hubo un problema al cargar el archivo " + tipo + ".csv.");
+                });
         }
 
-        // Procesar datos de Clases.csv
-        function procesarClases(lineas) {
-            lineas.forEach(linea => {
-                const columnas = linea.split(";");
-                if (columnas.length === 8) clasesCSV.push(columnas);
-            });
-        }
-
-        // Procesar datos de Maquinas.csv
-        function procesarMaquinas(lineas) {
-            lineas.forEach(linea => {
-                const columnas = linea.split(",");
-                if (columnas.length === 6) maquinasCSV.push(columnas);
-            });
-        }
-
-        // Mostrar datos según selección
-        function mostrarDatosSeleccionados() {
-            const seleccion = document.getElementById("archivoSeleccionado").value;
-            const tablaHeaders = document.getElementById("tablaHeaders");
-            const tablaBody = document.getElementById("csvTableBody");
-
-            tablaBody.innerHTML = ""; // Limpiar datos previos
-
-            if (seleccion === "clases") {
-                tablaHeaders.innerHTML = `<th>Horario</th><th>Precio</th>`;
-                mostrarTablaClases();
-            } else if (seleccion === "maquinas") {
-                tablaHeaders.innerHTML = `<th>Nombre</th><th>ID de Clase</th>`;
-                mostrarTablaMaquinas();
-            }
-        }
-
-        // Mostrar tabla de Clases
-        function mostrarTablaClases() {
-            clasesCSV.forEach(row => {
-                const fila = document.createElement("tr");
-                fila.innerHTML = `<td>${row[5]}</td>
-                                                  <td>${row[7]}</td>`;
-                document.getElementById("csvTableBody").appendChild(fila);
-            });
-        }
-
-        // Mostrar tabla de Máquinas
-        function mostrarTablaMaquinas() {
-            maquinasCSV.forEach(row => {
-                const fila = document.createElement("tr");
-                fila.innerHTML = `<td>${row[0]}</td>
-                                                  <td>${row[4]}</td>`;
-                document.getElementById("csvTableBody").appendChild(fila);
-            });
-        }
-
-        // Guardar datos en CSV
+        // Función para guardar los datos de la tabla como archivo CSV
         function guardarCSV() {
-            const seleccion = document.getElementById("archivoSeleccionado").value;
-            let csvContent = "";
+            let csvContent = tipoCSV === 'maquinas'
+                ? "Nombre,FechaEntrada,TiempoVida,Ingresos,Clase ID,ID\n"
+                : "Num Clase;ID Clase;ID Entrenador;Clase;Fecha;Horario;Cupos;Precio Clase\n"; // Añadimos los encabezados nuevamente dependiendo del tipo
 
-            if (seleccion === "clases") {
-                clasesCSV.forEach(row => {
-                    csvContent += `${row[5]};${row[7]}\n`;
-                });
-            } else if (seleccion === "maquinas") {
-                maquinasCSV.forEach(row => {
-                    csvContent += `${row[0]},${row[4]}\n`;
-                });
-            }
+            // Generar CSV a partir de los datos almacenados
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(tipoCSV === 'maquinas' ? "," : ";") + "\n"; // Separar por coma o punto y coma dependiendo del archivo
+            });
 
+            // Crear un archivo blob y descargarlo
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = seleccion === "clases" ? "Clases.csv" : "Maquinas.csv";
+            link.download = tipoCSV === 'maquinas' ? "Maquinas_guardadas.csv" : "Clases_guardadas.csv";
             link.click();
         }
     </script>
