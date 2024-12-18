@@ -37,6 +37,42 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Administrador.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Administrador.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\BasedatosClase.csv",
+      "PackagePath": "staticwebassets\\sample-data\\BasedatosClase.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Clases.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Clases.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Cliente.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Cliente.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Entrenadores.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Entrenadores.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Maquinas.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Maquinas.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Pagos.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Pagos.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\Reservas.csv",
+      "PackagePath": "staticwebassets\\sample-data\\Reservas.csv"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\RutinaCliente.csv",
+      "PackagePath": "staticwebassets\\sample-data\\RutinaCliente.csv"
+    },
+    {
       "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\sample-data\\weather.json",
       "PackagePath": "staticwebassets\\sample-data\\weather.json"
     },

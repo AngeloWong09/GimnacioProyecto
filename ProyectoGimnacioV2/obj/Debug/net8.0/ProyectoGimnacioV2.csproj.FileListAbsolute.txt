@@ -2146,3 +2146,11 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\CsvHelper.dll
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\webcil\CsvHelper.wasm
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\compressed\rx3rbkqh30.gz
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Administrador.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\BasedatosClase.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Clases.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Cliente.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Entrenadores.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Maquinas.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Pagos.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\Reservas.csv

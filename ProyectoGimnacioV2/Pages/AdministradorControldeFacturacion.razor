@@ -1,99 +1,244 @@
 ﻿
 @page "/AdministradorControldeFacturacion"
-@inject NavigationManager Navigation
-@inject IJSRuntime JS
-@using ProyectoGimnacioV2.Clases
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido a GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-<h3>Control de Facturación</h3>
+    <h2>Mostrar Archivo CSV</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" />
+        <button onclick="procesarCSV()">Mostrar Tabla</button>
+    </div>
 
-<!-- Botones para cambiar entre tipos de facturas -->
-<div class="mb-3">
-    <button class="btn btn-info" @onclick="CargarFacturasEntrenador">Facturas de Entrenador</button>
-    <button class="btn btn-info" @onclick="CargarFacturasCliente">Facturas Cliente</button>
-    <button class="btn btn-info" @onclick="CargarFacturasMaquinas">Facturas Maquinas</button>
-</div>
+    <br />
 
-<!-- Tabla de Facturas -->
-<table class="table table-bordered" id="facturaTable">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Cliente</th>
-            <th>Detalle</th>
-            <th>Monto</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var factura in facturas)
-        {
+    <!-- Filtro de mes -->
+    <div>
+        <label for="mesFiltro">Filtrar por Mes:</label>
+        <select id="mesFiltro" onchange="filtrarPorMes()">
+            <option value="">Todos</option>
+            <option value="Enero 2024">Enero 2024</option>
+            <option value="Febrero 2024">Febrero 2024</option>
+            <option value="Marzo 2024">Marzo 2024</option>
+            <option value="Abril 2024">Abril 2024</option>
+            <option value="Mayo 2024">Mayo 2024</option>
+            <option value="Junio 2024">Junio 2024</option>
+            <option value="Julio 2024">Julio 2024</option>
+            <option value="Agosto 2024">Agosto 2024</option>
+            <option value="Septiembre 2024">Septiembre 2024</option>
+            <option value="Octubre 2024">Octubre 2024</option>
+            <option value="Noviembre 2024">Noviembre 2024</option>
+            <option value="Diciembre 2024">Diciembre 2024</option>
+        </select>
+    </div>
+
+    <br />
+
+    <!-- Botón para guardar el CSV -->
+    <div>
+        <button onclick="guardarCSV()">Guardar Tabla Filtrada como CSV</button>
+    </div>
+
+    <!-- Botón para agregar una nueva fila -->
+    <br />
+    <div>
+        <button onclick="agregarFila()">Agregar Nueva Fila</button>
+    </div>
+    <br />
+
+    <h2>Editar Datos CSV</h2>
+    <p>Haz clic en los campos de la tabla para editar.</p>
+
+    <!-- Tabla donde se mostrarán los datos -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
             <tr>
-                <td>@factura.Id</td>
-                <td>@factura.ClienteNombre</td>
-                <td>@factura.Detalle</td>
-                <td>@factura.Monto:C</td>
-                <td>@factura.Fecha.ToShortDateString()</td>
-                <td>@factura.Estado</td>
+                <th>FacturaId</th>
+                <th>UsuarioId</th>
+                <th>MesPago</th>
+                <th>Monto</th>
+                <th>FechaEmisión</th>
+                <th>FechaVencimiento</th>
+                <th>EstadoFactura</th>
+                <th>Clase</th>
+                <th>Acciones</th> <!-- Columna para botones Editar/Guardar -->
             </tr>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
+
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
+
+    <script>
+        let datosCSV = []; // Para almacenar los datos del CSV
+        let datosFiltrados = []; // Para almacenar las filas filtradas
+
+        // Función para procesar el archivo CSV seleccionado
+        function procesarCSV() {
+            const archivo = document.getElementById("csvFileInput").files[0];
+            if (!archivo) {
+                alert("Por favor seleccione un archivo CSV.");
+                return;
+            }
+
+            const lector = new FileReader();
+
+            lector.onload = function (e) {
+                const contenido = e.target.result;
+                const lineas = contenido.split("\n");
+                const tablaBody = document.getElementById("csvTableBody");
+                tablaBody.innerHTML = ""; // Limpiar la tabla
+
+                datosCSV = []; // Reiniciar los datos del CSV
+                datosFiltrados = []; // Reiniciar las filas filtradas
+
+                for (let linea of lineas) {
+                    if (linea.trim() === "") continue;
+                    const columnas = linea.split(";");
+
+                    // Añadir los datos al array
+                    datosCSV.push(columnas);
+                    datosFiltrados.push(columnas); // Inicializar los datos filtrados con todos los datos
+
+                    const fila = document.createElement("tr");
+                    columnas.forEach((columna) => {
+                        const celda = document.createElement("td");
+                        celda.contentEditable = true; // Hacer editable
+                        celda.textContent = columna.trim();
+                        fila.appendChild(celda);
+                    });
+
+                    const celdaAcciones = document.createElement("td");
+                    const botonGuardar = document.createElement("button");
+                    botonGuardar.textContent = "Guardar";
+                    botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                    celdaAcciones.appendChild(botonGuardar);
+                    fila.appendChild(celdaAcciones);
+
+                    tablaBody.appendChild(fila);
+                }
+            };
+
+            lector.onerror = function () {
+                alert("Hubo un problema al leer el archivo.");
+            };
+
+            lector.readAsText(archivo);
         }
-    </tbody>
-</table>
 
-<!-- Botones de funcionalidad -->
-<div class="mt-3">
-    <button class="btn btn-success" @onclick="GuardarTablaComoTXT">Guardar en TXT</button>
-    <button class="btn btn-primary" @onclick="GoToAdministrador">Regresar a Administrador</button>
-</div>
+        // Función para guardar los cambios en una fila
+        function guardarCambios(fila, columnas) {
+            const celdas = fila.querySelectorAll("td");
 
-@code {
-    private List<Factura> facturas;
+            // Guardar los valores de las celdas editadas en el array
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
+                columnas[i] = celdas[i].textContent.trim();
+            }
 
-    protected override void OnInitialized()
-    {
-        // Cargar facturas por defecto (ejemplo: Cliente)
-        facturas = Facturas.ObtenerFacturasCliente();
-    }
+            alert("Cambios guardados.");
 
-    // Métodos para cargar diferentes tipos de facturas
-    private void CargarFacturasEntrenador()
-    {
-        facturas = Facturas.ObtenerFacturasEntrenador();
-    }
-
-    private void CargarFacturasCliente()
-    {
-        facturas = Facturas.ObtenerFacturasCliente();
-    }
-
-    private void CargarFacturasMaquinas()
-    {
-        facturas = Facturas.ObtenerFacturasMaquinas();
-    }
-
-    // Método para regresar a la página del administrador
-    private void GoToAdministrador()
-    {
-        Navigation.NavigateTo("/Administrador");
-    }
-
-    // Método para guardar la tabla mostrada en pantalla como archivo TXT
-    private async Task GuardarTablaComoTXT()
-    {
-        // Concatenar las facturas de los tres tipos
-        var facturasCompletas = new List<Factura>();
-        facturasCompletas.AddRange(Facturas.ObtenerFacturasCliente());
-        facturasCompletas.AddRange(Facturas.ObtenerFacturasEntrenador());
-        facturasCompletas.AddRange(Facturas.ObtenerFacturasMaquinas());
-
-        // Construir el contenido TXT solo con los datos actualmente visibles
-        var txtContent = "Id\tCliente\tDetalle\tMonto\tFecha\tEstado\n";
-        foreach (var factura in facturasCompletas)
-        {
-            txtContent += $"{factura.Id}\t{factura.ClienteNombre}\t{factura.Detalle}\t{factura.Monto:C}\t{factura.Fecha.ToShortDateString()}\t{factura.Estado}\n";
+            // Actualizar los datos en el array
+            const filaIndex = datosCSV.findIndex((item) => item[0] === columnas[0]); // Usar el "FacturaId" como identificador
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas; // Actualiza los datos
+            }
         }
 
-        // Usar JavaScript para descargar el archivo
-        await JS.InvokeVoidAsync("downloadFile", new { Content = txtContent, ContentType = "text/plain", FileName = "Facturas_Completas.txt" });
-    }
-}
+        // Función para filtrar las facturas según el mes seleccionado
+        function filtrarPorMes() {
+            const mesSeleccionado = document.getElementById("mesFiltro").value;
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = ""; // Limpiar la tabla antes de agregar los elementos filtrados
+
+            // Filtrar los datos del CSV por MesPago
+            const facturasFiltradas = mesSeleccionado
+                ? datosCSV.filter(fila => fila[2].includes(mesSeleccionado)) // Si hay un mes seleccionado, filtrar
+                : datosCSV; // Si no, mostrar todas las facturas
+
+            // Actualizar la tabla solo con las filas filtradas
+            facturasFiltradas.forEach(fila => {
+                const row = document.createElement("tr");
+                fila.forEach((columna) => {
+                    const celda = document.createElement("td");
+                    celda.textContent = columna.trim();
+                    row.appendChild(celda);
+                });
+
+                // Botón de acción "Guardar"
+                const celdaAcciones = document.createElement("td");
+                const botonGuardar = document.createElement("button");
+                botonGuardar.textContent = "Guardar";
+                botonGuardar.onclick = function () { guardarCambios(row, fila); };
+                celdaAcciones.appendChild(botonGuardar);
+                row.appendChild(celdaAcciones);
+
+                tablaBody.appendChild(row);
+            });
+        }
+
+        // Función para guardar solo las filas filtradas como CSV
+        function guardarCSV() {
+            let csvContent = "";
+            const tablaBody = document.getElementById("csvTableBody");
+
+            // Obtener las filas visibles
+            const filasVisibles = Array.from(tablaBody.rows);
+
+            // Generar CSV con las filas visibles (filtradas)
+            filasVisibles.forEach(row => {
+                const filaData = Array.from(row.cells).map(cell => cell.textContent.trim());
+                csvContent += filaData.join(";") + "\n";
+            });
+
+            // Crear un archivo blob y descargarlo
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "datos_filtrados.csv";
+            link.click();
+        }
+
+        // Función para agregar una nueva fila
+        function agregarFila() {
+            const tablaBody = document.getElementById("csvTableBody");
+            const nuevaFila = document.createElement("tr");
+
+            const columnas = [
+                "F000",
+                "1",
+                "Enero 2024",
+                "0",
+                "15/01/2024",
+                "15/02/2024",
+                "Pagada",
+                "CardioDance"
+            ];
+
+            columnas.forEach(() => {
+                const celda = document.createElement("td");
+                celda.contentEditable = true; // Hacer editable
+                nuevaFila.appendChild(celda);
+            });
+
+            const celdaAcciones = document.createElement("td");
+            const botonGuardar = document.createElement("button");
+            botonGuardar.textContent = "Guardar";
+            botonGuardar.onclick = function () { guardarCambios(nuevaFila, columnas); };
+            celdaAcciones.appendChild(botonGuardar);
+            nuevaFila.appendChild(celdaAcciones);
+
+            tablaBody.appendChild(nuevaFila);
+        }
+    </script>
+</body>
+</html>
+
+
+
+

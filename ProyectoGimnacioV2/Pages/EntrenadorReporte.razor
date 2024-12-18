@@ -1,80 +1,141 @@
-﻿@page "/EntrenadorReporte"
-<h3>EntrenadorReporte</h3>
+﻿@page "/"
+@page "/EntrenadorReporte"
 
-<div>
-    <!-- Sección de búsqueda y tabla -->
-    <div class="Datos">
-        <label for="Nombre">Busca tu Nombre</label>
-        <input type="text" id="Nombre" name="Nombre" />
-        <br /><br />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a GYM FAST FORCE</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-        <!-- Tabla de Reportes -->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Num Clase</th>
-                    <th>ID Clase</th>
-                    <th>ID ENTRENADOR</th>
-                    <th>Clase</th>
-                    <th>Fecha</th>
-                    <th>Horario</th>
-                    <th>Cupos</th>
-                    <th>Precio Clase</th>
-                    <th>Usuarios Inscritos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí podrías iterar sobre los datos dinámicos de clases que se proporcionan en el backend -->
-                <tr>
-                    <td>1</td>
-                    <td>CL01</td>
-                    <td>ENT01</td>
-                    <td>Yoga</td>
-                    <td>2024-12-15</td>
-                    <td>08:00 AM</td>
-                    <td>10</td>
-                    <td>$20</td>
-                    <td>8</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>CL02</td>
-                    <td>ENT02</td>
-                    <td>Pilates</td>
-                    <td>2024-12-16</td>
-                    <td>09:00 AM</td>
-                    <td>12</td>
-                    <td>$25</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>CL03</td>
-                    <td>ENT03</td>
-                    <td>Spinning</td>
-                    <td>2024-12-17</td>
-                    <td>10:00 AM</td>
-                    <td>15</td>
-                    <td>$30</td>
-                    <td>12</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <br /><br />
-        <!-- Botones de filtro y guardar reportes -->
-        <button type="submit" class="send-btn">Filtrar por clase</button>
-        <button type="submit" class="send-btn">Filtrar por horario</button>
-        <button type="submit" class="send-btn">Usuarios anotados</button>
-        <button type="submit" class="send-btn">Mostrar todo</button>
-        <button type="submit" class="send-btn">Ver Reportes de Clases</button>
-        <button type="submit" class="send-btn">Guardar Reportes</button>
-
-        <!-- Botón para regresar a Entrenador.razor -->
-        <button onclick="location.href='/Entrenador'" class="send-btn">Volver a Entrenador</button>
+    <h2>Subir Archivos CSV</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarArchivos(event)" multiple />
     </div>
-</div>
+    <br />
 
-@code {
-    // Aquí podrías agregar la lógica del código C# que gestionará los reportes y filtrados si fuera necesario.
-}
+    <h2>Selecciona los datos que deseas ver</h2>
+    <div>
+        <label for="archivoSeleccionado">Selecciona tipo de archivo: </label>
+        <select id="archivoSeleccionado" onchange="mostrarDatosSeleccionados()">
+            <option value="clases">Clases</option>
+            <option value="maquinas">Máquinas</option>
+        </select>
+    </div>
+
+    <!-- Tabla para mostrar datos -->
+    <h2>Datos CSV</h2>
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr id="tablaHeaders"></tr>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
+
+    <!-- Botón para guardar CSV -->
+    <button onclick="guardarCSV()">Guardar CSV</button>
+
+    <script>
+        let clasesCSV = [];
+        let maquinasCSV = [];
+
+        // Procesar múltiples archivos CSV
+        function procesarArchivos(event) {
+            const archivos = event.target.files;
+            if (archivos.length === 0) return;
+
+            clasesCSV = [];
+            maquinasCSV = [];
+
+            Array.from(archivos).forEach(archivo => {
+                const lector = new FileReader();
+                lector.onload = function (e) {
+                    const lineas = e.target.result.split("\n");
+                    if (archivo.name.includes("Clases.csv")) procesarClases(lineas);
+                    else if (archivo.name.includes("Maquinas.csv")) procesarMaquinas(lineas);
+                };
+                lector.readAsText(archivo);
+            });
+        }
+
+        // Procesar datos de Clases.csv
+        function procesarClases(lineas) {
+            lineas.forEach(linea => {
+                const columnas = linea.split(";");
+                if (columnas.length === 8) clasesCSV.push(columnas);
+            });
+        }
+
+        // Procesar datos de Maquinas.csv
+        function procesarMaquinas(lineas) {
+            lineas.forEach(linea => {
+                const columnas = linea.split(",");
+                if (columnas.length === 6) maquinasCSV.push(columnas);
+            });
+        }
+
+        // Mostrar datos según selección
+        function mostrarDatosSeleccionados() {
+            const seleccion = document.getElementById("archivoSeleccionado").value;
+            const tablaHeaders = document.getElementById("tablaHeaders");
+            const tablaBody = document.getElementById("csvTableBody");
+
+            tablaBody.innerHTML = ""; // Limpiar datos previos
+
+            if (seleccion === "clases") {
+                tablaHeaders.innerHTML = `<th>Horario</th><th>Precio</th>`;
+                mostrarTablaClases();
+            } else if (seleccion === "maquinas") {
+                tablaHeaders.innerHTML = `<th>Nombre</th><th>ID de Clase</th>`;
+                mostrarTablaMaquinas();
+            }
+        }
+
+        // Mostrar tabla de Clases
+        function mostrarTablaClases() {
+            clasesCSV.forEach(row => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `<td>${row[5]}</td>
+                                                  <td>${row[7]}</td>`;
+                document.getElementById("csvTableBody").appendChild(fila);
+            });
+        }
+
+        // Mostrar tabla de Máquinas
+        function mostrarTablaMaquinas() {
+            maquinasCSV.forEach(row => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `<td>${row[0]}</td>
+                                                  <td>${row[4]}</td>`;
+                document.getElementById("csvTableBody").appendChild(fila);
+            });
+        }
+
+        // Guardar datos en CSV
+        function guardarCSV() {
+            const seleccion = document.getElementById("archivoSeleccionado").value;
+            let csvContent = "";
+
+            if (seleccion === "clases") {
+                clasesCSV.forEach(row => {
+                    csvContent += `${row[5]};${row[7]}\n`;
+                });
+            } else if (seleccion === "maquinas") {
+                maquinasCSV.forEach(row => {
+                    csvContent += `${row[0]},${row[4]}\n`;
+                });
+            }
+
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = seleccion === "clases" ? "Clases.csv" : "Maquinas.csv";
+            link.click();
+        }
+    </script>
+</body>
+</html>

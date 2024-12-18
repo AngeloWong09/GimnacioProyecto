@@ -1,113 +1,135 @@
 ﻿
 @page "/EntrenadorAgregarRutina"
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutinas de Clientes - GYM FAST FORCE</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Rutinas de Clientes - GYM FAST FORCE</h1>
 
-@using ProyectoGimnacioV2.Clases
-@inject NavigationManager Navigation
+    <h2>Subir Archivo de Rutinas</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarCSV(event)" />
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+    </div>
+    <br />
 
-<h3>Buscar Usuario</h3>
+    <h2>Editar Datos de Rutinas</h2>
+    <p>Solo puedes editar las columnas "Rutina 1" y "Repeticiones".</p>
 
-<!-- Campo de búsqueda para ClientId -->
-<div>
-    <label for="searchId">Buscar por ClientId:</label>
-    <input type="text" id="searchId" @bind="searchId" placeholder="Ingresa ClientId" />
-    <button @onclick="BuscarUsuario">Buscar</button>
-</div>
-
-<!-- Mostrar los datos del usuario encontrado en una tabla -->
-@if (usuarioEncontrado != null)
-{
-    <h4>Datos del Usuario Encontrado:</h4>
-    <table class="table">
+    <!-- Tabla para mostrar los datos CSV -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
+                <th>Usuario</th>
+                <th>Contraseña</th>
                 <th>Nombre</th>
-                <th>Apellido1</th>
-                <th>Apellido2</th>
-                <th>Rutina</th>
-                <th>Series</th>
+                <th>Apellidos</th>
+                <th>ID</th>
+                <th>Rutina 1</th>
                 <th>Repeticiones</th>
-                <th>Actualizar Rutina</th>
-                <th>Cambiar Series/Repeticiones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>@usuarioEncontrado.ClientName</td>
-                <td>@usuarioEncontrado.Apellido1</td>
-                <td>@usuarioEncontrado.Apellido2</td>
-                <td>@usuarioEncontrado.Rutina.Nombre</td>
-                <td>@usuarioEncontrado.Rutina.Series</td>
-                <td>@usuarioEncontrado.Rutina.Repeticiones</td>
-                <td>
-                    <select @bind="selectedRutina">
-                        <option>Pecho</option>
-                        <option>Bíceps</option>
-                        <option>Tríceps</option>
-                        <option>Piernas</option>
-                    </select>
-                    <button @onclick="ActualizarRutina">Actualizar</button>
-                </td>
-                <td>
-                    <!-- Campos para cambiar Series y Repeticiones -->
-                    <input type="number" @bind="newSeries" min="1" placeholder="Series" />
-                    <input type="number" @bind="newRepeticiones" min="1" placeholder="Repeticiones" />
-                    <button @onclick="CambiarSeriesRepeticiones">Cambiar</button>
-                </td>
-            </tr>
-        </tbody>
+        <tbody id="csvTableBody"></tbody>
     </table>
-}
-else if (searchId.Length > 0)
-{
-    <p>No se encontró el usuario con el ClientId: @searchId</p>
-}
 
-<!-- Botón para ir a EntrenadorL.razor -->
-<div>
-    <button @onclick="IrAEntrenadorL">Ir a EntrenadorL</button>
-</div>
+    <script>
+        let datosCSV = []; // Aquí se almacenarán las filas del CSV
 
-@code {
-    private string searchId = ""; // ID que el usuario quiere buscar
-    private Usuario usuarioEncontrado = null; // Usuario encontrado o null
-    private string selectedRutina = "Pecho"; // Rutina seleccionada por el usuario
-    private int newSeries = 3; // Nueva cantidad de series
-    private int newRepeticiones = 8; // Nueva cantidad de repeticiones
+        // Procesar archivo CSV
+        function procesarCSV(event) {
+            const archivo = event.target.files[0];
+            if (!archivo) {
+                alert("Por favor selecciona un archivo CSV.");
+                return;
+            }
 
-    // Función para buscar el usuario
-    private void BuscarUsuario()
-    {
-        usuarioEncontrado = Usuarios.ListaUsuarios.FirstOrDefault(u => u.ClientId == searchId);
-    }
+            const lector = new FileReader();
+            lector.onload = function (e) {
+                const contenido = e.target.result;
+                const lineas = contenido.split("\n");
+                const tablaBody = document.getElementById("csvTableBody");
 
-    // Función para actualizar la rutina del usuario encontrado
-    private void ActualizarRutina()
-    {
-        if (usuarioEncontrado != null)
-        {
-            usuarioEncontrado.Rutina = new Rutina
-                {
-                    Nombre = selectedRutina,
-                    Series = new Random().Next(3, 6),
-                    Repeticiones = new Random().Next(8, 15)
-                };
+                tablaBody.innerHTML = ""; // Limpiar tabla
+                datosCSV = []; // Reiniciar datos
+
+                for (let linea of lineas) {
+                    if (linea.trim() === "") continue;
+
+                    const columnas = linea.split(";");
+                    if (columnas.length === 7) { // Validar estructura esperada
+                        datosCSV.push(columnas);
+
+                        const fila = document.createElement("tr");
+
+                        // Crear celdas
+                        columnas.forEach((columna, index) => {
+                            const celda = document.createElement("td");
+
+                            // Solo permitir edición en "Rutina 1" (índice 5) y "Repeticiones" (índice 6)
+                            if (index === 5 || index === 6) {
+                                celda.contentEditable = true; // Editable solo en estas columnas
+                                celda.style.backgroundColor = "#e6f7ff"; // Color para destacar que es editable
+                            }
+
+                            celda.textContent = columna.trim();
+                            fila.appendChild(celda);
+                        });
+
+                        // Botón Guardar
+                        const celdaAcciones = document.createElement("td");
+                        const botonGuardar = document.createElement("button");
+                        botonGuardar.textContent = "Guardar";
+                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                        celdaAcciones.appendChild(botonGuardar);
+                        fila.appendChild(celdaAcciones);
+
+                        tablaBody.appendChild(fila);
+                    }
+                }
+            };
+
+            lector.onerror = function () {
+                alert("Error al leer el archivo.");
+            };
+
+            lector.readAsText(archivo);
         }
-    }
 
-    // Función para cambiar manualmente las series y repeticiones
-    private void CambiarSeriesRepeticiones()
-    {
-        if (usuarioEncontrado != null)
-        {
-            usuarioEncontrado.Rutina.Series = newSeries;
-            usuarioEncontrado.Rutina.Repeticiones = newRepeticiones;
+        // Guardar cambios
+        function guardarCambios(fila, columnas) {
+            const celdas = fila.querySelectorAll("td");
+
+            // Solo actualizar las columnas 5 (Rutina 1) y 6 (Repeticiones)
+            columnas[5] = celdas[5].textContent.trim(); // Rutina 1
+            columnas[6] = celdas[6].textContent.trim(); // Repeticiones
+
+            // Encontrar y actualizar en datosCSV
+            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Buscar por ID
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas;
+            }
+
+            alert("Cambios guardados correctamente.");
         }
-    }
 
-    // Función para redirigir a la página EntrenadorL
-    private void IrAEntrenadorL()
-    {
-        Navigation.NavigateTo("/EntrenadorL");
-    }
-}
+        // Guardar CSV
+        function guardarCSV() {
+            let csvContent = datosCSV.map(fila => fila.join(";")).join("\n");
+
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "RutinaCliente_Actualizada.csv";
+            link.click();
+        }
+    </script>
+</body>
+</html>
+
 

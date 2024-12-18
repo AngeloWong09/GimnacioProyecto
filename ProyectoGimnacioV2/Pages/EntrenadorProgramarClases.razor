@@ -1,15 +1,128 @@
-﻿@page "/EntrenadorProgramarClases"
+﻿
+@page "/EntrenadorProgramarClases"
 
-@inject NavigationManager NavigationManager
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clases - GYM FAST FORCE</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Gestión de Clases - GYM FAST FORCE</h1>
 
-<h3>Programar Clases</h3>
+    <!-- Subir y Guardar Archivo CSV -->
+    <h2>Subir Archivo de Clases</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarCSV(event)" />
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+    </div>
+    <br />
 
-<!-- Botón para regresar a la página Entrenador -->
-<button @onclick="GoToEntrenador" class="send-btn">Volver al Menú Entrenador</button>
+    <!-- Tabla donde se mostrarán los datos -->
+    <h2>Editar Clases</h2>
+    <p>Solo puedes editar las columnas "Fecha" y "Horario".</p>
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>N° Clase</th>
+                <th>ID Clase</th>
+                <th>ID Entrenador</th>
+                <th>Clase</th>
+                <th>Fecha</th>
+                <th>Horario</th>
+                <th>Cupos</th>
+                <th>Precio Clase</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
 
-@code {
-    private void GoToEntrenador()
-    {
-        NavigationManager.NavigateTo("/Entrenador");
-    }
-}
+    <script>
+        let datosCSV = [];
+
+        // Procesar archivo CSV
+        function procesarCSV(event) {
+            const archivo = event.target.files[0];
+            if (!archivo) {
+                alert("Por favor selecciona un archivo CSV.");
+                return;
+            }
+
+            const lector = new FileReader();
+            lector.onload = function (e) {
+                const contenido = e.target.result;
+                const lineas = contenido.split("\n");
+                const tablaBody = document.getElementById("csvTableBody");
+                tablaBody.innerHTML = ""; // Limpiar tabla previa
+                datosCSV = []; // Reiniciar datos
+
+                // Procesar filas del archivo
+                for (let linea of lineas) {
+                    if (linea.trim() === "") continue;
+
+                    const columnas = linea.split(";");
+                    if (columnas.length === 8) { // Validar estructura esperada
+                        datosCSV.push(columnas);
+
+                        const fila = document.createElement("tr");
+
+                        columnas.forEach((columna, index) => {
+                            const celda = document.createElement("td");
+                            // Solo permitir edición en Fecha (4) y Horario (5)
+                            if (index === 4 || index === 5) {
+                                celda.contentEditable = true;
+                                celda.style.backgroundColor = "#e6f7ff"; // Destacar columnas editables
+                            }
+                            celda.textContent = columna.trim();
+                            fila.appendChild(celda);
+                        });
+
+                        // Agregar botón "Guardar" a cada fila
+                        const celdaAcciones = document.createElement("td");
+                        const botonGuardar = document.createElement("button");
+                        botonGuardar.textContent = "Guardar";
+                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                        celdaAcciones.appendChild(botonGuardar);
+                        fila.appendChild(celdaAcciones);
+
+                        tablaBody.appendChild(fila);
+                    }
+                }
+            };
+
+            lector.onerror = function () {
+                alert("Error al leer el archivo.");
+            };
+
+            lector.readAsText(archivo);
+        }
+
+        // Guardar cambios de la fila
+        function guardarCambios(fila, columnas) {
+            const celdas = fila.querySelectorAll("td");
+            columnas[4] = celdas[4].textContent.trim(); // Actualizar "Fecha"
+            columnas[5] = celdas[5].textContent.trim(); // Actualizar "Horario"
+
+            const filaIndex = datosCSV.findIndex(item => item[1] === columnas[1]); // Buscar por ID Clase
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas;
+            }
+            alert("Cambios guardados.");
+        }
+
+        // Guardar datos como CSV
+        function guardarCSV() {
+            let csvContent = datosCSV.map(fila => fila.join(";")).join("\n");
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "clase_actualizada.csv";
+            link.click();
+        }
+    </script>
+</body>
+</html>
+

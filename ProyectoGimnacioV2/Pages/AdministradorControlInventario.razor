@@ -1,109 +1,230 @@
-﻿
-@page "/AdministradorControlInventario"
-@inject NavigationManager Navigation
-@using ProyectoGimnacioV2.Clases
+﻿@page "/AdministradorControlInventario"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido a GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-<h3>Control de Inventario</h3>
+    <h2>Mostrar Archivo CSV</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" />
+        <button onclick="procesarCSV()">Mostrar Tabla</button>
+    </div>
+    <br />
 
-<div class="form-group">
-    <label for="machine-id">Busca ID de Máquina</label>
-    <InputText id="machine-id" class="form-control" @bind-Value="machineId" />
-    <button type="button" class="btn btn-primary mt-2" @onclick="SearchMachine">Buscar Máquina</button>
-</div>
+    <!-- Campo para buscar máquina por ID -->
+    <h2>Buscar Máquina por ID</h2>
+    <div>
+        <input type="text" id="buscarIdInput" placeholder="Introduzca ID de la máquina" />
+        <button onclick="buscarMaquinaPorId()">Buscar</button>
+    </div>
+    <br />
 
-@if (machineFound)
-{
-    <table class="table table-bordered mt-3">
+    <!-- Botón para guardar el CSV -->
+    <div>
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+    </div>
+    <br />
+
+    <h2>Editar Datos CSV</h2>
+    <p>Haz clic en los campos de la tabla para editar.</p>
+
+    <!-- Tabla donde se mostrarán los datos -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
-                <th>Nombre de la Máquina</th>
-                <th>Cliente Asignado</th>
-                <th>Día Establecido</th>
-                <th>Hora Establecida</th>
-                <th>Fecha de Compra</th>
-                <th>Vida Útil (Meses)</th>
+                <th>Nombre</th>
+                <th>Fecha Entrada</th>
+                <th>Tiempo Vida (días)</th>
+                <th>Ingresos</th>
+                <th>Clase ID</th>
+                <th>ID</th>
+                <th>Acciones</th> <!-- Columna para botones Editar/Guardar -->
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>@machineName</td>
-                <td>@clientName</td>
-                <td>@establishedDay</td>
-                <td>@establishedTime</td>
-                <td>@purchaseDate.ToShortDateString()</td>
-                <td>@lifeSpanMonths</td>
-            </tr>
-        </tbody>
+        <tbody id="csvTableBody"></tbody>
     </table>
 
-    @if (showWarning)
-    {
-        <div class="alert alert-warning mt-3">
-            <strong>¡Atención!</strong> La máquina debe ser cambiada.
-        </div>
-    }
-}
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
 
-<!-- Botón para regresar a Administrador -->
-<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
+    <script>
+        let datosCSV = []; // Para almacenar los datos del CSV
 
-@code {
-    private string machineId;
-    private bool machineFound = false;
-    private bool showWarning = false;
-    private string machineName;
-    private string clientName;
-    private string establishedDay;
-    private string establishedTime;
-    private DateTime purchaseDate;
-    private int lifeSpanMonths;
+        // Función para procesar el archivo CSV seleccionado
+        function procesarCSV() {
+            const archivo = document.getElementById("csvFileInput").files[0];
+            if (!archivo) {
+                alert("Por favor seleccione un archivo CSV.");
+                return;
+            }
 
-    private void SearchMachine()
-    {
-        // Obtener la lista de máquinas desde Maquinas.cs
-        var maquinas = Maquinas.ObtenerMaquinas();
+            const lector = new FileReader();
 
-        // Buscar la máquina por ID
-        var maquina = maquinas.FirstOrDefault(m => m.Id.ToString() == machineId);
+            lector.onload = function (e) {
+                const contenido = e.target.result;
+                const lineas = contenido.split("\n");
+                const tablaBody = document.getElementById("csvTableBody");
+                tablaBody.innerHTML = ""; // Limpiar la tabla
 
-        if (maquina != null)
-        {
-            // Si se encuentra la máquina, mostrar sus datos
-            machineFound = true;
-            showWarning = false;
+                datosCSV = []; // Reiniciar los datos del CSV
 
-            // Asignar los valores de la máquina encontrada a las variables
-            machineName = maquina.Nombre;
-            clientName = "Cliente A"; // O asignar el cliente correspondiente según tu lógica
-            establishedDay = "Lunes"; // O asignar el día correspondiente según tu lógica
-            establishedTime = "9:00 a.m - 10:00 a.m"; // O asignar la hora correspondiente según tu lógica
-            purchaseDate = DateTime.Parse(maquina.FechaEntrada); // Convertir la fecha de entrada
-            lifeSpanMonths = maquina.TiempoVida;
+                // Fecha límite del 30 de septiembre de 2024
+                const fechaLimiteSeptiembre = new Date('2024-09-30');
+                const fechaLimiteOctubre = new Date('2024-10-30');
+                const fechaLimiteNoviembre = new Date('2024-11-30');
+                const fechaLimiteDiciembre = new Date('2024-12-30');
 
-            // Calcular la fecha límite (30 de diciembre del año actual)
-            var currentYear = DateTime.Now.Year;
-            var targetDate = new DateTime(currentYear, 12, 30);
+                for (let linea of lineas) {
+                    if (linea.trim() === "") continue;
+                    const columnas = linea.split(",");
 
-            // Verificar la diferencia de meses entre la fecha de entrada y el 30 de diciembre
-            var monthsRemaining = ((targetDate.Year - purchaseDate.Year) * 12 + targetDate.Month - purchaseDate.Month);
+                    // Añadir los datos al array
+                    datosCSV.push(columnas);
 
-            // Si faltan 3 meses o menos, mostrar la alerta
-            if (monthsRemaining <= 3)
-            {
-                showWarning = true; // Mostrar la alerta si faltan 3 meses o menos
+                    const fila = document.createElement("tr");
+
+                    columnas.forEach((columna, index) => {
+                        const celda = document.createElement("td");
+
+                        // Si la columna es "FechaEntrada", comprobar si está en el rango
+                        if (index === 1) {  // "FechaEntrada" es la columna 1 (índice 1)
+                            const fechaEntrada = stringToDate(columna.trim());
+
+                            // Comprobar si la fecha de entrada está entre el 1 de septiembre y el 30 de diciembre del 2024
+                            if ((fechaEntrada >= fechaLimiteSeptiembre && fechaEntrada <= fechaLimiteDiciembre) ||
+                                (fechaEntrada >= fechaLimiteOctubre && fechaEntrada <= fechaLimiteDiciembre) ||
+                                (fechaEntrada >= fechaLimiteNoviembre && fechaEntrada <= fechaLimiteDiciembre)) {
+                                // Si está en el rango, aplicar color rojo
+                                celda.style.backgroundColor = "red";
+                                celda.style.color = "white"; // Cambiar color de texto para contraste
+                            }
+                        }
+
+                        celda.contentEditable = true; // Hacer editable
+                        celda.textContent = columna.trim();
+                        fila.appendChild(celda);
+                    });
+
+                    const celdaAcciones = document.createElement("td");
+                    const botonGuardar = document.createElement("button");
+                    botonGuardar.textContent = "Guardar";
+                    botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                    celdaAcciones.appendChild(botonGuardar);
+                    fila.appendChild(celdaAcciones);
+
+                    tablaBody.appendChild(fila);
+                }
+            };
+
+            lector.onerror = function () {
+                alert("Hubo un problema al leer el archivo.");
+            };
+
+            lector.readAsText(archivo);
+        }
+
+        // Función para convertir string a Date en formato dd/mm/yyyy
+        function stringToDate(str) {
+            const partes = str.split("/");
+            return new Date(partes[2], partes[1] - 1, partes[0]);
+        }
+
+        // Función para guardar los cambios en una fila
+        function guardarCambios(fila, columnas) {
+            const celdas = fila.querySelectorAll("td");
+
+            // Guardar los valores de las celdas editadas en el array
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
+                columnas[i] = celdas[i].textContent.trim();
+            }
+
+            alert("Cambios guardados.");
+
+            // Actualizar los datos en el array
+            const filaIndex = datosCSV.findIndex((item) => item[5] === columnas[5]); // Usar el "ID" para encontrar la fila correcta
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas; // Actualiza los datos
             }
         }
-        else
-        {
-            // Si no se encuentra la máquina
-            machineFound = false;
-            showWarning = false;
-        }
-    }
 
-    private void GoToAdministrador()
-    {
-        // Navega a la página Administrador
-        Navigation.NavigateTo("/Administrador");
-    }
-}
+        // Función para guardar los datos de la tabla como archivo CSV
+        function guardarCSV() {
+            let csvContent = "";
+
+            // Generar CSV a partir de los datos almacenados
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(",") + "\n";
+            });
+
+            // Crear un archivo blob y descargarlo
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "datos_guardados.csv";
+            link.click();
+        }
+
+        // Función para buscar máquina por ID
+        function buscarMaquinaPorId() {
+            const idBuscada = document.getElementById("buscarIdInput").value.trim();
+            if (!idBuscada) {
+                alert("Por favor ingrese un ID.");
+                return;
+            }
+
+            // Filtrar las máquinas que coincidan con la ID proporcionada (compara la columna 5 de "ID")
+            const maquinasFiltradas = datosCSV.filter(item => item[5] === idBuscada);
+
+            // Mostrar solo las máquinas filtradas
+            mostrarMaquinas(maquinasFiltradas);
+        }
+
+        // Función para mostrar las máquinas en la tabla
+        function mostrarMaquinas(maquinas) {
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = ""; // Limpiar la tabla
+
+            maquinas.forEach((columnas) => {
+                const fila = document.createElement("tr");
+                columnas.forEach((columna) => {
+                    const celda = document.createElement("td");
+
+                    const fechaEntrada = new Date(columnas[1].trim());
+
+                    // Si la fecha de entrada está dentro de 1, 2 o 3 meses antes del 30 de diciembre, marcarla
+                    const fechaLimiteSeptiembre = new Date('2024-09-30');
+                    const fechaLimiteOctubre = new Date('2024-10-30');
+                    const fechaLimiteNoviembre = new Date('2024-11-30');
+                    const fechaLimiteDiciembre = new Date('2024-12-30');
+
+                    if ((fechaEntrada >= fechaLimiteSeptiembre && fechaEntrada <= fechaLimiteDiciembre)) {
+                        celda.style.backgroundColor = "red"; // Colorear en rojo
+                        celda.style.color = "white"; // Para asegurar que el texto se vea bien
+                    }
+
+                    celda.contentEditable = true;
+                    celda.textContent = columna.trim();
+                    fila.appendChild(celda);
+                });
+
+                const celdaAcciones = document.createElement("td");
+                const botonGuardar = document.createElement("button");
+                botonGuardar.textContent = "Guardar";
+                botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                celdaAcciones.appendChild(botonGuardar);
+                fila.appendChild(celdaAcciones);
+
+                tablaBody.appendChild(fila);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+

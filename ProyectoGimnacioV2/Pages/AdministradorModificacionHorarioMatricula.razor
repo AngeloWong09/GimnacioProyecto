@@ -1,187 +1,131 @@
-﻿
-@page "/AdministradorModificacionHorarioMatricula"
-@inject NavigationManager Navigation
+﻿@page "/AdministradorModificacionHorarioMatricula"
 
-<h3>Modificación de Horario de Matrícula</h3>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a GYM FAST FORCE</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-<div class="form-group">
-    <label for="class-id">Escribe la ID de la clase</label>
-    <InputText id="class-id" class="form-control" @bind-Value="classId" />
-    <button type="button" class="btn btn-primary mt-2" @onclick="SearchClass">Buscar Clase</button>
-</div>
+    <h2>Mostrar Archivo CSV</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarCSV(event)" />
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+    </div>
+    <br />
 
-@if (classFound)
-{
-    <table class="table table-bordered mt-3">
+    <h2>Editar Datos CSV</h2>
+    <p>Haz clic en los campos de la tabla para editar.</p>
+
+    <!-- Tabla donde se mostrarán los datos -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
-                <th>Entrenador Asignado</th>
-                <th>Punto Fuerte</th>
-                <th>Día Establecido</th>
-                <th>Hora Establecida</th>
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>ID</th>
+                <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>@assignedCoach</td>
-                <td>@currentStrength</td>
-                <td>@currentDay</td>
-                <td>@currentTime</td>
-            </tr>
-        </tbody>
+        <tbody id="csvTableBody"></tbody>
     </table>
 
-    <div class="form-group mt-3">
-        <label for="new-time">Seleccione Nuevo Horario</label>
-        <InputSelect id="new-time" class="form-control" @bind-Value="newTime">
-            <option value="">Seleccione una opción</option>
-            <option value="6:00 a.m">6:00 a.m</option>
-            <option value="9:00 a.m">9:00 a.m</option>
-            <option value="10:00 a.m">10:00 a.m</option>
-            <option value="1:00 p.m">1:00 p.m</option>
-            <option value="2:00 p.m">2:00 p.m</option>
-            <option value="4:00 p.m">4:00 p.m</option>
-            <option value="6:00 p.m">6:00 p.m</option>
-        </InputSelect>
-    </div>
+    <script src="script.js"></script>
 
-    <div class="form-group mt-3">
-        <label for="new-day">Seleccione Nuevo Día</label>
-        <InputSelect id="new-day" class="form-control" @bind-Value="newDay">
-            <option value="">Seleccione una opción</option>
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miércoles">Miércoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-            <option value="Sábado">Sábado</option>
-        </InputSelect>
-    </div>
+    <script>
+        let datosCSV = [];
 
-    <button type="button" class="btn btn-success mt-3" @onclick="ChangeSchedule">Cambiar Horario</button>
-}
-
-@if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="alert alert-danger mt-3">
-        @errorMessage
-    </div>
-}
-
-<!-- Botón para regresar a Administrador -->
-<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
-
-@code {
-    private string classId;
-    private bool classFound = false;
-    private string assignedCoach;
-    private string currentStrength;
-    private string currentDay;
-    private string currentTime;
-    private string newTime;
-    private string newDay;
-    private string errorMessage;
-
-    private List<ClaseEntrenamiento> clases = ClaseEntrenamiento.ObtenerClases();
-
-    private void SearchClass()
-    {
-        try
-        {
-            // Buscar la clase en la lista de clases
-            var clase = clases.FirstOrDefault(c => c.ClaseId.ToString() == classId);
-
-            if (clase != null)
-            {
-                classFound = true;
-                assignedCoach = clase.NombreEntrenador;
-                currentStrength = clase.NombreClase;
-                currentDay = clase.Fecha.ToString("dddd", new System.Globalization.CultureInfo("es-ES"));
-                currentTime = clase.Hora;
+        // Procesar archivo CSV sin bloquear el ciclo de vida de Blazor
+        function procesarCSV(event) {
+            const archivo = event.target.files[0];
+            if (!archivo) {
+                alert("Por favor seleccione un archivo CSV.");
+                return;
             }
-            else
-            {
-                classFound = false;
-            }
-        }
-        catch (Exception ex)
-        {
-            errorMessage = $"Error en la búsqueda de la clase: {ex.Message}";
-        }
 
-        StateHasChanged(); // Asegura que la interfaz se actualice.
-    }
+            // Usar FileReader asíncrono
+            const lector = new FileReader();
+            lector.onload = function (e) {
+                const contenido = e.target.result;
+                const lineas = contenido.split("\n");
+                const tablaBody = document.getElementById("csvTableBody");
+                tablaBody.innerHTML = ""; // Limpiar tabla
 
-    private void ChangeSchedule()
-    {
-        try
-        {
-            if (!string.IsNullOrEmpty(newTime) && !string.IsNullOrEmpty(newDay))
-            {
-                var clase = clases.FirstOrDefault(c => c.ClaseId.ToString() == classId);
+                datosCSV = []; // Reiniciar datos CSV
 
-                if (clase != null)
-                {
-                    // Asignar el nuevo horario y día
-                    clase.Hora = newTime;
-                    clase.Fecha = GetDateFromDay(newDay);
+                for (let linea of lineas) {
+                    if (linea.trim() === "") continue;
 
-                    // Actualizar la información mostrada
-                    currentTime = clase.Hora;
-                    currentDay = clase.Fecha.ToString("dddd", new System.Globalization.CultureInfo("es-ES"));
+                    const columnas = linea.split(";");
+                    if (columnas.length === 7 || columnas.length === 5) { // Diferentes tipos de archivos
+                        datosCSV.push(columnas);
 
-                    // Limpiar los campos
-                    newTime = string.Empty;
-                    newDay = string.Empty;
-                    classFound = false;
+                        const fila = document.createElement("tr");
+                        columnas.forEach((columna, index) => {
+                            const celda = document.createElement("td");
+                            celda.contentEditable = true; // Hacer editable
+                            celda.textContent = columna.trim();
+                            fila.appendChild(celda);
+                        });
+
+                        const celdaAcciones = document.createElement("td");
+                        const botonGuardar = document.createElement("button");
+                        botonGuardar.textContent = "Guardar";
+                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                        celdaAcciones.appendChild(botonGuardar);
+                        fila.appendChild(celdaAcciones);
+
+                        tablaBody.appendChild(fila);
+                    }
                 }
-                else
-                {
-                    errorMessage = "Clase no encontrada para realizar cambios.";
-                }
+            };
+
+            lector.onerror = function () {
+                alert("Hubo un problema al leer el archivo.");
+            };
+
+            lector.readAsText(archivo);
+        }
+
+        // Guardar cambios realizados en una fila
+        function guardarCambios(fila, columnas) {
+            const celdas = fila.querySelectorAll("td");
+
+            // Guardar valores editados
+            for (let i = 0; i < celdas.length - 1; i++) {
+                columnas[i] = celdas[i].textContent.trim();
             }
-            else
-            {
-                errorMessage = "Por favor, seleccione un horario y día.";
+
+            alert("Cambios guardados.");
+
+            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Buscar por ID
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas;
             }
         }
-        catch (Exception ex)
-        {
-            errorMessage = $"Error al cambiar el horario: {ex.Message}";
+
+        // Función para guardar CSV en el sistema
+        function guardarCSV() {
+            let csvContent = "";
+
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(";") + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "datos_guardados.csv";
+            link.click();
         }
+    </script>
+</body>
+</html>
 
-        StateHasChanged(); // Actualiza la interfaz después del cambio.
-    }
-
-    private void GoToAdministrador()
-    {
-        // Navega a la página Administrador
-        Navigation.NavigateTo("/Administrador");
-    }
-
-    private DateTime GetDateFromDay(string day)
-    {
-        // Devuelve la fecha correspondiente a un día específico
-        var today = DateTime.Today;
-        var daysOfWeek = new Dictionary<string, DayOfWeek>
-        {
-            { "Lunes", DayOfWeek.Monday },
-            { "Martes", DayOfWeek.Tuesday },
-            { "Miércoles", DayOfWeek.Wednesday },
-            { "Jueves", DayOfWeek.Thursday },
-            { "Viernes", DayOfWeek.Friday },
-            { "Sábado", DayOfWeek.Saturday }
-        };
-
-        var targetDayOfWeek = daysOfWeek[day];
-        var daysToAdd = (int)targetDayOfWeek - (int)today.DayOfWeek;
-
-        // Si el día ya ha pasado en la semana, ajusta la fecha al siguiente día de la misma semana
-        if (daysToAdd < 0)
-        {
-            daysToAdd += 7;
-        }
-
-        return today.AddDays(daysToAdd);
-    }
-}
+        

@@ -1,114 +1,137 @@
-﻿@page "/AdministradorCambiarPuntoFuerte"
-@using ProyectoGimnacioV2
-@using System.ComponentModel.DataAnnotations
-@inject NavigationManager Navigation
+﻿
+@page "/AdministradorCambiarPuntoFuerte"
 
-<h3>Cambiar Punto Fuerte</h3>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido a GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-<EditForm Model="@cambiarPuntoFuerte" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div class="form-group">
-        <label for="coach-id">ID del Entrenador</label>
-        <InputText id="coach-id" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachId" />
-        <button type="button" class="btn btn-primary mt-2" @onclick="SearchCoach">Buscar Entrenador</button>
+    <h2>Mostrar Archivo CSV</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" />
+        <button onclick="procesarCSV()">Mostrar Tabla</button>
     </div>
+    <br />
 
-    <div class="form-group">
-        <label for="coach-name">Nombre del Entrenador</label>
-        <InputText id="coach-name" class="form-control" @bind-Value="cambiarPuntoFuerte.CoachName" Disabled="true" />
+    <!-- Botón para guardar el CSV -->
+    <div>
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
     </div>
+    <br />
 
-    <div class="form-group">
-        <label for="current-strength">Punto Fuerte Actual</label>
-        <InputText id="current-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.CurrentStrength" Disabled="true" />
-    </div>
+    <h2>Editar Datos CSV</h2>
+    <p>Haz clic en los campos de la tabla para editar.</p>
 
-    <div class="form-group">
-        <label for="new-strength">Nuevo Punto Fuerte</label>
-        <InputSelect id="new-strength" class="form-control" @bind-Value="cambiarPuntoFuerte.NewStrength">
-            <option value="">Seleccione una opción</option>
-            <option value="Zumba">Zumba</option>
-            <option value="CardioDance">CardioDance</option>
-            <option value="Funcionales">Funcionales</option>
-        </InputSelect>
-    </div>
+    <!-- Tabla donde se mostrarán los datos -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>ID</th>
+                <th>Acciones</th> <!-- Columna para botones Editar/Guardar -->
+            </tr>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
 
-    <button type="submit" class="btn btn-success">Cambiar Punto Fuerte</button>
-</EditForm>
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
 
-@if (isSuccess)
-{
-    <div class="alert alert-success mt-3">
-        <strong>¡Éxito!</strong> El Punto Fuerte del entrenador fue actualizado correctamente.
-    </div>
-}
+    <script>
+        let datosCSV = []; // Para almacenar los datos del CSV
 
-@if (isError)
-{
-    <div class="alert alert-danger mt-3">
-        <strong>Error:</strong> No se encontró un entrenador con el ID proporcionado.
-    </div>
-}
+        // Función para procesar el archivo CSV seleccionado
+        function procesarCSV() {
+            const archivo = document.getElementById("csvFileInput").files[0];
+            if (!archivo) {
+                alert("Por favor seleccione un archivo CSV.");
+                return;
+            }
 
-<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
+            const lector = new FileReader();
 
-@code {
-    private CambiarPuntoFuerteViewModel cambiarPuntoFuerte = new CambiarPuntoFuerteViewModel();
-    private bool isSuccess = false;
-    private bool isError = false;
+            lector.onload = function (e) {
+                const contenido = e.target.result;
+                const lineas = contenido.split("\n");
+                const tablaBody = document.getElementById("csvTableBody");
+                tablaBody.innerHTML = ""; // Limpiar la tabla
 
-    private void SearchCoach()
-    {
-        var entrenador = EntrenadoresData.ListaEntrenadores.FirstOrDefault(e => e.Id.ToString() == cambiarPuntoFuerte.CoachId);
+                datosCSV = []; // Reiniciar los datos del CSV
 
-        if (entrenador != null)
-        {
-            cambiarPuntoFuerte.CoachName = $"{entrenador.Nombre} {entrenador.Apellido}";
-            cambiarPuntoFuerte.CurrentStrength = entrenador.PuntosFuertes;
-            isError = false;
+                for (let linea of lineas) {
+                    if (linea.trim() === "") continue;
+                    const columnas = linea.split(";");
+
+                    // Añadir los datos al array sin verificar las columnas
+                    datosCSV.push(columnas);
+
+                    const fila = document.createElement("tr");
+                    columnas.forEach((columna, index) => {
+                        const celda = document.createElement("td");
+                        celda.contentEditable = true; // Hacer editable
+                        celda.textContent = columna.trim();
+                        fila.appendChild(celda);
+                    });
+
+                    const celdaAcciones = document.createElement("td");
+                    const botonGuardar = document.createElement("button");
+                    botonGuardar.textContent = "Guardar";
+                    botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                    celdaAcciones.appendChild(botonGuardar);
+                    fila.appendChild(celdaAcciones);
+
+                    tablaBody.appendChild(fila);
+                }
+            };
+
+            lector.onerror = function () {
+                alert("Hubo un problema al leer el archivo.");
+            };
+
+            lector.readAsText(archivo);
         }
-        else
-        {
-            cambiarPuntoFuerte.CoachName = string.Empty;
-            cambiarPuntoFuerte.CurrentStrength = string.Empty;
-            isError = true;
+
+        // Función para guardar los cambios en una fila
+        function guardarCambios(fila, columnas) {
+            const celdas = fila.querySelectorAll("td");
+
+            // Guardar los valores de las celdas editadas en el array
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
+                columnas[i] = celdas[i].textContent.trim();
+            }
+
+            alert("Cambios guardados.");
+
+            // Actualizar los datos en el array
+            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Usar el ID para encontrar la fila correcta
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas; // Actualiza los datos
+            }
         }
-    }
 
-    private void HandleValidSubmit()
-    {
-        var entrenador = EntrenadoresData.ListaEntrenadores.FirstOrDefault(e => e.Id.ToString() == cambiarPuntoFuerte.CoachId);
+        // Función para guardar los datos de la tabla como archivo CSV
+        function guardarCSV() {
+            let csvContent = "";
 
-        if (entrenador != null)
-        {
-            entrenador.PuntosFuertes = cambiarPuntoFuerte.NewStrength;
-            isSuccess = true;
-            isError = false;
+            // Generar CSV a partir de los datos almacenados
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(";") + "\n";
+            });
+
+            // Crear un archivo blob y descargarlo
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "datos_guardados.csv";
+            link.click();
         }
-        else
-        {
-            isSuccess = false;
-            isError = true;
-        }
-    }
-
-    private void GoToAdministrador()
-    {
-        Navigation.NavigateTo("/Administrador");
-    }
-
-    public class CambiarPuntoFuerteViewModel
-    {
-        [Required]
-        public string CoachId { get; set; }
-
-        public string CoachName { get; set; }
-
-        public string CurrentStrength { get; set; }
-
-        [Required]
-        public string NewStrength { get; set; }
-    }
-}
+    </script>
+</body>
+</html>

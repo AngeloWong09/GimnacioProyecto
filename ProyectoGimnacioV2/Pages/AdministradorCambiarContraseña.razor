@@ -1,125 +1,158 @@
 ﻿
 @page "/AdministradorCambiarContraseña"
-@using System.ComponentModel.DataAnnotations
-@inject NavigationManager Navigation
-@using ProyectoGimnacioV2.Clases  
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido a GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-<h2>Cambiar Contraseña</h2>
-
-<EditForm Model="@passwordModel" OnValidSubmit="ChangePassword">
+    <h2>Mostrar Archivo CSV</h2>
     <div>
-        <label for="clientId">ID de Cliente:</label>
-        <InputText id="clientId" @bind-Value="passwordModel.ClientId" />
-        <ValidationMessage For="@(() => passwordModel.ClientId)" />
-        <button type="button" class="btn btn-primary mt-2" @onclick="SearchClient">Buscar ID</button>
+        <input type="file" id="csvFileInput" accept=".csv" />
+        <button onclick="procesarCSV()">Mostrar Tabla</button>
     </div>
+    <br />
 
+    <!-- Botón para guardar el CSV -->
     <div>
-        <label for="clientName">Nombre del Cliente:</label>
-        <InputText id="clientName" @bind-Value="passwordModel.ClientName" Disabled="true" />
+        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
     </div>
+    <br />
 
-    <div>
-        <label for="currentPassword">Contraseña Actual:</label>
-        <InputText id="currentPassword" type="@currentPasswordType" @bind-Value="passwordModel.CurrentPassword" Disabled="true" />
-        <ValidationMessage For="@(() => passwordModel.CurrentPassword)" />
-        <button type="button" class="btn btn-link" @onclick="TogglePasswordVisibility">Ver Contraseña</button>
-    </div>
+    <h2>Editar Datos CSV</h2>
+    <p>Haz clic en los campos de la tabla para editar.</p>
 
-    <div>
-        <label for="newPassword">Nueva Contraseña:</label>
-        <InputText id="newPassword" type="password" @bind-Value="passwordModel.NewPassword" />
-        <ValidationMessage For="@(() => passwordModel.NewPassword)" />
-        <button type="submit" class="btn btn-success mt-2">Cambiar Contraseña</button>
-    </div>
-</EditForm>
+    <!-- Tabla donde se mostrarán los datos -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>ID</th>
+                <th>Acciones</th> <!-- Columna para botones Editar/Guardar -->
+            </tr>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
 
-@if (!string.IsNullOrEmpty(message))
-{
-    <p>@message</p>
-}
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
 
-<!-- Botón para ir a la página Administrador -->
-<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
+    <script>
+        let datosCSV = []; // Para almacenar los datos del CSV
 
-@code {
-    private PasswordModel passwordModel = new PasswordModel();
-    private string message = string.Empty;
-    private Usuario currentUser = null;
-    private string currentPasswordType = "password";  // Controla el tipo del campo para la contraseña
+        // Función para procesar el archivo CSV seleccionado
+        function procesarCSV() {
+            const archivo = document.getElementById("csvFileInput").files[0];
+            if (!archivo) {
+                alert("Por favor seleccione un archivo CSV.");
+                return;
+            }
 
-    private void ChangePassword()
-    {
-        if (currentUser == null)
-        {
-            message = "Debe buscar y seleccionar un cliente antes de cambiar la contraseña.";
-            return;
+            const lector = new FileReader();
+
+            lector.onload = function (e) {
+                const contenido = e.target.result;
+                const lineas = contenido.split("\n");
+                const tablaBody = document.getElementById("csvTableBody");
+                tablaBody.innerHTML = ""; // Limpiar la tabla
+
+                datosCSV = []; // Reiniciar los datos del CSV
+
+                for (let linea of lineas) {
+                    if (linea.trim() === "") continue;
+                    const columnas = linea.split(";");
+
+                    // Verificar si es un archivo para Administradores o Entrenadores (7 columnas)
+                    if (columnas.length === 7) {
+                        datosCSV.push(columnas);
+
+                        const fila = document.createElement("tr");
+                        columnas.forEach((columna, index) => {
+                            const celda = document.createElement("td");
+                            celda.contentEditable = true; // Hacer editable
+                            celda.textContent = columna.trim();
+                            fila.appendChild(celda);
+                        });
+
+                        const celdaAcciones = document.createElement("td");
+                        const botonGuardar = document.createElement("button");
+                        botonGuardar.textContent = "Guardar";
+                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                        celdaAcciones.appendChild(botonGuardar);
+                        fila.appendChild(celdaAcciones);
+
+                        tablaBody.appendChild(fila);
+
+                    } else if (columnas.length === 5) { // Verificar archivo para Clientes (5 columnas)
+                        // Añadir los datos de Cliente al array
+                        datosCSV.push(columnas);
+
+                        const fila = document.createElement("tr");
+                        columnas.forEach((columna, index) => {
+                            const celda = document.createElement("td");
+                            celda.contentEditable = true; // Hacer editable
+                            celda.textContent = columna.trim();
+                            fila.appendChild(celda);
+                        });
+
+                        const celdaAcciones = document.createElement("td");
+                        const botonGuardar = document.createElement("button");
+                        botonGuardar.textContent = "Guardar";
+                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
+                        celdaAcciones.appendChild(botonGuardar);
+                        fila.appendChild(celdaAcciones);
+
+                        tablaBody.appendChild(fila);
+                    }
+                }
+            };
+
+            lector.onerror = function () {
+                alert("Hubo un problema al leer el archivo.");
+            };
+
+            lector.readAsText(archivo);
         }
 
-        if (passwordModel.NewPassword.Length < 6)
-        {
-            message = "La nueva contraseña debe tener al menos 6 caracteres.";
-            return;
+        // Función para guardar los cambios en una fila
+        function guardarCambios(fila, columnas) {
+            const celdas = fila.querySelectorAll("td");
+
+            // Guardar los valores de las celdas editadas en el array
+            for (let i = 0; i < celdas.length - 1; i++) { // Excluir la última celda de "acciones"
+                columnas[i] = celdas[i].textContent.trim();
+            }
+
+            alert("Cambios guardados.");
+
+            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); // Usar el ID para encontrar la fila correcta
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas; // Actualiza los datos
+            }
         }
 
-        // Cambiar la contraseña del usuario en la lista
-        var user = Usuarios.ListaUsuarios.FirstOrDefault(u => u.ClientId == passwordModel.ClientId);
-        if (user != null)
-        {
-            user.Password = passwordModel.NewPassword;  // Cambiar la contraseña en el objeto Usuario
-            message = "Contraseña actualizada exitosamente.";
+        // Función para guardar los datos de la tabla como archivo CSV
+        function guardarCSV() {
+            let csvContent = "";
+
+            // Generar CSV a partir de los datos almacenados
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(";") + "\n";
+            });
+
+            // Crear un archivo blob y descargarlo
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "datos_guardados.csv";
+            link.click();
         }
-        else
-        {
-            message = "Cliente no encontrado en la lista.";
-        }
-    }
-
-
-    private void SearchClient()
-    {
-        // Buscar cliente por ID en la lista de usuarios
-        currentUser = Usuarios.ListaUsuarios.FirstOrDefault(u => u.ClientId == passwordModel.ClientId);
-
-        if (currentUser != null)
-        {
-            passwordModel.ClientName = currentUser.ClientName;
-            passwordModel.CurrentPassword = currentUser.Password;  // Mostrar la contraseña actual
-            message = "Cliente encontrado.";
-        }
-        else
-        {
-            passwordModel.ClientName = string.Empty;
-            passwordModel.CurrentPassword = string.Empty;  // Borrar la contraseña si no se encuentra
-            message = "Cliente no encontrado.";
-            currentUser = null;
-        }
-    }
-
-    private void TogglePasswordVisibility()
-    {
-        // Cambia el tipo del campo para mostrar u ocultar la contraseña
-        currentPasswordType = currentPasswordType == "password" ? "text" : "password";
-    }
-
-    private void GoToAdministrador()
-    {
-        // Redirige al componente Administrador
-        Navigation.NavigateTo("/Administrador");
-    }
-
-    public class PasswordModel
-    {
-        [Required(ErrorMessage = "El ID de cliente es obligatorio.")]
-        public string ClientId { get; set; }
-
-        public string ClientName { get; set; }
-
-        [Required(ErrorMessage = "La contraseña actual es obligatoria.")]
-        public string CurrentPassword { get; set; }
-
-        [Required(ErrorMessage = "La nueva contraseña es obligatoria.")]
-        [MinLength(6, ErrorMessage = "La nueva contraseña debe tener al menos 6 caracteres.")]
-        public string NewPassword { get; set; }
-    }
-}
+    </script>
+</body>
+</html>

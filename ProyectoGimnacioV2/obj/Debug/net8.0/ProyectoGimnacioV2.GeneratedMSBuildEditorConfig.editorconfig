@@ -54,6 +54,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteMembresia.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZU1lbWJyZXNpYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteVerClase.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZVZlckNsYXNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/Entrenador.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorAgregarRutina.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvckFncmVnYXJSdXRpbmEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -62,20 +74,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvckVtaXRpckZhY3R1cmFzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorL.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvckwucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorProgramarClases.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvclByb2dyYW1hckNsYXNlcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/EntrenadorReporte.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW50cmVuYWRvclJlcG9ydGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/Membresia.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVtYnJlc2lhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/_Imports.razor]

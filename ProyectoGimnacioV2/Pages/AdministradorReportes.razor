@@ -1,140 +1,197 @@
 ﻿
 @page "/AdministradorReporte"
-@inject NavigationManager Navigation
-@using System.IO
-@using ProyectoGimnacioV2.Clases
 
-<h3>Generar Reportes</h3>
 
-<div class="form-group">
-    <label for="report-type">Seleccione el tipo de reporte:</label>
-    <select id="report-type" class="form-control" @bind="selectedReportType">
-        <option>Clases</option>
-        <option>Máquinas</option>
-    </select>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a GYM FAST FORCE</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-<button class="btn btn-primary mt-3" @onclick="SearchReport">Buscar</button>
+    <h2>Subir Archivos CSV</h2>
+    <div>
+        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarArchivos(event)" multiple />
+    </div>
+    <br />
 
-@if (showReport)
-{
-    <table class="table table-bordered mt-3">
+    <h2>Selecciona los datos que deseas ver</h2>
+    <div>
+        <label for="archivoSeleccionado">Selecciona tipo de archivo: </label>
+        <select id="archivoSeleccionado" onchange="mostrarDatosSeleccionados()">
+            <option value="clases">Clases</option>
+            <option value="maquinas">Máquinas</option>
+        </select>
+    </div>
+
+    <!-- Tabla para mostrar datos -->
+    <h2>Editar Datos CSV</h2>
+    <p>Haz clic en los campos de la tabla para editar.</p>
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
-            @if (selectedReportType == "Clases")
-            {
-                <tr>
-                    <th>Nombre de la Clase</th>
-                    <th>Nombre del Entrenador</th>
-                    <th>Punto Fuerte</th>
-                    <th>Clientes Inscritos</th>
-                </tr>
-            }
-            else if (selectedReportType == "Máquinas")
-            {
-                <tr>
-                    <th>Nombre de la Máquina</th>
-                    <th>Fecha de Entrada</th>
-                    <th>Vida Útil</th>
-                    <th>Ingresos</th>
-                </tr>
-            }
+            <tr id="tablaHeaders"></tr>
         </thead>
-        <tbody>
-            @foreach (var row in reportData)
-            {
-                <tr>
-                    @foreach (var cell in row)
-                    {
-                        <td>@cell</td>
-                    }
-                </tr>
-            }
-        </tbody>
+        <tbody id="csvTableBody"></tbody>
     </table>
 
-    <button class="btn btn-success mt-3" @onclick="SaveReport">Guardar Reporte</button>
-}
+    <!-- Área para mostrar resultados de ingresos -->
+    <div id="resultadosIngresos" style="margin-top: 20px;"></div>
 
-<!-- Botón para regresar a Administrador -->
-<button class="btn btn-secondary mt-3" @onclick="GoToAdministrador">Ir a Administrador</button>
+    <!-- Botón para guardar CSV -->
+    <button onclick="guardarCSV()">Guardar CSV</button>
 
-@code {
-    private string selectedReportType;
-    private bool showReport = false;
-    private List<List<string>> reportData = new List<List<string>>();
+    <script>
+        let clasesCSV = [];
+        let maquinasCSV = [];
 
-    private void SearchReport()
-    {
-        showReport = true;
-        reportData.Clear();
+        // Procesar múltiples archivos CSV
+        function procesarArchivos(event) {
+            const archivos = event.target.files;
+            if (archivos.length === 0) return;
 
-        if (selectedReportType == "Clases")
-        {
-            var allClasses = ClaseEntrenamiento.ObtenerClases();
+            clasesCSV = [];
+            maquinasCSV = [];
 
-            // No se filtra por día ni hora, se muestran todas las clases
-            foreach (var clase in allClasses)
-            {
-                reportData.Add(new List<string>
-                {
-                    clase.NombreClase,
-                    clase.NombreEntrenador,
-                    clase.Hora, // Puedes agregar más detalles si es necesario
-                    clase.Capacidad.ToString() // Por ejemplo, el número de clientes inscritos
+            Array.from(archivos).forEach(archivo => {
+                const lector = new FileReader();
+                lector.onload = function (e) {
+                    const lineas = e.target.result.split("\n");
+                    if (archivo.name.includes("Clases.csv")) procesarClases(lineas);
+                    else if (archivo.name.includes("Maquinas.csv")) procesarMaquinas(lineas);
+                };
+                lector.readAsText(archivo);
+            });
+        }
+
+        // Procesar datos de Clases.csv
+        function procesarClases(lineas) {
+            lineas.forEach(linea => {
+                const columnas = linea.split(";");
+                if (columnas.length === 8) clasesCSV.push(columnas);
+            });
+        }
+
+        // Procesar datos de Maquinas.csv
+        function procesarMaquinas(lineas) {
+            lineas.forEach(linea => {
+                const columnas = linea.split(",");
+                if (columnas.length === 6) maquinasCSV.push(columnas);
+            });
+        }
+
+        // Mostrar datos según selección
+        function mostrarDatosSeleccionados() {
+            const seleccion = document.getElementById("archivoSeleccionado").value;
+            const tablaHeaders = document.getElementById("tablaHeaders");
+            const tablaBody = document.getElementById("csvTableBody");
+            const resultadosIngresos = document.getElementById("resultadosIngresos");
+
+            tablaBody.innerHTML = ""; // Limpiar datos previos
+            resultadosIngresos.innerHTML = ""; // Limpiar área de resultados
+
+            if (seleccion === "clases") {
+                tablaHeaders.innerHTML = `<th>Horario</th><th>Precio</th><th>Acciones</th>`;
+                mostrarTablaClases();
+                calcularIngresosClases();
+            } else if (seleccion === "maquinas") {
+                tablaHeaders.innerHTML = `<th>Nombre</th><th>ID de Clase</th><th>Acciones</th>`;
+                mostrarTablaMaquinas();
+                calcularIngresosMaquinas();
+            }
+        }
+
+        // Mostrar tabla de Clases
+        function mostrarTablaClases() {
+            clasesCSV.forEach(row => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `<td contenteditable="true">${row[5]}</td>
+                                          <td contenteditable="true">${row[7]}</td>
+                                          <td><button onclick="guardarFila(this, '${row[0]}')">Guardar</button></td>`;
+                document.getElementById("csvTableBody").appendChild(fila);
+            });
+        }
+
+        // Mostrar tabla de Máquinas
+        function mostrarTablaMaquinas() {
+            maquinasCSV.forEach(row => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `<td contenteditable="true">${row[0]}</td>
+                                          <td contenteditable="true">${row[4]}</td>
+                                          <td><button onclick="guardarFila(this, '${row[0]}')">Guardar</button></td>`;
+                document.getElementById("csvTableBody").appendChild(fila);
+            });
+        }
+
+        // Calcular ingresos para Clases
+        function calcularIngresosClases() {
+            const precios = clasesCSV.map(row => parseFloat(row[7])).filter(val => !isNaN(val));
+            if (precios.length === 0) return;
+
+            const precioMax = Math.max(...precios);
+            const precioMin = Math.min(...precios);
+            const precioTotal = precios.reduce((sum, val) => sum + val, 0);
+
+            document.getElementById("resultadosIngresos").innerHTML = `
+                        <h3>Resultados de Ingresos de Clases</h3>
+                        <ul>
+                            <li>Ingreso más alto: ${precioMax}</li>
+                            <li>Ingreso más bajo: ${precioMin}</li>
+                            <li>Total de ingresos: ${precioTotal}</li>
+                        </ul>
+                    `;
+        }
+
+        // Calcular ingresos para Máquinas
+        function calcularIngresosMaquinas() {
+            const ingresos = maquinasCSV.map(row => parseFloat(row[3])).filter(val => !isNaN(val));
+            if (ingresos.length === 0) return;
+
+            const ingresoMax = Math.max(...ingresos);
+            const ingresoMin = Math.min(...ingresos);
+            const ingresoTotal = ingresos.reduce((sum, val) => sum + val, 0);
+
+            document.getElementById("resultadosIngresos").innerHTML = `
+                        <h3>Resultados de Ingresos de Máquinas</h3>
+                        <ul>
+                            <li>Ingreso más alto: ${ingresoMax}</li>
+                            <li>Ingreso más bajo: ${ingresoMin}</li>
+                            <li>Total de ingresos: ${ingresoTotal}</li>
+                        </ul>
+                    `;
+        }
+
+        // Guardar fila modificada
+        function guardarFila(boton, id) {
+            alert("Cambios guardados para: " + id);
+        }
+
+        // Guardar datos en CSV
+        function guardarCSV() {
+            const seleccion = document.getElementById("archivoSeleccionado").value;
+            let csvContent = "";
+
+            if (seleccion === "clases") {
+                clasesCSV.forEach(row => {
+                    csvContent += `${row[5]};${row[7]}\n`;
+                });
+            } else if (seleccion === "maquinas") {
+                maquinasCSV.forEach(row => {
+                    csvContent += `${row[0]},${row[4]}\n`;
                 });
             }
+
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = seleccion === "clases" ? "Clases.csv" : "Maquinas.csv";
+            link.click();
         }
-        else if (selectedReportType == "Máquinas")
-        {
-            var allMachines = Maquinas.ObtenerMaquinas();
+    </script>
+</body>
+</html>
 
-            foreach (var maquina in allMachines)
-            {
-                reportData.Add(new List<string>
-                {
-                    maquina.Nombre,
-                    maquina.FechaEntrada,
-                    maquina.TiempoVida.ToString(),
-                    maquina.Ingresos.ToString()
-                });
-            }
-        }
-    }
 
-    private void SaveReport()
-    {
-        string downloadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-        string fileName = "Reporte.csv";
-        string filePath = Path.Combine(downloadsFolder, fileName);
-
-        using (var writer = new StreamWriter(filePath))
-        {
-            // Escribir encabezado según el tipo de reporte
-            if (selectedReportType == "Clases")
-            {
-                writer.WriteLine("Nombre de la Clase,Nombre del Entrenador,Punto Fuerte,Clientes Inscritos");
-            }
-            else if (selectedReportType == "Máquinas")
-            {
-                writer.WriteLine("Nombre de la Máquina,Fecha de Entrada,Vida Útil,Ingresos");
-            }
-
-            // Escribir los datos del reporte
-            foreach (var row in reportData)
-            {
-                writer.WriteLine(string.Join(",", row));
-            }
-        }
-
-        Console.WriteLine($"Reporte guardado en: {filePath}");
-        // Proporcionar un enlace para descargar el archivo CSV
-        var url = new Uri($"file:///{filePath}");
-        Navigation.NavigateTo(url.AbsoluteUri);
-    }
-
-    private void GoToAdministrador()
-    {
-        // Navega a la página Administrador
-        Navigation.NavigateTo("/Administrador");
-    }
-}

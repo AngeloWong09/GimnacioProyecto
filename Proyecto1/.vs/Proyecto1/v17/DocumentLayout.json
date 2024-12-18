@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyecto1\\calendarioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|solutionrelative:calendarioform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{79D10713-6E9D-4DD7-821A-AEF7658F2D4C}|..\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyectogimnaciov2\\pages\\administradorcambiarcontrase\u00F1a.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
@@ -12,13 +16,7 @@
       "AbsoluteMoniker": "D:0:0:{79D10713-6E9D-4DD7-821A-AEF7658F2D4C}|..\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyectogimnaciov2\\pages\\iniciosecion.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79D10713-6E9D-4DD7-821A-AEF7658F2D4C}|..\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyectogimnaciov2\\clases\\admins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{79D10713-6E9D-4DD7-821A-AEF7658F2D4C}|..\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyectogimnaciov2\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79D10713-6E9D-4DD7-821A-AEF7658F2D4C}|..\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj|c:\\users\\dell\\source\\repos\\angelowong09\\gimnacioproyecto\\proyectogimnaciov2\\pages\\entrenador.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{812E216F-0555-44F4-B47F-A333B09C8AE4}|Proyecto1.csproj|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\assets\\entrenadores.csv||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -40,6 +38,12 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\Logion.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Clases\\Admins.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\Entrenador.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -49,7 +53,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -57,7 +61,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "CalendarioForm.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\CalendarioForm.cs",
+              "RelativeDocumentMoniker": "CalendarioForm.cs",
+              "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\CalendarioForm.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CalendarioForm.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T07:22:36.672Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Usuarios.cs",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Clases\\Usuarios.cs",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Clases\\Usuarios.cs",
@@ -65,25 +81,24 @@
               "RelativeToolTip": "..\\ProyectoGimnacioV2\\Clases\\Usuarios.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T09:18:09.893Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-16T09:18:09.893Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AdministradorCambiarContrase\u00F1a.razor",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\AdministradorCambiarContrase\u00F1a.razor",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Pages\\AdministradorCambiarContrase\u00F1a.razor",
               "ToolTip": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\AdministradorCambiarContrase\u00F1a.razor",
               "RelativeToolTip": "..\\ProyectoGimnacioV2\\Pages\\AdministradorCambiarContrase\u00F1a.razor",
-              "ViewState": "AQIAAEsAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-12-16T09:17:40.728Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "InicioSecion.razor",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\InicioSecion.razor",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Pages\\InicioSecion.razor",
@@ -91,12 +106,11 @@
               "RelativeToolTip": "..\\ProyectoGimnacioV2\\Pages\\InicioSecion.razor",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-12-16T09:05:19.483Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-16T09:05:19.483Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "Admins.cs",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Clases\\Admins.cs",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Clases\\Admins.cs",
@@ -120,7 +134,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Entrenadores.csv",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\Assets\\Entrenadores.csv",
               "RelativeDocumentMoniker": "Assets\\Entrenadores.csv",
@@ -132,7 +146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "formUsuario.cs",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\formUsuario.cs",
               "RelativeDocumentMoniker": "formUsuario.cs",
@@ -144,7 +158,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "formCambiarPuntoFuerte.cs [Dise\u00F1o]",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\Proyecto1\\formCambiarPuntoFuerte.cs",
               "RelativeDocumentMoniker": "formCambiarPuntoFuerte.cs",
@@ -155,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "Weather.razor",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\Weather.razor",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Pages\\Weather.razor",
@@ -167,7 +181,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "Logion.razor",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\Logion.razor",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Pages\\Logion.razor",
@@ -179,7 +193,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "Entrenador.razor",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\Entrenador.razor",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Pages\\Entrenador.razor",
@@ -191,7 +205,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "Home.razor",
               "DocumentMoniker": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\Pages\\Home.razor",
               "RelativeDocumentMoniker": "..\\ProyectoGimnacioV2\\Pages\\Home.razor",
