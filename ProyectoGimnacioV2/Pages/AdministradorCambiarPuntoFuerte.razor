@@ -1,27 +1,25 @@
-﻿
-@page "/AdministradorCambiarPuntoFuerte"  
+﻿@page "/AdministradorCambiarPuntoFuerte"  
 
-<!DOCTYPE html>  <!-- Indicamos que es un documento HTML5 -->
-<html lang="es"> <!-- Especificamos que el idioma de la página es español -->
+<!DOCTYPE html>
+<!-- Indicamos que es un documento HTML5 -->
+<html lang="es">
+<!-- Especificamos que el idioma de la página es español -->
 <head>
     <meta charset="UTF-8">  <!-- Establecemos la codificación de caracteres en UTF-8 para soportar caracteres especiales -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Aseguramos una visualización responsiva en dispositivos móviles -->
-    <title>Bienvenido a GYM FAST FORCE!</title> <!-- Título de la página visible en la pestaña del navegador -->
+    <title>GYM FAST FORCE!</title> <!-- Título de la página visible en la pestaña del navegador -->
     <link rel="stylesheet" href="styles.css" />  <!-- Vinculamos el archivo de estilos CSS -->
 </head>
 <body>
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>  <!-- Título visible en la página principal -->
-
-    <h2>Mostrar Entrenadores</h2>
+    <h1 class="title">GYM FAST FORCE</h1>  <!-- Título visible en la página principal -->
     <!-- Botón para cargar los datos de Entrenadores desde un archivo CSV -->
     <div>
         <button onclick="cargarEntrenadores()">Mostrar Entrenadores</button>
     </div>
     <br />
 
-    <h2>Editar Datos CSV</h2>  <!-- Título para la sección de edición -->
-    <p>Haz clic en los campos de la tabla para editar.</p>  <!-- Instrucción al usuario sobre cómo editar los datos -->
 
+    <p>Haz clic en los campos de la tabla para editar.</p>  <!-- Instrucción al usuario sobre cómo editar los datos -->
     <!-- Tabla donde se mostrarán los datos del archivo CSV -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
@@ -43,7 +41,7 @@
 
     <!-- Botón para guardar los datos editados en el CSV -->
     <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar datos</button>
     </div>
 
     <br />
@@ -57,17 +55,21 @@
 
     <p id="currentTime"></p>  <!-- Se mostrará la hora actual utilizando JavaScript -->
     <script src="script.js"></script>  <!-- Vinculamos el archivo JS externo -->
-  
+
     <script>
         // Variable para almacenar los datos del CSV
-        let datosCSV = []; 
+        let datosCSV = [];
         // Encabezado del CSV de Entrenadores
-        let encabezadoCSV = "Usuario;Contraseña;Nombre;Apellido;Id;Puntos fuertes"; 
+        let encabezadoCSV = "Usuario;Contraseña;Nombre;Apellido;Id;Puntos fuertes";
 
         // Función para cargar los datos de Entrenadores.csv
         async function cargarEntrenadores() {
             try {
-                const respuesta = await fetch('/sample-data/Entrenadores.csv');  // Ruta al archivo CSV de Entrenadores
+                // Agregar un parámetro con el timestamp para evitar caché
+                const timestamp = new Date().getTime();  // Obtenemos el timestamp actual
+                const url = `/sample-data/Entrenadores.csv?${timestamp}`;  // Agregamos el timestamp como parámetro
+
+                const respuesta = await fetch(url);  // Ruta al archivo CSV de Entrenadores con el parámetro de timestamp
                 if (!respuesta.ok) {
                     alert("No se pudo cargar el archivo de Entrenadores.");
                     return;

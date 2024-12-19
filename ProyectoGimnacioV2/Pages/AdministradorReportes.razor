@@ -1,20 +1,14 @@
-﻿
-@page "/AdministradorReportes"
+﻿@page "/AdministradorReportes"
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bienvenido a GYM FAST FORCE!</title>
+    <title>GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
-    <!-- Botón Volver al Menú -->
-    <div>
-        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
-    </div> 
 
-    <h2>Mostrar Archivo CSV</h2>
     <div>
         <!-- Botón para cargar y mostrar la tabla de Maquinas.csv -->
         <button onclick="mostrarTabla('maquinas')">Mostrar Tabla de Máquinas</button>
@@ -25,11 +19,10 @@
 
     <!-- Botón para guardar el CSV -->
     <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar datos</button>
     </div>
     <br />
 
-    <h2>Editar Datos CSV</h2>
     <p>Haz clic en los campos de la tabla para editar.</p>
 
     <!-- Tabla donde se mostrarán los datos -->
@@ -39,6 +32,11 @@
         </thead>
         <tbody id="csvTableBody"></tbody>
     </table>
+
+    <!-- Botón Volver al Menú -->
+    <div>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
+    </div>
 
     <p id="currentTime"></p>
     <script src="script.js"></script>
@@ -51,8 +49,11 @@
         function mostrarTabla(tipo) {
             tipoCSV = tipo; // Guardar el tipo de archivo CSV a cargar
 
+            // Crear un parámetro único (timestamp) para evitar el caché
+            const timestamp = new Date().getTime();
+
             // Usamos fetch para obtener el archivo correspondiente dependiendo del tipo
-            let archivoCSV = tipo === 'maquinas' ? 'sample-data/Maquinas.csv' : 'sample-data/Clases.csv';
+            let archivoCSV = tipo === 'maquinas' ? `sample-data/Maquinas.csv?${timestamp}` : `sample-data/Clases.csv?${timestamp}`;
 
             fetch(archivoCSV)
                 .then(response => response.text())
@@ -66,24 +67,24 @@
                     const tablaHeaders = document.getElementById("tablaHeaders");
                     if (tipo === 'maquinas') {
                         tablaHeaders.innerHTML = `
-                                    <th>Nombre</th>
-                                    <th>Fecha Entrada</th>
-                                    <th>Tiempo Vida (días)</th>
-                                    <th>Ingresos</th>
-                                    <th>Clase ID</th>
-                                    <th>ID</th>
-                                    <th>Acciones</th>`; // Encabezado para "Maquinas.csv"
+                                            <th>Nombre</th>
+                                            <th>Fecha Entrada</th>
+                                            <th>Tiempo Vida (días)</th>
+                                            <th>Ingresos</th>
+                                            <th>Clase ID</th>
+                                            <th>ID</th>
+                                            <th>Acciones</th>`; // Encabezado para "Maquinas.csv"
                     } else if (tipo === 'clases') {
                         tablaHeaders.innerHTML = `
-                                    <th>Num Clase</th>
-                                    <th>ID Clase</th>
-                                    <th>ID Entrenador</th>
-                                    <th>Clase</th>
-                                    <th>Fecha</th>
-                                    <th>Horario</th>
-                                    <th>Cupos</th>
-                                    <th>Precio Clase</th>
-                                    <th>Acciones</th>`; // Encabezado para "Clases.csv"
+                                            <th>Num Clase</th>
+                                            <th>ID Clase</th>
+                                            <th>ID Entrenador</th>
+                                            <th>Clase</th>
+                                            <th>Fecha</th>
+                                            <th>Horario</th>
+                                            <th>Cupos</th>
+                                            <th>Precio Clase</th>
+                                            <th>Acciones</th>`; // Encabezado para "Clases.csv"
                     }
 
                     // Iterar sobre las líneas del CSV

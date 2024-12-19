@@ -1,40 +1,33 @@
-﻿
-@page "/AdministradorModificacionHorarioMatricula"
+﻿@page "/AdministradorModificacionHorarioMatricula"
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a GYM FAST FORCE</title>
+    <title>GYM FAST FORCE</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-    <!-- Agregar botón para volver al menú -->
-    <div>
-        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
-    </div> 
     <!-- Encabezado principal -->
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
+    <h1 class="title">GYM FAST FORCE</h1>
 
     <!-- Título de sección para mostrar archivo CSV -->
-    <h2>Mostrar Archivo CSV</h2>
     <div>
         <!-- Botón para cargar y mostrar la tabla de datos del archivo CSV -->
-        <button onclick="mostrarTabla()">Mostrar Tabla</button>
+        <button onclick="mostrarTabla()">Mostrar Tabla de membresias</button>
     </div>
     <br />
 
     <!-- Botón para guardar los datos editados de la tabla como archivo CSV -->
     <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar datos</button>
     </div>
     <br />
 
     <!-- Título de sección para edición de datos en el CSV -->
-    <h2>Editar Datos CSV</h2>
     <p>Haz clic en los campos de la tabla para editar.</p>
 
     <!-- Tabla que contendrá los datos del archivo CSV -->
@@ -55,9 +48,9 @@
 
     <br />
 
-    <!-- Botón para volver al menú principal -->
+    <!-- Botón Volver al Menú -->
     <div>
-        <button onclick="volverMenu()">Volver al Menú</button>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
     </div>
 
     <!-- Este es el área para mostrar la hora actual, si se requiere -->
@@ -73,7 +66,8 @@
         // Función para cargar y mostrar el archivo CSV
         function mostrarTabla() {
             // Usamos fetch para obtener el archivo Matriculas.csv desde el servidor
-            fetch('sample-data/Matriculas.csv')
+            const timestamp = new Date().getTime(); // Obtenemos un timestamp para evitar caché
+            fetch(`sample-data/Matriculas.csv?timestamp=${timestamp}`)
                 .then(response => response.text()) // Convertimos la respuesta en texto
                 .then(contenido => {
                     const lineas = contenido.split("\n"); // Dividimos las líneas del CSV

@@ -1,5 +1,4 @@
-﻿
-@page "/ClienteClase"
+﻿@page "/ClienteClase"
 
 <!DOCTYPE html>
 <html lang="es">
@@ -17,7 +16,6 @@
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
     <!-- Sección para búsqueda de datos en la tabla CSV -->
-    <h2>Mostrar Archivo CSV</h2>
     <div>
         <label for="searchID">Buscar por ID:</label>
         <!-- Campo de entrada para la búsqueda por ID -->
@@ -29,18 +27,11 @@
 
     <div>
         <!-- Botón para cargar y mostrar la tabla desde el archivo CSV -->
-        <button onclick="mostrarTabla()">Mostrar Tabla de BasedatosClase</button>
-    </div>
-    <br />
-
-    <!-- Botón para guardar la tabla como un nuevo archivo CSV -->
-    <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="mostrarTabla()">Cargar datos</button>
     </div>
     <br />
 
     <!-- Título de la sección donde se mostrará la tabla -->
-    <h2>Ver Datos CSV</h2>
     <p>Los datos están deshabilitados para edición.</p>
 
     <!-- Tabla dinámica que muestra los datos cargados desde el CSV -->
@@ -74,7 +65,10 @@
         function mostrarTabla() {
             const archivoCSV = 'sample-data/BasedatosClase.csv'; // Ruta al archivo CSV
 
-            fetch(archivoCSV) // Cargar archivo CSV
+            // Agregar un parámetro de tiempo único para evitar caché
+            const urlConNoCache = archivoCSV + "?t=" + new Date().getTime();
+
+            fetch(urlConNoCache) // Cargar archivo CSV
                 .then(response => response.text())
                 .then(contenido => {
                     const lineas = contenido.split("\n"); // Separar contenido por líneas
@@ -84,11 +78,11 @@
 
                     const tablaHeaders = document.getElementById("tablaHeaders");
                     tablaHeaders.innerHTML = `
-                                <th>Nombre</th>
-                                <th>Apellido 1</th>
-                                <th>Apellido 2</th>
-                                <th>ID</th>
-                                <th>ID Clase</th>`; // Agregar encabezados a la tabla
+                                        <th>Nombre</th>
+                                        <th>Apellido 1</th>
+                                        <th>Apellido 2</th>
+                                        <th>ID</th>
+                                        <th>ID Clase</th>`; // Agregar encabezados a la tabla
 
                     let datosPersonas = false; // Bandera para distinguir la sección de personas
 
@@ -137,24 +131,6 @@
 
             // Actualizar la vista con los resultados encontrados
             actualizarVistaConDatos(resultados);
-        }
-
-        /**
-         * Función para guardar los datos actuales en un archivo CSV.
-         */
-        function guardarCSV() {
-            let csvContent = "Nombre;Apellido 1;Apellido 2;ID;ID Clase\n"; // Encabezados CSV
-
-            datosCSV.forEach(filaData => {
-                csvContent += filaData.join(";") + "\n"; // Generar contenido CSV
-            });
-
-            // Crear blob para descargar el archivo CSV
-            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "BasedatosClase_personas.csv";
-            link.click(); // Descargar archivo
         }
 
         /**

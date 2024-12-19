@@ -97,8 +97,8 @@
                 return;
             }
 
-            // Simulación de lectura de archivo CSV con fetch
-            fetch('Reservas.csv')
+            // Simulación de lectura de archivo CSV con fetch y evitando el caché
+            fetch('Reservas.csv?nocache=' + new Date().getTime())  // Agrega un parámetro único para evitar caché
                 .then(response => response.text())
                 .then(data => {
                     const lines = data.split('\n').filter(line => line.trim() !== ""); // Separa las líneas no vacías
@@ -111,10 +111,10 @@
                     reservas.forEach(reserva => {
                         if (reserva[0] === userId) {
                             const row = `<tr>
-                                        <td>${reserva[1]}</td>
-                                        <td>${reserva[2]}</td>
-                                        <td>${reserva[3]}</td>
-                                    </tr>`;
+                                                <td>${reserva[1]}</td>
+                                                <td>${reserva[2]}</td>
+                                                <td>${reserva[3]}</td>
+                                            </tr>`;
                             tbody.innerHTML += row; // Agrega la fila a la tabla
                         }
                     });
@@ -126,7 +126,7 @@
         function buscarClases() {
             const claseSeleccionada = document.getElementById("claseSelect").value; // Captura la clase seleccionada
 
-            fetch('Clases.csv') // Simula la carga de un archivo CSV de clases
+            fetch('Clases.csv?nocache=' + new Date().getTime())  // Agrega un parámetro único para evitar caché
                 .then(response => response.text())
                 .then(data => {
                     const lines = data.split('\n').filter(line => line.trim() !== ""); // Filtra líneas vacías
@@ -139,13 +139,13 @@
                     clases.forEach(clase => {
                         if (clase[3] === claseSeleccionada) {
                             const row = `<tr>
-                                        <td>${clase[1]}</td>
-                                        <td>${clase[3]}</td>
-                                        <td>${clase[4]}</td>
-                                        <td>${clase[5]}</td>
-                                        <td>${clase[6]}</td>
-                                        <td>${clase[7]}</td>
-                                    </tr>`;
+                                                <td>${clase[1]}</td>
+                                                <td>${clase[3]}</td>
+                                                <td>${clase[4]}</td>
+                                                <td>${clase[5]}</td>
+                                                <td>${clase[6]}</td>
+                                                <td>${clase[7]}</td>
+                                            </tr>`;
                             tbody.innerHTML += row; // Agrega la fila a la tabla
                         }
                     });

@@ -1,14 +1,13 @@
-﻿
-@page "/AdministradorCambiarContraseña"
+﻿@page "/AdministradorCambiarContraseña"
 
 <!DOCTYPE html>
 <html lang="es">
-  <!-- Definimos el lenguaje para la página en español -->
+<!-- Definimos el lenguaje para la página en español -->
 
 <head>
     <meta charset="UTF-8">  <!-- Definimos la codificación de caracteres en UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Diseño responsivo -->
-    <title>Bienvenido a GYM FAST FORCE!</title>  <!-- Título de la página visible en la pestaña -->
+    <title>GYM FAST FORCE!</title>  <!-- Título de la página visible en la pestaña -->
     <link rel="stylesheet" href="styles.css" />  <!-- Vinculación de archivo CSS -->
 </head>
 
@@ -19,7 +18,7 @@
         <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
     </div>
 
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>  <!-- Título visible al usuario -->
+    <h1 class="title">GYM FAST FORCE</h1>  <!-- Título visible al usuario -->
     <!-- Contenedor de botones para cargar diferentes tipos de CSV -->
     <div>
         <button onclick="mostrarDatos('Administrador')">Mostrar Administradores</button>
@@ -28,9 +27,7 @@
     </div>
     <br />
 
-    <h2>Editar Datos CSV</h2>
-    <p>Haz clic en los campos de la tabla para editar.</p>
-
+    <p>Haz clic en los campos de la tabla.</p>
     <!-- Tabla para mostrar los datos CSV cargados -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
@@ -50,15 +47,10 @@
 
     <!-- Botón para guardar los datos como un archivo CSV -->
     <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar datos</button>
     </div>
 
     <br />
-
-    <!-- Botón Volver al Menú -->
-    <div>
-        <button onclick="volverAlMenu()">Volver al Menú</button>  <!-- Llama a la función volverAlMenu() -->
-    </div>
 
     <br />
 
@@ -74,12 +66,14 @@
         // Cargar un archivo CSV específico basado en el tipo (Administrador, Cliente, Entrenador)
         async function cargarCSV(tipo) {
             let ruta;
+            const timestamp = new Date().getTime();  // Obtener un timestamp para evitar caché
+
             if (tipo === 'Administrador') {
-                ruta = '/sample-data/Administrador.csv';  // Ruta para Administrador
+                ruta = `/sample-data/Administrador.csv?${timestamp}`;  // Agregar el timestamp a la URL
             } else if (tipo === 'Cliente') {
-                ruta = '/sample-data/Cliente.csv';  // Ruta para Cliente
+                ruta = `/sample-data/Cliente.csv?${timestamp}`;  // Agregar el timestamp a la URL
             } else if (tipo === 'Entrenadores') {
-                ruta = '/sample-data/Entrenadores.csv';  // Ruta para Entrenadores
+                ruta = `/sample-data/Entrenadores.csv?${timestamp}`;  // Agregar el timestamp a la URL
             }
 
             try {
@@ -185,9 +179,7 @@
             link.download = "datos_guardados.csv";  // Nombre del archivo CSV
             link.click();  // Activar la descarga
         }
-
-
-    
     </script>
 </body>
 </html>
+

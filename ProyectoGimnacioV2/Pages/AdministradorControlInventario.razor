@@ -5,32 +5,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a GYM FAST FORCE</title>
+    <title>GYM FAST FORCE</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <!-- Agregar botón para volver al menú -->
-    <div>
-        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
-    </div>
 
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
+    <h1 class="title">GYM FAST FORCE</h1>
 
     <h2>Mostrar Archivo CSV</h2>
     <div>
         <!-- Botón para cargar el archivo Maquinas.csv y mostrarlo -->
-        <button onclick="mostrarTabla()">Mostrar Tabla</button>
+        <button onclick="mostrarTabla()">Mostrar Tabla de maquinas</button>
     </div>
     <br />
 
     <!-- Botón para guardar la tabla filtrada como archivo CSV -->
     <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar datos</button>
     </div>
     <br />
 
-    <h2>Editar Datos CSV</h2>
     <p>Haz clic en los campos de la tabla para editar.</p>
 
     <!-- Tabla donde se mostrarán los datos del CSV -->
@@ -53,7 +48,7 @@
 
     <!-- Botón para regresar al menú del Administrador -->
     <div>
-        <button onclick="volverMenu()">Volver al Menú</button>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
     </div>
 
     <p id="currentTime"></p>
@@ -66,8 +61,11 @@
 
         // Función para cargar y mostrar el archivo Maquinas.csv
         function mostrarTabla() {
+            // Añadir un parámetro único al URL para evitar el caché
+            const url = '/sample-data/Maquinas.csv?' + new Date().getTime(); // Añadir el timestamp para evitar caché
+
             // Usamos fetch para obtener el archivo Maquinas.csv desde el servidor
-            fetch('/sample-data/Maquinas.csv')
+            fetch(url)
                 .then(response => {
                     if (!response.ok) {  // Verificar si la respuesta es correcta
                         throw new Error('Error al cargar el archivo CSV');

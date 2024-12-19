@@ -23,7 +23,6 @@
         <button type="submit">Login</button>
     </form>
 
-   
     <div id="notification" style="font-weight: bold;"></div>
 
     <script>
@@ -82,9 +81,11 @@
         // Función para cargar y procesar el archivo CSV
         async function cargarCSV(tipo) {
             try {
-                const url = tipo === 'administrador' ? "/sample-data/Administrador.csv" :
-                    tipo === 'entrenador' ? "/sample-data/Entrenadores.csv" : "/sample-data/Cliente.csv";
-                const respuesta = await fetch(url); // Ruta al archivo CSV
+                // Agregar parámetro de timestamp a la URL para evitar caché
+                const urlConTimestamp = (tipo === 'administrador' ? "/sample-data/Administrador.csv" :
+                    tipo === 'entrenador' ? "/sample-data/Entrenadores.csv" : "/sample-data/Cliente.csv") + "?nocache=" + new Date().getTime();
+
+                const respuesta = await fetch(urlConTimestamp); // Ruta al archivo CSV
                 if (!respuesta.ok) {
                     mostrarNotificacion(`El archivo ${tipo}.csv no fue encontrado.`, "blue");
                     return [];
@@ -114,10 +115,6 @@
     </script>
 </body>
 </html>
-
-
-
-
 
 
 

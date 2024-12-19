@@ -25,12 +25,20 @@
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\favicon.png",
-      "PackagePath": "staticwebassets\\favicon.png"
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\images\\Fondo.jpg",
+      "PackagePath": "staticwebassets\\css\\images\\Fondo.jpg"
     },
     {
-      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\icon-192.png",
-      "PackagePath": "staticwebassets\\icon-192.png"
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\images\\favicon.png",
+      "PackagePath": "staticwebassets\\css\\images\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\images\\icon-192.png",
+      "PackagePath": "staticwebassets\\css\\images\\icon-192.png"
+    },
+    {
+      "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
       "Id": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\index.html",

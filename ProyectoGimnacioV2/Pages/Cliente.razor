@@ -1,63 +1,34 @@
-﻿
-@page "/Cliente"
+﻿@page "/Cliente"
 
+<h1 class="title">GYM FAST FORCE</h1>
 
+<div>
+    <!-- Botón para redirigir a la página ClienteClase.razor -->
+    <button onclick="irA('/ClienteClase')">Ver clases inscritos</button>
+</div>
+<br />
 
-<!DOCTYPE html>
-<html lang="es">
+<div>
+    <!-- Botón para redirigir a la página ClienteMembresia.razor -->
+    <button onclick="irA('/ClienteMembresia')">Editar membresía</button>
+</div>
+<br />
 
-<head>
-    <!-- Meta información para el documento -->
-    <meta charset="UTF-8"> <!-- Definimos el juego de caracteres para el archivo -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Asegura la adaptabilidad en dispositivos móviles -->
-    <title>Navegación - GYM FAST FORCE</title> <!-- Título de la página -->
-    <link rel="stylesheet" href="styles.css" /> <!-- Archivo CSS para dar formato a la página -->
-</head>
+<div>
+    <!-- Botón para redirigir a la página ClienteRutina.razor -->
+    <button onclick="irA('/ClienteRutina')">Rutina</button>
+</div>
+<br />
 
-<body>
-    <!-- Título principal de la página -->
-    <h1 class="title">GYM FAST FORCE</h1>
-
-    <!-- Sección con botones de navegación -->
-    <div>
-        <!-- Botón para redirigir a la página ClienteClase.razor -->
-        <button onclick="irA('/ClienteClase')">Ver clases inscritos</button> <!-- Invoca la función irA para la redirección -->
-    </div>
-    <br />
-
-    <div>
-        <!-- Botón para redirigir a la página ClienteMembresia.razor -->
-        <button onclick="irA('/ClienteMembresia')">Editar mebresia</button>
-    </div>
-    <br />
-
-    <div>
-        <!-- Botón para redirigir a la página ClienteRutina.razor -->
-        <button onclick="irA('/ClienteRutina')">Rutina</button>
-    </div>
-    <br />
-
-    <div>
-        <!-- Botón para redirigir a la página ClienteVerClase.razor -->
-        <button onclick="irA('/ClienteClase')">Ir a Cliente Ver Clase</button>
-    </div>
-    <br />
-
-    
-
-
-    <!-- Aquí podemos incluir más secciones en caso de que sea necesario -->
-</body>
+<div>
+    <!-- Botón para redirigir a la página ClienteVerClase.razor -->
+    <button onclick="irA('/ClienteClase')">Ir a Cliente Ver Clase</button>
+</div>
+<br />
 
 <script>
-    /**
-     * Función para manejar la redirección a una página específica
-     *
-     */
+    // Función JavaScript para manejar la redirección a una página específica
     function irA(pagina) {
         location.href = pagina; // Redirige a la página proporcionada como parámetro
     }
 </script>
-
-</html>
-

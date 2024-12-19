@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QUTQuTCFZCSJ/HDPsqMrvVMPY9p0Jcke9iSbUAM6csQ=",
+  "Hash": "To4FzBmrzV4iI9W+emLZeM9x2ElVCyjV8AtusJZwBK8=",
   "Source": "ProyectoGimnacioV2",
   "BasePath": "/",
   "Mode": "Root",
@@ -8396,12 +8396,12 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\favicon.png",
+      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\images\\favicon.png",
       "SourceId": "ProyectoGimnacioV2",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\",
       "BasePath": "/",
-      "RelativePath": "favicon.png",
+      "RelativePath": "css/images/favicon.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -8412,15 +8412,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.png"
+      "OriginalItemSpec": "wwwroot\\css\\images\\favicon.png"
     },
     {
-      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\icon-192.png",
+      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\images\\Fondo.jpg",
       "SourceId": "ProyectoGimnacioV2",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\",
       "BasePath": "/",
-      "RelativePath": "icon-192.png",
+      "RelativePath": "css/images/Fondo.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -8431,7 +8431,45 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icon-192.png"
+      "OriginalItemSpec": "wwwroot\\css\\images\\Fondo.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\images\\icon-192.png",
+      "SourceId": "ProyectoGimnacioV2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "css/images/icon-192.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\images\\icon-192.png"
+    },
+    {
+      "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\css\\styles.css",
+      "SourceId": "ProyectoGimnacioV2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
     },
     {
       "Identity": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\wwwroot\\index.html",
@@ -8486,7 +8524,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\BasedatosClase.csv"
     },
@@ -8505,7 +8543,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Clases.csv"
     },
@@ -8524,7 +8562,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Cliente.csv"
     },
@@ -8543,7 +8581,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Entrenadores.csv"
     },
@@ -8562,7 +8600,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Maquinas.csv"
     },
@@ -8581,7 +8619,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Matriculas.csv"
     },
@@ -8600,7 +8638,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Pagos.csv"
     },
@@ -8619,7 +8657,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Always",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\Reservas.csv"
     },
@@ -8638,7 +8676,7 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\sample-data\\RutinaCliente.csv"
     },

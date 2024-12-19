@@ -5,31 +5,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a GYM FAST FORCE</title>
+    <title>GYM FAST FORCE</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
+    <h1 class="title">GYM FAST FORCE</h1>
 
-    <h2>Mostrar Archivo CSV</h2>
     <div>
-        <input type="file" id="csvFileInput" accept=".csv" onchange="procesarCSV(event)" />
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <!-- Campo de búsqueda de ID Cliente -->
+        <label for="buscarID">Buscar por ID Cliente:</label>
+        <input type="text" id="buscarID" placeholder="Ingresa el ID Cliente">
+        <button onclick="buscarPorID()">Buscar</button>
     </div>
     <br />
 
-    <h2>Editar Datos CSV</h2>
-    <p>Haz clic en los campos de la tabla para editar.</p>
-    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+    <p>Resultados de la búsqueda:</p>
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse; display: none;">
         <thead>
             <tr>
-                <th>Usuario</th>
-                <th>Contraseña</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>ID</th>
-                <th>Acciones</th>
+                <th>ID Cliente</th>
+                <th>Fecha de Inscripción</th>
+                <th>Hora de Inscripción</th>
+                <th>Fecha de Inicio</th>
+                <th>Duración (meses)</th>
+                <th>Plan de Membresía</th>
             </tr>
         </thead>
         <tbody id="csvTableBody"></tbody>
@@ -42,87 +42,69 @@
     </div>
 
     <script>
-        // El resto del código JavaScript permanece igual
-
+        // Array para almacenar los datos del CSV
         let datosCSV = [];
 
-        function procesarCSV(event) {
-            const archivo = event.target.files[0];
-            if (!archivo) {
-                alert("Por favor seleccione un archivo CSV.");
-                return;
-            }
+        // Función para cargar el archivo Matriculas.csv
+        function cargarMatriculasCSV() {
+            // Añadir un parámetro único de tiempo para evitar el caché
+            const archivoCSV = '/sample-data/Matriculas.csv?t=' + new Date().getTime();
 
-            const lector = new FileReader();
-            lector.onload = function (e) {
-                const contenido = e.target.result;
-                const lineas = contenido.split("\n");
-                const tablaBody = document.getElementById("csvTableBody");
-                tablaBody.innerHTML = "";
+            fetch(archivoCSV)
+                .then(response => response.text())
+                .then(contenido => {
+                    const lineas = contenido.split("\n");
 
-                datosCSV = [];
-                for (let linea of lineas) {
-                    if (linea.trim() === "") continue;
+                    datosCSV = [];
+                    for (let linea of lineas) {
+                        if (linea.trim() === "") continue;
 
-                    const columnas = linea.split(";");
-                    if (columnas.length === 5) {
-                        datosCSV.push(columnas);
-
-                        const fila = document.createElement("tr");
-                        columnas.forEach(columna => {
-                            const celda = document.createElement("td");
-                            celda.contentEditable = true;
-                            celda.textContent = columna.trim();
-                            fila.appendChild(celda);
-                        });
-
-                        const celdaAcciones = document.createElement("td");
-                        const botonGuardar = document.createElement("button");
-                        botonGuardar.textContent = "Guardar";
-                        botonGuardar.onclick = function () { guardarCambios(fila, columnas); };
-                        celdaAcciones.appendChild(botonGuardar);
-                        fila.appendChild(celdaAcciones);
-
-                        tablaBody.appendChild(fila);
+                        const columnas = linea.split(";");
+                        if (columnas.length === 6) {  // Asegurarse de que tenga 6 columnas
+                            datosCSV.push(columnas);
+                        }
                     }
+                })
+                .catch(error => {
+                    alert("Hubo un problema al cargar el archivo Matriculas.csv.");
+                });
+        }
+
+        // Función para buscar por ID Cliente
+        function buscarPorID() {
+            const idCliente = document.getElementById("buscarID").value.trim();
+            const tablaBody = document.getElementById("csvTableBody");
+            const tabla = document.getElementById("csvTable");
+
+            tablaBody.innerHTML = "";  // Limpiar la tabla antes de mostrar los resultados
+
+            if (idCliente) {
+                const resultados = datosCSV.filter(fila => fila[0] === idCliente);
+                if (resultados.length > 0) {
+                    // Mostrar la tabla
+                    tabla.style.display = "table";
+
+                    resultados.forEach(fila => {
+                        const tr = document.createElement("tr");
+                        fila.forEach(columna => {
+                            const td = document.createElement("td");
+                            td.textContent = columna.trim();
+                            tr.appendChild(td);
+                        });
+                        tablaBody.appendChild(tr);
+                    });
+                } else {
+                    alert("No se encontraron resultados para el ID Cliente: " + idCliente);
                 }
-            };
-
-            lector.onerror = function () {
-                alert("Hubo un problema al leer el archivo.");
-            };
-
-            lector.readAsText(archivo);
-        }
-
-        function guardarCambios(fila, columnas) {
-            const celdas = fila.querySelectorAll("td");
-
-            for (let i = 0; i < celdas.length - 1; i++) {
-                columnas[i] = celdas[i].textContent.trim();
-            }
-
-            alert("Cambios guardados.");
-            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]);
-            if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas;
+            } else {
+                alert("Por favor ingrese un ID Cliente.");
             }
         }
 
-        function guardarCSV() {
-            let csvContent = "";
-
-            datosCSV.forEach(filaData => {
-                csvContent += filaData.join(";") + "\n";
-            });
-
-            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "datos_guardados.csv";
-            link.click();
-        }
+        // Cargar el archivo CSV cuando se carga la página
+        cargarMatriculasCSV();
     </script>
 </body>
 
 </html>
+

@@ -1,4 +1,4 @@
-﻿
+﻿<!-- Cambiar toda la logica para que presente las clases -->
 @page "/EntrenadorProgramarClases"
 
 <!DOCTYPE html>
@@ -69,7 +69,7 @@
 
         /**
          * Generar un ID único para cada clase.
-         * 
+         *
          * - Mantiene base estática 497670.
          * - Incrementa aleatoriamente con un máximo de 1000.
          */
@@ -114,7 +114,7 @@
 
         /**
          * Mostrar las clases almacenadas en la tabla visual.
-         * 
+         *
          * - Recorre el arreglo `clases` para construir dinámicamente las filas.
          * - Borra cualquier dato previo en la tabla antes de renderizar.
          */
@@ -128,14 +128,14 @@
 
                 // Renderizar las celdas con los datos
                 fila.innerHTML = `
-                    <td>${clase.idClase}</td>
-                    <td>${clase.idEntrenador}</td>
-                    <td>${clase.clase}</td>
-                    <td>${clase.fecha}</td>
-                    <td>${clase.horario}</td>
-                    <td>${clase.precio}</td>
-                    <td><button onclick="editarClase(${clase.idClase})">Editar</button></td>
-                `;
+                            <td>${clase.idClase}</td>
+                            <td>${clase.idEntrenador}</td>
+                            <td>${clase.clase}</td>
+                            <td>${clase.fecha}</td>
+                            <td>${clase.horario}</td>
+                            <td>${clase.precio}</td>
+                            <td><button onclick="editarClase(${clase.idClase})">Editar</button></td>
+                        `;
 
                 tablaBody.appendChild(fila); // Agregar la fila completa al cuerpo de la tabla
             });
@@ -143,7 +143,7 @@
 
         /**
          * Rellenar el formulario con los datos de una clase específica para su edición.
-         * 
+         *
          * - Busca la clase mediante su ID.
          * - Los campos del formulario se llenan con los valores actuales.
          */
@@ -162,7 +162,7 @@
 
         /**
          * Guardar las clases ingresadas como archivo CSV descargable.
-         * 
+         *
          * - Crea un encabezado con los nombres de las columnas.
          * - Recorre el arreglo `clases` para incluir todas las filas.
          * - Descarga el archivo automáticamente al cliente.
@@ -182,6 +182,42 @@
             link.href = URL.createObjectURL(blob);
             link.download = "Clases_guardadas.csv"; // Nombre sugerido para el archivo
             link.click();
+        }
+
+        /**
+         * Función para cargar el archivo CSV más reciente, evitando el caché.
+         *
+         * - Agrega un parámetro de consulta con un timestamp a la URL.
+         * - Asegura que el navegador descargue la versión más reciente.
+         */
+        function cargarCSV() {
+            const archivoCSV = 'sample-data/Clases.csv'; // Ruta del archivo CSV
+            const urlConCache = `${archivoCSV}?t=${new Date().getTime()}`; // Añadir timestamp para evitar caché
+
+            fetch(urlConCache)
+                .then(response => response.text())
+                .then(contenido => {
+                    const lineas = contenido.split("\n");
+                    const tablaBody = document.getElementById("clasesTableBody");
+                    tablaBody.innerHTML = "";
+
+                    lineas.forEach((linea, index) => {
+                        if (linea.trim() === "" || index === 0) return; // Ignorar la primera línea (encabezados)
+                        const columnas = linea.split(",");
+                        const fila = document.createElement("tr");
+
+                        columnas.forEach(columna => {
+                            const celda = document.createElement("td");
+                            celda.textContent = columna.trim();
+                            fila.appendChild(celda);
+                        });
+
+                        tablaBody.appendChild(fila);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error al cargar el archivo CSV", error);
+                });
         }
     </script>
 </body>

@@ -1,5 +1,4 @@
-﻿
-@page "/EntrenadorAgregarRutina" 
+﻿@page "/EntrenadorAgregarRutina"
 
 <!DOCTYPE html>
 <html lang="es">
@@ -8,24 +7,24 @@
     <!-- Configuración básica del documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rutinas de Clientes - GYM FAST FORCE</title>
-    
+    <title>GYM FAST FORCE</title>
+
     <!-- Enlace a un archivo de estilos externo -->
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
     <!-- Título principal de la página -->
-    <h1 class="title">Rutinas de Clientes - GYM FAST FORCE</h1>
+    <h1 class="title">GYM FAST FORCE</h1>
 
     <!-- Sección de opciones -->
     <h2>Opciones</h2>
     <div>
         <!-- Botón para cargar los datos desde un archivo CSV -->
-        <button onclick="cargarDesdeArchivo()">Ver RutinaCliente.csv</button>
+        <button onclick="cargarDesdeArchivo()">Ver rutinas de los clientes</button>
 
         <!-- Botón para guardar la tabla actual como archivo CSV -->
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar datos</button>
 
         <!-- Botón para volver al menú principal del entrenador -->
         <button onclick="location.href='/Entrenador'" class="return-btn">Volver al Menú</button>
@@ -33,7 +32,6 @@
     <br />
 
     <!-- Instrucciones para editar rutinas -->
-    <h2>Editar Datos de Rutinas</h2>
     <p>Solo puedes editar las columnas "Rutina 1" y "Repeticiones".</p>
 
     <!-- Tabla para mostrar y editar datos de rutinas -->
@@ -55,11 +53,14 @@
 
     <script>
         // **Variable para almacenar los datos del archivo CSV**
-        let datosCSV = []; 
+        let datosCSV = [];
 
         // **Función para cargar datos desde un archivo CSV**
         function cargarDesdeArchivo() {
-            fetch('sample-data/RutinaCliente.csv') // Ruta del archivo CSV
+            // Agregamos el parámetro nocache para evitar la caché
+            const urlConTimestamp = 'sample-data/RutinaCliente.csv?nocache=' + new Date().getTime();
+
+            fetch(urlConTimestamp) // Ruta del archivo CSV con el parámetro nocache
                 .then(response => response.text()) // Leer el contenido como texto
                 .then(contenido => cargarDatosDesdeTexto(contenido)) // Procesar el texto
                 .catch(error => alert("No se pudo cargar RutinaCliente.csv.")); // Manejar errores
@@ -122,7 +123,7 @@
             columnas[6] = celdas[6].textContent.trim(); // Actualizar columna de "Repeticiones"
 
             // Buscar la fila en el array principal usando el ID (columna 4)
-            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]); 
+            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]);
             if (filaIndex > -1) {
                 datosCSV[filaIndex] = columnas; // Actualizar datos en el array
             }

@@ -1,16 +1,15 @@
-﻿
-@page "/EntrenadorEmitirFacturas" 
+﻿@page "/EntrenadorEmitirFacturas"
 
 <!DOCTYPE html>
 <html>
 <head>
     <!-- Configuración básica del documento -->
-    <title>Bienvenido a GYM FAST FORCE!</title>
+    <title>GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <!-- Título de la página -->
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
+    <h1 class="title">GYM FAST FORCE</h1>
 
     <!-- Sección de opciones para administrar clases -->
     <h2>Administrar Clases</h2>
@@ -19,7 +18,7 @@
         <button onclick="agregarClase()">Agregar Nueva Clase</button>
 
         <!-- Botón para guardar las clases como archivo CSV -->
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar Cambios</button>
 
         <!-- Botón para regresar al menú principal -->
         <button onclick="location.href='/Entrenador'" class="return-btn">Volver al Menú</button>
@@ -69,7 +68,7 @@
 
         /**
          * Generar un ID único para cada clase.
-         * 
+         *
          * - Mantiene base estática 497670.
          * - Incrementa aleatoriamente con un máximo de 1000.
          */
@@ -82,8 +81,7 @@
          *
          * - Verifica que todos los campos sean válidos.
          * - Genera automáticamente un ID para la clase.
-         * - Actualiza el arreglo principal `clases`.
-         * - Refleja los datos en la tabla visual.
+         * - Actualiza el arreglo principal `clases` y refleja los datos en la tabla visual.
          */
         function agregarClase() {
             const idEntrenador = document.getElementById('idEntrenador').value.trim();
@@ -114,7 +112,7 @@
 
         /**
          * Mostrar las clases almacenadas en la tabla visual.
-         * 
+         *
          * - Recorre el arreglo `clases` para construir dinámicamente las filas.
          * - Borra cualquier dato previo en la tabla antes de renderizar.
          */
@@ -128,14 +126,14 @@
 
                 // Renderizar las celdas con los datos
                 fila.innerHTML = `
-                    <td>${clase.idClase}</td>
-                    <td>${clase.idEntrenador}</td>
-                    <td>${clase.clase}</td>
-                    <td>${clase.fecha}</td>
-                    <td>${clase.horario}</td>
-                    <td>${clase.precio}</td>
-                    <td><button onclick="editarClase(${clase.idClase})">Editar</button></td>
-                `;
+                                    <td>${clase.idClase}</td>
+                                    <td>${clase.idEntrenador}</td>
+                                    <td>${clase.clase}</td>
+                                    <td>${clase.fecha}</td>
+                                    <td>${clase.horario}</td>
+                                    <td>${clase.precio}</td>
+                                    <td><button onclick="editarClase(${clase.idClase})">Editar</button></td>
+                                `;
 
                 tablaBody.appendChild(fila); // Agregar la fila completa al cuerpo de la tabla
             });
@@ -143,10 +141,9 @@
 
         /**
          * Rellenar el formulario con los datos de una clase específica para su edición.
-         * 
+         *
          * - Busca la clase mediante su ID.
          * - Los campos del formulario se llenan con los valores actuales.
-
          */
         function editarClase(idClase) {
             const clase = clases.find(c => c.idClase === idClase);
@@ -163,7 +160,7 @@
 
         /**
          * Guardar las clases ingresadas como archivo CSV descargable.
-         * 
+         *
          * - Crea un encabezado con los nombres de las columnas.
          * - Recorre el arreglo `clases` para incluir todas las filas.
          * - Descarga el archivo automáticamente al cliente.
@@ -183,6 +180,22 @@
             link.href = URL.createObjectURL(blob);
             link.download = "Clases_guardadas.csv"; // Nombre sugerido para el archivo
             link.click();
+        }
+
+        /**
+         * Cargar los datos CSV desde el archivo y evitar el caché
+         *
+         * - Agrega un parámetro de timestamp a la URL para garantizar la carga de la última versión.
+         */
+        function cargarCSV() {
+            const url = 'sample-data/Clases.csv?' + new Date().getTime(); // Agregar timestamp
+            fetch(url)
+                .then(response => response.text())
+                .then(contenido => {
+                    // Procesar el contenido del archivo CSV
+                    // Por ejemplo, cargarDatosDesdeTexto(contenido);
+                })
+                .catch(error => alert("No se pudo cargar el archivo CSV."));
         }
     </script>
 </body>
