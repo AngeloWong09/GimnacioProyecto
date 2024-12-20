@@ -12,13 +12,12 @@
 
 <body>
     <!-- Título principal de la página -->
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
+    <h1 class="title">GYM FAST FORCE</h1>
 
     <!-- Sección para búsqueda por ID de Entrenador -->
-    <h2>Mostrar Archivo CSV</h2>
     <div>
         <!-- Campo para ingresar el ID del entrenador que se desea buscar -->
-        <label for="searchID">Buscar por ID Entrenador:</label>
+        <label for="searchID">Escriba su ID Entrenador:</label>
         <input type="text" id="searchID" placeholder="Ingresa el ID del Entrenador..." />
         <button onclick="filtrarPorID()">Buscar</button> <!-- Botón que invoca la función de búsqueda -->
     </div>
@@ -32,12 +31,9 @@
 
     <!-- Botón para guardar la tabla mostrada como archivo CSV -->
     <div>
-        <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
+        <button onclick="guardarCSV()">Guardar Repote</button>
     </div>
     <br />
-
-    <!-- Título para la tabla de clases -->
-    <h2>Tabla de Clases</h2>
 
     <!-- Tabla para mostrar los datos cargados del CSV -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
@@ -59,9 +55,9 @@
     <script>
         let datosCSV = []; // Variable global para almacenar los datos CSV cargados
 
-        // Función para cargar y mostrar los datos del archivo Clases.csv
+        // Función para cargar el archivo BasedatosClase.csv sin mostrar la tabla
         function mostrarTabla() {
-            const archivoCSV = 'sample-data/Clases.csv'; // Ruta del archivo CSV
+            const archivoCSV = '/sample-data/BasedatosClase.csv'; // Ruta del archivo CSV
             const urlConCacheBusting = archivoCSV + "?t=" + new Date().getTime(); // Añadimos un timestamp para evitar caché
 
             // Usamos 'fetch' para obtener el archivo y leer su contenido
@@ -69,44 +65,20 @@
                 .then(response => response.text()) // Extraemos el texto del archivo CSV
                 .then(contenido => {
                     const lineas = contenido.split("\n"); // Separamos el contenido por líneas
-                    const tablaBody = document.getElementById("csvTableBody");
-                    tablaBody.innerHTML = ""; // Limpiar tabla actual antes de llenarla
                     datosCSV = []; // Reiniciamos los datos cargados
 
-                    // Configuración de los encabezados de la tabla
-                    const tablaHeaders = document.getElementById("tablaHeaders");
-                    tablaHeaders.innerHTML = `
-                                                <th>Num Clase</th>
-                                                <th>ID Clase</th>
-                                                <th>ID Entrenador</th>
-                                                <th>Clase</th>
-                                                <th>Fecha</th>
-                                                <th>Horario</th>
-                                                <th>Cupos</th>
-                                                <th>Precio Clase</th>`; // Columnas que definimos para las clases
-
-                    // Iteramos sobre las líneas para agregar cada dato a la tabla
+                    // Iteramos sobre las líneas para agregar cada dato a la variable 'datosCSV'
                     lineas.forEach((linea, index) => {
                         if (linea.trim() === "" || index === 0) return; // Saltamos líneas vacías y la primera (encabezado)
 
                         const columnas = linea.split(";"); // Separar cada línea en columnas usando el delimitador ';'
                         datosCSV.push(columnas); // Almacenamos las filas en la variable 'datosCSV'
-
-                        // Creamos una nueva fila para agregarla a la tabla
-                        const fila = document.createElement("tr");
-
-                        columnas.forEach((columna) => {
-                            const celda = document.createElement("td");
-                            celda.textContent = columna.trim(); // Limpiamos espacios y agregamos el dato
-                            fila.appendChild(celda); // Añadimos la celda a la fila
-                        });
-
-                        // Añadimos la fila a la tabla
-                        tablaBody.appendChild(fila);
                     });
+
+                    // Si el archivo se cargó correctamente, no hacemos nada con la tabla, solo lo guardamos en datosCSV
                 })
                 .catch(error => {
-                    alert("Hubo un problema al cargar el archivo Clases.csv.");
+                    alert("Hubo un problema al cargar el archivo BasedatosClase.csv.");
                 });
         }
 
@@ -124,14 +96,14 @@
 
             const tablaHeaders = document.getElementById("tablaHeaders");
             tablaHeaders.innerHTML = `
-                                        <th>Num Clase</th>
-                                        <th>ID Clase</th>
-                                        <th>ID Entrenador</th>
-                                        <th>Clase</th>
-                                        <th>Fecha</th>
-                                        <th>Horario</th>
-                                        <th>Cupos</th>
-                                        <th>Precio Clase</th>`; // Volver a configurar los encabezados
+                                                <th>Num Clase</th>
+                                                <th>ID Clase</th>
+                                                <th>ID Entrenador</th>
+                                                <th>Clase</th>
+                                                <th>Fecha</th>
+                                                <th>Horario</th>
+                                                <th>Cupos</th>
+                                                <th>Precio Clase</th>`; // Volver a configurar los encabezados
 
             let encontrado = false; // Variable de control para verificar si se encuentra algún resultado
 

@@ -13,7 +13,6 @@
 
     <h1 class="title">GYM FAST FORCE</h1>
 
-    <h2>Mostrar Archivo CSV</h2>
     <div>
         <!-- Botón para cargar el archivo Maquinas.csv y mostrarlo -->
         <button onclick="mostrarTabla()">Mostrar Tabla de maquinas</button>
@@ -25,6 +24,15 @@
         <button onclick="guardarCSV()">Guardar datos</button>
     </div>
     <br />
+
+    <!-- Botón para mostrar el ingreso más alto y el más bajo -->
+    <div>
+        <button onclick="filtrarIngresos()">Mostrar Ingreso Más Alto y Más Bajo</button>
+    </div>
+    <br />
+
+    <!-- Para mostrar los resultados del filtro -->
+    <p id="ingresoResultados"></p>
 
     <p>Haz clic en los campos de la tabla para editar.</p>
 
@@ -153,6 +161,37 @@
             link.href = URL.createObjectURL(blob);
             link.download = "Maquinas_guardadas.csv"; // Establecemos el nombre de archivo para la descarga
             link.click(); // Activamos la descarga
+        }
+
+        // Función para filtrar y mostrar el ingreso más alto y más bajo
+        function filtrarIngresos() {
+            let ingresos = [];
+            let nombreMaximo = "";
+            let nombreMinimo = "";
+
+            // Recorremos los datos y extraemos los ingresos (asumimos que están en la columna de "Ingresos")
+            datosCSV.forEach(fila => {
+                const ingreso = parseFloat(fila[3].trim()); // Obtenemos el valor de "Ingresos" y lo convertimos a número
+                if (!isNaN(ingreso)) {
+                    ingresos.push({ ingreso: ingreso, nombre: fila[0] }); // Guardamos tanto el ingreso como el nombre de la máquina
+                }
+            });
+
+            // Si hay ingresos, calculamos el más alto y el más bajo
+            if (ingresos.length > 0) {
+                // Encontramos el ingreso máximo y mínimo y sus nombres
+                const ingresoMaximo = Math.max(...ingresos.map(i => i.ingreso));
+                const ingresoMinimo = Math.min(...ingresos.map(i => i.ingreso));
+
+                nombreMaximo = ingresos.find(i => i.ingreso === ingresoMaximo).nombre;
+                nombreMinimo = ingresos.find(i => i.ingreso === ingresoMinimo).nombre;
+
+                // Mostramos los resultados en el HTML
+                const resultadoElement = document.getElementById("ingresoResultados");
+                resultadoElement.textContent = `Ingreso Más Alto: ${ingresoMaximo} (Máquina: ${nombreMaximo}) | Ingreso Más Bajo: ${ingresoMinimo} (Máquina: ${nombreMinimo})`;
+            } else {
+                alert("No se encontraron ingresos válidos.");
+            }
         }
 
         // Función para redirigir al menú del Administrador
