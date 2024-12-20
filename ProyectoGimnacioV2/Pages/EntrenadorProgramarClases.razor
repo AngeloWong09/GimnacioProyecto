@@ -1,39 +1,33 @@
-﻿<!-- Cambiar toda la logica para que presente las clases -->
-@page "/EntrenadorProgramarClases"
+﻿@page "/EntrenadorProgramarClases"
 
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Configuración básica del documento -->
     <title>Bienvenido a GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Título de la página -->
     <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-    <!-- Sección de opciones para administrar clases -->
     <h2>Administrar Clases</h2>
     <div>
-        <!-- Botón para agregar una nueva clase -->
         <button onclick="agregarClase()">Agregar Nueva Clase</button>
-
-        <!-- Botón para guardar las clases como archivo CSV -->
         <button onclick="guardarCSV()">Guardar Tabla como CSV</button>
-
-        <!-- Botón para regresar al menú principal -->
         <button onclick="location.href='/Entrenador'" class="return-btn">Volver al Menú</button>
     </div>
     <br />
 
-    <!-- Formulario para agregar nuevas clases -->
     <h3>Agregar Clase</h3>
     <div>
         <label for="idEntrenador">ID Entrenador:</label>
         <input type="text" id="idEntrenador" placeholder="Ej: 1237894">
 
         <label for="clase">Clase:</label>
-        <input type="text" id="clase" placeholder="Ej: Zumba">
+        <select id="clase">
+            <option value="CardioDance">CardioDance</option>
+            <option value="Funcionales">Funcionales</option>
+            <option value="Zumba">Zumba</option>
+        </select>
 
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha">
@@ -41,184 +35,179 @@
         <label for="horario">Horario:</label>
         <input type="time" id="horario">
 
+        <label for="cupos">Cupos:</label>
+        <select id="cupos">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+
         <label for="precio">Precio Clase:</label>
         <input type="text" id="precio" placeholder="Ej: $2500">
     </div>
     <br />
 
-    <!-- Tabla para listar las clases ingresadas -->
     <h3>Clases Ingresadas</h3>
     <table id="clasesTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
+                <th>Num Clase</th>
                 <th>ID Clase</th>
                 <th>ID Entrenador</th>
                 <th>Clase</th>
                 <th>Fecha</th>
                 <th>Horario</th>
+                <th>Cupos</th>
                 <th>Precio Clase</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody id="clasesTableBody"></tbody> <!-- Contenedor dinámico para agregar filas -->
+        <tbody id="clasesTableBody"></tbody>
     </table>
 
     <script>
-        // **Arreglo principal para almacenar las clases ingresadas**
         let clases = [];
 
-        /**
-         * Generar un ID único para cada clase.
-         *
-         * - Mantiene base estática 497670.
-         * - Incrementa aleatoriamente con un máximo de 1000.
-         */
-        function generarIdClase() {
-            return 497670 + Math.floor(Math.random() * 1000);
+        // Generar un ID único para "Num Clase" y "ID Clase"
+        function generarIdUnico() {
+            return Math.floor(100000 + Math.random() * 900000);
         }
 
-        /**
-         * Agregar una nueva clase al sistema.
-         *
-         * - Verifica que todos los campos sean válidos.
-         * - Genera automáticamente un ID para la clase.
-         * - Actualiza el arreglo principal `clases`.
-         * - Refleja los datos en la tabla visual.
-         */
-        function agregarClase() {
+        // Cargar el archivo CSV sin mostrar en la tabla
+        async function cargarCSV() {
+            const archivoCSV = 'sample-data/Clases.csv';
+            const urlConCache = `${archivoCSV}?t=${new Date().getTime()}`;
+
+            try {
+                const response = await fetch(urlConCache);
+                const contenido = await response.text();
+                const lineas = contenido.split("\n").filter(linea => linea.trim() !== "");
+
+                clases = lineas.slice(1).map(linea => {
+                    const [numClase, idClase, idEntrenador, clase, fecha, horario, cupos, precio] = linea.split(";");
+                    return { numClase, idClase, idEntrenador, clase, fecha, horario, cupos, precio };
+                });
+            } catch (error) {
+                console.error("Error al cargar el archivo CSV:", error);
+            }
+        }
+
+        // Agregar una nueva clase
+        async function agregarClase() {
             const idEntrenador = document.getElementById('idEntrenador').value.trim();
-            const clase = document.getElementById('clase').value.trim();
-            const fecha = document.getElementById('fecha').value.trim();
-            const horario = document.getElementById('horario').value.trim();
+            const clase = document.getElementById('clase').value;
+            const fecha = document.getElementById('fecha').value;
+            const horario = document.getElementById('horario').value;
+            const cupos = document.getElementById('cupos').value;
             const precio = document.getElementById('precio').value.trim();
 
             if (!idEntrenador || !clase || !fecha || !horario || !precio) {
-                alert("Por favor, llena todos los campos.");
-                return; // Salir si falta algún campo
+                alert("Por favor, completa todos los campos.");
+                return;
             }
 
-            const idClase = generarIdClase();
+            const numClase = generarIdUnico();
+            const idClase = generarIdUnico();
 
-            // Agregar la clase al arreglo de clases
-            clases.push({
-                idClase: idClase,
-                idEntrenador: idEntrenador,
-                clase: clase,
-                fecha: fecha,
-                horario: horario,
-                precio: precio
-            });
+            const nuevaClase = {
+                numClase: numClase.toString(),
+                idClase: idClase.toString(),
+                idEntrenador,
+                clase,
+                fecha,
+                horario,
+                cupos,
+                precio
+            };
 
-            mostrarClases(); // Actualizar la tabla visual
+            clases.push(nuevaClase);
+
+            await guardarClaseCSV(nuevaClase); // Guardar en el archivo CSV
+            mostrarClases(); // Mostrar en la tabla
         }
 
-        /**
-         * Mostrar las clases almacenadas en la tabla visual.
-         *
-         * - Recorre el arreglo `clases` para construir dinámicamente las filas.
-         * - Borra cualquier dato previo en la tabla antes de renderizar.
-         */
+        // Mostrar las clases en la tabla
         function mostrarClases() {
             const tablaBody = document.getElementById('clasesTableBody');
-            tablaBody.innerHTML = ""; // Limpiar las filas existentes
+            tablaBody.innerHTML = "";
 
-            clases.forEach((clase) => {
-                // Crear una nueva fila
+            clases.forEach(clase => {
                 const fila = document.createElement("tr");
-
-                // Renderizar las celdas con los datos
                 fila.innerHTML = `
-                            <td>${clase.idClase}</td>
-                            <td>${clase.idEntrenador}</td>
-                            <td>${clase.clase}</td>
-                            <td>${clase.fecha}</td>
-                            <td>${clase.horario}</td>
-                            <td>${clase.precio}</td>
-                            <td><button onclick="editarClase(${clase.idClase})">Editar</button></td>
-                        `;
-
-                tablaBody.appendChild(fila); // Agregar la fila completa al cuerpo de la tabla
+                                    <td>${clase.numClase}</td>
+                                    <td>${clase.idClase}</td>
+                                    <td>${clase.idEntrenador}</td>
+                                    <td>${clase.clase}</td>
+                                    <td>${clase.fecha}</td>
+                                    <td>${clase.horario}</td>
+                                    <td>${clase.cupos}</td>
+                                    <td>${clase.precio}</td>
+                                    <td><button onclick="editarClase(${clase.numClase})">Editar</button></td>
+                                `;
+                tablaBody.appendChild(fila);
             });
         }
 
-        /**
-         * Rellenar el formulario con los datos de una clase específica para su edición.
-         *
-         * - Busca la clase mediante su ID.
-         * - Los campos del formulario se llenan con los valores actuales.
-         */
-        function editarClase(idClase) {
-            const clase = clases.find(c => c.idClase === idClase);
+        // Guardar una nueva clase en el archivo CSV
+        async function guardarClaseCSV(clase) {
+            const nuevaLinea = `${clase.numClase};${clase.idClase};${clase.idEntrenador};${clase.clase};${clase.fecha};${clase.horario};${clase.cupos};${clase.precio}\n`;
 
-            if (clase) {
-                // Rellenar formulario con datos existentes
-                document.getElementById('idEntrenador').value = clase.idEntrenador;
-                document.getElementById('clase').value = clase.clase;
-                document.getElementById('fecha').value = clase.fecha;
-                document.getElementById('horario').value = clase.horario;
-                document.getElementById('precio').value = clase.precio;
+            try {
+                const archivoCSV = 'sample-data/Clases.csv';
+                await fetch(archivoCSV, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    body: nuevaLinea
+                });
+            } catch (error) {
+                console.error("Error al guardar en el archivo CSV:", error);
             }
         }
 
-        /**
-         * Guardar las clases ingresadas como archivo CSV descargable.
-         *
-         * - Crea un encabezado con los nombres de las columnas.
-         * - Recorre el arreglo `clases` para incluir todas las filas.
-         * - Descarga el archivo automáticamente al cliente.
-         */
+        // Guardar todas las clases como un archivo CSV
         function guardarCSV() {
-            // Encabezados de la tabla CSV
-            let csvContent = "IDClase,IDEntrenador,Clase,Fecha,Horario,PrecioClase\n";
+            let csvContent = "Num Clase;ID Clase;ID Entrenador;Clase;Fecha;Horario;Cupos;Precio Clase\n";
 
-            // Construir contenido CSV a partir del arreglo `clases`
             clases.forEach(clase => {
-                csvContent += `${clase.idClase},${clase.idEntrenador},${clase.clase},${clase.fecha},${clase.horario},${clase.precio}\n`;
+                csvContent += `${clase.numClase};${clase.idClase};${clase.idEntrenador};${clase.clase};${clase.fecha};${clase.horario};${clase.cupos};${clase.precio}\n`;
             });
 
-            // Crear un archivo Blob y descargarlo automáticamente
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "Clases_guardadas.csv"; // Nombre sugerido para el archivo
+            link.download = "Clases_guardadas.csv";
             link.click();
         }
 
-        /**
-         * Función para cargar el archivo CSV más reciente, evitando el caché.
-         *
-         * - Agrega un parámetro de consulta con un timestamp a la URL.
-         * - Asegura que el navegador descargue la versión más reciente.
-         */
-        function cargarCSV() {
-            const archivoCSV = 'sample-data/Clases.csv'; // Ruta del archivo CSV
-            const urlConCache = `${archivoCSV}?t=${new Date().getTime()}`; // Añadir timestamp para evitar caché
+        // Cargar datos al iniciar
+        cargarCSV();
 
-            fetch(urlConCache)
-                .then(response => response.text())
-                .then(contenido => {
-                    const lineas = contenido.split("\n");
-                    const tablaBody = document.getElementById("clasesTableBody");
-                    tablaBody.innerHTML = "";
+        // Generar las opciones de cupos del 1 al 10
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectCupos = document.getElementById("cupos");
 
-                    lineas.forEach((linea, index) => {
-                        if (linea.trim() === "" || index === 0) return; // Ignorar la primera línea (encabezados)
-                        const columnas = linea.split(",");
-                        const fila = document.createElement("tr");
+            if (selectCupos) { // Asegurarse de que el elemento exista
+                for (let i = 1; i <= 10; i++) {
+                    const option = document.createElement("option");
+                    option.value = i;
+                    option.textContent = i;
+                    selectCupos.appendChild(option);
+                }
+            } else {
+                console.error("No se encontró el elemento con ID 'cupos'");
+            }
+        });
 
-                        columnas.forEach(columna => {
-                            const celda = document.createElement("td");
-                            celda.textContent = columna.trim();
-                            fila.appendChild(celda);
-                        });
-
-                        tablaBody.appendChild(fila);
-                    });
-                })
-                .catch(error => {
-                    console.error("Error al cargar el archivo CSV", error);
-                });
-        }
     </script>
 </body>
 </html>
+
