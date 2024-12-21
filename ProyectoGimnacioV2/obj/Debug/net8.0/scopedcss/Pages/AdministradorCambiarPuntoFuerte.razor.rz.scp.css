@@ -1,0 +1,93 @@
+/* Estilo general del cuerpo */
+body[b-ep6k5iyd0n] {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4; /* Fondo claro */
+    color: #333; /* Texto oscuro */
+}
+
+/* Estilo del título principal */
+h1.title[b-ep6k5iyd0n] {
+    text-align: center;
+    color: #0077b6; /* Azul */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Botones generales */
+button[b-ep6k5iyd0n] {
+    background-color: #00b4d8; /* Azul claro */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover[b-ep6k5iyd0n] {
+        background-color: #0077b6; /* Azul más oscuro */
+    }
+
+/* Tabla de datos */
+table[b-ep6k5iyd0n] {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+th[b-ep6k5iyd0n], td[b-ep6k5iyd0n] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th[b-ep6k5iyd0n] {
+    background-color: #0077b6; /* Azul */
+    color: white;
+    text-transform: uppercase;
+}
+
+td[b-ep6k5iyd0n] {
+    background-color: #f9f9f9;
+}
+
+    td[contenteditable="true"][b-ep6k5iyd0n] {
+        background-color: #e3f2fd; /* Azul claro para celdas editables */
+    }
+
+/* Botón "Volver al Menú" */
+a.btn-primary[b-ep6k5iyd0n] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #023e8a; /* Azul oscuro */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+    a.btn-primary:hover[b-ep6k5iyd0n] {
+        background-color: #0077b6;
+    }
+
+/* Párrafos */
+p[b-ep6k5iyd0n] {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Hora actual */
+#currentTime[b-ep6k5iyd0n] {
+    font-weight: bold;
+    color: #0077b6;
+    text-align: center;
+    margin-top: 10px;
+}

@@ -26,14 +26,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorCambiarPuntoFuerte.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNhbWJpYXJQdW50b0Z1ZXJ0ZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorControldeFacturacion.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNvbnRyb2xkZUZhY3R1cmFjaW9uLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/ClienteClase.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50ZUNsYXNlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -61,6 +53,14 @@ build_metadata.AdditionalFiles.CssScope = b-x244yf2uzo
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorCambiarContraseña.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNhbWJpYXJDb250cmFzZcOxYS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-c22748i1v9
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorCambiarPuntoFuerte.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNhbWJpYXJQdW50b0Z1ZXJ0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ep6k5iyd0n
+
+[C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorControldeFacturacion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNvbnRyb2xkZUZhY3R1cmFjaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-vs2wp33fmq
 
 [C:/Users/dell/source/repos/AngeloWong09/GimnacioProyecto/ProyectoGimnacioV2/Pages/AdministradorControlInventario.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5pc3RyYWRvckNvbnRyb2xJbnZlbnRhcmlvLnJhem9y

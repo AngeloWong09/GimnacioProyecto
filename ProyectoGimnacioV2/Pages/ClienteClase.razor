@@ -1,235 +1,147 @@
 ﻿@page "/ClienteClase"
-@page "/"
+
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <!-- Meta información -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a GYM FAST FORCE!</title>
+    <title>GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-    <!-- Título principal -->
-    <h1 class="title">Bienvenido a GYM FAST FORCE</h1>
 
-    <!-- Sección para búsqueda de datos en la tabla CSV de clases -->
+    <!-- Botón Volver al Menú como enlace -->
     <div>
-        <label for="searchID">Buscar por ID (Clases):</label>
-        <input type="text" id="searchID" placeholder="Ingresa la ID..." />
-        <button onclick="filtrarPorID()">Buscar Clases</button>
+        <a href="/Cliente" class="button">Volver al Menú</a>
+    </div>
+
+    <h1 class="title">GYM FAST FORCE</h1>
+
+    <!-- Contenedor de botones para cargar diferentes tipos de CSV -->
+    <div>
+        <button onclick="mostrarDatos('Clases')">Mostrar Clases</button>
+        <button onclick="mostrarDatos('Entrenadores')">Mostrar Entrenadores</button>
     </div>
     <br />
 
-    <!-- Cuadro de texto para buscar el ID de entrenador -->
-    <div>
-        <label for="searchEntrenadorID">Buscar por ID (Entrenadores):</label>
-        <input type="text" id="searchEntrenadorID" placeholder="Ingresa el ID del Entrenador..." />
-        <button onclick="filtrarEntrenadorPorID()">Buscar Entrenador</button>
-    </div>
-    <br />
+    <p>Haz clic en los campos de la tabla.</p>
 
-    <!-- Botón para cargar y mostrar la tabla desde el archivo CSV de clases -->
-    <div>
-        <button onclick="mostrarTabla()">Cargar Datos de Clases</button>
-    </div>
-    <br />
-
-    <!-- Botón para cargar y mostrar la tabla de entrenadores -->
-    <div>
-        <button onclick="mostrarTablaEntrenadores()">Cargar Datos de Entrenadores</button>
-    </div>
-    <br />
-
-    <p>Los datos están deshabilitados para edición.</p>
-
-    <!-- Tabla de Clases -->
+    <!-- Tabla para mostrar los datos CSV cargados -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
-            <tr id="tablaHeaders"></tr>
+            <tr>
+                <th>Num Clase</th>
+                <th>ID Clase</th>
+                <th>ID Entrenador</th>
+                <th>Clase</th>
+                <th>Fecha</th>
+                <th>Horario</th>
+                <th>Cupos</th>
+                <th>Precio Clase</th>
+            </tr>
         </thead>
         <tbody id="csvTableBody"></tbody>
     </table>
 
     <br />
 
-    <!-- Tabla para mostrar los datos de los entrenadores -->
-    <p>Datos del Entrenador Seleccionado:</p>
-    <table id="entrenadorTable" border="1" style="width: 100%; border-collapse: collapse; display: none;">
+    <!-- Tabla para mostrar los datos de Entrenadores -->
+    <table id="csvTableEntrenadores" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
                 <th>Usuario</th>
+                <th>Contraseña</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>ID</th>
-                <th>Puntos Fuertes</th>
+                <th>Puntos fuertes</th>
             </tr>
         </thead>
-        <tbody id="entrenadorTableBody"></tbody>
+        <tbody id="csvTableBodyEntrenadores"></tbody>
     </table>
 
-    <!-- Botón para volver al menú principal -->
-    <div>
-        <button onclick="irACliente()">Volver al Menú</button>
-    </div>
     <br />
 
     <p id="currentTime"></p>
 
-    <!-- Importar archivo JavaScript -->
     <script src="script.js"></script>
-
     <script>
-        let datosCSV = []; // Datos de clases
-        let datosEntrenadores = []; // Datos de entrenadores
+        let datosCSV = [];
+        let datosEntrenadores = [];
 
-        // Función para cargar el archivo CSV de clases
-        function mostrarTabla() {
-            const archivoCSV = '/sample-data/BasedatosClase.csv'; // Corregir ruta
+        // Cargar archivo CSV
+        async function cargarCSV(tipo) {
+            let ruta;
+            const timestamp = new Date().getTime();
 
-            const urlConNoCache = archivoCSV + "?t=" + new Date().getTime();
-
-            fetch(urlConNoCache)
-                .then(response => response.text())
-                .then(contenido => {
-                    const lineas = contenido.split("\n");
-                    const tablaBody = document.getElementById("csvTableBody");
-                    tablaBody.innerHTML = "";
-                    datosCSV = [];
-                    const tablaHeaders = document.getElementById("tablaHeaders");
-                    tablaHeaders.innerHTML = `
-                                <th>Nombre</th>
-                                <th>Apellido 1</th>
-                                <th>Apellido 2</th>
-                                <th>ID</th>
-                                <th>ID Clase</th>`;
-
-                    let datosPersonas = false;
-
-                    lineas.forEach((linea) => {
-                        if (linea.trim() === "") return;
-                        if (!datosPersonas && linea.includes("Nombre;Apellido")) {
-                            datosPersonas = true;
-                            return;
-                        }
-
-                        if (datosPersonas) {
-                            const columnas = linea.split(";");
-                            if (columnas.length === 5) {
-                                datosCSV.push(columnas);
-                            }
-                        }
-                    });
-
-                    // Llamar a función que actualiza la vista
-                    actualizarVistaConDatos();
-                })
-                .catch(() => {
-                    alert("Hubo un problema al cargar el archivo BasedatosClase.csv.");
-                });
-        }
-
-        // Función para cargar los datos de los entrenadores
-        function cargarEntrenadores() {
-            const archivoCSV = '/sample-data/Entrenadores.csv'; // Ruta del archivo de entrenadores
-
-            const urlConNoCache = archivoCSV + "?t=" + new Date().getTime();
-
-            fetch(urlConNoCache)
-                .then(response => response.text())
-                .then(contenido => {
-                    const lineas = contenido.split("\n");
-                    datosEntrenadores = []; // Resetear los datos
-
-                    lineas.forEach((linea) => {
-                        if (linea.trim() === "") return;
-                        const columnas = linea.split(";");
-                        if (columnas.length === 6) { // Asegurarse de que la fila tenga 6 columnas
-                            datosEntrenadores.push(columnas);
-                        }
-                    });
-
-                    // Verificar si los datos fueron cargados
-                    console.log(datosEntrenadores); // Revisar si los datos están cargados correctamente
-                })
-                .catch(() => {
-                    alert("Hubo un problema al cargar el archivo Entrenadores.csv.");
-                });
-        }
-
-        // Función para mostrar la tabla de entrenadores
-        function mostrarTablaEntrenadores() {
-            const tablaEntrenadores = document.getElementById("entrenadorTable");
-            tablaEntrenadores.style.display = "block";  // Mostrar la tabla de entrenadores
-
-            cargarEntrenadores(); // Cargar los datos de entrenadores
-            actualizarVistaConEntrenadores(); // Actualizar la vista de la tabla de entrenadores
-        }
-
-        // Filtrar datos de entrenadores por ID
-        function filtrarEntrenadorPorID() {
-            const idEntrenadorBuscado = document.getElementById("searchEntrenadorID").value.trim();
-
-            if (idEntrenadorBuscado === "") {
-                alert("Por favor ingrese un ID para buscar.");
-                return;
+            if (tipo === 'Clases') {
+                ruta = `/sample-data/Clases.csv?${timestamp}`;
+            } else if (tipo === 'Entrenadores') {
+                ruta = `/sample-data/Entrenadores.csv?${timestamp}`;
             }
 
-            // Filtrar datos
-            const resultadosEntrenadores = datosEntrenadores.filter(fila => fila[4] === idEntrenadorBuscado);
-
-            if (resultadosEntrenadores.length === 0) {
-                alert("No se encontraron resultados para el ID de entrenador proporcionado.");
-                return;
+            try {
+                const respuesta = await fetch(ruta);
+                if (!respuesta.ok) {
+                    alert("No se pudo cargar el archivo " + tipo + ".csv.");
+                    return;
+                }
+                const contenido = await respuesta.text();
+                if (tipo === 'Entrenadores') {
+                    procesarCSVEntrenadoresTexto(contenido);
+                } else {
+                    procesarCSVTexto(contenido);
+                }
+            } catch (error) {
+                alert("Hubo un problema al cargar el archivo.");
+                console.error("Error al cargar el archivo", error);
             }
-
-            // Mostrar los resultados de entrenadores
-            actualizarVistaConEntrenadores(resultadosEntrenadores);
         }
 
-        // Función para actualizar la tabla con los datos de los entrenadores
-        function actualizarVistaConEntrenadores(datos = datosEntrenadores) {
-            const tablaBody = document.getElementById("entrenadorTableBody");
-            tablaBody.innerHTML = ""; // Limpiar la tabla
-
-            datos.forEach(fila => {
-                const filaHTML = document.createElement("tr");
-                fila.forEach(columna => {
-                    const celda = document.createElement("td");
-                    celda.textContent = columna.trim();
-                    filaHTML.appendChild(celda);
-                });
-                tablaBody.appendChild(filaHTML);
-            });
+        function procesarCSVTexto(texto) {
+            const lineas = texto.split("\n").filter((linea, index) => index > 0 && linea.trim() !== "");
+            datosCSV = lineas.map(linea => linea.split(";"));
+            actualizarTablaClases();
         }
 
-        // Función para actualizar la vista de clases
-        function actualizarVistaConDatos(datos = datosCSV) {
+        function procesarCSVEntrenadoresTexto(texto) {
+            const lineas = texto.split("\n").filter((linea, index) => index > 0 && linea.trim() !== "");
+            datosEntrenadores = lineas.map(linea => linea.split(";"));
+            actualizarTablaEntrenadores();
+        }
+
+        function actualizarTablaClases() {
             const tablaBody = document.getElementById("csvTableBody");
             tablaBody.innerHTML = "";
-
-            datos.forEach(fila => {
-                const filaHTML = document.createElement("tr");
+            datosCSV.forEach(fila => {
+                const filaTabla = document.createElement("tr");
                 fila.forEach(columna => {
                     const celda = document.createElement("td");
                     celda.textContent = columna.trim();
-                    filaHTML.appendChild(celda);
+                    filaTabla.appendChild(celda);
                 });
-                tablaBody.appendChild(filaHTML);
+                tablaBody.appendChild(filaTabla);
             });
         }
 
-        // Función de redirección
-        function irACliente() {
-            location.href = '/Cliente'; // Navegar a Cliente.razor
+        function actualizarTablaEntrenadores() {
+            const tablaBody = document.getElementById("csvTableBodyEntrenadores");
+            tablaBody.innerHTML = "";
+            datosEntrenadores.forEach(fila => {
+                const filaTabla = document.createElement("tr");
+                fila.forEach(columna => {
+                    const celda = document.createElement("td");
+                    celda.textContent = columna.trim();
+                    filaTabla.appendChild(celda);
+                });
+                tablaBody.appendChild(filaTabla);
+            });
         }
 
-        // Cargar entrenadores cuando la página se carga
-        cargarEntrenadores();
+        function mostrarDatos(tipo) {
+            cargarCSV(tipo);
+        }
     </script>
 </body>
-
 </html>

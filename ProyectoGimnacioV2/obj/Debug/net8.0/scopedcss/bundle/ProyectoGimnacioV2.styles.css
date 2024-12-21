@@ -363,6 +363,203 @@ footer[b-c22748i1v9] {
         font-size: 12px;
     }
 }
+/* /Pages/AdministradorCambiarPuntoFuerte.razor.rz.scp.css */
+/* Estilo general del cuerpo */
+body[b-ep6k5iyd0n] {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4; /* Fondo claro */
+    color: #333; /* Texto oscuro */
+}
+
+/* Estilo del título principal */
+h1.title[b-ep6k5iyd0n] {
+    text-align: center;
+    color: #0077b6; /* Azul */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Botones generales */
+button[b-ep6k5iyd0n] {
+    background-color: #00b4d8; /* Azul claro */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover[b-ep6k5iyd0n] {
+        background-color: #0077b6; /* Azul más oscuro */
+    }
+
+/* Tabla de datos */
+table[b-ep6k5iyd0n] {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+th[b-ep6k5iyd0n], td[b-ep6k5iyd0n] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th[b-ep6k5iyd0n] {
+    background-color: #0077b6; /* Azul */
+    color: white;
+    text-transform: uppercase;
+}
+
+td[b-ep6k5iyd0n] {
+    background-color: #f9f9f9;
+}
+
+    td[contenteditable="true"][b-ep6k5iyd0n] {
+        background-color: #e3f2fd; /* Azul claro para celdas editables */
+    }
+
+/* Botón "Volver al Menú" */
+a.btn-primary[b-ep6k5iyd0n] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #023e8a; /* Azul oscuro */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+    a.btn-primary:hover[b-ep6k5iyd0n] {
+        background-color: #0077b6;
+    }
+
+/* Párrafos */
+p[b-ep6k5iyd0n] {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Hora actual */
+#currentTime[b-ep6k5iyd0n] {
+    font-weight: bold;
+    color: #0077b6;
+    text-align: center;
+    margin-top: 10px;
+}
+/* /Pages/AdministradorControldeFacturacion.razor.rz.scp.css */
+/* General */
+body[b-vs2wp33fmq] {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1.title[b-vs2wp33fmq] {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Botones */
+button[b-vs2wp33fmq] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button:hover[b-vs2wp33fmq] {
+        background-color: #2980b9;
+    }
+
+    button:active[b-vs2wp33fmq] {
+        background-color: #1c5d8b;
+    }
+
+/* Select y etiquetas */
+label[b-vs2wp33fmq] {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+select[b-vs2wp33fmq] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Tabla */
+table[b-vs2wp33fmq] {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    table th[b-vs2wp33fmq], table td[b-vs2wp33fmq] {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.9em;
+    }
+
+    table th[b-vs2wp33fmq] {
+        background-color: #3498db;
+        color: white;
+        text-transform: uppercase;
+        font-size: 1em;
+    }
+
+    table tr:nth-child(even)[b-vs2wp33fmq] {
+        background-color: #f9f9f9;
+    }
+
+    table tr:hover[b-vs2wp33fmq] {
+        background-color: #f1f1f1;
+    }
+
+/* Enlace */
+a.btn-primary[b-vs2wp33fmq] {
+    display: inline-block;
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+    a.btn-primary:hover[b-vs2wp33fmq] {
+        background-color: #27ae60;
+    }
+
+/* Mensajes informativos */
+p[b-vs2wp33fmq] {
+    font-style: italic;
+    color: #555;
+}
 /* /Pages/AdministradorControlInventario.razor.rz.scp.css */
 /* General Reset */
 *[b-pdopp98mpe] {
