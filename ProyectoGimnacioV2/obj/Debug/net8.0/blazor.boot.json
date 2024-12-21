@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ProyectoGimnacioV2",
   "resources": {
-    "hash": "sha256-BeANLjQJwnjVdAUWX1hVbRZTGpArndwYV6LwdJzhAwc=",
+    "hash": "sha256-EOABzjlCB4BV+2kSWODdMTHrHFm1hSvt1yNNRigxWvQ=",
     "jsModuleNative": {
       "dotnet.native.8.0.5.4lh8alvr1e.js": "sha256-boyHe+0RMZDkzBKGhsrnXPhPg3oZ6UqJnTUzngJPjNY="
     },
@@ -222,10 +222,10 @@
       "mscorlib.wasm": "sha256-XvLAB5IyfVSmj5aaGnPwgVFaaZz8jXmbN8WmeopiPBM=",
       "netstandard.wasm": "sha256-TbMssdnuTiKq1gjTPkpgROAuWN0uhvPnagvWR+wAgNs=",
       "System.Private.CoreLib.wasm": "sha256-sscg+Efk8ROPq+q4IVmhShzITuoOYvB8Bsc+Mp9vcSM=",
-      "ProyectoGimnacioV2.wasm": "sha256-ZhIm716nSFCdoXxhBx0V4Y2zdJLC1ekhXHAY9vODnk0="
+      "ProyectoGimnacioV2.wasm": "sha256-hVYSqE71UxosdutmvOBxs4WeV4E3nbYrMNBJFK6FyvY="
     },
     "pdb": {
-      "ProyectoGimnacioV2.pdb": "sha256-H69S/N0SLoikjCoXkxqPAcB6X8aij1YzB9nOMhtZ0uo="
+      "ProyectoGimnacioV2.pdb": "sha256-rwk3QGkW8Cj5Xd8o8WXCW16XQpPWbd2cMWPxqVJpIww="
     }
   },
   "cacheBootResources": true,
