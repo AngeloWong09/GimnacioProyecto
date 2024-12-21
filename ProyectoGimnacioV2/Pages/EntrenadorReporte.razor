@@ -1,5 +1,4 @@
-﻿
-@page "/EntrenadorReporte"
+﻿@page "/EntrenadorReporte"
 <!DOCTYPE html>
 <html lang="es">
 
@@ -41,6 +40,10 @@
     <button onclick="calcularSuma()">CALCULAR SUMA DE PRECIO CLASE</button>
     <p id="sumaTotal">Total: 0.00</p>
 
+    <!-- Botón para guardar el archivo CSV -->
+    <br />
+    <button onclick="guardarCSV()">GUARDAR CSV</button>
+
     <!-- Botón para volver al menú -->
     <br />
     <button onclick="volverMenu()">VOLVER AL MENÚ</button>
@@ -52,7 +55,7 @@
         // Cargar y mostrar los datos del archivo CSV en una tabla
         function mostrarTabla() {
             const archivoCSV = 'sample-data/Clases.csv'; // Ruta del archivo CSV
-            const urlConCacheBusting = archivoCSV + "?t=" + new Date().getTime();
+            const urlConCacheBusting = archivoCSV + "?t=" + new Date().getTime(); // Evitar caché
 
             fetch(urlConCacheBusting)
                 .then(response => response.text()) // Obtener el contenido del CSV
@@ -164,6 +167,49 @@
 
             // Mostrar la suma total
             document.getElementById("sumaTotal").textContent = `Total: ${suma.toFixed(2)}`;
+        }
+
+        // Función para guardar los datos actuales (filtrados) en un archivo CSV
+        function guardarCSV() {
+            let contenidoCSV = "Num Clase;ID Clase;ID Entrenador;Clase;Fecha;Horario;Cupos;Precio Clase\n";
+
+            // Obtener todas las filas visibles de la tabla (que estén dentro del cuerpo de la tabla)
+            const filasVisibles = document.getElementById("csvTableBody").childNodes;
+
+            // Recorrer todas las filas visibles y agregarlas al contenido CSV
+            filasVisibles.forEach(fila => {
+                // Ignorar las filas vacías o no visibles
+                if (fila.nodeType !== 1) return; // Ignorar nodos que no son de tipo "element"
+
+                let filaDatos = [];
+
+                // Recoger los datos de cada columna
+                fila.childNodes.forEach(celda => {
+                    if (celda.nodeType === 1) { // Asegurarse de que es una celda (elemento de la tabla)
+                        filaDatos.push(celda.textContent.trim());
+                    }
+                });
+
+                if (filaDatos.length > 0) {
+                    contenidoCSV += filaDatos.join(";") + "\n"; // Agregar la fila al CSV
+                }
+            });
+
+            // Verificar que hay filas visibles antes de proceder
+            if (contenidoCSV.length <= "Num Clase;ID Clase;ID Entrenador;Clase;Fecha;Horario;Cupos;Precio Clase\n".length) {
+                alert("No hay datos para guardar.");
+                return;
+            }
+
+            const blob = new Blob([contenidoCSV], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+
+            const enlace = document.createElement("a");
+            enlace.href = url;
+            enlace.download = "Clases_Filtradas_GYM_FAST_FORCE.csv";
+            enlace.click();
+
+            URL.revokeObjectURL(url); // Limpiar el recurso
         }
 
         // Función para redirigir al menú principal
