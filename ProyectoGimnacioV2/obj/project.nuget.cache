@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Pzu4enrAsFs=",
+  "dgSpecHash": "hxADEHt5de0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
+  "projectFilePath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\GimnacioProyecto\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dell\\.nuget\\packages\\blazored.sessionstorage\\2.4.0\\blazored.sessionstorage.2.4.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\bouncycastle.cryptography\\2.3.1\\bouncycastle.cryptography.2.3.1.nupkg.sha512",

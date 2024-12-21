@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {}
+    "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\GimnacioProyecto\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {
+    "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\GimnacioProyecto\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
+        "projectUniqueName": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\GimnacioProyecto\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
         "projectName": "ProyectoGimnacioV2",
-        "projectPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
+        "projectPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\GimnacioProyecto\\GimnacioProyecto\\ProyectoGimnacioV2\\ProyectoGimnacioV2.csproj",
         "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\ProyectoGimnacioV2\\obj\\",
+        "outputPath": "C:\\Users\\dell\\source\\repos\\AngeloWong09\\GimnacioProyecto\\GimnacioProyecto\\GimnacioProyecto\\ProyectoGimnacioV2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,18 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-
-namespace Test
+﻿namespace Test
 {
     [TestClass]
     public class ClienteMembresiaTest
     {
-        // Simular los datos cargados del archivo CSV.
         private List<string[]> datosCSV;
 
+        /// <summary>
+        /// Configuración inicial para preparar los datos simulados del CSV.
+        /// </summary>
         [TestInitialize]
         public void TestSetup()
         {
-            // Preparamos los datos que vendrían del CSV
             datosCSV = new List<string[]>
             {
                 new string[] { "123", "01/01/2023", "10:00", "20/12/2024", "12", "Básico" },
@@ -21,51 +19,60 @@ namespace Test
             };
         }
 
+        /// <summary>
+        /// Test que verifica que un cliente existente pueda ser encontrado por su ID.
+        /// </summary>
         [TestMethod]
         public void BuscarPorID_ClienteExistente_DeberiaMostrarResultados()
         {
             // Arrange
             string idCliente = "123";
-            var tablaBody = new List<string[]>(); // Emulamos el cuerpo de la tabla HTML
+            var tablaBody = new List<string[]>();
 
-            // Act: Filtramos los datos CSV por el ID Cliente proporcionado
+            // Act
             var resultadoBusqueda = datosCSV.FindAll(fila => fila[0] == idCliente);
 
             if (resultadoBusqueda.Count > 0)
             {
                 foreach (var fila in resultadoBusqueda)
                 {
-                    tablaBody.Add(fila); // Simulamos agregar a la tabla
+                    tablaBody.Add(fila);
                 }
             }
 
-            // Assert: Verificamos si la búsqueda encuentra el ID y se muestra en la tabla
+            // Assert
             Assert.AreEqual(1, tablaBody.Count, "No se encontró el cliente con el ID proporcionado.");
             Assert.AreEqual("123", tablaBody[0][0], "El ID Cliente no coincide.");
         }
 
+        /// <summary>
+        /// Test que verifica que no se muestren resultados para un cliente no existente.
+        /// </summary>
         [TestMethod]
         public void BuscarPorID_ClienteNoExistente_NoDebeMostrarResultados()
         {
             // Arrange
             string idCliente = "000";
-            var tablaBody = new List<string[]>(); // Emulamos el cuerpo de la tabla HTML
+            var tablaBody = new List<string[]>();
 
-            // Act: Filtramos los datos CSV por el ID Cliente proporcionado
+            // Act
             var resultadoBusqueda = datosCSV.FindAll(fila => fila[0] == idCliente);
 
             if (resultadoBusqueda.Count > 0)
             {
                 foreach (var fila in resultadoBusqueda)
                 {
-                    tablaBody.Add(fila); // Simulamos agregar a la tabla
+                    tablaBody.Add(fila);
                 }
             }
 
-            // Assert: Verificamos que no se muestren resultados si el cliente no existe
+            // Assert
             Assert.AreEqual(0, tablaBody.Count, "El cliente con el ID proporcionado fue encontrado aunque no debería.");
         }
 
+        /// <summary>
+        /// Test que verifica si se genera una alerta cuando la fecha de vencimiento está cerca.
+        /// </summary>
         [TestMethod]
         public void FechaVencimientoProximaVencimiento_AlertaDeVencimiento()
         {
@@ -74,17 +81,16 @@ namespace Test
             var alertaEsperada = false;
             var cliente = datosCSV.Find(fila => fila[0] == idCliente);
 
-            // Verificamos la fecha de vencimiento y si está cerca de la fecha
             if (cliente != null)
             {
-                string fechaVencimiento = cliente[3]; // Fecha de vencimiento
+                string fechaVencimiento = cliente[3];
                 if (fechaVencimiento == "20/12/2024")
                 {
-                    alertaEsperada = true; // Se simula que se muestra la alerta
+                    alertaEsperada = true;
                 }
             }
 
-            // Assert: Verificamos si se generó la alerta cuando la fecha de vencimiento es la esperada
+            // Assert
             Assert.IsTrue(alertaEsperada, "No se generó la alerta de vencimiento.");
         }
     }
