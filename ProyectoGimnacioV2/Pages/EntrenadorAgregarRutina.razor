@@ -1,150 +1,217 @@
 ﻿@page "/EntrenadorAgregarRutina"
 
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <!-- Configuración básica del documento -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GYM FAST FORCE</title>
-
-    <!-- Enlace a un archivo de estilos externo -->
+    <title>GYM FAST FORCE!</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-    <!-- Título principal de la página -->
     <h1 class="title">GYM FAST FORCE</h1>
 
-    <!-- Sección de opciones -->
-    <h2>Opciones</h2>
+    <!-- Campo de búsqueda por ID -->
     <div>
-        <!-- Botón para cargar los datos desde un archivo CSV -->
-        <button onclick="cargarDesdeArchivo()">Ver rutinas de los clientes</button>
-
-        <!-- Botón para guardar la tabla actual como archivo CSV -->
-        <button onclick="guardarCSV()">Guardar datos</button>
-
-        <!-- Botón para volver al menú principal del entrenador -->
-        <button onclick="location.href='/Entrenador'" class="return-btn">Volver al Menú</button>
+        <label for="searchId">Buscar por ID:</label>
+        <input type="text" id="searchId" oninput="filtrarPorID()" placeholder="Escribe un ID (Ej: P1325)" />
     </div>
     <br />
 
-    <!-- Instrucciones para editar rutinas -->
-    <p>Solo puedes editar las columnas "Rutina 1" y "Repeticiones".</p>
+    <!-- Botón para cargar los datos de RutinaCliente desde un archivo CSV -->
+    <div>
+        <button onclick="cargarRutinas()">Mostrar Rutinas</button>
+    </div>
+    <br />
 
-    <!-- Tabla para mostrar y editar datos de rutinas -->
+    <p>Haz clic en los campos de la tabla para editar.</p>
+
+    <!-- Tabla donde se mostrarán los datos de RutinaCliente.csv -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
-                <th>Usuario</th>
-                <th>Contraseña</th>
                 <th>Nombre</th>
-                <th>Apellidos</th>
+                <th>Apellido</th>
                 <th>ID</th>
-                <th>Rutina 1</th>
+                <th>Rutina</th>
                 <th>Repeticiones</th>
-                <th>Acciones</th> <!-- Columna para acciones específicas -->
+                <th>Acciones</th>
             </tr>
         </thead>
-        <tbody id="csvTableBody"></tbody> <!-- Contenedor dinámico para las filas -->
+        <tbody id="csvTableBody"></tbody>
     </table>
 
+    <br />
+
+    <!-- Botón para guardar los datos editados en el CSV -->
+    <div>
+        <button onclick="guardarCSV()">Guardar datos</button>
+    </div>
+
+    <br />
+
+    <!-- Agregar botón para volver al menú -->
+    <div>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>
+    </div>
+
+    <br />
+
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
+
     <script>
-        // **Variable para almacenar los datos del archivo CSV**
+        // Variable para almacenar los datos del CSV
         let datosCSV = [];
+        // Encabezado del CSV de RutinaCliente
+        let encabezadoCSV = "Nombre;Apellido;ID;Rutina;Repeticiones";
 
-        // **Función para cargar datos desde un archivo CSV**
-        function cargarDesdeArchivo() {
-            // Agregamos el parámetro nocache para evitar la caché
-            const urlConTimestamp = 'sample-data/RutinaCliente.csv?nocache=' + new Date().getTime();
+        // Función para cargar los datos de RutinaCliente.csv
+        async function cargarRutinas() {
+            try {
+                // Agregar un parámetro con el timestamp para evitar caché
+                const timestamp = new Date().getTime();  // Obtener el timestamp actual
+                const url = `/sample-data/RutinaCliente.csv?${timestamp}`;  // Agregar el timestamp como parámetro en la URL
 
-            fetch(urlConTimestamp) // Ruta del archivo CSV con el parámetro nocache
-                .then(response => response.text()) // Leer el contenido como texto
-                .then(contenido => cargarDatosDesdeTexto(contenido)) // Procesar el texto
-                .catch(error => alert("No se pudo cargar RutinaCliente.csv.")); // Manejar errores
-        }
-
-        // **Procesar los datos del CSV y cargarlos en la tabla**
-        function cargarDatosDesdeTexto(contenido) {
-            const lineas = contenido.split("\n"); // Separar cada línea del archivo
-            const tablaBody = document.getElementById("csvTableBody");
-
-            // Limpiar tabla y resetear datos existentes
-            tablaBody.innerHTML = "";
-            datosCSV = [];
-
-            // Recorrer cada línea para construir las filas de la tabla
-            for (let linea of lineas) {
-                if (linea.trim() === "") continue; // Ignorar líneas vacías
-
-                const columnas = linea.split(";"); // Separar columnas usando ';'
-
-                if (columnas.length === 7) { // Verificar número esperado de columnas
-                    datosCSV.push(columnas); // Agregar fila al array principal
-
-                    const fila = document.createElement("tr"); // Crear una nueva fila HTML
-
-                    // Agregar cada columna como celda
-                    columnas.forEach((columna, index) => {
-                        const celda = document.createElement("td");
-
-                        // Permitir edición solo en las columnas indicadas
-                        if (index === 5 || index === 6) {
-                            celda.contentEditable = true; // Hacer celda editable
-                            celda.style.backgroundColor = "#e6f7ff"; // Destacar celda editable
-                        }
-
-                        celda.textContent = columna.trim(); // Agregar el contenido
-                        fila.appendChild(celda); // Insertar celda en la fila
-                    });
-
-                    // Agregar botón de guardar para cada fila
-                    const celdaAcciones = document.createElement("td");
-                    const botonGuardar = document.createElement("button");
-                    botonGuardar.textContent = "Guardar"; // Texto del botón
-                    botonGuardar.onclick = function () { guardarCambios(fila, columnas); }; // Acción al hacer clic
-                    celdaAcciones.appendChild(botonGuardar); // Insertar botón en la celda de acciones
-                    fila.appendChild(celdaAcciones); // Insertar la celda en la fila
-
-                    // Agregar la fila completa al cuerpo de la tabla
-                    tablaBody.appendChild(fila);
+                const respuesta = await fetch(url);  // Obtener el archivo CSV de RutinaCliente
+                if (!respuesta.ok) {
+                    alert("No se pudo cargar el archivo de Rutinas.");
+                    return;
                 }
+                const contenido = await respuesta.text();  // Leer el contenido del archivo CSV
+                procesarCSVTexto(contenido);  // Procesar el contenido del archivo CSV
+            } catch (error) {
+                alert("Hubo un problema al cargar el archivo.");
+                console.error("Error al cargar el archivo", error);  // Log del error
             }
         }
 
-        // **Función para guardar cambios en los datos**
+        // Función para procesar el contenido CSV
+        function procesarCSVTexto(texto) {
+            const lineas = texto.split("\n").filter((linea, index) => {
+                // Excluir la primera línea (encabezado) y las líneas vacías
+                return index > 0 && linea.trim() !== "";
+            });
+
+            // Dividir cada línea en columnas (usando ';' como delimitador)
+            datosCSV = lineas.map(linea => linea.split(";"));
+
+            // Llamamos a la función para mostrar los datos en la tabla
+            mostrarDatosActualizados();
+        }
+
+        // Función para renderizar los datos en la tabla
+        function mostrarDatosActualizados() {
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = "";  // Limpiar el cuerpo de la tabla antes de mostrar nuevos datos
+
+            // Renderizar los datos en la tabla
+            datosCSV.forEach(fila => {
+                const filaTabla = document.createElement("tr");
+
+                fila.forEach((columna, index) => {
+                    const celda = document.createElement("td");
+
+                    // Solo hacer las columnas de "Rutina" y "Repeticiones" editables
+                    if (index === 3 || index === 4) {
+                        celda.contentEditable = true;  // Permitir que estas celdas sean editables
+                    } else {
+                        celda.contentEditable = false;  // Evitar que las otras celdas sean editables
+                    }
+
+                    celda.textContent = columna.trim();
+                    filaTabla.appendChild(celda);  // Añadir la celda a la fila
+                });
+
+                const celdaAcciones = document.createElement("td");
+                const botonGuardar = document.createElement("button");
+                botonGuardar.textContent = "Guardar";
+                botonGuardar.onclick = function () { guardarCambios(filaTabla, fila); };  // Guardar cambios al hacer clic en el botón
+                celdaAcciones.appendChild(botonGuardar);
+                filaTabla.appendChild(celdaAcciones);
+
+                tablaBody.appendChild(filaTabla);  // Añadir la fila a la tabla
+            });
+        }
+
+        // Función para guardar los cambios realizados en una fila
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Actualizar solo las columnas editables
-            columnas[5] = celdas[5].textContent.trim(); // Actualizar columna de "Rutina 1"
-            columnas[6] = celdas[6].textContent.trim(); // Actualizar columna de "Repeticiones"
-
-            // Buscar la fila en el array principal usando el ID (columna 4)
-            const filaIndex = datosCSV.findIndex((item) => item[4] === columnas[4]);
-            if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas; // Actualizar datos en el array
+            // Actualizar el array de datos con los nuevos valores de las celdas (solo en las columnas editables)
+            for (let i = 0; i < celdas.length - 1; i++) {  // Excluir la última celda (Acciones)
+                columnas[i] = celdas[i].textContent.trim();
             }
 
-            alert("Cambios guardados correctamente."); // Confirmar al usuario
+            alert("Cambios guardados.");
+
+            // Actualizar el array de datos con la nueva información
+            const filaIndex = datosCSV.findIndex((item) => item[2] === columnas[2]); // Buscar por el ID
+            if (filaIndex > -1) {
+                datosCSV[filaIndex] = columnas;  // Actualizar los datos de la fila
+            }
+
+            // Mostrar los datos actualizados en la tabla
+            mostrarDatosActualizados();
         }
 
-        // **Función para guardar la tabla como archivo CSV**
+        // Función para guardar los datos editados como archivo CSV
         function guardarCSV() {
-            const csvContent = datosCSV.map(fila => fila.join(";")).join("\n"); // Construir el contenido CSV
+            let csvContent = encabezadoCSV + "\n";  // Agregar el encabezado
 
-            // Crear un archivo Blob a partir del contenido CSV
+            // Generar el contenido CSV a partir de los datos almacenados
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(";") + "\n";  // Separar las columnas por ";" y agregar una nueva línea
+            });
+
+            // Crear un blob con el contenido CSV y permitir al usuario descargarlo
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-
-            // Crear un enlace para descargar el archivo
             const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob); // Crear URL para el archivo
-            link.download = "RutinaCliente_Actualizada.csv"; // Nombre sugerido para el archivo
-            link.click(); // Disparar descarga
+            link.href = URL.createObjectURL(blob);
+            link.download = "rutinas_guardadas.csv";  // Nombre del archivo de descarga
+            link.click();
+        }
+
+        // Función para filtrar los datos por ID
+        function filtrarPorID() {
+            const searchId = document.getElementById("searchId").value.trim().toUpperCase(); // Obtener el valor de búsqueda y ponerlo en mayúsculas
+
+            // Filtrar las filas que coincidan con el ID
+            const filasFiltradas = datosCSV.filter(fila => fila[2].toUpperCase().includes(searchId));
+
+            // Mostrar las filas filtradas en la tabla
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = "";  // Limpiar la tabla antes de mostrar los datos filtrados
+
+            // Renderizar los datos filtrados
+            filasFiltradas.forEach(fila => {
+                const filaTabla = document.createElement("tr");
+
+                fila.forEach((columna, index) => {
+                    const celda = document.createElement("td");
+
+                    // Solo hacer las columnas de "Rutina" y "Repeticiones" editables
+                    if (index === 3 || index === 4) {
+                        celda.contentEditable = true;  // Permitir que estas celdas sean editables
+                    } else {
+                        celda.contentEditable = false;  // Evitar que las otras celdas sean editables
+                    }
+
+                    celda.textContent = columna.trim();
+                    filaTabla.appendChild(celda);  // Añadir la celda a la fila
+                });
+
+                const celdaAcciones = document.createElement("td");
+                const botonGuardar = document.createElement("button");
+                botonGuardar.textContent = "Guardar";
+                botonGuardar.onclick = function () { guardarCambios(filaTabla, fila); };  // Guardar cambios al hacer clic en el botón
+                celdaAcciones.appendChild(botonGuardar);
+                filaTabla.appendChild(celdaAcciones);
+
+                tablaBody.appendChild(filaTabla);  // Añadir la fila a la tabla
+            });
         }
     </script>
 </body>
-
 </html>

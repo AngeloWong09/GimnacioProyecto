@@ -1,7 +1,6 @@
 ﻿@page "/AdministradorControlInventario"
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +10,11 @@
 
 <body>
 
+    <!-- Título de la página -->
     <h1 class="title">GYM FAST FORCE</h1>
 
     <div>
-        <!-- Botón para cargar el archivo Maquinas.csv y mostrarlo -->
+        <!-- Botón para cargar el archivo CSV y mostrarlo -->
         <button onclick="mostrarTabla()">Mostrar Tabla de maquinas</button>
     </div>
     <br />
@@ -25,18 +25,31 @@
     </div>
     <br />
 
+    <!-- Formulario para agregar nuevas líneas a la tabla -->
+    <div class="formulario-nueva-linea">
+        <input type="text" id="nombre" placeholder="Nombre" />
+        <input type="text" id="fechaEntrada" placeholder="Fecha Entrada" />
+        <input type="text" id="tiempoVida" placeholder="Tiempo Vida" />
+        <input type="text" id="ingresos" placeholder="Ingresos" />
+        <input type="text" id="claseID" placeholder="Clase ID" />
+        <input type="text" id="id" placeholder="ID" />
+        <button onclick="agregarLinea()">Agregar Línea</button>
+    </div>
+
+    <br />
+
     <!-- Botón para mostrar el ingreso más alto y el más bajo -->
     <div>
         <button onclick="filtrarIngresos()">Mostrar Ingreso Más Alto y Más Bajo</button>
     </div>
     <br />
 
-    <!-- Para mostrar los resultados del filtro -->
-    <p id="ingresoResultados"></p>
+    <!-- Elemento para mostrar los resultados del filtro -->
+    <div id="ingresoResultados" class="resultado-cuadro"></div>
 
     <p>Haz clic en los campos de la tabla para editar.</p>
 
-    <!-- Tabla donde se mostrarán los datos del CSV -->
+    <!-- Tabla para mostrar los datos del archivo CSV -->
     <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
@@ -56,70 +69,68 @@
 
     <!-- Botón para regresar al menú del Administrador -->
     <div>
-        <a href="/Administrador" class="btn-primary">Volver al Menú</a>  <!-- Redirige a la página de Administrador.razor -->
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>
     </div>
 
     <p id="currentTime"></p>
 
-    <!-- Enlazamos el archivo Javascript -->
-    <script src="script.js"></script>
-
     <script>
-        let datosCSV = []; // Array para almacenar los datos del CSV
+        let datosCSV = []; // Array para almacenar los datos del archivo CSV
 
-        // Función para cargar y mostrar el archivo Maquinas.csv
+        /**
+         * Carga y muestra el contenido del archivo CSV en la tabla HTML
+         * Añade un timestamp a la URL del archivo para evitar caché.
+         */
         function mostrarTabla() {
-            // Añadir un parámetro único al URL para evitar el caché
-            const url = '/sample-data/Maquinas.csv?' + new Date().getTime(); // Añadir el timestamp para evitar caché
+            const url = '/sample-data/Maquinas.csv?' + new Date().getTime(); // Evitar caché
 
-            // Usamos fetch para obtener el archivo Maquinas.csv desde el servidor
+            // Realizar la solicitud para obtener el archivo CSV
             fetch(url)
                 .then(response => {
-                    if (!response.ok) {  // Verificar si la respuesta es correcta
+                    if (!response.ok) {
                         throw new Error('Error al cargar el archivo CSV');
                     }
-                    return response.text(); // Leer el archivo como texto
+                    return response.text();
                 })
                 .then(contenido => {
-                    const lineas = contenido.split("\n"); // Dividimos las líneas
+                    // Procesamos el contenido del CSV
+                    const lineas = contenido.split("\n");
                     const tablaBody = document.getElementById("csvTableBody");
-                    tablaBody.innerHTML = ""; // Limpiamos la tabla antes de agregar las nuevas filas
-                    datosCSV = []; // Reiniciamos los datos
+                    tablaBody.innerHTML = ""; // Limpiar tabla
+                    datosCSV = []; // Limpiar los datos actuales
 
-                    // Iteramos sobre las líneas del archivo CSV
                     lineas.forEach((linea, index) => {
-                        if (linea.trim() === "" || index === 0) return; // Ignoramos líneas vacías o la primera línea de encabezado
+                        if (linea.trim() === "" || index === 0) return; // Ignorar líneas vacías o encabezado
 
-                        const columnas = linea.split(","); // Dividimos cada línea en columnas por coma
+                        const columnas = linea.split(","); // Dividir en columnas
+                        datosCSV.push(columnas); // Almacenar los datos en el arreglo
 
-                        // Agregamos los datos al array datosCSV
-                        datosCSV.push(columnas);
-
-                        // Creamos una nueva fila para la tabla
+                        // Crear la fila de la tabla
                         const fila = document.createElement("tr");
 
-                        // Iteramos sobre las columnas para crear las celdas correspondientes
                         columnas.forEach((columna) => {
                             const celda = document.createElement("td");
-
-                            // Hacemos las celdas editables
-                            celda.contentEditable = true;
+                            celda.contentEditable = true; // Hacer la celda editable
                             celda.textContent = columna.trim();
-                            fila.appendChild(celda); // Añadimos la celda a la fila
+                            fila.appendChild(celda);
                         });
 
-                        // Columna para la acción de guardar cambios
+                        // Aplicar color según "Tiempo Vida" en la celda
+                        const tiempoVida = parseInt(columnas[2]);
+                        const tiempoVidaCell = fila.children[2];
+                        aplicarColorTiempoVida(tiempoVida, tiempoVidaCell); // Función que establece el color
+
+                        // Agregar la celda de acciones (guardar)
                         const celdaAcciones = document.createElement("td");
                         const botonGuardar = document.createElement("button");
                         botonGuardar.textContent = "Guardar";
                         botonGuardar.onclick = function () {
-                            guardarCambios(fila, columnas);
+                            guardarCambios(fila, columnas); // Función para guardar cambios
                         };
-                        celdaAcciones.appendChild(botonGuardar); // Añadimos el botón de guardar a la celda de acciones
-                        fila.appendChild(celdaAcciones); // Añadimos la celda de acciones a la fila
+                        celdaAcciones.appendChild(botonGuardar);
+                        fila.appendChild(celdaAcciones);
 
-                        // Añadimos la fila a la tabla
-                        tablaBody.appendChild(fila);
+                        tablaBody.appendChild(fila); // Añadir la fila a la tabla
                     });
                 })
                 .catch(error => {
@@ -128,65 +139,125 @@
                 });
         }
 
-        // Función para guardar los cambios realizados en una fila de la tabla
+        /**
+         * Guarda los cambios realizados en una fila
+         */
         function guardarCambios(fila, columnas) {
             const celdas = fila.querySelectorAll("td");
 
-            // Guardamos los valores de las celdas editadas
-            for (let i = 0; i < celdas.length - 1; i++) { // Excluimos la última celda de "acciones"
+            // Actualiza los datos según los cambios de la tabla
+            for (let i = 0; i < celdas.length - 1; i++) {
                 columnas[i] = celdas[i].textContent.trim();
             }
 
             alert("Cambios guardados.");
 
-            // Actualizamos los datos en el array utilizando el ID como clave única
-            const filaIndex = datosCSV.findIndex((item) => item[5] === columnas[5]); // Usamos "ID" como identificador
+            // Encontrar la fila correspondiente para actualizar datos
+            const filaIndex = datosCSV.findIndex((item) => item[5] === columnas[5]);
             if (filaIndex > -1) {
-                datosCSV[filaIndex] = columnas; // Actualizamos la fila en los datos
+                datosCSV[filaIndex] = columnas; // Actualizar la fila
             }
         }
 
-        // Función para guardar los datos de la tabla como archivo CSV
+        /**
+         * Guarda los datos de la tabla actual como un archivo CSV
+         */
         function guardarCSV() {
-            let csvContent = "Nombre,FechaEntrada,TiempoVida,Ingresos,Clase ID,ID\n"; // Encabezado CSV
+            let csvContent = "Nombre,FechaEntrada,TiempoVida,Ingresos,Clase ID,ID\n";
 
-            // Generamos el CSV a partir de los datos almacenados
+            // Concatenar las filas de datos CSV
             datosCSV.forEach(filaData => {
-                csvContent += filaData.join(",") + "\n"; // Unimos cada fila por comas y las separamos por líneas
+                csvContent += filaData.join(",") + "\n";
             });
 
-            // Creamos un archivo Blob con los datos CSV y lo preparamos para su descarga
+            // Crear un archivo CSV para descargar
             const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.download = "Maquinas_guardadas.csv"; // Establecemos el nombre de archivo para la descarga
-            link.click(); // Activamos la descarga
+            link.download = "Maquinas_guardadas.csv";
+            link.click();
         }
 
-        // Función para filtrar y mostrar el ingreso más alto y más bajo
+        /**
+         * Agrega una nueva línea de datos a la tabla y al arreglo CSV
+         */
+        function agregarLinea() {
+            const nombre = document.getElementById("nombre").value.trim();
+            const fechaEntrada = document.getElementById("fechaEntrada").value.trim();
+            const tiempoVida = document.getElementById("tiempoVida").value.trim();
+            const ingresos = document.getElementById("ingresos").value.trim();
+            const claseID = document.getElementById("claseID").value.trim();
+            const id = document.getElementById("id").value.trim();
+
+            if (!nombre || !fechaEntrada || !tiempoVida || !ingresos || !claseID || !id) {
+                alert("Por favor completa todos los campos.");
+                return;
+            }
+
+            // Crear la nueva fila con los datos ingresados
+            const nuevaFila = [nombre, fechaEntrada, tiempoVida, ingresos, claseID, id];
+            datosCSV.push(nuevaFila);
+
+            const tablaBody = document.getElementById("csvTableBody");
+            const fila = document.createElement("tr");
+
+            nuevaFila.forEach((columna) => {
+                const celda = document.createElement("td");
+                celda.textContent = columna;
+                fila.appendChild(celda);
+            });
+
+            // Aplicar color según el valor de "Tiempo Vida"
+            const tiempoVidaValue = parseInt(nuevaFila[2]);
+            const tiempoVidaCell = fila.children[2];
+            aplicarColorTiempoVida(tiempoVidaValue, tiempoVidaCell);
+
+            // Agregar botón de guardar
+            const celdaAcciones = document.createElement("td");
+            const botonGuardar = document.createElement("button");
+            botonGuardar.textContent = "Guardar";
+            botonGuardar.onclick = function () {
+                guardarCambios(fila, nuevaFila);
+            };
+            celdaAcciones.appendChild(botonGuardar);
+            fila.appendChild(celdaAcciones);
+
+            tablaBody.appendChild(fila);
+
+            // Limpiar los campos del formulario
+            document.getElementById("nombre").value = "";
+            document.getElementById("fechaEntrada").value = "";
+            document.getElementById("tiempoVida").value = "";
+            document.getElementById("ingresos").value = "";
+            document.getElementById("claseID").value = "";
+            document.getElementById("id").value = "";
+        }
+
+        /**
+         * Filtra el CSV por ingresos, mostrando el más alto y el más bajo
+         */
         function filtrarIngresos() {
             let ingresos = [];
             let nombreMaximo = "";
             let nombreMinimo = "";
 
-            // Recorremos los datos y extraemos los ingresos (asumimos que están en la columna de "Ingresos")
+            // Filtrar los ingresos y nombres de cada máquina
             datosCSV.forEach(fila => {
-                const ingreso = parseFloat(fila[3].trim()); // Obtenemos el valor de "Ingresos" y lo convertimos a número
+                const ingreso = parseFloat(fila[3].trim());
                 if (!isNaN(ingreso)) {
-                    ingresos.push({ ingreso: ingreso, nombre: fila[0] }); // Guardamos tanto el ingreso como el nombre de la máquina
+                    ingresos.push({ ingreso: ingreso, nombre: fila[0] });
                 }
             });
 
-            // Si hay ingresos, calculamos el más alto y el más bajo
             if (ingresos.length > 0) {
-                // Encontramos el ingreso máximo y mínimo y sus nombres
+                // Obtener ingreso máximo y mínimo
                 const ingresoMaximo = Math.max(...ingresos.map(i => i.ingreso));
                 const ingresoMinimo = Math.min(...ingresos.map(i => i.ingreso));
 
                 nombreMaximo = ingresos.find(i => i.ingreso === ingresoMaximo).nombre;
                 nombreMinimo = ingresos.find(i => i.ingreso === ingresoMinimo).nombre;
 
-                // Mostramos los resultados en el HTML
+                // Mostrar los resultados en el cuadro de resultados
                 const resultadoElement = document.getElementById("ingresoResultados");
                 resultadoElement.textContent = `Ingreso Más Alto: ${ingresoMaximo} (Máquina: ${nombreMaximo}) | Ingreso Más Bajo: ${ingresoMinimo} (Máquina: ${nombreMinimo})`;
             } else {
@@ -194,11 +265,19 @@
             }
         }
 
-        // Función para redirigir al menú del Administrador
-        function volverMenu() {
-            window.location.href = '/Administrador'; // Redirige a la página de Administrador
+        /**
+         * Asigna color de fondo a la celda basada en el valor de "Tiempo Vida"
+
+         */
+        function aplicarColorTiempoVida(tiempoVida, cell) {
+            if (tiempoVida > 700) {
+                cell.style.backgroundColor = "#D4F1C2"; // Verde suave
+            } else if (tiempoVida >= 300 && tiempoVida <= 700) {
+                cell.style.backgroundColor = "#FFE0A1"; // Naranja suave
+            } else if (tiempoVida <= 0) {
+                cell.style.backgroundColor = "#F6A7A7"; // Rojo suave
+            }
         }
     </script>
 </body>
-
 </html>

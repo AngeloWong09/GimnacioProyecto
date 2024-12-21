@@ -1,0 +1,187 @@
+﻿@page "/EntrenadorConsultaCliente"
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">GYM FAST FORCE</h1>
+
+    <!-- Campo de filtro para buscar por ID Clase -->
+    <div>
+        <label for="filterIDClase">Filtrar por ID Clase:</label>
+        <input type="text" id="filterIDClase" oninput="filtrarTabla()" placeholder="Escribe el ID de clase" />
+    </div>
+    <br />
+
+    <!-- Mostrar los datos de Clases.csv en tres cuadros de texto -->
+    <div>
+        <label for="clase">Clase:</label>
+        <input type="text" id="clase" readonly />
+    </div>
+    <br />
+    <div>
+        <label for="hora">Hora:</label>
+        <input type="text" id="hora" readonly />
+    </div>
+    <br />
+    <div>
+        <label for="fecha">Fecha:</label>
+        <input type="text" id="fecha" readonly />
+    </div>
+
+    <br />
+    <!-- Tabla donde se mostrarán los datos de BasedatosClase.csv -->
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse; display: none;">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido 1</th>
+                <th>Apellido 2</th>
+                <th>ID</th>
+                <th>ID Clase</th>
+            </tr>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
+
+    <br />
+    <!-- Botón de "Volver al Menú" -->
+    <div>
+        <button onclick="window.location.href='/Entrenador';" class="btn-primary">Volver al Menú</button>
+    </div>
+
+    <br />
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
+
+    <script>
+        let datosCSV = [];  // Almacenar los datos de BasedatosClase.csv
+        let clasesCSV = []; // Almacenar los datos de Clases.csv
+
+        // Función para cargar los datos de BasedatosClase.csv
+        async function cargarDatosClases() {
+            try {
+                const timestamp = new Date().getTime();  // Timestamp para evitar caché
+                const url = `/sample-data/BasedatosClase.csv?timestamp=${timestamp}`;  // Ruta del archivo BasedatosClase.csv
+
+                const respuesta = await fetch(url);
+                if (!respuesta.ok) {
+                    alert("No se pudo cargar el archivo de BasedatosClase.");
+                    return;
+                }
+                const contenido = await respuesta.text();  // Leer el contenido del archivo CSV
+                procesarCSVTexto(contenido, 'basedatos');  // Procesar BasedatosClase.csv
+            } catch (error) {
+                alert("Hubo un problema al cargar el archivo de BasedatosClase.");
+                console.error("Error al cargar BasedatosClase", error);
+            }
+        }
+
+        // Función para cargar los datos de Clases.csv
+        async function cargarClases() {
+            try {
+                const timestamp = new Date().getTime();  // Timestamp para evitar caché
+                const url = `/sample-data/Clases.csv?timestamp=${timestamp}`;  // Ruta del archivo Clases.csv
+
+                const respuesta = await fetch(url);
+                if (!respuesta.ok) {
+                    alert("No se pudo cargar el archivo de Clases.");
+                    return;
+                }
+                const contenido = await respuesta.text();  // Leer el contenido del archivo CSV
+                procesarCSVTexto(contenido, 'clases');  // Procesar Clases.csv
+            } catch (error) {
+                alert("Hubo un problema al cargar el archivo de Clases.");
+                console.error("Error al cargar Clases", error);
+            }
+        }
+
+        // Función para procesar el contenido CSV y almacenar en los arrays correspondientes
+        function procesarCSVTexto(texto, tipo) {
+            const lineas = texto.split("\n").filter((linea, index) => {
+                return index > 0 && linea.trim() !== "";  // Ignorar la primera línea y vacías
+            });
+
+            if (tipo === 'basedatos') {
+                datosCSV = lineas.map(linea => linea.split(";"));  // Almacenar BasedatosClase.csv
+                mostrarDatosActualizados();  // Mostrar los datos de BasedatosClase.csv
+            }
+
+            if (tipo === 'clases') {
+                clasesCSV = lineas.map(linea => linea.split(";"));  // Almacenar Clases.csv
+            }
+        }
+
+        // Función para mostrar los datos de BasedatosClase.csv en la tabla
+        function mostrarDatosActualizados() {
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = "";  // Limpiar la tabla antes de cargarla
+
+            datosCSV.forEach(fila => {
+                const filaTabla = document.createElement("tr");
+
+                fila.forEach((columna) => {
+                    const celda = document.createElement("td");
+                    celda.textContent = columna.trim();
+                    filaTabla.appendChild(celda);  // Añadir celda a la fila
+                });
+
+                tablaBody.appendChild(filaTabla);  // Añadir fila a la tabla
+            });
+
+            // Mostrar la tabla de BasedatosClase.csv una vez se ha procesado
+            document.getElementById("csvTable").style.display = "table";
+        }
+
+        // Función para filtrar la tabla basándose en el valor de ID Clase
+        function filtrarTabla() {
+            const idClaseFiltro = document.getElementById("filterIDClase").value.toLowerCase();  // Obtener el valor del filtro
+            const tablaBody = document.getElementById("csvTableBody");
+            const filas = tablaBody.getElementsByTagName("tr");
+
+            let claseEncontrada = false; // Variable para detectar si el ID Clase está en Clases.csv
+
+            for (let i = 0; i < filas.length; i++) {
+                const celdas = filas[i].getElementsByTagName("td");
+                const idClase = celdas[4] ? celdas[4].textContent.trim().toLowerCase() : "";  // Obtener valor de ID Clase
+
+                if (idClase.includes(idClaseFiltro)) {
+                    filas[i].style.display = "";  // Mostrar la fila si coincide el filtro
+                    claseEncontrada = true;
+                    // Mostrar los datos de Clases.csv relacionados en los cuadros de texto
+                    mostrarDatosClase(idClaseFiltro);
+                } else {
+                    filas[i].style.display = "none";  // Ocultar la fila si no coincide
+                }
+            }
+
+            if (!claseEncontrada) {
+                // Si no se encuentra el ID Clase, borrar los datos de los cuadros de texto
+                document.getElementById("clase").value = "";
+                document.getElementById("hora").value = "";
+                document.getElementById("fecha").value = "";
+            }
+        }
+
+        // Función para mostrar los datos de Clase, Hora y Fecha cuando se encuentra el ID Clase
+        function mostrarDatosClase(idClaseFiltro) {
+            const claseData = clasesCSV.find(clase => clase[1].trim() === idClaseFiltro); // Buscar en Clases.csv por ID Clase
+            if (claseData) {
+                // Si el ID Clase se encuentra en Clases.csv, actualizar los cuadros de texto
+                document.getElementById("clase").value = claseData[3].trim(); // Clase
+                document.getElementById("hora").value = claseData[5].trim();  // Hora
+                document.getElementById("fecha").value = claseData[4].trim();  // Fecha
+            }
+        }
+
+        // Cargar los datos de clases al cargar la página
+        cargarDatosClases();
+        cargarClases();  // Cargar los datos de Clases.csv en segundo plano
+    </script>
+</body>
+</html>

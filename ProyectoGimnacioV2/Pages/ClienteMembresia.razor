@@ -27,7 +27,7 @@
                 <th>ID Cliente</th>
                 <th>Fecha de Inscripción</th>
                 <th>Hora de Inscripción</th>
-                <th>Fecha de Inicio</th>
+                <th>Fecha de Vencimiento</th>
                 <th>Duración (meses)</th>
                 <th>Plan de Membresía</th>
             </tr>
@@ -86,6 +86,13 @@
 
                     resultados.forEach(fila => {
                         const tr = document.createElement("tr");
+
+                        // Verificar si la fecha de vencimiento es 15/12/2024
+                        const fechaVencimiento = fila[3].trim(); // Obtener la fecha de vencimiento (columna 4)
+                        if (fechaVencimiento === '20/12/2024') {
+                            alert("¡Alerta! La fecha de vencimiento esta proxima a vencer  " + fila[0] + "");
+                        }
+
                         fila.forEach(columna => {
                             const td = document.createElement("td");
                             td.textContent = columna.trim();

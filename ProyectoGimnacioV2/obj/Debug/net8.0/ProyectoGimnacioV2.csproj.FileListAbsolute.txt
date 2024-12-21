@@ -2167,3 +2167,4 @@ C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\EntrenadorProgramarClases.razor.rz.scp.css
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\EntrenadorReporte.razor.rz.scp.css
 C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\bin\Debug\net8.0\wwwroot\sample-data\RutinaCliente.csv
+C:\Users\dell\source\repos\AngeloWong09\GimnacioProyecto\ProyectoGimnacioV2\obj\Debug\net8.0\scopedcss\Pages\ClientePagos.razor.rz.scp.css

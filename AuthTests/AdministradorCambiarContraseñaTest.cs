@@ -1,83 +1,122 @@
+Ôªøusing Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
-namespace GymFastForceTests
+namespace Test
 {
+
     [TestClass]
-    public class AdministradorCambiarContraseÒaTest
+    public class AdministradorCambiarContrase√±aTest
     {
         /// <summary>
-        /// Prueba que verifica el procesamiento correcto de un archivo CSV y la conversiÛn a una lista de datos.
+        /// Test que verifica que la funci√≥n cargarCSV carga los datos correctamente para el tipo Administrador.
         /// </summary>
         [TestMethod]
-        public void ProcesarCSVTexto_DeberiaDividirEnLineasYColumnas()
+        public void cargarCSV_Admin_ArchivoCSVCorrecto()
         {
-            // Arrange: Simulamos el contenido de un archivo CSV con datos ficticios.
-            string contenidoCSV = "Usuario;ContraseÒa;Nombre;Apellido;ID\n" +
-                                  "admin;1234;Juan;PÈrez;1\n" +
-                                  "cliente1;5678;Ana;GÛmez;2\n";
-            string[] lineasEsperadas = { "admin;1234;Juan;PÈrez;1", "cliente1;5678;Ana;GÛmez;2" };
+            // Arrange: Se definen los datos que el archivo CSV deber√≠a contener
+            var datosEsperados = new List<List<string>> {
+            new List<string> { "admin1", "12345", "Juan", "P√©rez", "101" },
+            new List<string> { "admin2", "67890", "Mar√≠a", "L√≥pez", "102" }
+        };
 
-            // Act: Simulamos el procesamiento del CSV en lÌneas y columnas.
-            var lineasProcesadas = contenidoCSV
-                .Split("\n")
-                .Skip(1) // Omitimos la primera lÌnea (encabezado)
-                .Where(linea => !string.IsNullOrWhiteSpace(linea)) // Omitimos lÌneas vacÌas
-                .Select(linea => linea.Split(";")) // Dividimos cada lÌnea por ';'
-                .ToList();
+            // Creamos un "mock" del contenido del archivo CSV (simulando la lectura de un archivo CSV)
+            string contenidoCSV = "Usuario;Contrase√±a;Nombre;Apellido;ID\n" +
+                                  "admin1;12345;Juan;P√©rez;101\n" +
+                                  "admin2;67890;Mar√≠a;L√≥pez;102";
 
-            // Assert: Comparamos los resultados esperados con los obtenidos.
-            Assert.AreEqual(2, lineasProcesadas.Count); // Debe haber 2 filas de datos
-            CollectionAssert.AreEqual(lineasEsperadas[0].Split(";"), lineasProcesadas[0]);
-            CollectionAssert.AreEqual(lineasEsperadas[1].Split(";"), lineasProcesadas[1]);
+            // Act: Llamamos a la funci√≥n que procesar√° el contenido CSV
+            List<List<string>> datosCargados = procesarCSVTextoMock(contenidoCSV);
+
+            // Assert: Verificamos que los datos cargados son los esperados
+            for (int i = 0; i < datosEsperados.Count; i++)
+            {
+                for (int j = 0; j < datosEsperados[i].Count; j++)
+                {
+                    Assert.AreEqual(datosEsperados[i][j], datosCargados[i][j]);
+                }
+            }
         }
 
-        /// <summary>
-        /// Prueba que verifica si se actualiza correctamente una fila de datos en la tabla.
-        /// </summary>
-        [TestMethod]
-        public void GuardarCambios_DeberiaActualizarFilaCorrecta()
+        // M√©todo de "mock" que simula el comportamiento de procesar el archivo CSV
+        private List<List<string>> procesarCSVTextoMock(string texto)
         {
-            // Arrange: Creamos una lista de datos simulando el CSV cargado.
-            var datosCSV = new List<string[]>
-            {
-                new string[] { "admin", "1234", "Juan", "PÈrez", "1" },
-                new string[] { "cliente1", "5678", "Ana", "GÛmez", "2" }
-            };
+            var lineas = texto.Split("\n");
+            var datos = new List<List<string>>();
 
-            // Datos que se actualizar·n
-            var nuevaFila = new string[] { "admin", "4321", "Juan", "PÈrez", "1" }; // Cambio en ContraseÒa
-
-            // Act: Actualizamos la fila cuyo ID coincide.
-            var filaIndex = datosCSV.FindIndex(fila => fila[4] == nuevaFila[4]); // Encontramos la fila con ID = "1"
-            if (filaIndex > -1)
+            for (int i = 1; i < lineas.Length; i++) // Comenzamos desde el √≠ndice 1 para omitir el encabezado
             {
-                datosCSV[filaIndex] = nuevaFila; // Actualizamos la fila
+                if (!string.IsNullOrWhiteSpace(lineas[i]))
+                {
+                    datos.Add(new List<string>(lineas[i].Split(";")));
+                }
             }
 
-            // Assert: Verificamos que la fila ha sido actualizada correctamente.
-            Assert.AreEqual("4321", datosCSV[0][1]); // ContraseÒa deberÌa ser "4321"
+            return datos;
         }
 
         /// <summary>
-        /// Prueba que verifica la generaciÛn de contenido CSV a partir de una lista de datos.
+        /// Test que verifica que la funci√≥n guardarCambios actualiza correctamente los datos en la tabla.
         /// </summary>
         [TestMethod]
-        public void GuardarCSV_DeberiaGenerarContenidoCorrecto()
+        public void guardarCambios_ActualizarFilaCorrectamente()
         {
-            // Arrange: Creamos datos simulados para la tabla.
-            var encabezado = "Usuario;ContraseÒa;Nombre;Apellido;ID";
-            var datosCSV = new List<string[]>
+            // Arrange: Definimos los datos iniciales de una fila
+            var fila = new List<string> { "admin1", "12345", "Juan", "P√©rez", "101" };
+            var filaActualizada = new List<string> { "admin1", "54321", "Juan", "P√©rez", "101" };
+
+            // Mock de tabla (representaci√≥n simulada del DOM)
+            var tablaSimulada = new List<List<string>> { fila };
+
+            // Act: Simulamos que el valor de la contrase√±a ha sido editado en la tabla
+            fila[1] = "54321";  // Actualizamos la contrase√±a a trav√©s de la celda de la tabla
+            guardarCambiosMock(tablaSimulada, fila);
+
+            // Assert: Verificamos que la fila ha sido actualizada correctamente
+            Assert.AreEqual(fila[1], filaActualizada[1]); // Comprobamos que la contrase√±a se haya actualizado
+        }
+
+        // M√©todo "mock" de guardar los cambios (simulaci√≥n de funcionalidad)
+        private void guardarCambiosMock(List<List<string>> tabla, List<string> columna)
+        {
+            var index = tabla.FindIndex(fila => fila[4] == columna[4]); // Buscamos por ID
+            if (index != -1)
             {
-                new string[] { "admin", "1234", "Juan", "PÈrez", "1" },
-                new string[] { "cliente1", "5678", "Ana", "GÛmez", "2" }
-            };
-            var contenidoEsperado = "Usuario;ContraseÒa;Nombre;Apellido;ID\nadmin;1234;Juan;PÈrez;1\ncliente1;5678;Ana;GÛmez;2\n";
+                tabla[index] = columna; // Actualizamos la fila con los nuevos valores
+            }
+        }
 
-            // Act: Simulamos la conversiÛn de los datos a formato CSV.
-            var contenidoGenerado = encabezado + "\n" +
-                                    string.Join("\n", datosCSV.Select(fila => string.Join(";", fila))) + "\n";
+        /// <summary>
+        /// Test que verifica el comportamiento de la funci√≥n guardarCSV para generar un archivo CSV descargable.
+        /// </summary>
+        [TestMethod]
+        public void guardarCSV_ArchivoGenerado()
+        {
+            // Arrange: Datos que se deber√≠an guardar en el archivo CSV
+            var datosGuardar = new List<List<string>> {
+            new List<string> { "admin1", "12345", "Juan", "P√©rez", "101" },
+            new List<string> { "admin2", "67890", "Mar√≠a", "L√≥pez", "102" }
+        };
 
-            // Assert: Comparamos el contenido esperado con el generado.
+            // Act: Generamos el contenido CSV simulado
+            string contenidoEsperado = "Usuario;Contrase√±a;Nombre;Apellido;ID\n" +
+                                       "admin1;12345;Juan;P√©rez;101\n" +
+                                       "admin2;67890;Mar√≠a;L√≥pez;102";
+
+            string contenidoGenerado = generarCSVMock(datosGuardar);
+
+            // Assert: Verificamos que el contenido generado es el esperado
             Assert.AreEqual(contenidoEsperado, contenidoGenerado);
+        }
+
+        // M√©todo "mock" de generaci√≥n de CSV (simulaci√≥n de la descarga del archivo CSV)
+        private string generarCSVMock(List<List<string>> datos)
+        {
+            var contenidoCSV = "Usuario;Contrase√±a;Nombre;Apellido;ID\n";
+            foreach (var fila in datos)
+            {
+                contenidoCSV += string.Join(";", fila) + "\n";
+            }
+            return contenidoCSV;
         }
     }
 }

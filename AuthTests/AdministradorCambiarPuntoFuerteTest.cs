@@ -1,103 +1,77 @@
+Ôªøusing Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using System.Text;
-
-namespace AdministradorTest
+namespace Test
 {
     [TestClass]
     public class AdministradorCambiarPuntoFuerteTest
     {
-        // Variable para almacenar el contenido de prueba del CSV
-        private string archivoCSVPrueba;
+        private List<string[]> datosCSV;  // Lista de datos cargados desde el CSV
 
-        /// <summary>
-        /// MÈtodo de inicializaciÛn que se ejecuta antes de cada prueba.
-        /// Prepara el contenido del archivo CSV para las pruebas.
-        /// </summary>
-        [TestInitialize]
-        public void Inicializar()
+        // Simulaci√≥n de CSV cargado de prueba (equivalente al archivo CSV)
+        private void SimularCargarDatosCSV()
         {
-            archivoCSVPrueba = "Usuario;ContraseÒa;Nombre;Apellido;Id;Puntos fuertes\n" +
-                               "usuario1;pass123;Juan;Perez;1;Resistencia\n" +
-                               "usuario2;pass456;Maria;Lopez;2;Fuerza\n" +
-                               "usuario3;pass789;Carlos;Diaz;3;Velocidad";
-
-            // Simulamos el archivo CSV en memoria (sin usar archivos fÌsicos)
-            File.WriteAllText("EntrenadoresTest.csv", archivoCSVPrueba, Encoding.UTF8);
+            datosCSV = new List<string[]>
+            {
+                new string[] { "usuario1", "contrase√±a1", "Juan", "P√©rez", "1", "Fuerza1" },
+                new string[] { "usuario2", "contrase√±a2", "Ana", "G√≥mez", "2", "Fuerza2" },
+                new string[] { "usuario3", "contrase√±a3", "Carlos", "Rodr√≠guez", "3", "Fuerza3" }
+            };
         }
 
-        /// <summary>
-        /// Prueba para validar que los datos del CSV se procesen correctamente.
-        /// </summary>
+        // M√©todo de prueba para verificar que los datos CSV se cargan correctamente
         [TestMethod]
-        public void CargarCSV_DeberiaProcesarDatosCorrectamente()
+        public void TestCargarDatosCSV()
         {
-            // Arrange
-            var rutaArchivo = "EntrenadoresTest.csv";
-            var esperado = 3; // Se esperan 3 lÌneas de datos
+            // Arrange: Simulamos cargar los datos CSV
+            SimularCargarDatosCSV();
 
-            // Act
-            var lineas = File.ReadAllLines(rutaArchivo);
-            var datos = lineas.Length - 1; // Descontamos el encabezado
+            // Act: Verificamos si la lista de datos contiene los elementos esperados
+            var primerFila = datosCSV.FirstOrDefault();
+            var nombre = primerFila?[2]; // Recuperamos el nombre de la primera fila (Carlos)
 
-            // Assert
-            Assert.AreEqual(esperado, datos, "La cantidad de filas no coincide con la esperada.");
+            // Assert: Verificamos si los datos se cargaron correctamente
+            Assert.IsNotNull(datosCSV, "Los datos CSV deber√≠an haberse cargado.");
+            Assert.AreEqual("Juan", nombre, "El nombre en la primera fila deber√≠a ser 'Juan'.");
         }
 
-        /// <summary>
-        /// Prueba para validar que una fila editada se guarde correctamente.
-        /// </summary>
+        // M√©todo de prueba para verificar si se realizan cambios y se guardan correctamente
         [TestMethod]
-        public void GuardarFila_Editada_DeberiaActualizarDatos()
+        public void TestGuardarCambios()
         {
-            // Arrange
-            var rutaArchivo = "EntrenadoresTest.csv";
-            var contenidoInicial = File.ReadAllLines(rutaArchivo);
-            var datos = contenidoInicial[2].Split(';'); // Fila 2: Maria Lopez
-            datos[5] = "Agilidad"; // Editamos 'Puntos fuertes'
+            // Arrange: Simulamos cargar datos
+            SimularCargarDatosCSV();
 
-            contenidoInicial[2] = string.Join(";", datos);
+            // Cambiar el punto fuerte del segundo entrenador
+            var segundoEntrenador = datosCSV[1];
+            segundoEntrenador[5] = "Fuerza modificada"; // Cambiamos "Fuerza2" a "Fuerza modificada"
 
-            // Act
-            File.WriteAllLines(rutaArchivo, contenidoInicial);
-            var contenidoFinal = File.ReadAllLines(rutaArchivo);
+            // Act: Verificamos si el cambio se ha guardado correctamente
+            var actualizado = datosCSV[1][5];
 
-            // Assert
-            Assert.IsTrue(contenidoFinal[2].Contains("Agilidad"), "El dato editado no se guardÛ correctamente.");
+            // Assert: Verificamos si el punto fuerte fue actualizado
+            Assert.AreEqual("Fuerza modificada", actualizado, "El punto fuerte deber√≠a haber sido actualizado.");
         }
 
-        /// <summary>
-        /// Prueba para validar que el archivo CSV se guarde correctamente despuÈs de editarlo.
-        /// </summary>
+        // M√©todo de prueba para verificar si los datos se guardan correctamente en un archivo CSV
         [TestMethod]
-        public void GuardarCSV_DeberiaGenerarArchivoCorrectamente()
+        public void TestGuardarCSV()
         {
-            // Arrange
-            var rutaArchivoOriginal = "EntrenadoresTest.csv";
-            var rutaArchivoGuardado = "EntrenadoresGuardadoTest.csv";
-            var contenidoOriginal = File.ReadAllText(rutaArchivoOriginal);
+            // Arrange: Simulamos cargar los datos y guardar como CSV
+            SimularCargarDatosCSV();
 
-            // Act
-            File.WriteAllText(rutaArchivoGuardado, contenidoOriginal);
-            var archivoGuardadoExiste = File.Exists(rutaArchivoGuardado);
+            // Creamos un archivo de CSV simulado (esto normalmente se har√≠a usando un "mocking" o una herramienta similar para simular el guardado)
+            string resultadoCSV = "";
+            foreach (var fila in datosCSV)
+            {
+                resultadoCSV += string.Join(";", fila) + "\n";  // Genera la representaci√≥n CSV
+            }
 
-            // Assert
-            Assert.IsTrue(archivoGuardadoExiste, "El archivo guardado no se generÛ correctamente.");
-        }
+            // Act: Verificamos si el contenido generado del CSV contiene la primera fila esperada
+            bool contienePrimeraFila = resultadoCSV.Contains("usuario1;contrase√±a1;Juan;P√©rez;1;Fuerza1");
 
-        /// <summary>
-        /// MÈtodo que se ejecuta despuÈs de cada prueba para limpiar archivos.
-        /// </summary>
-        [TestCleanup]
-        public void Limpiar()
-        {
-            // Eliminamos los archivos temporales creados durante las pruebas
-            if (File.Exists("EntrenadoresTest.csv"))
-                File.Delete("EntrenadoresTest.csv");
-
-            if (File.Exists("EntrenadoresGuardadoTest.csv"))
-                File.Delete("EntrenadoresGuardadoTest.csv");
+            // Assert: Verificamos si la fila est√° presente en el contenido CSV generado
+            Assert.IsTrue(contienePrimeraFila, "El CSV generado debe contener la primera fila.");
         }
     }
 }

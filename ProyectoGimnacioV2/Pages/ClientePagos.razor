@@ -1,5 +1,113 @@
-﻿<h3>ClientePagos</h3>
+﻿@page "/ClientePagos"
 
-@code {
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente Pagos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1 class="title">Cliente - Pagos</h1>
 
-}
+    <!-- Botón para cerrar sesión -->
+    <button id="logoutButton" onclick="cerrarSesion()">Cerrar Sesión</button>
+
+    <!-- Labels de pago -->
+    <label class="label">¿Desea realizar su pago?</label>
+    <label class="label">En caso de pagar en efectivo o SINPE diríjase de manera presencial a Administración.</label>
+
+    <!-- Botón para pagar con tarjeta -->
+    <button id="payCardButton" onclick="mostrarFormularioPago()">Pagar con Tarjeta</button>
+
+    <!-- Tabla para ingreso de datos de pago -->
+    <div id="paymentForm" class="hidden">
+        <table>
+            <tr>
+                <td><label for="userId">UsuarioId:</label></td>
+                <td><input type="text" id="userId" required></td>
+            </tr>
+            <tr>
+                <td><label for="mesPago">MesPago (Mes Año):</label></td>
+                <td><input type="text" id="mesPago" placeholder="Ejemplo: Enero 2024" required></td>
+            </tr>
+            <tr>
+                <td><label for="monto">Monto:</label></td>
+                <td><input type="number" id="monto" required></td>
+            </tr>
+            <tr>
+                <td><label for="cardNumber">Número de Tarjeta:</label></td>
+                <td><input type="text" id="cardNumber" required></td>
+            </tr>
+        </table>
+        <button onclick="guardarPago()">Pagar</button>
+    </div>
+
+    <!-- Labels de fechas y alerta -->
+    <div class="dates">
+        <label class="label">Fecha de Preaviso:</label>
+        <label id="preavisoDate" class="value"></label>
+
+        <label class="label">Fecha de Pago:</label>
+        <label id="pagoDate" class="value"></label>
+
+        <label id="alertaPago" class="alert hidden">¡SE ACERCA FECHA DE PAGO!</label>
+    </div>
+
+    <script>
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            window.location.href = "/InicioSesion"; // Redirige a InicioSesion.razor
+        }
+
+        // Función para mostrar el formulario de pago
+        function mostrarFormularioPago() {
+            document.getElementById("paymentForm").classList.remove("hidden");
+        }
+
+        // Función para guardar el pago en un archivo CSV
+        function guardarPago() {
+            const userId = document.getElementById("userId").value;
+            const mesPago = document.getElementById("mesPago").value;
+            const monto = document.getElementById("monto").value;
+
+            if (!userId || !mesPago || !monto) {
+                alert("Por favor complete todos los campos.");
+                return;
+            }
+
+            const datos = `${userId};${mesPago};${monto}\n`;
+            const blob = new Blob([datos], { type: "text/csv" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "Pagos.csv";
+            link.click();
+
+            alert("Pago guardado exitosamente.");
+        }
+
+        // Mostrar fechas de preaviso y pago
+        function mostrarFechas() {
+            const fecha = new Date();
+            const mes = fecha.toLocaleString("es", { month: "long" });
+            const anio = fecha.getFullYear();
+
+            // Fecha de preaviso (24 del mes)
+            document.getElementById("preavisoDate").textContent = `24 ${mes} ${anio}`;
+
+            // Fecha de pago (29 del mes)
+            document.getElementById("pagoDate").textContent = `29 ${mes} ${anio}`;
+
+            // Mostrar alerta si es el día 24
+            if (fecha.getDate() === 24) {
+                document.getElementById("alertaPago").classList.remove("hidden");
+            }
+        }
+
+        // Ejecutar al cargar la página
+        mostrarFechas();
+    </script>
+</body>
+</html>
+

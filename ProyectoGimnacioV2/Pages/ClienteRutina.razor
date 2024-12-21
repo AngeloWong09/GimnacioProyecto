@@ -1,142 +1,170 @@
-﻿@page "/ClienteRutina"
-@using System.Globalization
-@inject IJSRuntime JSRuntime // Inyección del servicio para interactuar con JavaScript
-@inject NavigationManager NavigationManager // Inyección del servicio para gestionar la navegación en Blazor
+﻿
+@page "/ClienteRutina"
 
-<!-- Título de la página -->
-<h1>INGRESE SUS METRICAS CORPORALES</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GYM FAST FORCE!</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1 class="title">GYM FAST FORCE</h1>
 
-<!-- Label de las métricas -->
-<h2>Sus Métricas Corporales</h2>
+    <div>
+        <h3>Agregar Nueva Rutina</h3>
+        <p>Haz clic en los campos de la tabla para agregar nuevos datos.</p>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Nombre" />
+        <br />
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" placeholder="Apellido" />
+        <br />
+        <label for="rutina">Rutina:</label>
+        <select id="rutina">
+            <option value="Brazos">Brazos</option>
+            <option value="PechoHombros">Pecho y Hombros</option>
+            <option value="Abdomen">Abdomen</option>
+            <option value="Piernas">Piernas</option>
+        </select>
+        <br />
+        <label for="repeticiones">Repeticiones:</label>
+        <input type="number" id="repeticiones" placeholder="Repeticiones" />
+        <br />
+        <button onclick="agregarRutina()">Agregar Rutina</button>
+        <div>
+            <button onclick="cargarRutinas()">Mostrar Rutinas</button>
+        </div>
+        <br />
+    </div>
 
-<!-- Campo para filtrar las métricas por ID -->
-<div>
-    <label for="idFilter">Filtrar por ID:</label>
-    <input type="text" id="idFilter" @bind="idFilter" /> <!-- Vincula el filtro de ID con la propiedad en el backend -->
-</div>
+    <br />
 
-<!-- Campos para introducir las nuevas métricas -->
-<div>
-    <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" @bind="newMetric.Fecha" />
-</div>
-
-<div>
-    <label for="brazos">Brazos:</label>
-    <input type="number" id="brazos" @bind="newMetric.Brazos" />
-</div>
-
-<div>
-    <label for="pechoHombros">Pecho-Hombros:</label>
-    <input type="number" id="pechoHombros" @bind="newMetric.PechoHombros" />
-</div>
-
-<div>
-    <label for="abdomen">Abdomen:</label>
-    <input type="number" id="abdomen" @bind="newMetric.Abdomen" />
-</div>
-
-<div>
-    <label for="piernas">Piernas:</label>
-    <input type="number" id="piernas" @bind="newMetric.Piernas" />
-</div>
-
-<!-- Botón para agregar una nueva métrica -->
-<div>
-    <button @onclick="AgregarMetricas">Agregar Métrica</button>
-</div>
-
-<!-- Tabla para mostrar las métricas filtradas -->
-<table border="1" class="metric-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Fecha</th>
-            <th>Brazos</th>
-            <th>Pecho-Hombros</th>
-            <th>Abdomen</th>
-            <th>Piernas</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Renderiza las métricas filtradas -->
-        @foreach (var metric in FilteredMetrics)
-        {
+    <table id="csvTable" border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
             <tr>
-                <td>@metric.ID</td>
-                <td>@metric.Fecha.ToString("dd/MM/yyyy")</td>
-                <td>@metric.Brazos</td>
-                <td>@metric.PechoHombros</td>
-                <td>@metric.Abdomen</td>
-                <td>@metric.Piernas</td>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>ID</th>
+                <th>Rutina</th>
+                <th>Repeticiones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody id="csvTableBody"></tbody>
+    </table>
 
-<!-- Botón para volver al menú principal -->
-<div>
-    <button @onclick="VolverAlMenu">Volver al Menú</button>
-</div>
+    <br />
+    <div>
+        <button onclick="guardarCSV()">Guardar datos</button>
+    </div>
 
-@code {
-    private string idFilter = ""; // Filtro por ID ingresado por el usuario
-    private Metric newMetric = new Metric(); // Modelo temporal para almacenar la nueva métrica
-    private List<Metric> metrics = new List<Metric>(); // Lista que contiene las métricas ingresadas
-                                                       // Propiedad calculada: filtra métricas según el ID ingresado
-    private List<Metric> FilteredMetrics => metrics
-        .Where(m => string.IsNullOrEmpty(idFilter) || m.ID.Contains(idFilter)) // Filtra si el ID coincide
-        .ToList();
+    <br />
+    <div>
+        <a href="/Administrador" class="btn-primary">Volver al Menú</a>
+    </div>
+    <br />
+    <p id="currentTime"></p>
+    <script src="script.js"></script>
 
-    // Navega a la página de inicio de sesión
-    private void CerrarSesion()
-    {
-        NavigationManager.NavigateTo("/InicioSecion"); // Redirige a la ruta de inicio de sesión
-    }
+    <script>
+        let datosCSV = [];
+        let encabezadoCSV = "Nombre;Apellidos;ID;Rutina;Repeticiones";
+        let idIncremental = 1400; // ID inicial
 
-    // Función para agregar una nueva métrica al sistema
-    private void AgregarMetricas()
-    {
-        // Generar un ID único para la nueva métrica
-        newMetric.ID = $"P{metrics.Count + 1239}";
-        newMetric.Fecha = DateTime.Now; // Asigna la fecha actual
+        // Función para cargar los datos de RutinaCliente.csv
+        async function cargarRutinas() {
+            try {
+                // Agregar un parámetro con el timestamp para evitar caché
+                const timestamp = new Date().getTime(); // Obtenemos el timestamp actual
+                const url = `/sample-data/RutinaCliente.csv?${timestamp}`; // Agregar el parámetro en la URL
 
-        metrics.Add(newMetric); // Agrega la métrica a la lista principal
-        SaveMetrics(); // Llama a la función para guardar los datos en un archivo CSV
-        newMetric = new Metric(); // Reinicia el modelo para nuevos datos
-    }
-
-    // Guarda la lista de métricas en un archivo CSV usando JavaScript
-    private void SaveMetrics()
-    {
-        var csvContent = "ID;Fecha;Brazos;Pecho-Hombros;Abdomen;Piernas\n";
-
-        // Genera el contenido del CSV uniendo cada métrica como una línea
-        foreach (var metric in metrics)
-        {
-            csvContent += $"{metric.ID};{metric.Fecha.ToString("dd/MM/yyyy")};{metric.Brazos};{metric.PechoHombros};{metric.Abdomen};{metric.Piernas}\n";
+                const respuesta = await fetch(url);  // Obtener el archivo CSV con el timestamp
+                if (!respuesta.ok) {
+                    alert("No se pudo cargar el archivo de Rutinas.");
+                    return;
+                }
+                const contenido = await respuesta.text();
+                procesarCSVTexto(contenido);  // Procesar el contenido del archivo CSV
+            } catch (error) {
+                alert("Hubo un problema al cargar el archivo.");
+                console.error("Error al cargar el archivo", error);  // Log del error
+            }
         }
 
-        // Convierte el contenido a bytes y usa JSRuntime para descargar el archivo
-        var data = System.Text.Encoding.UTF8.GetBytes(csvContent);
-        var fileName = "Metricas.csv";
-        JSRuntime.InvokeVoidAsync("saveAsFile", fileName, data); // Llama a la función de JavaScript
-    }
+        // Procesar el contenido CSV
+        function procesarCSVTexto(texto) {
+            const lineas = texto.split("\n").filter((linea, index) => {
+                return index > 0 && linea.trim() !== ""; // Excluye la primera línea y las vacías
+            });
 
-    // Navega de vuelta al menú principal (Cliente.razor)
-    private void VolverAlMenu()
-    {
-        NavigationManager.NavigateTo("/Cliente"); // Redirige a la ruta del menú principal
-    }
+            datosCSV = lineas.map(linea => linea.split(";"));
+            mostrarDatosActualizados();
+        }
 
-    // Modelo de datos para representar una métrica
-    public class Metric
-    {
-        public string ID { get; set; } // Identificador único
-        public DateTime Fecha { get; set; } // Fecha de registro
-        public int Brazos { get; set; } // Métrica de brazos
-        public int PechoHombros { get; set; } // Métrica de pecho y hombros
-        public int Abdomen { get; set; } // Métrica de abdomen
-        public int Piernas { get; set; } // Métrica de piernas
-    }
-}
+        // Mostrar los datos en la tabla
+        function mostrarDatosActualizados() {
+            const tablaBody = document.getElementById("csvTableBody");
+            tablaBody.innerHTML = ""; // Limpiar la tabla antes de cargar los nuevos datos
+
+            // Renderizar los datos en la tabla
+            datosCSV.forEach(fila => {
+                const filaTabla = document.createElement("tr");
+
+                fila.forEach((columna) => {
+                    const celda = document.createElement("td");
+                    celda.textContent = columna.trim();
+                    filaTabla.appendChild(celda);
+                });
+
+                tablaBody.appendChild(filaTabla); // Añadir la fila a la tabla
+            });
+        }
+
+        // Función para agregar una nueva rutina
+        function agregarRutina() {
+            const nombre = document.getElementById("nombre").value.trim();
+            const apellido = document.getElementById("apellido").value.trim();
+            const rutina = document.getElementById("rutina").value;
+            const repeticiones = document.getElementById("repeticiones").value.trim();
+
+            if (!nombre || !apellido || !repeticiones) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+
+            const nuevaRutina = [
+                nombre,
+                apellido,
+                `P${idIncremental++}`, // Generar ID de forma incremental
+                rutina,
+                repeticiones
+            ];
+
+            datosCSV.push(nuevaRutina);
+            mostrarDatosActualizados();
+
+            // Limpiar los campos del formulario después de agregar una rutina
+            document.getElementById("nombre").value = "";
+            document.getElementById("apellido").value = "";
+            document.getElementById("repeticiones").value = "";
+        }
+
+        // Función para guardar los cambios en el archivo CSV
+        function guardarCSV() {
+            let csvContent = encabezadoCSV + "\n";  // Incluir el encabezado
+
+            // Generar el contenido CSV de los datos
+            datosCSV.forEach(filaData => {
+                csvContent += filaData.join(";") + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "rutinas_guardadas.csv";  // El archivo descargado llevará este nombre
+            link.click();  // Simular clic en el enlace para la descarga
+        }
+    </script>
+</body>
+</html>
